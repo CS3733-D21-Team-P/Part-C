@@ -1,6 +1,6 @@
-package edu.wpi.teamname.views;
+package edu.wpi.p.views;
 
-import edu.wpi.teamname.App;
+import edu.wpi.p.App;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ public class Scene4 {
   @FXML
   private void advanceScene(ActionEvent e) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/teamname/fxml/Scene1.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/Scene1.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();

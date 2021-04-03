@@ -1,4 +1,4 @@
-package edu.wpi.teamname;
+package edu.wpi.p;
 
 import static org.testfx.api.FxAssert.verifyThat;
 
@@ -15,7 +15,7 @@ public class Scene1Test extends ApplicationTest {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    App.setPrimaryStage(primaryStage);
+    //App.setPrimaryStage(primaryStage);
     Parent root = FXMLLoader.load(getClass().getResource("fxml/Scene1.fxml"));
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
