@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="679.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.MedicineDeliverySR">
+   <children>
+      <Label layoutX="48.0" layoutY="14.0" text="Medicine Delivery Service Request" textAlignment="CENTER">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="62.0" text="Which of the following describes you?">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <CheckBox layoutX="68.0" layoutY="104.0" mnemonicParsing="false" onAction="#doctorClick" text="Doctor">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox layoutX="68.0" layoutY="142.0" mnemonicParsing="false" onAction="#nurseClick" text="Nurse">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <CheckBox layoutX="68.0" layoutY="183.0" mnemonicParsing="false" onAction="#patientClick" text="Patient">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+      <Label layoutX="48.0" layoutY="228.0" text="Medicine Requested: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="medicineName" layoutX="219.0" layoutY="228.0" prefHeight="26.0" prefWidth="349.0" />
+      <Label layoutX="48.0" layoutY="267.0" text="Amount Requested:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="medicineAmount" layoutX="219.0" layoutY="268.0" />
+      <Label layoutX="48.0" layoutY="305.0" text="Location:">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="locationArea" layoutX="131.0" layoutY="306.0" prefHeight="26.0" prefWidth="260.0" />
+      <Label layoutX="48.0" layoutY="346.0" text="Reason:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="medicineReason" layoutX="120.0" layoutY="347.0" prefHeight="107.0" prefWidth="434.0" />
+      <Label layoutX="71.0" layoutY="464.0" text="Addidtional deatils:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="medicineInfo" layoutX="32.0" layoutY="492.0" prefHeight="145.0" prefWidth="246.0" />
+      <Label layoutX="386.0" layoutY="468.0" text="Doctor Signature">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="doctorSign" layoutX="364.0" layoutY="492.0" prefHeight="107.0" prefWidth="149.0" />
+      <Button layoutX="480.0" layoutY="20.0" mnemonicParsing="false" onAction="#homePageButton" prefHeight="27.0" prefWidth="97.0" text="Home Page" />
+      <Button layoutX="514.0" layoutY="625.0" mnemonicParsing="false" onAction="#submitForm" text="Submit" />
+   </children>
+</AnchorPane>
