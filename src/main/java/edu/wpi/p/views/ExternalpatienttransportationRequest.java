@@ -2,6 +2,7 @@ package edu.wpi.p.views;
 
 import edu.wpi.p.App;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Observable;
 
 import javafx.collections.FXCollections;
@@ -71,6 +72,16 @@ public class ExternalpatienttransportationRequest {
   public Label detailLabel;
   @FXML
   public Label slashLabel1;
+  @FXML
+  public ToggleGroup Vehicle;
+  @FXML
+  public RadioButton AmbulanceBtn;
+  @FXML
+  public RadioButton HelicopterBtn;
+  @FXML
+  public RadioButton PlaneBtn;
+  @FXML
+  public javafx.scene.control.DatePicker DatePicker;
 
 
   ObservableList<String> hospitalList = FXCollections
@@ -85,12 +96,6 @@ public class ExternalpatienttransportationRequest {
     endHospital.setItems(hospitalList);
   }
 
-  @FXML
-  private RadioButton AmbulanceBtn;
-  @FXML
-  private RadioButton HelicopterBtn;
-  @FXML
-  private RadioButton PlaneBtn;
 
 
   public void cancelPressed(ActionEvent actionEvent) {
@@ -107,13 +112,22 @@ public class ExternalpatienttransportationRequest {
     final String lastName = lastNameText.getText();
     final String roomNumber = currentRoomNumText.getText();
     final String endRoomNumber = endRoomNumText.getText();
-
+    final Object vehicle = Vehicle.getSelectedToggle().toString();
+    final LocalDate datePicker = DatePicker.getValue();
+    final String hour = hourText.getText();
+    final String min = minuteText.getText();
+    final String detail = detailText.getText();
 
     System.out.println("Patien Name = " + fristName + lastName
             + "\nCurrent Hospital: " + currentHospital.getSelectionModel().getSelectedItem()
             + "\nRoom Number: " + roomNumber
             + "\nEnd Hospital: " + endHospital.getSelectionModel().getSelectedItem()
             + "\nRoom Number: " + endRoomNumber
+            + "\nVehicle: " + vehicle
+            + "\nDate: " + datePicker
+            + "\nTime: " + hour + ":" + min
+            + "\nDetail: " + detail
+
 
 
 
@@ -130,7 +144,5 @@ public class ExternalpatienttransportationRequest {
 
   public void nameHelpPressed(ActionEvent actionEvent) {
   }
-
-
 
 }
