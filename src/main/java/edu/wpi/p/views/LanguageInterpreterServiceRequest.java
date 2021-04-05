@@ -20,7 +20,7 @@ public class LanguageInterpreterServiceRequest {
   @FXML
   private void advanceScene(ActionEvent e) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/Scene1.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
