@@ -103,6 +103,21 @@ public class ExternalpatienttransportationRequest {
   }
 
   public void submitPressed(ActionEvent actionEvent) {
+    final String fristName = firstNameText.getText();
+    final String lastName = lastNameText.getText();
+    final String roomNumber = currentRoomNumText.getText();
+    final String endRoomNumber = endRoomNumText.getText();
+
+
+    System.out.println("Patien Name = " + fristName + lastName
+            + "\nCurrent Hospital: " + currentHospital.getSelectionModel().getSelectedItem()
+            + "\nRoom Number: " + roomNumber
+            + "\nEnd Hospital: " + endHospital.getSelectionModel().getSelectedItem()
+            + "\nRoom Number: " + endRoomNumber
+
+
+
+    );
 
 
   }
