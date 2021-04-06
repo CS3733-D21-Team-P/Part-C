@@ -33,6 +33,12 @@ public class HomePage {
   }
 
   public void laundryServicesBtn(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LaundryServiceRequest.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
   }
 
   public void externalPatientTransportationBtn(ActionEvent actionEvent) {
