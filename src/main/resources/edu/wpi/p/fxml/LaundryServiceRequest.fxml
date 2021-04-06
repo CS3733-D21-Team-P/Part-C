@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.Scene3">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.LaundryServiceRequest">
   <children>
     <Label layoutX="138.0" layoutY="14.0" prefHeight="35.0" prefWidth="322.0" text="Laudry Service Request Form" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="139.60000000000002">
       <font>
         <Font size="24.0" />
       </font>
     </Label>
-    <Button layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="Back" />
+    <Button layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#advanceScene" prefHeight="47.0" prefWidth="118.0" text="Home" />
       <GridPane layoutX="39.0" layoutY="62.0" prefHeight="252.0" prefWidth="522.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="279.20001220703125" minWidth="10.0" prefWidth="135.4000244140625" />
