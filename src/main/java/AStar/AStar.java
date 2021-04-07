@@ -14,6 +14,13 @@ public class AStar {
 
     public List<Node> findShortestPath(Node rootNode, Node targetNode) {
 
+        this.pathLength = Float.POSITIVE_INFINITY;
+
+        if(rootNode == null || targetNode == null) {
+            System.out.println("null node");
+            return null;
+        }
+
         stack = new Stack<>();
 
         //set start
@@ -42,7 +49,7 @@ public class AStar {
 
         //search all neighbours
         for(Node n : rootNode.getNeighbours()) {
-
+            System.out.println("Search");
             float newLocalDist = rootNode.getLocalDist() + dist(rootNode, n);
             System.out.println(rootNode.getName() + " - " + n.getName() + ": " + newLocalDist);
 
