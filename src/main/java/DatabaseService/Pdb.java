@@ -34,11 +34,11 @@ public class Pdb {
             Class.forName(driver);
             conn = DriverManager.getConnection(connectionURL);
             if (conn != null) {
-                if (args[2].equals("1")) {Node(conn);}
-                if (args[2].equals("2")) { UpdateNode(conn);}
-                if (args[2].equals("3")) { UpdateLongName(conn);}
-                if (args[2].equals("4")) { Edge(conn);}
-                if (args[2].equals("5")) { conn.close(); }
+                if (args[0].equals("1")) {Node(conn);}
+                if (args[0].equals("2")) { UpdateNode(conn);}
+                if (args[0].equals("3")) { UpdateLongName(conn);}
+                if (args[0].equals("4")) { Edge(conn);}
+                if (args[0].equals("5")) { conn.close(); }
                 conn.close();
             }
         }
