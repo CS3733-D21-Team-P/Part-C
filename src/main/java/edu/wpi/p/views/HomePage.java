@@ -6,8 +6,31 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class HomePage {
+  @FXML
+  public ImageView imageView;
+  @FXML
+  public Label hospitalNameLabel;
+  @FXML
+  public Label phoneLabel;
+  @FXML
+  public Label addressLabel;
+  @FXML
+  public TextField searchText;
+  @FXML
+  public Button languageInterpretersBtn;
+  @FXML
+  public Button medicineDeliveryServiceBtn;
+  @FXML
+  public Button laundryServicesBtn;
+  @FXML
+  public Button externalPatientTransportationBtn;
+
 
   @FXML
   private void advanceScene(ActionEvent e) {
