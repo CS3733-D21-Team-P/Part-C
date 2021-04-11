@@ -29,7 +29,7 @@ public class CSVReader {
      * @throws Exception If the lines are not all the same length, throw an exception
      */
     private static void testLinesEqual(Stream<List<String>> tokenizedLines) throws Exception {
-        long distinctCount =  tokenizedLines.map(s -> s.size()).distinct().count();
+        long distinctCount =  tokenizedLines.map(List::size).distinct().count();
         if (distinctCount > 1) {
             throw new Exception("The lines of the csv file are not all the same length");
         }
@@ -38,7 +38,7 @@ public class CSVReader {
     /**
      * Parses the given csv at the given filename
      * @param filename Name/Path to the csv file
-     * @return A CSVData instanse with the same name as the filename, and with the data from the file
+     * @return CSVData instance with the same name as the filename, and with the data from the file
      * @throws Exception If there is an issue with the csv file, like the rows not all being the same size, an exception is thrown
      */
     public static CSVData readCSVFile(String filename) throws Exception {
