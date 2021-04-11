@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Node {
     private String name;
+    private String id;
     private int xCoord;
     private int yCoord;
     private Boolean visited;
@@ -15,16 +16,21 @@ public class Node {
     private float localDist;
     private List<Node> neighbours;
 
-    public Node (String name, int xCoord, int yCoord){
+    public Node (String id, String name, int xCoord, int yCoord){
         this.name = name;
+        this.id = id;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
         this.visited = false;
+        resetGoals();
+        this.neighbours = new ArrayList<>();
+    }
+
+    public void resetGoals() {
         //Path dist to current
         this.localDist = Float.POSITIVE_INFINITY;
-        //Euclidian dist to target + localDist
+        //Euclidean dist to target + localDist
         this.globalDist = Float.POSITIVE_INFINITY;
-        this.neighbours = new ArrayList<>();
     }
 
     public String getName() {
@@ -33,6 +39,14 @@ public class Node {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getxCoord() {
