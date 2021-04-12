@@ -8,8 +8,8 @@ public class NodeButton extends Button {
     }
 
     private Node node;
-    private double maxWidth = 20;
-    private double maxHeight = 20;
+    private double maxWidth = 30;
+    private double maxHeight = 30;
 
 
     public NodeButton(Node newNode) {
@@ -27,6 +27,8 @@ public class NodeButton extends Button {
         //translate so node point is in the center of the button
         this.setTranslateX(-maxWidth/2);
         this.setTranslateY(-(maxHeight/2));
+
+        this.setText(newNode.getName());
 
 
     }

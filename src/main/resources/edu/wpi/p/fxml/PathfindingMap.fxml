@@ -21,7 +21,7 @@
       <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" />
         <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Line endX="100.0" startX="371.5" startY="93.89999389648438" />
+
          </children></AnchorPane>
         <Pane layoutX="10.0" layoutY="10.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>

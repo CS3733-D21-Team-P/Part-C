@@ -1,5 +1,6 @@
 package edu.wpi.p.views;
 
+import AStar.AStar;
 import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
@@ -9,6 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PathfindingMap {
     enum State {
         ENTERSTART,
@@ -16,6 +21,11 @@ public class PathfindingMap {
         NONE
     }
     private State mapState = State.ENTERSTART;
+
+    private AStar search = new AStar();
+    private Node startNode;
+    private Node endNode;
+
 
     private boolean enteringStart = false;
     @FXML
@@ -45,8 +55,37 @@ public class PathfindingMap {
         System.out.println("enter end!");
     }
 
+    /**
+     * Finds a path between the two nodes entered and makes it red
+     * @param actionEvent
+     */
     public void findPath(ActionEvent actionEvent){
-        System.out.println("find path!");
+        if(startNode!=null && endNode!=null) {
+            //find path
+            List<Node> path = new ArrayList<>();
+            path = search.findShortestPath(startNode, endNode);
+
+            //print path
+            System.out.println("Path: ");
+            for (Node n : path) {
+                System.out.print(n.getName() + " ");
+            }
+
+            //Make path red
+            for (int i = 0; i < path.size(); i++) {
+                System.out.print(path.get(i).getName() + " ");
+                if(i>0) {
+                    EdgeLine line = addEdgeLine(path.get(i), path.get(i-1));
+                    line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+                }
+
+            }
+        }
+        else{
+            System.out.println("please enter a start AND and end location");
+        }
+
+
     }
 
     /**
@@ -59,15 +98,20 @@ public class PathfindingMap {
         NodeButton button = (NodeButton) actionEvent.getSource();
 
         if(mapState.equals(State.ENTERSTART)){
-            start.setText(button.getNode().getName()); //set text field text to be node name
+            startNode= button.getNode();
+            start.setText(button.getName()); //set text field text to be node name
+            System.out.println("start: "+ button.getName());
         }
         else if(mapState.equals(State.ENTEREND)){
-            end.setText(button.getNode().getName()); //set text field text to be node name
+            endNode = button.getNode();
+            end.setText(button.getName()); //set text field text to be node name
+            System.out.println("end: "+ button.getName());
         }
     }
 
     /**
      * creates a button associated  with a node
+     * adds a line to neighbour nodes
      * @param node
      * @return created NodeButton
      */
@@ -77,11 +121,15 @@ public class PathfindingMap {
         nb.setOnAction(event -> {
             addNodeToSearch(event);});
         btnPane.getChildren().add(nb); //add to page
+        List<Node> children = node.getNeighbours();
+        for(Node n: children){
+            addEdgeLine(node, n);
+        }
         return nb;
     }
 
     /**
-     * creates a line between two nodebuttons
+     * creates a line between two nodes
      * @param node1
      * @param node2
      * @return created EdgeLine
@@ -98,10 +146,79 @@ public class PathfindingMap {
      * adds buttons and edge lines to map
      */
     public void initialize()  {
-        Node node1 = new Node("test", 300, 350);
-        Node node2 = new Node("test2", 300, 200);
-        addNodeButton(node1);
-        addNodeButton(node2);
-        addEdgeLine(node1,node2);
+        List<Node> graph = createGraph();
+        for (Node n: graph){
+            addNodeButton(n);
+        }
+
+    }
+
+    private List<Node> createGraph(){
+        List<Node> graph = new ArrayList<>();
+        //   B - C
+        //  /   / \
+        // A - E - D
+        //  \  |  /
+        //     F - G - H - I - J
+
+        Node a = new Node("A", 0, 200);
+        Node b = new Node("B", 50, 300);
+        Node c = new Node("C", 150, 300);
+        Node d = new Node("D", 200, 200);
+        Node e = new Node("E", 100, 200);
+        Node f = new Node("F", 100, 100);
+        Node g = new Node("G", 200, 100);
+        Node h = new Node("H", 300, 100);
+        Node i = new Node("I", 400, 100);
+        Node j = new Node("J", 500, 100);
+
+        a.addNeighbour(b);
+        a.addNeighbour(e);
+        a.addNeighbour(f);
+
+        b.addNeighbour(a);
+        b.addNeighbour(c);
+
+        c.addNeighbour(b);
+        c.addNeighbour(e);
+        c.addNeighbour(d);
+
+        d.addNeighbour(c);
+        d.addNeighbour(e);
+        d.addNeighbour(f);
+
+        e.addNeighbour(a);
+        e.addNeighbour(c);
+        e.addNeighbour(d);
+        e.addNeighbour(f);
+
+        f.addNeighbour(a);
+        f.addNeighbour(d);
+        f.addNeighbour(e);
+        f.addNeighbour(g);
+
+        g.addNeighbour(f);
+        g.addNeighbour(h);
+
+        h.addNeighbour(g);
+        h.addNeighbour(i);
+
+        i.addNeighbour(h);
+        i.addNeighbour(j);
+
+        j.addNeighbour(i);
+
+        graph.add(a);
+        graph.add(b);
+        graph.add(c);
+        graph.add(d);
+        graph.add(e);
+        graph.add(f);
+        graph.add(g);
+        graph.add(h);
+        graph.add(i);
+        graph.add(j);
+
+        return graph;
     }
 }

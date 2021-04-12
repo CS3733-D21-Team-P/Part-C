@@ -18,5 +18,7 @@ public class EdgeLine extends Line {
         this.setEndX(end.getxCoord());
         this.setEndY(end.getyCoord());
 
+        this.setStyle("-fx-stroke: blue;");
+
     }
 }
