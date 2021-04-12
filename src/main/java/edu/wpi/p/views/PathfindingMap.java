@@ -25,6 +25,8 @@ public class PathfindingMap {
     private AStar search = new AStar();
     private Node startNode;
     private Node endNode;
+    private List<EdgeLine> pathLine= new ArrayList<>();
+    List<Node> graph = new ArrayList<>();
 
 
     private boolean enteringStart = false;
@@ -71,15 +73,31 @@ public class PathfindingMap {
                 System.out.print(n.getName() + " ");
             }
 
+            //clear old path
+            if(pathLine.size()!=0) {
+                int numChildren = linePane.getChildren().size();
+                int oldPathSize = pathLine.size();
+                linePane.getChildren().remove(numChildren-oldPathSize, numChildren);
+                pathLine.clear();
+            }
+
+
             //Make path red
             for (int i = 0; i < path.size(); i++) {
                 System.out.print(path.get(i).getName() + " ");
                 if(i>0) {
                     EdgeLine line = addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+                    pathLine.add(line);
                 }
-
             }
+
+
+            //graph= createGraph();
+//            for (Node n : graph) {
+//                n.setVisited(false);
+//            }
+
         }
         else{
             System.out.println("please enter a start AND and end location");
@@ -154,7 +172,7 @@ public class PathfindingMap {
     }
 
     private List<Node> createGraph(){
-        List<Node> graph = new ArrayList<>();
+
         //   B - C
         //  /   / \
         // A - E - D
