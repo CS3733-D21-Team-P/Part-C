@@ -8,6 +8,8 @@ public class NodeButton extends Button {
     }
 
     private Node node;
+    private double maxWidth = 20;
+    private double maxHeight = 20;
 
 
     public NodeButton(Node newNode) {
@@ -15,8 +17,17 @@ public class NodeButton extends Button {
         this.node = newNode;
         this.setLayoutX(node.getxCoord());
         this.setLayoutY(node.getyCoord());
-        this.setText(node.getName());
-        System.out.println(node.getName());
+
+        //set size of button
+        this.setMinWidth(maxWidth);
+        this.setMinHeight(maxHeight);
+        this.setMaxWidth(maxWidth);
+        this.setMaxHeight(maxHeight);
+
+        //translate so node point is in the center of the button
+        this.setTranslateX(-maxWidth/2);
+        this.setTranslateY(-(maxHeight/2));
+
 
     }
 

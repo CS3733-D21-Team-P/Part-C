@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.PathfindingMap">
@@ -17,7 +18,11 @@
                 <Image url="@../../../../../../../../BWHospitalMaps/00_thegroundfloor.png" />
             </image>
         </ImageView>
-        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" />
+      <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" />
+        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Line endX="100.0" startX="371.5" startY="93.89999389648438" />
+         </children></AnchorPane>
         <Pane layoutX="10.0" layoutY="10.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
                 <VBox layoutX="10.0" prefHeight="109.0" prefWidth="174.0">
