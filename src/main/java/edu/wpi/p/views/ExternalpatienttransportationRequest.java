@@ -108,7 +108,7 @@ public class ExternalpatienttransportationRequest {
   }
 
   public void submitPressed(ActionEvent actionEvent) {
-    final String fristName = firstNameText.getText();
+    final String firstName = firstNameText.getText();
     final String lastName = lastNameText.getText();
     final String roomNumber = currentRoomNumText.getText();
     final String endRoomNumber = endRoomNumText.getText();
@@ -118,7 +118,7 @@ public class ExternalpatienttransportationRequest {
     final String min = minuteText.getText();
     final String detail = detailText.getText();
 
-    System.out.println("Patien Name = " + fristName + lastName
+    System.out.println("Patien Name = " + firstName + lastName
             + "\nCurrent Hospital: " + currentHospital.getSelectionModel().getSelectedItem()
             + "\nRoom Number: " + roomNumber
             + "\nEnd Hospital: " + endHospital.getSelectionModel().getSelectedItem()

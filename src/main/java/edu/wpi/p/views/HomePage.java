@@ -1,5 +1,6 @@
 package edu.wpi.p.views;
 
+import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.App;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -8,6 +9,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 public class HomePage {
+
+  public JFXButton languageInterpretersBtn;
+  public JFXButton medicineDeliveryServiceBtn;
+  public JFXButton laundryServicesBtn;
+  public JFXButton externalPatientTransportationBtn;
+  public JFXButton sanitationServiceBtn;
 
   @FXML
   private void advanceScene(ActionEvent e) {
