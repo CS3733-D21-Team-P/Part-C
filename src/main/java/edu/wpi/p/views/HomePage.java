@@ -27,6 +27,7 @@ public class HomePage {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MedicineDeliveryServiceRequest.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
+      System.out.println("going to medicine delivery");
     } catch (IOException ex) {
       ex.printStackTrace();
     }
