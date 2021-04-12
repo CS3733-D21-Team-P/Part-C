@@ -50,4 +50,13 @@ public class HomePage {
       ex.printStackTrace();
     }
   }
+
+  public void sanitationServiceBtn(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/SanitationServiceRequest.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
 }

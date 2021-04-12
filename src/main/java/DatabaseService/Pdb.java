@@ -9,24 +9,20 @@ import java.util.Scanner;
 public class Pdb {
     static String username = "";
     static String password = "";
+    static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     static String dbName = "TeamPDB";
-    static String connectionURL = "jdbc:derby:" + dbName + ";create = true";
+    static String connectionURL = "jdbc:derby:" + dbName + ";create=true";
     static Connection conn = null;
 
-    public static void main(String[] args) throws SQLException {
-        if (args.length < 2) {
-            Scanner reader = new Scanner(System.in);
-            System.out.print("Username: ");
-            username = reader.next();
-            System.out.print("Password: ");
-            password = reader.next();
-        }
-        else {
-            username = args[0];
-            password = args[1];
-        }
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Scanner reader = new Scanner(System.in);
+        System.out.print("Username: ");
+        username = reader.next();
+        System.out.print("Password: ");
+        password = reader.next();
+        reader.close();
 
-        if (args.length == 2) {
+        if (args.length == 0) {
             System.out.println("1- Node Information");
             System.out.println("2- Update Node Coordinates");
             System.out.println("3- Update Node Location Long Name");
@@ -34,55 +30,18 @@ public class Pdb {
             System.out.println("5- Exit Program");
             return;
         }
-        if (args.length == 3) {
-            try {
-                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return;
-            }
-            System.out.println("Trying to connect to " + connectionURL);
+        if (args.length == 1) {
+            Class.forName(driver);
             conn = DriverManager.getConnection(connectionURL);
-            System.out.println("Connected to database " + connectionURL);
-            turnOnBuiltInUsers(conn);
-
             if (conn != null) {
-                if (args[2].equals("1")) {Node(conn);}
-                if (args[2].equals("2")) { UpdateNode(conn);}
-                if (args[2].equals("3")) { UpdateLongName(conn);}
-                if (args[2].equals("4")) { Edge(conn);}
-                if (args[2].equals("5")) { conn.close(); }
+                if (args[0].equals("1")) {Node(conn);}
+                if (args[0].equals("2")) { UpdateNode(conn);}
+                if (args[0].equals("3")) { UpdateLongName(conn);}
+                if (args[0].equals("4")) { Edge(conn);}
+                if (args[0].equals("5")) { conn.close(); }
                 conn.close();
             }
         }
-    }
-
-    public static void turnOnBuiltInUsers(Connection conn) throws SQLException {
-        System.out.println("Turning on authentication.");
-        Statement s = conn.createStatement();
-
-        // Setting and Confirming requireAuthentication
-        s.executeUpdate("CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY(" +
-                "'derby.connection.requireAuthentication', 'true')");
-
-        // Setting authentication scheme to Derby
-        s.executeUpdate("CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY(" +
-                "'derby.authentication.provider', 'BUILTIN')");
-
-        // Creating the admin user
-        s.executeUpdate("CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY(" +
-                "'derby.user.admin', 'admin')");
-
-        s.executeUpdate("CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY(" +
-                "'derby.database.defaultConnectionMode', 'noAccess')");
-
-        // Defining admin users
-        s.executeUpdate("CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY(" +
-                "'derby.database.fullAccessUsers', 'admin')");
-
-        s.executeUpdate("CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY(" +
-                "'derby.database.propertiesOnly', 'false')");
-        s.close();
     }
 
     public static void Node(Connection c) throws SQLException {
