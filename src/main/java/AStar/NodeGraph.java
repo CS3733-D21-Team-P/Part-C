@@ -1,5 +1,7 @@
 package AStar;
 
+import edu.wpi.p.database.DBTable;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,13 +12,15 @@ public class NodeGraph {
 
     private List<Node> graph;
     private boolean directedPaths;
+    private DBTable dbTable;
 
     public NodeGraph() {
         this.graph = new ArrayList<>();
         this.directedPaths = false;
+        this.dbTable = new DBTable();
     }
 
-    public void genGraph(boolean enableDirectedPaths) throws FileNotFoundException {
+    public void genGraph(boolean enableDirectedPaths) {
         graph = new ArrayList<>();
         this.directedPaths = enableDirectedPaths;
 
@@ -53,23 +57,13 @@ public class NodeGraph {
         return null;
     }
 
-    private void buildHospitalGraph() throws FileNotFoundException {
+    private void buildHospitalGraph() {
+        initNodes();
+        pairNodes();
+    }
 
-        //parse L1Nodes
-        List<List<String>> nodeData = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("src/main/java/AStar/L1Nodes.csv"))) {
-            while (scanner.hasNextLine()) {
-                nodeData.add(getNodeString(scanner.nextLine()));
-            }
-        }
-
-        //parse L1Edges
-        List<List<String>> edgeData = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("src/main/java/AStar/L1Edges.csv"))) {
-            while (scanner.hasNextLine()) {
-                edgeData.add(getNodeString(scanner.nextLine()));
-            }
-        }
+    private void initNodes() {
+        List<List<String>> nodeData = dbTable.getNodeData();
 
         //L1Nodes columns
         int nodeID = 0;
@@ -94,6 +88,10 @@ public class NodeGraph {
 
             this.graph.add(node);
         }
+    }
+
+    private void pairNodes() {
+        List<List<String>> edgeData = dbTable.getEdgeData();
 
         //L1Edges columns
         int edgeID = 0;
@@ -119,17 +117,6 @@ public class NodeGraph {
                 }
             }
         }
-    }
-
-    private List<String> getNodeString(String line) {
-        List<String> values = new ArrayList<>();
-        try (Scanner rowScanner = new Scanner(line)) {
-            rowScanner.useDelimiter(",");
-            while (rowScanner.hasNext()) {
-                values.add(rowScanner.next());
-            }
-        }
-        return values;
     }
 
     private void buildTestGraph() {
