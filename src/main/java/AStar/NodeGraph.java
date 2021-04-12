@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 public class NodeGraph {
 
+    public List<Node> getGraph() {
+        return graph;
+    }
+
     private List<Node> graph;
     private boolean directedPaths;
 
@@ -20,8 +24,8 @@ public class NodeGraph {
         graph = new ArrayList<>();
         this.directedPaths = enableDirectedPaths;
 
-        //buildTestGraph();
-        buildHospitalGraph();
+        buildTestGraph();
+        //buildHospitalGraph();
     }
 
     public void resetNodeGraph() {
@@ -142,16 +146,16 @@ public class NodeGraph {
         //  \  |  /
         //     F - G - H - I - J
 
-        Node a = new Node("A1", "A", 0, 0);
-        Node b = new Node("B1", "B", 1, 2);
-        Node c = new Node("C1", "C", 3, 2);
-        Node d = new Node("D1", "D", 4, 0);
-        Node e = new Node("E1", "E", 2, 0);
-        Node f = new Node("F1", "F", 2, -2);
-        Node g = new Node("G1", "G", 4, -2);
-        Node h = new Node("H1", "H", 6, -2);
-        Node i = new Node("I1", "I", 8, -2);
-        Node j = new Node("J1", "J", 10, -2);
+        Node a = new Node("A1", "A", 0, 200);
+        Node b = new Node("B1", "B", 50, 300);
+        Node c = new Node("C1", "C", 150, 300);
+        Node d = new Node("D1", "D", 200, 200);
+        Node e = new Node("E1", "E", 100, 200);
+        Node f = new Node("F1", "F", 100, 100);
+        Node g = new Node("G1", "G", 200, 100);
+        Node h = new Node("H1", "H", 300, 100);
+        Node i = new Node("I1", "I", 400, 100);
+        Node j = new Node("J1", "J", 500, 100);
 
         a.addNeighbour(b);
         a.addNeighbour(e);
@@ -195,5 +199,9 @@ public class NodeGraph {
         this.graph.add(d);
         this.graph.add(e);
         this.graph.add(f);
+        this.graph.add(g);
+        this.graph.add(h);
+        this.graph.add(i);
+        this.graph.add(j);
     }
 }

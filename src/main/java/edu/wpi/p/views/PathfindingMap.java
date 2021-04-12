@@ -9,8 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import AStar.NodeGraph;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,8 @@ public class PathfindingMap {
     private Node startNode;
     private Node endNode;
     private List<EdgeLine> pathLine= new ArrayList<>();
-    List<Node> graph = new ArrayList<>();
+    NodeGraph graph = new NodeGraph();
+    //List<Node> graph = new ArrayList<>();
 
 
     private boolean enteringStart = false;
@@ -92,7 +95,7 @@ public class PathfindingMap {
                 }
             }
 
-
+            graph.resetNodeGraph();
             //graph= createGraph();
 //            for (Node n : graph) {
 //                n.setVisited(false);
@@ -164,13 +167,19 @@ public class PathfindingMap {
      * adds buttons and edge lines to map
      */
     public void initialize()  {
-        List<Node> graph = createGraph();
-        for (Node n: graph){
+        try {
+            graph.genGraph(false);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        for (Node n: graph.getGraph()){
             addNodeButton(n);
         }
 
     }
 
+    /*
     private List<Node> createGraph(){
 
         //   B - C
@@ -239,4 +248,6 @@ public class PathfindingMap {
 
         return graph;
     }
+
+     */
 }
