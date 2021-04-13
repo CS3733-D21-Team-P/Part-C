@@ -30,6 +30,12 @@ public class HomePage {
   public Button laundryServicesBtn;
   @FXML
   public Button externalPatientTransportationBtn;
+  @FXML
+  public Button nodeButton;
+  @FXML
+  public Button edgeButton;
+  @FXML
+  public Button pathButton;
 
 
   @FXML
@@ -67,6 +73,32 @@ public class HomePage {
   public void externalPatientTransportationBtn(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ExternalpatienttransportationRequest.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public void pathButtonAc(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public void edgeButtonAc(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPEdgeData.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void nodeButtonAc(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPNodeData.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
