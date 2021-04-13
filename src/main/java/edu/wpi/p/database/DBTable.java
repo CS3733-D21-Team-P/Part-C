@@ -12,7 +12,7 @@ public class DBTable {
 //        this.columns = columns;
 //    }
 
-    public void updateNode(int nodeID, Node newNode) {
+    /*public void updateNode(int nodeID, Node newNode) {
 
     }
 
@@ -30,7 +30,7 @@ public class DBTable {
 
     public void removeNode(Node node) {
 
-    }
+    }*/
 
 
 }
