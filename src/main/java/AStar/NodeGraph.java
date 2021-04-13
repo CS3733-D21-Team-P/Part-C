@@ -8,10 +8,6 @@ import java.util.Scanner;
 
 public class NodeGraph {
 
-    public List<Node> getGraph() {
-        return graph;
-    }
-
     private List<Node> graph;
     private boolean directedPaths;
 
@@ -24,8 +20,19 @@ public class NodeGraph {
         graph = new ArrayList<>();
         this.directedPaths = enableDirectedPaths;
 
-        buildTestGraph();
-        //buildHospitalGraph();
+        //buildTestGraph();
+        buildHospitalGraph();
+    }
+
+    public List<Node> getGraph() {
+        return graph;
+    }
+
+    public void scaleGraph(double scaleX, double scaleY) {
+        for(Node n : graph) {
+            n.setxCoord((int)(n.getxCoord() * scaleX));
+            n.setyCoord((int)(n.getyCoord() * scaleY));
+        }
     }
 
     public void resetNodeGraph() {
