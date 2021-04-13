@@ -74,30 +74,10 @@ public class NodeGraph {
     }
 
     private void initNodes() {
-        List<List<String>> nodeData = dbTable.getNodeData();
+        List<Node> nodeData = dbTable.getNodes();
 
-        //L1Nodes columns
-        int nodeID = 0;
-        int xcoord = 1;
-        int ycoord = 2;
-        int floor = 3;
-        int building = 4;
-        int nodeType = 5;
-        int longName = 6;
-        int shortName = 7;
-
-        //create nodes
-        //nodeData.size() - 1
-        for(int i = 1; i < nodeData.size(); i++) {
-            List<String> nodeString = nodeData.get(i);
-
-            Node node = new Node(
-                    nodeString.get(nodeID),
-                    nodeString.get(longName),
-                    Integer.parseInt(nodeString.get(xcoord)),
-                    Integer.parseInt(nodeString.get(ycoord)));
-
-            this.graph.add(node);
+        for(Node n : nodeData) {
+            this.graph.add(n);
         }
     }
 
