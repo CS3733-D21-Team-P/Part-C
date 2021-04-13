@@ -30,6 +30,19 @@ public class AStar {
         //recursive search
         search(rootNode, targetNode);
 
+        System.out.println("END");
+
+        List<Node> path = getPath(targetNode);
+        if(path != null) {
+            System.out.println("Path: ");
+            for (Node n : path) {
+                System.out.print(n.getName() + " - ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("DONE");
+
         return getPath(targetNode);
     }
 
@@ -38,11 +51,12 @@ public class AStar {
         rootNode.setVisited(true);
         System.out.println(rootNode.getName());
 
-        //no need to stick around if we are the target node
-        if(rootNode == targetNode) {
+        //no need to stick around if we are the target node || we are not the shortest path
+        if(rootNode == targetNode || rootNode.getLocalDist() >= pathLength) {
             if(!stack.isEmpty()) {
                 //removing this line will stop the search immediately if target is found
                 search(stack.pop(), targetNode);
+                System.out.println("OUT SEARCH");
             }
             return;
         }
