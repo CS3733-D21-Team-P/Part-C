@@ -28,6 +28,17 @@ public class NodeGraph {
         buildHospitalGraph();
     }
 
+    public List<Node> getGraph() {
+        return graph;
+    }
+
+    public void scaleGraph(double scaleX, double scaleY) {
+        for(Node n : graph) {
+            n.setxCoord((int)(n.getxCoord() * scaleX));
+            n.setyCoord((int)(n.getyCoord() * scaleY));
+        }
+    }
+
     public void resetNodeGraph() {
         for(Node n : graph) {
             n.resetGoals();
