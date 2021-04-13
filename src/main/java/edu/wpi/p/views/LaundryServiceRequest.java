@@ -1,9 +1,6 @@
 package edu.wpi.p.views;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.p.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,10 +16,8 @@ public class LaundryServiceRequest {
     public JFXTextField pickUpLocation;
     public JFXDatePicker pickUpDate;
     public JFXDatePicker dropOffDate;
-    public JFXTextField timeHourP;
-    public JFXTextField timeMinuteP;
-    public JFXTextField timeHourD;
-    public JFXTextField timeMinuteD;
+    public JFXTimePicker pickupTime;
+    public JFXTimePicker dropoffTime;
     public JFXTextArea specialInstructions;
     public JFXButton back;
     public JFXButton submit;
