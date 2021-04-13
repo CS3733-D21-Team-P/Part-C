@@ -28,6 +28,7 @@ public class NodeGraph {
         for(Node n : graph) {
             n.resetGoals();
             n.setVisited(false);
+            n.setParent(null);
         }
     }
 
