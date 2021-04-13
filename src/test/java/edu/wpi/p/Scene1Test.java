@@ -8,26 +8,24 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 public class Scene1Test extends ApplicationTest {
 
-//  @Override
-//  public void start(Stage primaryStage) throws IOException {
-//    //App.setPrimaryStage(primaryStage);
-//    Parent root = FXMLLoader.load(getClass().getResource("fxml/ExternalpatienttransportationRequest.fxml"));
-//    Scene scene = new Scene(root);
-//    primaryStage.setScene(scene);
-//    primaryStage.show();
-//  }
-//
-//  @Test
-//  @Disabled
-//  public void testButton() {
-//    verifyThat("Scene 1", Node::isVisible);
-//    clickOn("Advance Scene");
-//    verifyThat("Scene 2", Node::isVisible);
-//  }
+  @Override
+  public void start(Stage primaryStage) throws IOException {
+    //App.setPrimaryStage(primaryStage);
+    Parent root = FXMLLoader.load(getClass().getResource("fxml/ExternalpatienttransportationRequest.fxml"));
+    Scene scene = new Scene(root);
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  }
+
+  @Test
+  public void testButton() {
+    verifyThat("Scene 1", Node::isVisible);
+    clickOn("Advance Scene");
+    verifyThat("Scene 2", Node::isVisible);
+  }
 }

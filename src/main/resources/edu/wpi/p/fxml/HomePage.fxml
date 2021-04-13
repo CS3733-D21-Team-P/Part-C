@@ -1,69 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
    <children>
-      <HBox alignment="CENTER_LEFT" layoutX="88.0" layoutY="14.0" prefHeight="181.0" prefWidth="201.0" AnchorPane.bottomAnchor="843.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="567.0" AnchorPane.topAnchor="0.0" />
-      <VBox alignment="TOP_CENTER" layoutX="295.0" layoutY="14.0" prefHeight="35.0" prefWidth="292.0" />
-      <VBox alignment="CENTER" layoutX="384.0" layoutY="73.0" prefHeight="35.0" prefWidth="342.0" />
-      <HBox alignment="CENTER" layoutY="96.0" prefHeight="200.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <VBox alignment="TOP_CENTER" layoutX="1562.0" layoutY="160.0" prefHeight="35.0" prefWidth="292.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="393.0">
-               <children>
-                  <Button fx:id="languageInterpretersBtn" mnemonicParsing="false" onAction="#languageInterpretersBtn" text="Language Interpreters">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="medicineDeliveryServiceBtn" mnemonicParsing="false" onAction="#medicineDeliveryServiceBtn" text="Medicine Delivery Service">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#sanitationServiceBtn" text="Sanitation Service">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="AAAAA">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="410.0">
-               <children>
-                  <Button fx:id="laundryServicesBtn" mnemonicParsing="false" onAction="#laundryServicesBtn" text="Laundry services">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="externalPatientTransportationBtn" mnemonicParsing="false" onAction="#externalPatientTransportationBtn" text="External Patient Transportation">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="AAAAA">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="AAAAA">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
+            <Label fx:id="phoneLabel" text="Phone:AAAAAA-AAAA" />
+            <Label fx:id="addressLabel" text="Address: AAAAst, AAAA, AAAAA, AAAA" />
          </children>
-      </HBox>
-      <TextField layoutX="-317.0" layoutY="550.0" />
+      </VBox>
+      <TextField fx:id="searchText" alignment="CENTER" layoutX="1567.0" layoutY="212.0" prefHeight="23.0" prefWidth="282.0" promptText="Search" />
+      <Label fx:id="hospitalNameLabel" alignment="CENTER" layoutX="171.0" layoutY="195.0" prefHeight="35.0" prefWidth="282.0" text="Magic cures diseases, you are worthy of trust." />
+      <Button layoutX="1508.0" layoutY="748.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="59.0" text="AAAAA" />
+      <ImageView fx:id="imageView" fitHeight="135.0" fitWidth="1920.0" layoutX="239.0" layoutY="14.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../image/建筑.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="7.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../image/医院标记.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="223.0" layoutY="415.0" prefHeight="52.0" prefWidth="257.0">
+         <children>
+            <Label text="Language Interpreters" textFill="#108a00">
+               <font>
+                  <Font name="Yu Mincho Light" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin></Label>
+            <Label text="Provide a wide range of language services">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin></Label>
+            <Label text="covering all translation needs">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></Label>
+            <Button fx:id="languageInterpretersBtn" mnemonicParsing="false" onAction="#languageInterpretersBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#00a123">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="599.0" layoutY="414.0" prefHeight="105.0" prefWidth="257.0">
+         <children>
+            <Label text="Medicine Delivery Service" textFill="#eb6300">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="We always keep moving">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Towards an ever-digital future">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="medicineDeliveryServiceBtn" mnemonicParsing="false" onAction="#medicineDeliveryServiceBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#f55b00">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="1011.0" layoutY="414.0" prefHeight="15.0" prefWidth="194.0">
+         <children>
+            <Label text="Laundry services" textFill="#0029ff">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Provides various laundry services and products">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Meet all customer needs">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="laundryServicesBtn" mnemonicParsing="false" onAction="#laundryServicesBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#0028ff">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="1370.0" layoutY="415.0" prefHeight="61.0" prefWidth="304.0">
+         <children>
+            <Label text="External Patient Transportation" textFill="#ea00ff">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Based on superb technology">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Take high-quality service as the carrier">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Serve patients wholeheartedly">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="externalPatientTransportationBtn" mnemonicParsing="false" onAction="#externalPatientTransportationBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#d300bb">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="258.0" layoutY="696.0" prefHeight="70.0" prefWidth="188.0">
+         <children>
+            <Label text="Map P Node Data" textFill="#860297">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Check node data">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Add/delete/update node data">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="142.0" text="Map P Node Data" textFill="#8f03ab">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="595.0" layoutY="696.0" prefHeight="35.0" prefWidth="265.0">
+         <children>
+            <Label text="Map P Edge Data" textFill="#0220b2">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Check edge data">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" text="Add/delete/update edge data">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="124.0" text="Map P Edge Data" textFill="#0400ff">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="1003.0" layoutY="696.0" prefHeight="0.0" prefWidth="211.0">
+         <children>
+            <Label text="Map with pathfinding" textFill="#f54100">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label prefHeight="15.0" prefWidth="68.0" text="Navigation">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Check nodes and edges">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="View the path between locations">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="143.0" text="Map with pathfinding" textFill="#ff5100">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
