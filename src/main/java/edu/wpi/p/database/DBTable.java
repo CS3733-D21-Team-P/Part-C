@@ -1,5 +1,7 @@
 package edu.wpi.p.database;
 
+import AStar.Node;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
