@@ -4,21 +4,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.MapPEdgeData">
    <children>
-      <Label layoutX="61.0" layoutY="40.0" text="Edge Data" />
-      <Button fx:id="addEdgeBtn" layoutX="61.0" layoutY="346.0" mnemonicParsing="false" onAction="#addEdgeAc" text="Add Edge" />
-      <Button fx:id="editEdgeBtn" layoutX="267.0" layoutY="346.0" mnemonicParsing="false" onAction="#editEdgeAc" text="Edit Edge" />
-      <Button fx:id="deleteEdgeBtn" layoutX="456.0" layoutY="346.0" mnemonicParsing="false" onAction="#deleteEdgeAc" text="Delete Edge" />
-      <TableView fx:id="edgeDataTableView" layoutX="60.0" layoutY="62.0" prefHeight="275.0" prefWidth="480.0">
+      <Button fx:id="addEdgeBtn" layoutX="61.0" layoutY="360.0" mnemonicParsing="false" onAction="#addEdgeAc" text="Add Edge" />
+      <Button fx:id="editEdgeBtn" layoutX="267.0" layoutY="360.0" mnemonicParsing="false" onAction="#editEdgeAc" text="Edit Edge" />
+      <Button fx:id="deleteEdgeBtn" layoutX="456.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteEdgeAc" text="Delete Edge" />
+      <TableView fx:id="edgeDataTableView" layoutX="60.0" layoutY="76.0" prefHeight="275.0" prefWidth="480.0">
         <columns>
           <TableColumn fx:id="edgeIDCol" prefWidth="160.0" text="EdgeID" />
           <TableColumn fx:id="startNodeCol" prefWidth="160.0" text="startNode" />
             <TableColumn fx:id="endNodeCol" prefWidth="160.0" text="endNode" />
         </columns>
       </TableView>
-      <Button fx:id="homeButton" layoutX="536.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
+      <Button fx:id="homeButton" layoutX="540.0" layoutY="8.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
+      <Button fx:id="saveEdgeCSV" layoutX="410.0" layoutY="39.0" mnemonicParsing="false" onAction="#exportEdgeCSVBtn" text="Export EdgeData CSV" />
+      <TextField fx:id="edgeFilepathField" layoutX="221.0" layoutY="39.0" prefHeight="26.0" prefWidth="96.0" />
+      <Label layoutX="60.0" layoutY="43.0" text="Enter EdgeData CSV Filepath:" />
+      <Button fx:id="importEdgeCSV" layoutX="317.0" layoutY="39.0" mnemonicParsing="false" onAction="#importEdgeCSVBtn" text="Import" />
    </children>
 </AnchorPane>

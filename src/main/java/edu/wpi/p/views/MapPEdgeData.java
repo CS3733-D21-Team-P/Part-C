@@ -33,22 +33,20 @@ import java.util.List;
 
 public class MapPEdgeData{
 
-    @FXML
-    private Button addEdgeBtn;
-    @FXML
-    private Button editEdgeBtn;
-    @FXML
-    private Button deleteEdgeBtn;
-    @FXML
-    private TableView<Edge> edgeDataTableView;
-    @FXML
-    private TableColumn<Edge, String> edgeIDCol;
-    @FXML
-    private TableColumn<Edge, String> startNodeCol;
-    @FXML
-    private TableColumn<Edge, String> endNodeCol;
-    @FXML
-    private Button homeButton;
+    @FXML private Button importEdgeCSV;
+    @FXML private Button saveEdgeCSV;
+    @FXML private TextField edgeFilepathField;
+
+    @FXML private Button addEdgeBtn;
+    @FXML private Button editEdgeBtn;
+    @FXML private Button deleteEdgeBtn;
+
+    @FXML private TableView<Edge> edgeDataTableView;
+    @FXML private TableColumn<Edge, String> edgeIDCol;
+    @FXML private TableColumn<Edge, String> startNodeCol;
+    @FXML private TableColumn<Edge, String> endNodeCol;
+
+    @FXML private Button homeButton;
 
     @FXML
     private void homeButtonAc(ActionEvent actionEvent) {
@@ -96,5 +94,22 @@ public class MapPEdgeData{
 
     @FXML
     private void deleteEdgeAc(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void exportEdgeCSVBtn(ActionEvent actionEvent) {
+        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
+        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
+        CSVHandler.writeCSVData(newNodes, "newNodes.csv");
+        CSVHandler.writeCSVData(newEdges, "newEdges.csv");
+    }
+
+    @FXML
+    private void importEdgeCSVBtn(ActionEvent actionEvent) throws Exception {
+        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
+        CSVData edgeData = CSVHandler.readCSVFile(edgeFilepathField.getText());
+        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+        edgeDataList = dbTable.getEdges();
+        edgeDataTableView.setItems(getEdgeData());
     }
 }
