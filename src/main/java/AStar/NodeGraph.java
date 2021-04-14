@@ -8,10 +8,6 @@ import java.util.Scanner;
 
 public class NodeGraph {
 
-    public List<Node> getGraph() {
-        return graph;
-    }
-
     private List<Node> graph;
     private boolean directedPaths;
 
@@ -24,14 +20,26 @@ public class NodeGraph {
         graph = new ArrayList<>();
         this.directedPaths = enableDirectedPaths;
 
-        buildTestGraph();
-        //buildHospitalGraph();
+        //buildTestGraph();
+        buildHospitalGraph();
+    }
+
+    public List<Node> getGraph() {
+        return graph;
+    }
+
+    public void scaleGraph(double scaleX, double scaleY) {
+        for(Node n : graph) {
+            n.setxCoord((int)(n.getxCoord() * scaleX));
+            n.setyCoord((int)(n.getyCoord() * scaleY));
+        }
     }
 
     public void resetNodeGraph() {
         for(Node n : graph) {
             n.resetGoals();
             n.setVisited(false);
+            n.setParent(null);
         }
     }
 
@@ -146,16 +154,16 @@ public class NodeGraph {
         //  \  |  /
         //     F - G - H - I - J
 
-        Node a = new Node("A1", "A", 0, 200);
-        Node b = new Node("B1", "B", 50, 300);
-        Node c = new Node("C1", "C", 150, 300);
-        Node d = new Node("D1", "D", 200, 200);
-        Node e = new Node("E1", "E", 100, 200);
-        Node f = new Node("F1", "F", 100, 100);
-        Node g = new Node("G1", "G", 200, 100);
-        Node h = new Node("H1", "H", 300, 100);
-        Node i = new Node("I1", "I", 400, 100);
-        Node j = new Node("J1", "J", 500, 100);
+        Node a = new Node("A1", "A", 50, 250);
+        Node b = new Node("B1", "B", 100, 175);
+        Node c = new Node("C1", "C", 200, 175);
+        Node d = new Node("D1", "D", 250, 250);
+        Node e = new Node("E1", "E", 150, 250);
+        Node f = new Node("F1", "F", 150, 350);
+        Node g = new Node("G1", "G", 250, 350);
+        Node h = new Node("H1", "H", 350, 350);
+        Node i = new Node("I1", "I", 450, 350);
+        Node j = new Node("J1", "J", 550, 350);
 
         a.addNeighbour(b);
         a.addNeighbour(e);

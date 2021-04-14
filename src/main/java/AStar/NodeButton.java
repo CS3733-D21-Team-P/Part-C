@@ -8,8 +8,8 @@ public class NodeButton extends Button {
     }
 
     private Node node;
-    private double maxWidth = 30;
-    private double maxHeight = 30;
+    private double maxWidth = 10;
+    private double maxHeight = 10;
 
 
     public NodeButton(Node newNode) {

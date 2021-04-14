@@ -7,11 +7,12 @@ import AStar.NodeButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import AStar.NodeGraph;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,8 @@ public class PathfindingMap {
     public AnchorPane btnPane;
     @FXML
     public AnchorPane linePane;
+    @FXML
+    public ImageView imageView;
 
     /**
      * run when user clicks into start text field and changes state
@@ -172,6 +175,17 @@ public class PathfindingMap {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        //TODO fix aspect ratio & offset
+        double winWidth = imageView.getFitWidth();
+        double imageWidth = imageView.getImage().getWidth();
+        double scaleX = winWidth / imageWidth;
+
+        double winHeight = imageView.getFitHeight();
+        double imageHeight = imageView.getImage().getHeight();
+        double scaleY = winHeight / imageHeight;
+
+        graph.scaleGraph(scaleX, scaleY);
 
         for (Node n: graph.getGraph()){
             addNodeButton(n);

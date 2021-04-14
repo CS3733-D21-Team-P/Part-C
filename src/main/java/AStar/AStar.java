@@ -39,7 +39,7 @@ public class AStar {
         System.out.println(rootNode.getName());
 
         //no need to stick around if we are the target node
-        if(rootNode == targetNode) {
+        if(rootNode == targetNode || rootNode.getLocalDist() >= pathLength) {
             if(!stack.isEmpty()) {
                 //removing this line will stop the search immediately if target is found
                 search(stack.pop(), targetNode);
