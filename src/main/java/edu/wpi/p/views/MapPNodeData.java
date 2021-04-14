@@ -60,7 +60,6 @@ public class MapPNodeData {
 
     @FXML
     private void initialize() throws Exception {
-        DatabaseInterface.init();
         CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
         CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
         dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);

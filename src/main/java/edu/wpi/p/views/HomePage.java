@@ -3,6 +3,8 @@ package edu.wpi.p.views;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.App;
 import java.io.IOException;
+
+import edu.wpi.p.database.DatabaseInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,11 @@ public class HomePage {
   @FXML
   private void advanceScene(ActionEvent e) {
 
+  }
+
+  @FXML
+  private void initialize(){
+    DatabaseInterface.init();
   }
 
   public void languageInterpretersBtn(ActionEvent actionEvent) {
