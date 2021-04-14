@@ -24,13 +24,14 @@ public class HomePage {
   @FXML
   public TextField searchText;
   @FXML
-  public Button languageInterpretersBtn;
-  @FXML
-  public Button medicineDeliveryServiceBtn;
-  @FXML
-  public Button laundryServicesBtn;
-  @FXML
-  public Button externalPatientTransportationBtn;
+  public Button SRoption;
+//  public Button languageInterpretersBtn;
+//  @FXML
+//  public Button medicineDeliveryServiceBtn;
+//  @FXML
+//  public Button laundryServicesBtn;
+//  @FXML
+//  public Button externalPatientTransportationBtn;
   @FXML
   public Button nodeButton;
   @FXML
@@ -39,56 +40,56 @@ public class HomePage {
   public Button pathButton;
 
 
-  public JFXButton languageInterpretersBtn;
-  public JFXButton medicineDeliveryServiceBtn;
-  public JFXButton laundryServicesBtn;
-  public JFXButton externalPatientTransportationBtn;
-  public JFXButton sanitationServiceBtn;
+//  public JFXButton languageInterpretersBtn;
+//  public JFXButton medicineDeliveryServiceBtn;
+//  public JFXButton laundryServicesBtn;
+//  public JFXButton externalPatientTransportationBtn;
+//  public JFXButton sanitationServiceBtn;
 
   @FXML
   private void advanceScene(ActionEvent e) {
 
   }
 
-  public void languageInterpretersBtn(ActionEvent actionEvent) {
+  public void SRoptionAc(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LanguageInterpreterServiceRequest.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
     }
   }
 
-  public void medicineDeliveryServiceBtn(ActionEvent actionEvent) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MedicineDeliveryServiceRequest.fxml"));
-      App.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
+//  public void medicineDeliveryServiceBtn(ActionEvent actionEvent) {
+//    try {
+//      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MedicineDeliveryServiceRequest.fxml"));
+//      App.getPrimaryStage().getScene().setRoot(root);
+//    } catch (IOException ex) {
+//      ex.printStackTrace();
+//    }
+//  }
+//
+//  public void laundryServicesBtn(ActionEvent actionEvent) {
+//    try {
+//      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LaundryServiceRequest.fxml"));
+//      App.getPrimaryStage().getScene().setRoot(root);
+//    } catch (IOException ex) {
+//      ex.printStackTrace();
+//    }
+//  }
 
-  public void laundryServicesBtn(ActionEvent actionEvent) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LaundryServiceRequest.fxml"));
-      App.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
-
-  public void externalPatientTransportationBtn(ActionEvent actionEvent) {
-    try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ExternalpatienttransportationRequest.fxml"));
-      App.getPrimaryStage().getScene().setRoot(root);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
+//  public void externalPatientTransportationBtn(ActionEvent actionEvent) {
+//    try {
+//      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ExternalpatienttransportationRequest.fxml"));
+//      App.getPrimaryStage().getScene().setRoot(root);
+//    } catch (IOException ex) {
+//      ex.printStackTrace();
+//    }
+//  }
 
   public void pathButtonAc(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/PathfindingMap.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -111,4 +112,7 @@ public class HomePage {
       ex.printStackTrace();
     }
   }
+
+//  public void sanitationServiceBtn(ActionEvent actionEvent) {
+//  }
 }

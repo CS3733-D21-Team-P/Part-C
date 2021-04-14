@@ -65,4 +65,12 @@ public class ServiceRequestHomePage {
             ex.printStackTrace();
         }
     }
+    public void backButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
