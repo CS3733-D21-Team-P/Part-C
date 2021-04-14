@@ -68,8 +68,8 @@ public class MapPNodeData {
 
         //set up the columns in the table
         nodeIDCol.setCellValueFactory(new PropertyValueFactory<Node, String>("id"));
-        nodeXCoordCol.setCellValueFactory(new PropertyValueFactory<Node, Integer>("xCoord"));
-        nodeYCoordCol.setCellValueFactory(new PropertyValueFactory<Node, Integer>("yCoord"));
+        nodeXCoordCol.setCellValueFactory(new PropertyValueFactory<>("xcoord"));
+        nodeYCoordCol.setCellValueFactory(new PropertyValueFactory<>("ycoord"));
         nodeFloorCol.setCellValueFactory(new PropertyValueFactory<Node, String>("floor"));
         nodeBuildingCol.setCellValueFactory(new PropertyValueFactory<Node, String>("building"));
         nodeTypeCol.setCellValueFactory(new PropertyValueFactory<Node, String>("type"));

@@ -41,16 +41,12 @@ public class MapPEdgeData{
     private Button deleteEdgeBtn;
     @FXML
     private TableView<Edge> edgeDataTableView;
-//    private TableView<EdgeData> edgeDataTableView;
     @FXML
     private TableColumn<Edge, String> edgeIDCol;
-//    private TableColumn<EdgeData, SimpleStringProperty> edgeIDCol;
     @FXML
     private TableColumn<Edge, String> startNodeCol;
-//    private TableColumn<EdgeData, SimpleStringProperty> startNodeCol;
     @FXML
     private TableColumn<Edge, String> endNodeCol;
-//    private TableColumn<EdgeData, SimpleStringProperty> endNodeCol;
     @FXML
     private Button homeButton;
 
@@ -89,41 +85,6 @@ public class MapPEdgeData{
             edges.add(e);
         return edges;
     }
-
-
-//    public void fillTable(Stage stage) {
-//        //Label for education
-//        Label label = new Label("Edge Data:");
-//        Font font = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12);
-//        label.setFont(font);
-//        //Creating a table view
-//        TableView<List<String>> table = new TableView<List<String>>();
-//        final ObservableList<List<String>> data = FXCollections.observableArrayList(edgeDataList);
-//        //Creating columns
-//        TableColumn edgeIDCol = new TableColumn("EdgeID");
-//        edgeIDCol.setCellValueFactory(new PropertyValueFactory<>("edgeID"));
-//        TableColumn startNodeCol = new TableColumn("StartNode");
-//        startNodeCol.setCellValueFactory(new PropertyValueFactory("startNode"));
-//        TableColumn endNodeCol = new TableColumn("EndNode");
-//        endNodeCol.setCellValueFactory(new PropertyValueFactory("endNode"));
-//        //Adding data to the table
-//        ObservableList<String> list = FXCollections.observableArrayList();
-//        table.setItems(data);
-//        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-//        table.getColumns().addAll(edgeIDCol, startNodeCol, endNodeCol);
-//        //Setting the size of the table
-//        table.setMaxSize(350, 200);
-//        VBox vbox = new VBox();
-//        vbox.setSpacing(5);
-//        vbox.setPadding(new Insets(10, 50, 50, 60));
-//        vbox.getChildren().addAll(label, table);
-//        //Setting the scene
-//        Scene scene = new Scene(vbox, 595, 230);
-//        stage.setTitle("Edge ID");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-
 
     @FXML
     private void addEdgeAc(ActionEvent actionEvent) {

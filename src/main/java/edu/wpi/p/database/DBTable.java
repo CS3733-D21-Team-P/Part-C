@@ -4,7 +4,6 @@ import AStar.Node;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 
@@ -38,8 +37,8 @@ public class DBTable {
     }
 
     public void updateNode(Node n) {
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getyCoord()+" WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getxCoord()+" WHERE nodeID = '"+n.getId()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET floor = '"+n.getFloor()+"' WHERE nodeID = '"+n.getId()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET building = '"+n.getBuilding()+"' WHERE nodeID = '"+n.getId()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET nodeType = '"+n.getType()+"' WHERE nodeID = '"+n.getId()+"'");
@@ -48,7 +47,7 @@ public class DBTable {
     }
 
     public void addNode(Node n) {
-        String insertValue = "'" + n.getId() + "', " + n.getxCoord() + ", " + n.getyCoord() + ", '" + n.getFloor() + "', '" + n.getBuilding() + "', '" + n.getType() + "', '" + n.getName() + "', '" + n.getShortName() + "'";
+        String insertValue = "'" + n.getId() + "', " + n.getXcoord() + ", " + n.getYcoord() + ", '" + n.getFloor() + "', '" + n.getBuilding() + "', '" + n.getType() + "', '" + n.getName() + "', '" + n.getShortName() + "'";
         DatabaseInterface.insertIntoTable(nodeTable, insertValue);
     }
 

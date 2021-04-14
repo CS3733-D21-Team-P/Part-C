@@ -54,8 +54,8 @@ public class TestDatabaseInterface {
             System.out.println("Node count: " + table.getNodes().size());
             List<Node> nodes = table.getNodes();
             Node test = nodes.get(0);
-            test.setxCoord(0);
-            test.setyCoord(0);
+            test.setXcoord(0);
+            test.setYcoord(0);
             test.setName("a test node");
             table.updateNode(test);
         }

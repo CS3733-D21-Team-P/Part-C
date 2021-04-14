@@ -12,11 +12,11 @@ public class EdgeLine extends Line {
         this.node1 = start;
         this.node2= end;
         //set start point
-        this.setStartX(start.getxCoord());
-        this.setStartY(start.getyCoord());
+        this.setStartX(start.getXcoord());
+        this.setStartY(start.getYcoord());
         //set end point
-        this.setEndX(end.getxCoord());
-        this.setEndY(end.getyCoord());
+        this.setEndX(end.getXcoord());
+        this.setEndY(end.getYcoord());
 
         this.setStyle("-fx-stroke: blue;");
 

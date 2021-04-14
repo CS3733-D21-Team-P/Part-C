@@ -131,8 +131,8 @@ public class AStar {
 
     private float dist(Node a, Node b) {
         return (float) Math.hypot(
-                Math.abs(a.getxCoord() - b.getxCoord()),
-                Math.abs(a.getyCoord() - b.getyCoord()));
+                Math.abs(a.getXcoord() - b.getXcoord()),
+                Math.abs(a.getYcoord() - b.getYcoord()));
     }
 
     private void quicksort(Node[] array, int low, int high) {

@@ -100,8 +100,8 @@ public class CSVDBConverter {
         CSVData data = new CSVData("MapNodes");
         List<Node> nodes = table.getNodes();
         List<String> idData = nodes.stream().map(n -> n.getId()).collect(Collectors.toList());
-        List<String> xCoordData = nodes.stream().map(n -> n.getxCoord()).map(x -> x.toString()).collect(Collectors.toList());
-        List<String> yCoordData = nodes.stream().map(n -> n.getyCoord()).map(y -> y.toString()).collect(Collectors.toList());
+        List<String> xCoordData = nodes.stream().map(n -> n.getXcoord()).map(x -> x.toString()).collect(Collectors.toList());
+        List<String> yCoordData = nodes.stream().map(n -> n.getYcoord()).map(y -> y.toString()).collect(Collectors.toList());
         List<String> floorData = nodes.stream().map(n -> n.getFloor()).collect(Collectors.toList());
         List<String> buildingData = nodes.stream().map(n -> n.getBuilding()).collect(Collectors.toList());
         List<String> nodeTypeData = nodes.stream().map(n -> n.getType()).collect(Collectors.toList());

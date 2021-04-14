@@ -7,8 +7,8 @@ import java.util.List;
 public class Node {
     private String name;
     private String id;
-    private int xCoord;
-    private int yCoord;
+    private int xcoord;
+    private int ycoord;
     private Boolean visited;
     private Boolean blockade; //not used
     private Node parent;
@@ -20,21 +20,21 @@ public class Node {
     private String shortName;
     private List<Node> neighbours;
 
-    public Node (String id, String name, int xCoord, int yCoord){
+    public Node (String id, String name, int xcoord, int ycoord){
         this.name = name;
         this.id = id;
-        this.xCoord = xCoord;
-        this.yCoord = yCoord;
+        this.xcoord = xcoord;
+        this.ycoord = ycoord;
         this.visited = false;
         resetGoals();
         this.neighbours = new ArrayList<>();
     }
 
-    public Node(String name, String id, int xCoord, int yCoord, String floor, String building, String type, String shortName) {
+    public Node(String name, String id, int xcoord, int ycoord, String floor, String building, String type, String shortName) {
         this.name = name;
         this.id = id;
-        this.xCoord = xCoord;
-        this.yCoord = yCoord;
+        this.xcoord = xcoord;
+        this.ycoord = ycoord;
         this.floor = floor;
         this.building = building;
         this.type = type;
@@ -67,20 +67,20 @@ public class Node {
         this.id = id;
     }
 
-    public int getxCoord() {
-        return xCoord;
+    public int getXcoord() {
+        return xcoord;
     }
 
-    public void setxCoord(int xCoord) {
-        this.xCoord = xCoord;
+    public void setXcoord(int xcoord) {
+        this.xcoord = xcoord;
     }
 
-    public int getyCoord() {
-        return yCoord;
+    public int getYcoord() {
+        return ycoord;
     }
 
-    public void setyCoord(int yCoord) {
-        this.yCoord = yCoord;
+    public void setYcoord(int ycoord) {
+        this.ycoord = ycoord;
     }
 
     public Boolean getVisited() {
