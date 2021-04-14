@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
+    <children>
+        <HBox alignment="CENTER" layoutY="96.0" prefHeight="200.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="410.0">
+                    <children>
+                        <JFXButton fx:id="languageInterpretersBtn" buttonType="RAISED" minWidth="-Infinity" onAction="#languageInterpretersBtn" prefWidth="190.0" ripplerFill="WHITE" style="-fx-background-color: red;" text="Language Interpreters" textFill="WHITE" />
+                        <JFXButton fx:id="medicineDeliveryServiceBtn" buttonType="RAISED" onAction="#medicineDeliveryServiceBtn" prefWidth="190.0" style="-fx-background-color: blue;" text="Medicine Delivery Service" textFill="WHITE" translateY="50.0" />
+                        <JFXButton fx:id="sanitationServiceBtn" buttonType="RAISED" onAction="#sanitationServiceBtn" prefHeight="25.0" prefWidth="190.0" ripplerFill="BLACK" style="-fx-background-color: green;" text="Sanitation Service" textFill="WHITE" translateY="100.0">
+                            <effect>
+                                <ColorInput />
+                            </effect>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: purple;" text="AAA" textFill="WHITE" translateY="150.0" />
+                    </children>
+                </VBox>
+                <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="410.0">
+                    <children>
+                        <JFXButton fx:id="laundryServicesBtn" onAction="#laundryServicesBtn" prefWidth="190.0" style="-fx-background-color: red;" text="Laundry Services" textFill="WHITE" />
+                        <JFXButton fx:id="externalPatientTransportationBtn" onAction="#externalPatientTransportationBtn" prefWidth="190.0" style="-fx-background-color: blue;" text="External Patient Transportation" textFill="WHITE" translateY="50.0" />
+                        <JFXButton prefWidth="190.0" style="-fx-background-color: green;" text="AAA" textFill="WHITE" translateY="100.0" />
+                        <JFXButton prefWidth="190.0" style="-fx-background-color: purple;" text="AAA" textFill="WHITE" translateY="150.0" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <Text layoutX="138.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests">
+            <font>
+                <Font size="44.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>
