@@ -51,7 +51,7 @@ public class AStar {
         rootNode.setVisited(true);
         System.out.println(rootNode.getName());
 
-        //no need to stick around if we are the target node || we are not the shortest path
+        //no need to stick around if we are the target node
         if(rootNode == targetNode || rootNode.getLocalDist() >= pathLength) {
             if(!stack.isEmpty()) {
                 //removing this line will stop the search immediately if target is found
@@ -63,7 +63,7 @@ public class AStar {
 
         //search all neighbours
         for(Node n : rootNode.getNeighbours()) {
-            System.out.println("Search");
+
             float newLocalDist = rootNode.getLocalDist() + dist(rootNode, n);
             System.out.println(rootNode.getName() + " - " + n.getName() + ": " + newLocalDist);
 
