@@ -22,15 +22,18 @@ public class DBTable {
         this.nodeColumns = nodeColumns;
         this.edgeColumns = edgeColumns;
 
-        this.createTables();
+        this.createTables(false);
 
     }
 
-    private void createTables() {
-        DatabaseInterface.executeUpdate("DROP TABLE " + nodeTable);
-        DatabaseInterface.executeUpdate("DROP TABLE " + edgeTable);
+    private void createTables(boolean doClear) {
+        if (doClear) {
+            DatabaseInterface.executeUpdate("DROP TABLE " + nodeTable);
+            DatabaseInterface.executeUpdate("DROP TABLE " + edgeTable);
+        }
         DatabaseInterface.createTableIfNotExists(nodeTable, this.nodeColumns);
         DatabaseInterface.createTableIfNotExists(edgeTable, this.edgeColumns);
+
     }
 
     public void updateNode(Node n) {
