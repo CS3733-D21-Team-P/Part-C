@@ -1,6 +1,7 @@
 package edu.wpi.p.views;
 
 import edu.wpi.p.App;
+import edu.wpi.p.database.DBTable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,8 +37,15 @@ public class MapPEdgeData {
     @FXML
     private Button homeButton;
 
+    private DBTable dbTable = new DBTable();
 
-    public void homeButtonAc(ActionEvent actionEvent) {
+    @FXML
+    private void initialize(){
+
+    }
+
+    @FXML
+    private void homeButtonAc(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
@@ -83,4 +91,17 @@ public class MapPEdgeData {
         stage.show();
     }
 
+
+    @FXML
+    private void addEdgeAc(ActionEvent actionEvent) {
+
+    }
+
+    @FXML
+    private void editEdgeAc(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void deleteEdgeAc(ActionEvent actionEvent) {
+    }
 }

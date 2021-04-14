@@ -30,4 +30,13 @@ public class MapPNodeData {
             ex.printStackTrace();
         }
     }
+
+    public void addNodeAc(ActionEvent actionEvent) {
+    }
+
+    public void editNodeAc(ActionEvent actionEvent) {
+    }
+
+    public void deleteNodeAc(ActionEvent actionEvent) {
+    }
 }
