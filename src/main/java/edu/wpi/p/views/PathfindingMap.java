@@ -170,11 +170,11 @@ public class PathfindingMap {
      * adds buttons and edge lines to map
      */
     public void initialize()  {
-        try {
+//        try {
             graph.genGraph(false);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
         //TODO fix aspect ratio & offset
         double winWidth = imageView.getFitWidth();
