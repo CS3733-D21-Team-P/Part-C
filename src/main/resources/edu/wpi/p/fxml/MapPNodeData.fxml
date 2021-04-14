@@ -12,10 +12,16 @@
         <Button fx:id="addNodeBtn" layoutX="61.0" layoutY="346.0" mnemonicParsing="false" onAction="#addNodeAc" text="Add Node" />
         <Button fx:id="editNodeBtn" layoutX="267.0" layoutY="346.0" mnemonicParsing="false" onAction="#editNodeAc" text="Edit Node" />
         <Button fx:id="deleteNodeBtn" layoutX="456.0" layoutY="346.0" mnemonicParsing="false" onAction="#deleteNodeAc" text="Delete Node" />
-      <TableView fx:id="nodeDataTableView" layoutX="61.0" layoutY="66.0" prefHeight="263.0" prefWidth="480.0">
+      <TableView fx:id="nodeDataTableView" layoutX="-9.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="nodeIDCol" text="nodeID" />
+          <TableColumn fx:id="nodeXCoordCol" text="xCoord" />
+            <TableColumn fx:id="nodeYCoordCol" text="yCoord" />
+            <TableColumn fx:id="nodeFloorCol" text="floor" />
+            <TableColumn fx:id="nodeBuildingCol" text="building" />
+            <TableColumn fx:id="nodeTypeCol" text="nodeType" />
+            <TableColumn fx:id="nodeLongNameCol" text="longName" />
+            <TableColumn fx:id="nodeShortNameCol" text="shortName" />
         </columns>
       </TableView>
       <Button fx:id="homeButton" layoutX="534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />

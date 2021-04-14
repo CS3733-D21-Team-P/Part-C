@@ -1,27 +1,41 @@
 package edu.wpi.p.views;
 
+import AStar.Node;
 import edu.wpi.p.App;
+import edu.wpi.p.database.DBTable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MapPNodeData {
 
-    @FXML
-    private Button addNodeBtn;
-    @FXML
-    private Button editNodeBtn;
-    @FXML
-    private Button deleteNodeBtn;
-    @FXML
-    private TableView nodeDataTableView;
-    @FXML
-    private Button homeButton;
+    @FXML private Button addNodeBtn;
+    @FXML private Button editNodeBtn;
+    @FXML private Button deleteNodeBtn;
+
+    @FXML private TableView<Node> nodeDataTableView;
+    @FXML private TableColumn<Node, String> nodeIDCol;
+    @FXML private TableColumn<Node, Integer> nodeXCoordCol;
+    @FXML private TableColumn<Node, Integer> nodeYCoordCol;
+    @FXML private TableColumn<Node, String> nodeFloorCol;
+    @FXML private TableColumn<Node, String> nodeBuildingCol;
+    @FXML private TableColumn<Node, String> nodeTypeCol;
+    @FXML private TableColumn<Node, String> nodeLongNameCol;
+    @FXML private TableColumn<Node, String> nodeShortNameCol;
+
+    @FXML private Button homeButton;
+
     public void homeButtonAc(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
@@ -29,6 +43,33 @@ public class MapPNodeData {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private DBTable dbTable = new DBTable();
+    private List<Node> nodeDataList = dbTable.getNodes();
+
+    @FXML
+    private void initialize(){
+        //set up the columns in the table
+        nodeIDCol.setCellValueFactory(new PropertyValueFactory<Node, String>("id"));
+        nodeXCoordCol.setCellValueFactory(new PropertyValueFactory<Node, Integer>("xCoord"));
+        nodeYCoordCol.setCellValueFactory(new PropertyValueFactory<Node, Integer>("yCoord"));
+        nodeFloorCol.setCellValueFactory(new PropertyValueFactory<Node, String>("floor"));
+        nodeBuildingCol.setCellValueFactory(new PropertyValueFactory<Node, String>("building"));
+        nodeTypeCol.setCellValueFactory(new PropertyValueFactory<Node, String>("type"));
+        nodeLongNameCol.setCellValueFactory(new PropertyValueFactory<Node, String>("name"));
+        nodeShortNameCol.setCellValueFactory(new PropertyValueFactory<Node, String>("shortName"));
+
+        //load in the edge data
+        nodeDataTableView.setItems(getNodeData());
+    }
+
+    private ObservableList<Node> getNodeData(){
+        ObservableList<Node> nodes = FXCollections.observableArrayList();
+        for (Node n : nodeDataList){
+            nodes.add(n);
+        }
+        return nodes;
     }
 
     public void addNodeAc(ActionEvent actionEvent) {
