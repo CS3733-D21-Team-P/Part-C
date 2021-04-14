@@ -5,6 +5,7 @@ import AStar.Node;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class DBTable {
@@ -59,6 +60,12 @@ public class DBTable {
     public void removeEdge(String nodeIDOne, String nodeIDTwo) {
         String removeCommand = "DELETE FROM " + edgeTable +" WHERE STARTNODE='" + nodeIDOne + "' AND ENDNODE='" + nodeIDTwo + "'";
         DatabaseInterface.executeUpdate(removeCommand);
+    }
+
+    public void updateEdge(String edgeID, Edge edge) {
+        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = "+edge.getEdgeID()+" WHERE nodeID = '"+edge.getEdgeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET STARTNODE = "+edge.getStartNode()+" WHERE nodeID = '"+edge.getEdgeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE nodeID = '"+edge.getEdgeID()+"'");
     }
 
     public void removeNode(String nodeID) {
@@ -124,6 +131,17 @@ public class DBTable {
 //            e.printStackTrace();
 //        }
         return edgeData;
+    }
+
+    public List<Edge> getEdges() {
+        List<List<String>> edgeData = this.getEdgeData();
+        List<DBColumn> dbColumns = DatabaseInterface.getColumns(edgeTable);
+        int edgeID = indexOfColumnByName(dbColumns, "edgeID");
+        int startNode = indexOfColumnByName(dbColumns, "startNode");
+        int endNode = indexOfColumnByName(dbColumns, "endNode");
+        return edgeData.stream()
+                .map(strings -> new Edge(strings.get(edgeID), strings.get(startNode), strings.get(endNode)))
+                .collect(Collectors.toList());
     }
 
 //    private List<String> getNodeString(String line) {
