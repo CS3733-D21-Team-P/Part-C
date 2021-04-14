@@ -1,7 +1,11 @@
 package edu.wpi.p.views;
 
 import edu.wpi.p.App;
+import edu.wpi.p.csv.CSVData;
+import edu.wpi.p.csv.CSVHandler;
+import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DatabaseInterface;
 import edu.wpi.p.database.Edge;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -36,17 +40,17 @@ public class MapPEdgeData{
     @FXML
     private Button deleteEdgeBtn;
     @FXML
-    //private TableView<Edge> edgeDataTableView;
-    private TableView<EdgeData> edgeDataTableView;
+    private TableView<Edge> edgeDataTableView;
+//    private TableView<EdgeData> edgeDataTableView;
     @FXML
-    //private TableColumn<Edge, String> edgeIDCol;
-    private TableColumn<EdgeData, SimpleStringProperty> edgeIDCol;
+    private TableColumn<Edge, String> edgeIDCol;
+//    private TableColumn<EdgeData, SimpleStringProperty> edgeIDCol;
     @FXML
-    //private TableColumn<Edge, String> startNodeCol;
-    private TableColumn<EdgeData, SimpleStringProperty> startNodeCol;
+    private TableColumn<Edge, String> startNodeCol;
+//    private TableColumn<EdgeData, SimpleStringProperty> startNodeCol;
     @FXML
-    //private TableColumn<Edge, String> endNodeCol;
-    private TableColumn<EdgeData, SimpleStringProperty> endNodeCol;
+    private TableColumn<Edge, String> endNodeCol;
+//    private TableColumn<EdgeData, SimpleStringProperty> endNodeCol;
     @FXML
     private Button homeButton;
 
@@ -61,25 +65,28 @@ public class MapPEdgeData{
     }
 
     private DBTable dbTable = new DBTable();
-    //private List<Edge> edgeDataList = dbTable.getEdges();
+    private List<Edge> edgeDataList;
 
     @FXML
-    private void initialize(){
+    private void initialize() throws Exception {
+        DatabaseInterface.init();
+        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
+        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
+        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+        edgeDataList = dbTable.getEdges();
         //set up the columns in the table
-        edgeIDCol.setCellValueFactory(new PropertyValueFactory<EdgeData, SimpleStringProperty>("edgeID"));
-        startNodeCol.setCellValueFactory(new PropertyValueFactory<EdgeData, SimpleStringProperty>("startNode"));
-        endNodeCol.setCellValueFactory(new PropertyValueFactory<EdgeData, SimpleStringProperty>("endNode"));
+        edgeIDCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("edgeID"));
+        startNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("startNode"));
+        endNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("endNode"));
 
         //load in the edge data
         edgeDataTableView.setItems(getEdgeData());
     }
 
-    private ObservableList<EdgeData> getEdgeData(){
-        ObservableList<EdgeData> edges = FXCollections.observableArrayList();
-//        for (Edge e: edgeDataList)
-//            edges.add(e);
-        edges.add(new EdgeData("dummyID", "dummyStart", "dummyEnd"));
-        edges.add(new EdgeData("dummyID1", "dummyStart1", "dummyEnd1"));
+    private ObservableList<Edge> getEdgeData(){
+        ObservableList<Edge> edges = FXCollections.observableArrayList();
+        for (Edge e: edgeDataList)
+            edges.add(e);
         return edges;
     }
 

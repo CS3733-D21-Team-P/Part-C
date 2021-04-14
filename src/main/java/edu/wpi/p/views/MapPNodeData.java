@@ -2,7 +2,11 @@ package edu.wpi.p.views;
 
 import AStar.Node;
 import edu.wpi.p.App;
+import edu.wpi.p.csv.CSVData;
+import edu.wpi.p.csv.CSVHandler;
+import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DatabaseInterface;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,6 +41,9 @@ public class MapPNodeData {
 
     @FXML private Button homeButton;
 
+    public MapPNodeData() throws Exception {
+    }
+
     public void homeButtonAc(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
@@ -46,10 +54,18 @@ public class MapPNodeData {
     }
 
     private DBTable dbTable = new DBTable();
-    private List<Node> nodeDataList = dbTable.getNodes();
+    private List<Node> nodeDataList;
+
+
 
     @FXML
-    private void initialize(){
+    private void initialize() throws Exception {
+        DatabaseInterface.init();
+        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
+        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
+        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+        nodeDataList = dbTable.getNodes();
+
         //set up the columns in the table
         nodeIDCol.setCellValueFactory(new PropertyValueFactory<Node, String>("id"));
         nodeXCoordCol.setCellValueFactory(new PropertyValueFactory<Node, Integer>("xCoord"));
