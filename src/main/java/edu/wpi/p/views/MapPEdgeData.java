@@ -41,16 +41,12 @@ public class MapPEdgeData{
     private Button deleteEdgeBtn;
     @FXML
     private TableView<Edge> edgeDataTableView;
-//    private TableView<EdgeData> edgeDataTableView;
     @FXML
     private TableColumn<Edge, String> edgeIDCol;
-//    private TableColumn<EdgeData, SimpleStringProperty> edgeIDCol;
     @FXML
     private TableColumn<Edge, String> startNodeCol;
-//    private TableColumn<EdgeData, SimpleStringProperty> startNodeCol;
     @FXML
     private TableColumn<Edge, String> endNodeCol;
-//    private TableColumn<EdgeData, SimpleStringProperty> endNodeCol;
     @FXML
     private Button homeButton;
 
@@ -69,7 +65,6 @@ public class MapPEdgeData{
 
     @FXML
     private void initialize() throws Exception {
-        DatabaseInterface.init();
         CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
         CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
         dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
