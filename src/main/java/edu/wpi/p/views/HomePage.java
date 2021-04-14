@@ -23,14 +23,14 @@ public class HomePage {
   public Label addressLabel;
   @FXML
   public TextField searchText;
-  @FXML
-  public Button languageInterpretersBtn;
-  @FXML
-  public Button medicineDeliveryServiceBtn;
-  @FXML
-  public Button laundryServicesBtn;
-  @FXML
-  public Button externalPatientTransportationBtn;
+//  @FXML
+//  public Button languageInterpretersBtn;
+//  @FXML
+//  public Button medicineDeliveryServiceBtn;
+//  @FXML
+//  public Button laundryServicesBtn;
+//  @FXML
+//  public Button externalPatientTransportationBtn;
   @FXML
   public Button nodeButton;
   @FXML

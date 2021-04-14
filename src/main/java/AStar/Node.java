@@ -14,6 +14,10 @@ public class Node {
     private Node parent;
     private float globalDist;
     private float localDist;
+    private String floor;
+    private String type;
+    private String building;
+    private String shortName;
     private List<Node> neighbours;
 
     public Node (String id, String name, int xCoord, int yCoord){
@@ -21,6 +25,20 @@ public class Node {
         this.id = id;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
+        this.visited = false;
+        resetGoals();
+        this.neighbours = new ArrayList<>();
+    }
+
+    public Node(String name, String id, int xCoord, int yCoord, String floor, String building, String type, String shortName) {
+        this.name = name;
+        this.id = id;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+        this.floor = floor;
+        this.building = building;
+        this.type = type;
+        this.shortName = shortName;
         this.visited = false;
         resetGoals();
         this.neighbours = new ArrayList<>();
@@ -115,5 +133,37 @@ public class Node {
 
     public void addNeighbour(Node neighbour) {
         this.neighbours.add(neighbour);
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 }
