@@ -30,6 +30,19 @@ public class AStar {
         //recursive search
         search(rootNode, targetNode);
 
+        System.out.println("END");
+
+        List<Node> path = getPath(targetNode);
+        if(path != null) {
+            System.out.println("Path: ");
+            for (Node n : path) {
+                System.out.print(n.getName() + " - ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("DONE");
+
         return getPath(targetNode);
     }
 
@@ -39,7 +52,7 @@ public class AStar {
         System.out.println(rootNode.getName());
 
         //no need to stick around if we are the target node
-        if(rootNode == targetNode) {
+        if(rootNode == targetNode || rootNode.getLocalDist() >= pathLength) {
             if(!stack.isEmpty()) {
                 //removing this line will stop the search immediately if target is found
                 search(stack.pop(), targetNode);
@@ -49,7 +62,7 @@ public class AStar {
 
         //search all neighbours
         for(Node n : rootNode.getNeighbours()) {
-            System.out.println("Search");
+
             float newLocalDist = rootNode.getLocalDist() + dist(rootNode, n);
             System.out.println(rootNode.getName() + " - " + n.getName() + ": " + newLocalDist);
 
