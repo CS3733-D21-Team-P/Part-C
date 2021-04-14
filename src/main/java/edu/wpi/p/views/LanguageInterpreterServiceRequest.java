@@ -1,5 +1,7 @@
 package edu.wpi.p.views;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -11,11 +13,16 @@ import javafx.scene.control.TextField;
 public class LanguageInterpreterServiceRequest {
 
   @FXML
-  private TextField interpLanguage;
+  private JFXTextField interpLanguage;
   @FXML
-  private TextField interpLoc;
+  private JFXTextField interpLoc;
   @FXML
-  private TextField interpDetails;
+  private JFXTextField interpDetails;
+  @FXML
+  private JFXButton submit;
+  @FXML
+  private JFXButton back;
+
 
   @FXML
   private void advanceScene(ActionEvent e) {

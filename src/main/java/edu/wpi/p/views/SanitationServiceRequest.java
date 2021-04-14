@@ -1,21 +1,32 @@
 package edu.wpi.p.views;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.p.App;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Observable;
+import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class SanitationServiceRequest {
+public class SanitationServiceRequest implements Initializable {
 
     @FXML
     public Label title;
@@ -24,18 +35,56 @@ public class SanitationServiceRequest {
     @FXML
     public Label roomNumber;
     @FXML
-    public Label typeOfService;
+    public Label typeOfSanitation;
     @FXML
     public Label description;
     @FXML
-    public ChoiceBox typeOfServiceBox;
+    public JFXTextField fullNameText;
     @FXML
-    public TextField fullNameText;
+    public JFXTextField roomNumberText;
     @FXML
-    public TextField roomNumberText;
+    public JFXButton submitButton;
     @FXML
-    public TextField descriptionText;
+    public JFXButton helpButton;
+    @FXML
+    public JFXButton cancelButton;
+    @FXML
+    public JFXTextField additionalInfoText;
+    @FXML
+    public JFXComboBox<Label> typeOfSanitationBox;
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        typeOfSanitationBox.getItems().add(new Label("Standard Room Clean"));
+        typeOfSanitationBox.getItems().add(new Label("Heavy Room Clean"));
+        typeOfSanitationBox.getItems().add(new Label("Trash Disposal"));
+        typeOfSanitationBox.getItems().add(new Label("General Janitorial"));
 
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+
+        fullNameText.getValidators().add(validator);
+        validator.setMessage("No Input Given");
+        fullNameText.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue)
+                {
+                    fullNameText.validate();
+                }
+            }
+        });
+
+        roomNumberText.getValidators().add(validator);
+        validator.setMessage("No Input Given");
+        roomNumberText.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue)
+                {
+                    roomNumberText.validate();
+                }
+            }
+        });
+    }
 
     public void cancelPressed(ActionEvent actionEvent) {
         try {
@@ -50,5 +99,11 @@ public class SanitationServiceRequest {
         final String fullNameValue = fullNameText.getText();
         final String roomNumberValue = roomNumberText.getText();
         final String descriptionValue = description.getText();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
