@@ -2,6 +2,7 @@ package edu.wpi.p.views;
 
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.Edge;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,18 +36,32 @@ public class MapPEdgeData{
     @FXML
     private Button deleteEdgeBtn;
     @FXML
+    //private TableView<Edge> edgeDataTableView;
     private TableView<EdgeData> edgeDataTableView;
     @FXML
+    //private TableColumn<Edge, String> edgeIDCol;
     private TableColumn<EdgeData, SimpleStringProperty> edgeIDCol;
     @FXML
+    //private TableColumn<Edge, String> startNodeCol;
     private TableColumn<EdgeData, SimpleStringProperty> startNodeCol;
     @FXML
+    //private TableColumn<Edge, String> endNodeCol;
     private TableColumn<EdgeData, SimpleStringProperty> endNodeCol;
     @FXML
     private Button homeButton;
 
+    @FXML
+    private void homeButtonAc(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private DBTable dbTable = new DBTable();
-    private List<List<String>> edgeDataList = dbTable.getEdgeData();
+    //private List<Edge> edgeDataList = dbTable.getEdges();
 
     @FXML
     private void initialize(){
@@ -61,20 +76,13 @@ public class MapPEdgeData{
 
     private ObservableList<EdgeData> getEdgeData(){
         ObservableList<EdgeData> edges = FXCollections.observableArrayList();
+//        for (Edge e: edgeDataList)
+//            edges.add(e);
         edges.add(new EdgeData("dummyID", "dummyStart", "dummyEnd"));
         edges.add(new EdgeData("dummyID1", "dummyStart1", "dummyEnd1"));
         return edges;
     }
 
-    @FXML
-    private void homeButtonAc(ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
-            App.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
 //    public void fillTable(Stage stage) {
 //        //Label for education
