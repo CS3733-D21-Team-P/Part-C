@@ -39,11 +39,11 @@ public class HomePage {
   public Button pathButton;
 
 
-  public JFXButton languageInterpretersBtn;
-  public JFXButton medicineDeliveryServiceBtn;
-  public JFXButton laundryServicesBtn;
-  public JFXButton externalPatientTransportationBtn;
-  public JFXButton sanitationServiceBtn;
+//  public JFXButton languageInterpretersBtn;
+//  public JFXButton medicineDeliveryServiceBtn;
+//  public JFXButton laundryServicesBtn;
+//  public JFXButton externalPatientTransportationBtn;
+//  public JFXButton sanitationServiceBtn;
 
   @FXML
   private void advanceScene(ActionEvent e) {

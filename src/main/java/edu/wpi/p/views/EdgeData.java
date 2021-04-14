@@ -22,6 +22,9 @@ public class EdgeData {
     public void setEndNode(String fpath){
         startNode.set(fpath);
     }
+    public String getEndNode() {
+        return endNode.get();
+    }
     public String getSize(){
         return endNode.get();
     }
