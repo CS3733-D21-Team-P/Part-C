@@ -39,6 +39,8 @@ public class HomePage {
   public Button edgeButton;
   @FXML
   public Button pathButton;
+  @FXML
+  public Button SRoption;
 
 
 //  public JFXButton languageInterpretersBtn;
@@ -66,7 +68,8 @@ public class HomePage {
     }
   }
 
-  public void medicineDeliveryServiceBtn(ActionEvent actionEvent) {
+  public void medicineDeliveryServiceBtn(ActionEvent actionEvent) {}
+
   public void SRoptionAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
