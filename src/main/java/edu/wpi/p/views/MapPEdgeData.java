@@ -67,9 +67,9 @@ public class MapPEdgeData{
 
     @FXML
     private void initialize() throws Exception {
-        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
-        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
-        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+//        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
+//        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
+//        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
         edgeDataList = dbTable.getEdges();
         //set up the columns in the table
         edgeIDCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("edgeID"));
@@ -146,9 +146,9 @@ public class MapPEdgeData{
 
     @FXML
     private void importEdgeCSVBtn(ActionEvent actionEvent) throws Exception {
-        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
         CSVData edgeData = CSVHandler.readCSVFile(edgeFilepathField.getText());
-        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+        dbTable.clearEdges();
+        CSVDBConverter.addCSVEdgesToTable(dbTable, edgeData);
         edgeDataList = dbTable.getEdges();
         edgeDataTableView.setItems(getEdgeData());
     }

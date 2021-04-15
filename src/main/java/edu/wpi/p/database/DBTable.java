@@ -42,7 +42,7 @@ public class DBTable {
 
     public boolean createEdgeTable(List<DBColumn> columns) {
         this.edgeColumns = columns;
-        return DatabaseInterface.createTableIfNotExists(nodeTable, columns);
+        return DatabaseInterface.createTableIfNotExists(edgeTable, columns);
     }
 
     public void clearNodes() {

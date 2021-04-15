@@ -78,9 +78,9 @@ public class MapPNodeData {
 
     @FXML
     private void initialize() throws Exception {
-        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
-        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
-        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+//        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
+//        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
+//        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
         nodeDataList = dbTable.getNodes();
 
         //set up the columns in the table
@@ -232,8 +232,9 @@ public class MapPNodeData {
     @FXML
     private void importNodeCSVBtn(ActionEvent actionEvent) throws Exception {
         CSVData nodeData = CSVHandler.readCSVFile(nodeFilepathField.getText());
-        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
-        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+
+        dbTable.clearNodes();
+        CSVDBConverter.addCSVNodesToTable(dbTable, nodeData);
         nodeDataList = dbTable.getNodes();
         nodeDataTableView.setItems(getNodeData());
     }
