@@ -5,9 +5,7 @@ import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
-import edu.wpi.p.database.DatabaseInterface;
 import edu.wpi.p.database.Edge;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,23 +14,27 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
-
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.io.IOException;
 import java.util.List;
 
 public class MapPEdgeData{
 
+    @FXML
+    private TextField edgeFilepathField;
+    @FXML
+    private Button importEdgeCSV;
+    @FXML
+    private Button saveEdgeCSV;
+    @FXML
+    private TextField textFieldEndNode;
+    @FXML
+    private TextField textFieldEdgeID;
+    @FXML
+    private TextField textFieldStartNode;
     @FXML
     private Button addEdgeBtn;
     @FXML
@@ -76,6 +78,12 @@ public class MapPEdgeData{
 
         //load in the edge data
         edgeDataTableView.setItems(getEdgeData());
+        edgeDataTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        edgeDataTableView.getSelectionModel().setCellSelectionEnabled(true);
+        edgeDataTableView.setEditable(true);
+        edgeIDCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        startNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        endNodeCol.setCellFactory(TextFieldTableCell.forTableColumn());
     }
 
     private ObservableList<Edge> getEdgeData(){
@@ -87,15 +95,69 @@ public class MapPEdgeData{
 
     @FXML
     private void addEdgeAc(ActionEvent actionEvent) {
+        Edge edge = new Edge(textFieldEdgeID.getText(), textFieldStartNode.getText(), textFieldEndNode.getText());
+        edgeDataTableView.getItems().add(edge);
 
-
+        DBTable dbTable = new DBTable();
+        dbTable.addEdge(textFieldEdgeID.getText(),textFieldStartNode.getText(), textFieldEndNode.getText());
     }
 
     @FXML
-    private void editEdgeAc(ActionEvent actionEvent) {
+    private void editStartNode(TableColumn.CellEditEvent<Edge, String> startNodeEditEvent) {
+        Edge edge = edgeDataTableView.getSelectionModel().getSelectedItem();
+        edge.setStartNode(startNodeEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition edgeIDPos = edgeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int edgeIDRow = edgeIDPos.getRow();
+        Edge edgeID = edgeDataTableView.getItems().get(edgeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateEdge(edgeID.getEdgeID(), edgeID);
+    }
+
+    @FXML
+    private void editEndNode(TableColumn.CellEditEvent<Edge, String> endNodeEditEvent) {
+        Edge edge = edgeDataTableView.getSelectionModel().getSelectedItem();
+        edge.setEndNode(endNodeEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition edgeIDPos = edgeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int edgeIDRow = edgeIDPos.getRow();
+        Edge edgeID = edgeDataTableView.getItems().get(edgeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateEdge(edgeID.getEdgeID(), edgeID);
+
     }
 
     @FXML
     private void deleteEdgeAc(ActionEvent actionEvent) {
+        //Find Edge
+        TablePosition edgeIDPos = edgeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int edgeIDRow = edgeIDPos.getRow();
+        Edge edge = edgeDataTableView.getItems().get(edgeIDRow);
+        //Remove from DB
+        DBTable dbTable = new DBTable();
+        dbTable.removeEdge(edge.getStartNode(), edge.getEndNode());
+        //Remove from TableView
+        edgeDataTableView.getItems().removeAll(edgeDataTableView.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    private void importEdgeCSVBtn(ActionEvent actionEvent) throws Exception {
+        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
+        CSVData edgeData = CSVHandler.readCSVFile(edgeFilepathField.getText());
+        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+        edgeDataList = dbTable.getEdges();
+        edgeDataTableView.setItems(getEdgeData());
+    }
+
+    @FXML
+    private void exportEdgeCSVBtn(ActionEvent actionEvent) {
+        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
+        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
+        CSVHandler.writeCSVData(newNodes, "newNodes.csv");
+        CSVHandler.writeCSVData(newEdges, "newEdges.csv");
     }
 }

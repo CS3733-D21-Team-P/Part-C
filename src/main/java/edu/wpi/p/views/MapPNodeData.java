@@ -15,6 +15,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.cell.TextFieldTreeCell;
@@ -34,6 +38,10 @@ public class MapPNodeData {
     public TextField tfycoord;
     public TextField tffloor;
     public TextField tfshortName;
+    @FXML private TextField nodeFilepathField;
+    @FXML private Button importNodeCSV;
+    @FXML private Button saveNodeCSV;
+
     @FXML private Button addNodeBtn;
     @FXML private Button editNodeBtn;
     @FXML private Button deleteNodeBtn;
@@ -219,4 +227,22 @@ public class MapPNodeData {
         DBTable dbTable = new DBTable();
         dbTable.updateNode(nodeID);
     }
+
+    @FXML
+    private void importNodeCSVBtn(ActionEvent actionEvent) throws Exception {
+        CSVData nodeData = CSVHandler.readCSVFile(nodeFilepathField.getText());
+        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
+        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+        nodeDataList = dbTable.getNodes();
+        nodeDataTableView.setItems(getNodeData());
+    }
+
+    @FXML
+    private void exportNodeCSVBtn(ActionEvent actionEvent) {
+        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
+        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
+        CSVHandler.writeCSVData(newNodes, "newNodes.csv");
+        CSVHandler.writeCSVData(newEdges, "newEdges.csv");
+    }
+
 }
