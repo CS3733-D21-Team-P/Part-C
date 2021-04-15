@@ -30,14 +30,15 @@ import java.util.List;
 
 public class MapPNodeData {
 
-    public TextField tfName;
-    public TextField tfbuilding;
-    public TextField tfxcoord;
-    public TextField tfnodeType;
-    public TextField tfnodeID;
-    public TextField tfycoord;
-    public TextField tffloor;
-    public TextField tfshortName;
+    @FXML private TextField tfName;
+    @FXML private TextField tfbuilding;
+    @FXML private TextField tfxcoord;
+    @FXML private TextField tfnodeType;
+    @FXML private TextField tfnodeID;
+    @FXML private TextField tfycoord;
+    @FXML private TextField tffloor;
+    @FXML private TextField tfshortName;
+
     @FXML private TextField nodeFilepathField;
     @FXML private Button importNodeCSV;
     @FXML private Button saveNodeCSV;
