@@ -3,7 +3,12 @@ package edu.wpi.p.views;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.App;
 import java.io.IOException;
+import java.util.List;
 
+import edu.wpi.p.csv.CSVData;
+import edu.wpi.p.csv.CSVHandler;
+import edu.wpi.p.database.CSVDBConverter;
+import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.DatabaseInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,6 +62,17 @@ public class HomePage {
   @FXML
   private void initialize(){
     DatabaseInterface.init();
+    List<String> tableNames = DatabaseInterface.getTableNames();
+    if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
+      try {
+        CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
+        CSVData edgeData = CSVHandler.readCSVFile("bwPedges.csv");
+        CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    }
   }
 
   public void languageInterpretersBtn(ActionEvent actionEvent) {
