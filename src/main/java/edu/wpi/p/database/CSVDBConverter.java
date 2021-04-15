@@ -66,6 +66,32 @@ public class CSVDBConverter {
         }
         return nodes;
     }
+
+    public static void addCSVNodesToTable(DBTable table, CSVData nodes) {
+        List<Column> nodeColumns = nodes.getAllColumns();
+
+        List<Node> tableNodes = createNodesFromColumns(nodeColumns);
+        List<DBColumn> nodeDBCols = dbColumnsFromCSVColumns(nodeColumns);
+        table.createNodeTable(nodeDBCols);
+
+        for(Node n : tableNodes) {
+            table.addNode(n);
+        }
+    }
+
+    public static void addCSVEdgesToTable(DBTable table, CSVData edges) {
+        List<Column> edgeColumns = edges.getAllColumns();
+
+        List<DBColumn> edgeDBCols = dbColumnsFromCSVColumns(edgeColumns);
+        table.createEdgeTable(edgeDBCols);
+
+        List<String> edgeIDs =  edgeColumns.get(0).getData();
+        List<String> startNodes = edgeColumns.get(1).getData();
+        List<String> endNodes = edgeColumns.get(2).getData();
+        for (int i = 0; i < edgeIDs.size(); i++) {
+            table.addEdge(edgeIDs.get(i), startNodes.get(i), endNodes.get(i));
+        }
+    }
     /**
      * Returns a new instance of DBTable filled with the data and columns from CSVData for the nodes and edges
      * @param nodes CSVData parsed from MapNodes.csv

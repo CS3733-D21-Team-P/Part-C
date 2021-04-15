@@ -28,12 +28,29 @@ public class DBTable {
 
     private void createTables(boolean doClear) {
         if (doClear) {
-            DatabaseInterface.executeUpdate("DROP TABLE " + nodeTable);
-            DatabaseInterface.executeUpdate("DROP TABLE " + edgeTable);
+            clearNodes();
+            clearEdges();
         }
         DatabaseInterface.createTableIfNotExists(nodeTable, this.nodeColumns);
         DatabaseInterface.createTableIfNotExists(edgeTable, this.edgeColumns);
+    }
 
+    public boolean createNodeTable(List<DBColumn> columns) {
+        this.nodeColumns = columns;
+        return DatabaseInterface.createTableIfNotExists(nodeTable, columns);
+    }
+
+    public boolean createEdgeTable(List<DBColumn> columns) {
+        this.edgeColumns = columns;
+        return DatabaseInterface.createTableIfNotExists(nodeTable, columns);
+    }
+
+    public void clearNodes() {
+        DatabaseInterface.executeUpdate("DROP TABLE " + nodeTable);
+    }
+
+    public void clearEdges() {
+        DatabaseInterface.executeUpdate("DROP TABLE " + edgeTable);
     }
 
     public void updateNode(Node n) {
@@ -120,15 +137,7 @@ public class DBTable {
     }
 
     public List<List<String>> getEdgeData() {
-        //parse L1Edges
         this.edgeData = DatabaseInterface.getAllFromTable(edgeTable);
-//        try (Scanner scanner = new Scanner(new File("src/main/java/AStar/L1Edges.csv"))) {
-//            while (scanner.hasNextLine()) {
-//                this.edgeData.add(getNodeString(scanner.nextLine()));
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
         return edgeData;
     }
 
@@ -142,17 +151,6 @@ public class DBTable {
                 .map(strings -> new Edge(strings.get(edgeID), strings.get(startNode), strings.get(endNode)))
                 .collect(Collectors.toList());
     }
-
-//    private List<String> getNodeString(String line) {
-//        List<String> values = new ArrayList<>();
-//        try (Scanner rowScanner = new Scanner(line)) {
-//            rowScanner.useDelimiter(",");
-//            while (rowScanner.hasNext()) {
-//                values.add(rowScanner.next());
-//            }
-//        }
-//        return values;
-//    }
 
 
 }
