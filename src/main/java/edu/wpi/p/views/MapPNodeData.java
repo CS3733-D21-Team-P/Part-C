@@ -14,10 +14,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
@@ -67,8 +66,8 @@ public class MapPNodeData {
 
         //set up the columns in the table
         nodeIDCol.setCellValueFactory(new PropertyValueFactory<Node, String>("id"));
-        nodeXCoordCol.setCellValueFactory(new PropertyValueFactory<>("xcoord"));
-        nodeYCoordCol.setCellValueFactory(new PropertyValueFactory<>("ycoord"));
+        nodeXCoordCol.setCellValueFactory(new PropertyValueFactory<Node, Integer>("xcoord"));
+        nodeYCoordCol.setCellValueFactory(new PropertyValueFactory<Node, Integer>("ycoord"));
         nodeFloorCol.setCellValueFactory(new PropertyValueFactory<Node, String>("floor"));
         nodeBuildingCol.setCellValueFactory(new PropertyValueFactory<Node, String>("building"));
         nodeTypeCol.setCellValueFactory(new PropertyValueFactory<Node, String>("type"));
@@ -77,6 +76,18 @@ public class MapPNodeData {
 
         //load in the edge data
         nodeDataTableView.setItems(getNodeData());
+        nodeDataTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        nodeDataTableView.getSelectionModel().setCellSelectionEnabled(true);
+        nodeDataTableView.setEditable(true);
+        nodeIDCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        //nodeXCoordCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        //nodeYCoordCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nodeFloorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nodeBuildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nodeTypeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nodeLongNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nodeShortNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
     }
 
     private ObservableList<Node> getNodeData(){
@@ -88,11 +99,21 @@ public class MapPNodeData {
     }
 
     public void addNodeAc(ActionEvent actionEvent) {
+
     }
 
     public void editNodeAc(ActionEvent actionEvent) {
     }
 
     public void deleteNodeAc(ActionEvent actionEvent) {
+        //Find Node
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node node = nodeDataTableView.getItems().get(nodeIDRow);
+        //Remove from DB
+        DBTable dbTable = new DBTable();
+        dbTable.removeNode(node.getId());
+        //Remove from TableView
+        nodeDataTableView.getItems().removeAll(nodeDataTableView.getSelectionModel().getSelectedItem());
     }
 }

@@ -25,14 +25,14 @@ public class HomePage {
   public Label addressLabel;
   @FXML
   public TextField searchText;
-//  @FXML
-//  public Button languageInterpretersBtn;
-//  @FXML
-//  public Button medicineDeliveryServiceBtn;
-//  @FXML
-//  public Button laundryServicesBtn;
-//  @FXML
-//  public Button externalPatientTransportationBtn;
+  @FXML
+  public Button languageInterpretersBtn;
+  @FXML
+  public Button medicineDeliveryServiceBtn;
+  @FXML
+  public Button laundryServicesBtn;
+  @FXML
+  public Button externalPatientTransportationBtn;
   @FXML
   public Button nodeButton;
   @FXML
@@ -41,11 +41,11 @@ public class HomePage {
   public Button pathButton;
 
 
-//  public JFXButton languageInterpretersBtn;
-//  public JFXButton medicineDeliveryServiceBtn;
-//  public JFXButton laundryServicesBtn;
-//  public JFXButton externalPatientTransportationBtn;
-//  public JFXButton sanitationServiceBtn;
+  //public JFXButton languageInterpretersBtn;
+  //public JFXButton medicineDeliveryServiceBtn;
+  //public JFXButton laundryServicesBtn;
+  //public JFXButton externalPatientTransportationBtn;
+  public JFXButton sanitationServiceBtn;
 
   @FXML
   private void advanceScene(ActionEvent e) {
