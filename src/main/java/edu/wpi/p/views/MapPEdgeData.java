@@ -23,9 +23,12 @@ import java.util.List;
 
 public class MapPEdgeData{
 
-    public TextField textFieldEndNode;
-    public TextField textFeildStartNode;
-    public TextField textFieldEdgeID;
+    @FXML
+    private TextField textFieldEndNode;
+    @FXML
+    private TextField textFieldEdgeID;
+    @FXML
+    private TextField textFieldStartNode;
     @FXML
     private Button addEdgeBtn;
     @FXML
@@ -86,11 +89,11 @@ public class MapPEdgeData{
 
     @FXML
     private void addEdgeAc(ActionEvent actionEvent) {
-        Edge edge = new Edge(textFieldEdgeID.getText(), textFeildStartNode.getText(), textFieldEndNode.getText());
+        Edge edge = new Edge(textFieldEdgeID.getText(), textFieldStartNode.getText(), textFieldEndNode.getText());
         edgeDataTableView.getItems().add(edge);
 
         DBTable dbTable = new DBTable();
-        dbTable.addEdge(textFieldEdgeID.getText(),textFeildStartNode.getText(), textFieldEndNode.getText());
+        dbTable.addEdge(textFieldEdgeID.getText(),textFieldStartNode.getText(), textFieldEndNode.getText());
     }
 
     @FXML
