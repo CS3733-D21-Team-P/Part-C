@@ -24,6 +24,12 @@ import java.util.List;
 public class MapPEdgeData{
 
     @FXML
+    private TextField edgeFilepathField;
+    @FXML
+    private Button importEdgeCSV;
+    @FXML
+    private Button saveEdgeCSV;
+    @FXML
     private TextField textFieldEndNode;
     @FXML
     private TextField textFieldEdgeID;
@@ -136,5 +142,22 @@ public class MapPEdgeData{
         dbTable.removeEdge(edge.getStartNode(), edge.getEndNode());
         //Remove from TableView
         edgeDataTableView.getItems().removeAll(edgeDataTableView.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    private void importEdgeCSVBtn(ActionEvent actionEvent) throws Exception {
+        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
+        CSVData edgeData = CSVHandler.readCSVFile(edgeFilepathField.getText());
+        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+        edgeDataList = dbTable.getEdges();
+        edgeDataTableView.setItems(getEdgeData());
+    }
+
+    @FXML
+    private void exportEdgeCSVBtn(ActionEvent actionEvent) {
+        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
+        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
+        CSVHandler.writeCSVData(newNodes, "newNodes.csv");
+        CSVHandler.writeCSVData(newEdges, "newEdges.csv");
     }
 }
