@@ -17,6 +17,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.cell.TextFieldTreeCell;
+import javafx.util.converter.IntegerStringConverter;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
@@ -24,6 +26,14 @@ import java.util.List;
 
 public class MapPNodeData {
 
+    public TextField tfName;
+    public TextField tfbuilding;
+    public TextField tfxcoord;
+    public TextField tfnodeType;
+    public TextField tfnodeID;
+    public TextField tfycoord;
+    public TextField tffloor;
+    public TextField tfshortName;
     @FXML private Button addNodeBtn;
     @FXML private Button editNodeBtn;
     @FXML private Button deleteNodeBtn;
@@ -80,8 +90,8 @@ public class MapPNodeData {
         nodeDataTableView.getSelectionModel().setCellSelectionEnabled(true);
         nodeDataTableView.setEditable(true);
         nodeIDCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        //nodeXCoordCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        //nodeYCoordCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nodeXCoordCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        nodeYCoordCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         nodeFloorCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nodeBuildingCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nodeTypeCol.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -99,10 +109,12 @@ public class MapPNodeData {
     }
 
     public void addNodeAc(ActionEvent actionEvent) {
+        Node node = new Node(tfName.getText(), tfnodeID.getText(), Integer.parseInt(tfxcoord.getText()), Integer.parseInt(tfycoord.getText()),tffloor.getText(),tfbuilding.getText(),tfnodeType.getText(), tfshortName.getText());
+        nodeDataTableView.getItems().add(node);
 
-    }
+        DBTable dbTable = new DBTable();
+        dbTable.addNode(node);
 
-    public void editNodeAc(ActionEvent actionEvent) {
     }
 
     public void deleteNodeAc(ActionEvent actionEvent) {
@@ -115,5 +127,96 @@ public class MapPNodeData {
         dbTable.removeNode(node.getId());
         //Remove from TableView
         nodeDataTableView.getItems().removeAll(nodeDataTableView.getSelectionModel().getSelectedItem());
+    }
+
+    public void Editxcoord(TableColumn.CellEditEvent<Node, Integer> xcoordEditEvent) {
+        Node node = nodeDataTableView.getSelectionModel().getSelectedItem();
+        node.setXcoord(xcoordEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(nodeID);
+    }
+
+    public void Editycoord(TableColumn.CellEditEvent<Node, Integer> ycoordEditEvent) {
+        Node node = nodeDataTableView.getSelectionModel().getSelectedItem();
+        node.setYcoord(ycoordEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(nodeID);
+    }
+
+    public void Editfloor(TableColumn.CellEditEvent<Node, String> floorEditEvent) {
+        Node node = nodeDataTableView.getSelectionModel().getSelectedItem();
+        node.setFloor(floorEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(nodeID);
+    }
+
+    public void Editbuilding(TableColumn.CellEditEvent<Node, String> buildingEditEvent) {
+        Node node = nodeDataTableView.getSelectionModel().getSelectedItem();
+        node.setBuilding(buildingEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(nodeID);
+    }
+
+    public void EditnodeType(TableColumn.CellEditEvent<Node, String> typeEditEvent) {
+        Node node = nodeDataTableView.getSelectionModel().getSelectedItem();
+        node.setType(typeEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(nodeID);
+    }
+
+    public void EditlongName(TableColumn.CellEditEvent<Node, String> longNameEditEvent) {
+        Node node = nodeDataTableView.getSelectionModel().getSelectedItem();
+        node.setName(longNameEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(nodeID);
+    }
+
+    public void EditshortName(TableColumn.CellEditEvent<Node, String> shortNameEditEvent) {
+        Node node = nodeDataTableView.getSelectionModel().getSelectedItem();
+        node.setShortName(shortNameEditEvent.getNewValue());
+
+        //Find Edge
+        TablePosition nodeIDPos = nodeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int nodeIDRow = nodeIDPos.getRow();
+        Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(nodeID);
     }
 }

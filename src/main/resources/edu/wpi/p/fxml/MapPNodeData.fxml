@@ -4,26 +4,34 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.MapPNodeData">
+<AnchorPane prefHeight="464.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.MapPNodeData">
     <children>
         <Label layoutX="67.0" layoutY="36.0" text="Node Data" />
-        <Button fx:id="addNodeBtn" layoutX="61.0" layoutY="346.0" mnemonicParsing="false" onAction="#addNodeAc" text="Add Node" />
-        <Button fx:id="editNodeBtn" layoutX="267.0" layoutY="346.0" mnemonicParsing="false" onAction="#editNodeAc" text="Edit Node" />
-        <Button fx:id="deleteNodeBtn" layoutX="456.0" layoutY="346.0" mnemonicParsing="false" onAction="#deleteNodeAc" text="Delete Node" />
+        <Button fx:id="addNodeBtn" layoutX="492.0" layoutY="385.0" mnemonicParsing="false" onAction="#addNodeAc" text="Add Node" />
+        <Button fx:id="deleteNodeBtn" layoutX="492.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteNodeAc" prefHeight="35.0" prefWidth="83.0" text="Delete Node" />
       <TableView fx:id="nodeDataTableView" layoutX="-9.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
         <columns>
           <TableColumn fx:id="nodeIDCol" text="nodeID" />
-          <TableColumn fx:id="nodeXCoordCol" text="xCoord" />
-            <TableColumn fx:id="nodeYCoordCol" text="yCoord" />
-            <TableColumn fx:id="nodeFloorCol" text="floor" />
-            <TableColumn fx:id="nodeBuildingCol" text="building" />
-            <TableColumn fx:id="nodeTypeCol" text="nodeType" />
-            <TableColumn fx:id="nodeLongNameCol" text="longName" />
-            <TableColumn fx:id="nodeShortNameCol" text="shortName" />
+          <TableColumn fx:id="nodeXCoordCol" onEditCommit="#Editxcoord" text="xCoord" />
+            <TableColumn fx:id="nodeYCoordCol" onEditCommit="#Editycoord" text="yCoord" />
+            <TableColumn fx:id="nodeFloorCol" onEditCommit="#Editfloor" text="floor" />
+            <TableColumn fx:id="nodeBuildingCol" onEditCommit="#Editbuilding" text="building" />
+            <TableColumn fx:id="nodeTypeCol" onEditCommit="#EditnodeType" text="nodeType" />
+            <TableColumn fx:id="nodeLongNameCol" onEditCommit="#EditlongName" text="longName" />
+            <TableColumn fx:id="nodeShortNameCol" onEditCommit="#EditshortName" text="shortName" />
         </columns>
       </TableView>
       <Button fx:id="homeButton" layoutX="534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
+      <TextField fx:id="tfName" layoutX="22.0" layoutY="334.0" promptText="Name" />
+      <TextField fx:id="tfbuilding" layoutX="276.0" layoutY="359.0" promptText="building" />
+      <TextField fx:id="tfxcoord" layoutX="22.0" layoutY="385.0" promptText="xcoord" />
+      <TextField fx:id="tfnodeType" layoutX="276.0" layoutY="385.0" promptText="nodeType" />
+      <TextField fx:id="tfnodeID" layoutX="22.0" layoutY="359.0" promptText="nodeID" />
+      <TextField fx:id="tfycoord" layoutX="22.0" layoutY="412.0" promptText="ycoord" />
+      <TextField fx:id="tffloor" layoutX="276.0" layoutY="333.0" promptText="floor" />
+      <TextField fx:id="tfshortName" layoutX="276.0" layoutY="412.0" promptText="shortName" />
     </children>
 </AnchorPane>
