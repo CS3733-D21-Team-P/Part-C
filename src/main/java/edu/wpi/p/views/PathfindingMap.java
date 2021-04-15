@@ -4,8 +4,11 @@ import AStar.AStar;
 import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
+import edu.wpi.p.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import AStar.NodeGraph;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +134,14 @@ public class PathfindingMap {
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
+        }
+    }
+    public void homeButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 

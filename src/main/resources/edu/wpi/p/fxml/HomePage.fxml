@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="1562.0" layoutY="160.0" prefHeight="35.0" prefWidth="292.0">
          <children>
@@ -21,10 +21,9 @@
       </VBox>
       <TextField fx:id="searchText" alignment="CENTER" layoutX="1567.0" layoutY="212.0" prefHeight="23.0" prefWidth="282.0" promptText="Search" />
       <Label fx:id="hospitalNameLabel" alignment="CENTER" layoutX="171.0" layoutY="195.0" prefHeight="35.0" prefWidth="282.0" text="Magic cures diseases, you are worthy of trust." />
-      <Button layoutX="1508.0" layoutY="748.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="59.0" text="AAAAA" />
       <ImageView fx:id="imageView" fitHeight="135.0" fitWidth="1920.0" layoutX="239.0" layoutY="14.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../../image/建筑.jpg" />
+            <Image url="@../../../../image/BuildingPictures.jpg" />
          </image>
          <viewport>
             <Rectangle2D />
@@ -32,12 +31,12 @@
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="7.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../image/医院标记.jpg" />
+            <Image url="@../../../../image/HospitalLogo.jpg" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="223.0" layoutY="415.0" prefHeight="52.0" prefWidth="257.0">
+      <VBox alignment="CENTER" layoutX="220.0" layoutY="362.0" prefHeight="52.0" prefWidth="257.0">
          <children>
-            <Label text="Language Interpreters" textFill="#108a00">
+            <Label text="Service Request Options" textFill="#108a00">
                <font>
                   <Font name="Yu Mincho Light" size="20.0" />
                </font>
@@ -51,100 +50,15 @@
             <Label text="covering all translation needs">
                <VBox.margin>
                   <Insets bottom="5.0" />
-               </VBox.margin></Label>
-            <Button fx:id="languageInterpretersBtn" mnemonicParsing="false" onAction="#languageInterpretersBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#00a123">
+               </VBox.margin>
+            </Label>
+            <Button fx:id="SRoption" mnemonicParsing="false" onAction="#SRoptionAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#00a123">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin></Button>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="599.0" layoutY="414.0" prefHeight="105.0" prefWidth="257.0">
-         <children>
-            <Label text="Medicine Delivery Service" textFill="#eb6300">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="We always keep moving">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Towards an ever-digital future">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="medicineDeliveryServiceBtn" mnemonicParsing="false" onAction="#medicineDeliveryServiceBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#f55b00">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="1011.0" layoutY="414.0" prefHeight="15.0" prefWidth="194.0">
-         <children>
-            <Label text="Laundry services" textFill="#0029ff">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Provides various laundry services and products">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Meet all customer needs">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="laundryServicesBtn" mnemonicParsing="false" onAction="#laundryServicesBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#0028ff">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="1370.0" layoutY="415.0" prefHeight="61.0" prefWidth="304.0">
-         <children>
-            <Label text="External Patient Transportation" textFill="#ea00ff">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Based on superb technology">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Take high-quality service as the carrier">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Serve patients wholeheartedly">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="externalPatientTransportationBtn" mnemonicParsing="false" onAction="#externalPatientTransportationBtn" prefHeight="23.0" prefWidth="90.0" text="Learn more" textFill="#d300bb">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="258.0" layoutY="696.0" prefHeight="70.0" prefWidth="188.0">
+      <VBox alignment="CENTER" layoutX="634.0" layoutY="363.0" prefHeight="70.0" prefWidth="188.0">
          <children>
             <Label text="Map P Node Data" textFill="#860297">
                <font>
@@ -164,14 +78,14 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="nodeButton" mnemonicParsing="false" onAction="#nodeButtonAc" prefHeight="23.0" prefWidth="142.0" text="Map P Node Data" textFill="#8f03ab">
+            <Button fx:id="nodeButton" mnemonicParsing="false" onAction="#nodeButtonAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#8f03ab">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="595.0" layoutY="696.0" prefHeight="35.0" prefWidth="265.0">
+      <VBox alignment="CENTER" layoutX="976.0" layoutY="363.0" prefHeight="35.0" prefWidth="265.0">
          <children>
             <Label text="Map P Edge Data" textFill="#0220b2">
                <font>
@@ -191,14 +105,14 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="edgeButton" mnemonicParsing="false" onAction="#edgeButtonAc" prefHeight="23.0" prefWidth="124.0" text="Map P Edge Data" textFill="#0400ff">
+            <Button fx:id="edgeButton" mnemonicParsing="false" onAction="#edgeButtonAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#0400ff">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="1003.0" layoutY="696.0" prefHeight="0.0" prefWidth="211.0">
+      <VBox alignment="CENTER" layoutX="1409.0" layoutY="362.0" prefHeight="0.0" prefWidth="211.0">
          <children>
             <Label text="Map with pathfinding" textFill="#f54100">
                <font>
@@ -223,12 +137,17 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="pathButton" mnemonicParsing="false" onAction="#pathButtonAc" prefHeight="23.0" prefWidth="143.0" text="Map with pathfinding" textFill="#ff5100">
+            <Button fx:id="pathButton" mnemonicParsing="false" onAction="#pathButtonAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#ff5100">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
+      <ImageView fitHeight="460.0" fitWidth="1920.0" layoutX="171.0" layoutY="659.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <image>
+            <Image url="@../../../../image/advertising.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

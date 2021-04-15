@@ -2,11 +2,8 @@ package AStar;
 
 import edu.wpi.p.database.DBTable;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class NodeGraph {
 
@@ -34,8 +31,8 @@ public class NodeGraph {
 
     public void scaleGraph(double scaleX, double scaleY) {
         for(Node n : graph) {
-            n.setxCoord((int)(n.getxCoord() * scaleX));
-            n.setyCoord((int)(n.getyCoord() * scaleY));
+            n.setXcoord((int)(n.getXcoord() * scaleX));
+            n.setYcoord((int)(n.getYcoord() * scaleY));
         }
     }
 

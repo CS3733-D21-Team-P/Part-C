@@ -4,11 +4,20 @@ public class DBColumn {
     private String name;
     private String type;
     private String options;
+    private boolean isPrimarykey = false;
 
     public DBColumn(String name, String type, String options) {
         this.name = name;
         this.type = type;
         this.options = options;
+    }
+
+    public boolean isPrimarykey() {
+        return isPrimarykey;
+    }
+
+    public void setPrimarykey(boolean primarykey) {
+        isPrimarykey = primarykey;
     }
 
     public String toString() {

@@ -1,5 +1,7 @@
 package edu.wpi.p.csv;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,7 +13,7 @@ import java.util.stream.Stream;
 /**
  * A static class for parsing a CSV file
  */
-public class CSVReader {
+public class CSVHandler {
 
     /**
      * Splits the csv file line up by comma and trims whitespace
@@ -49,7 +51,7 @@ public class CSVReader {
         // this code can almost assuredly be improved, it's currently a weird mix of lists and streams
         try (Stream<String> lines = Files.lines(Paths.get(filename))) {
             // tokenize all the lines
-            List<List<String>> tokenizedLines = lines.map(CSVReader::splitLine).collect(Collectors.toList());
+            List<List<String>> tokenizedLines = lines.map(CSVHandler::splitLine).collect(Collectors.toList());
             // raise and exception if the rows aren't all the same length, exits the method
             testLinesEqual(tokenizedLines.stream());
 
@@ -68,4 +70,23 @@ public class CSVReader {
         return csvData;
     }
 
+    public static void writeCSVData(CSVData data, String fileName) {
+        try {
+            FileWriter output = new FileWriter(fileName, false);
+
+            List<Column> columns = data.getAllColumns();
+            List<String> columnNames = columns.stream().map(c -> c.getName()).collect(Collectors.toList());
+            output.write(String.join(", ", columnNames) + "\n");
+            int length = columns.get(0).getData().size();
+            for(int i = 0; i < length; i++) {
+                final int indx = i;
+                List<String> values = columns.stream().map(c -> c.getData().get(indx) + "").collect(Collectors.toList());
+                output.write(String.join(", ",  values) + "\n");
+            }
+            output.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
