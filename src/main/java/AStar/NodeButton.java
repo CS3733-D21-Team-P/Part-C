@@ -15,8 +15,8 @@ public class NodeButton extends Button {
     public NodeButton(Node newNode) {
         super();
         this.node = newNode;
-        this.setLayoutX(node.getxCoord());
-        this.setLayoutY(node.getyCoord());
+        this.setLayoutX(node.getXcoord());
+        this.setLayoutY(node.getYcoord());
 
         //set size of button
         this.setMinWidth(maxWidth);

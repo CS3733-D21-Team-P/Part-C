@@ -3,6 +3,8 @@ package edu.wpi.p.views;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.App;
 import java.io.IOException;
+
+import edu.wpi.p.database.DatabaseInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,14 +26,13 @@ public class HomePage {
   @FXML
   public TextField searchText;
   @FXML
-  public Button SRoption;
-//  public Button languageInterpretersBtn;
-//  @FXML
-//  public Button medicineDeliveryServiceBtn;
-//  @FXML
-//  public Button laundryServicesBtn;
-//  @FXML
-//  public Button externalPatientTransportationBtn;
+  public Button languageInterpretersBtn;
+  @FXML
+  public Button medicineDeliveryServiceBtn;
+  @FXML
+  public Button laundryServicesBtn;
+  @FXML
+  public Button externalPatientTransportationBtn;
   @FXML
   public Button nodeButton;
   @FXML
@@ -51,6 +52,21 @@ public class HomePage {
 
   }
 
+  @FXML
+  private void initialize(){
+    DatabaseInterface.init();
+  }
+
+  public void languageInterpretersBtn(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LanguageInterpreterServiceRequest.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public void medicineDeliveryServiceBtn(ActionEvent actionEvent) {
   public void SRoptionAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
