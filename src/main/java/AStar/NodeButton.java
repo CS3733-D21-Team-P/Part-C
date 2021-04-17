@@ -2,6 +2,9 @@ package AStar;
 
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NodeButton extends Button {
     public Node getNode() {
         return node;
@@ -10,6 +13,12 @@ public class NodeButton extends Button {
     private Node node;
     private double maxWidth = 10;
     private double maxHeight = 10;
+
+    public List<EdgeLine> getLines() {
+        return lines;
+    }
+
+    private List<EdgeLine> lines = new ArrayList<EdgeLine>();
 
 
     public NodeButton(Node newNode) {
@@ -31,6 +40,10 @@ public class NodeButton extends Button {
         this.setText(newNode.getName());
 
 
+    }
+
+    public void addLine(EdgeLine el){
+        lines.add(el);
     }
 
     public String getName() {

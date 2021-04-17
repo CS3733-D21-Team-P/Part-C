@@ -20,6 +20,9 @@ public abstract class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
 
+    double scaleX;
+    double scaleY;
+
     @FXML
     public AnchorPane btnPane;
     @FXML
@@ -41,7 +44,8 @@ public abstract class MapController {
         btnPane.getChildren().add(nb); //add to page
         List<Node> children = node.getNeighbours();
         for(Node n: children){
-            addEdgeLine(node, n);
+            EdgeLine el =addEdgeLine(node, n);
+            nb.addLine(el);
         }
 
         buttons.add(nb);
@@ -83,11 +87,11 @@ public abstract class MapController {
         //TODO fix aspect ratio & offset
         double winWidth = imageView.getFitWidth();
         double imageWidth = imageView.getImage().getWidth();
-        double scaleX = winWidth / imageWidth;
+        scaleX = winWidth / imageWidth;
 
         double winHeight = imageView.getFitHeight();
         double imageHeight = imageView.getImage().getHeight();
-        double scaleY = winHeight / imageHeight;
+        scaleY = winHeight / imageHeight;
 
         graph.scaleGraph(scaleX, scaleY);
 

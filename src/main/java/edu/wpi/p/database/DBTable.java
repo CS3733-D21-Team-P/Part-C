@@ -54,8 +54,8 @@ public class DBTable {
     }
 
     public void updateNode(Node n) {
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET floor = '"+n.getFloor()+"' WHERE nodeID = '"+n.getId()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET building = '"+n.getBuilding()+"' WHERE nodeID = '"+n.getId()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET nodeType = '"+n.getType()+"' WHERE nodeID = '"+n.getId()+"'");

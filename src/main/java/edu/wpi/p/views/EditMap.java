@@ -1,10 +1,14 @@
 package edu.wpi.p.views;
 
+import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
+import edu.wpi.p.database.DBTable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 
 public class EditMap extends MapController{
-
+    private DBTable dbTable = new DBTable();
 
     /**
      * creates a button associated  with a node
@@ -20,9 +24,33 @@ public class EditMap extends MapController{
         nb.setOnMouseDragged(e -> {
             nb.setLayoutX(e.getSceneX());
             nb.setLayoutY(e.getSceneY());
+
+        });
+        nb.setOnMouseReleased(event -> {
+            System.out.println("mouse released");
+            Editcoord(nb, nb.getLayoutX(), nb.getLayoutY());
+            for(EdgeLine el: nb.getLines()){
+                el.update(scaleX,scaleY, nb.getNode());
+            }
         });
 
+        nb.setOnMouseClicked(event -> {
+            System.out.println(nb.getNode().getXcoord());
+            System.out.println(nb.getLayoutX());
+        });
         return nb;
+    }
+
+
+    public void Editcoord(NodeButton nb, double newX, double newY) {
+        Node node = nb.getNode();
+        //set to be position without scale
+        node.setYcoord((int)(newY/scaleY));
+        node.setXcoord((int)(newX/scaleX));
+
+        //Update in DB
+        DBTable dbTable = new DBTable();
+        dbTable.updateNode(node);
     }
 
     @Override
