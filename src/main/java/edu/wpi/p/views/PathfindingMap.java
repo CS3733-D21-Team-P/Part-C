@@ -171,7 +171,7 @@ public class PathfindingMap extends MapController{
      * adds buttons and edge lines to map
      */
     public void initialize()  {
-        super.initialize(imageView);
+        super.initialize();
         System.out.println("PATHFINDING INIT");
 
         //add button

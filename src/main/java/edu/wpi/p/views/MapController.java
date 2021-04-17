@@ -75,7 +75,7 @@ public class MapController {
      * run when page starts
      * adds buttons and edge lines to map
      */
-    public void initialize(ImageView imageView)  {
+    public void initialize()  {
 
         graph.genGraph(false);
 
