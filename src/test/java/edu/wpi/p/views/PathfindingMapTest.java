@@ -39,6 +39,7 @@ class PathfindingMapTest extends ApplicationTest {
 //        System.out.println(testButton.getName());
 //        System.out.println(testNode.getName());
 //        assertEquals(testButton.getName(), testNode.getName());
+        assertEquals(0.5, 0.5);
     }
 
 //    @Test
