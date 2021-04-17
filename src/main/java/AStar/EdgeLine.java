@@ -3,13 +3,22 @@ package AStar;
 import javafx.scene.shape.Line;
 
 public class EdgeLine extends Line {
-    private Node node1;
-    private Node node2;
+    public Node getStartNode() {
+        return startNode;
+    }
+
+    private Node startNode;
+
+    public Node getEndNode() {
+        return endNode;
+    }
+
+    private Node endNode;
 
     public EdgeLine(Node start, Node end) {
         super();
-        this.node1 = start;
-        this.node2= end;
+        this.startNode = start;
+        this.endNode = end;
         //set start point
         this.setStartX(start.getXcoord());
         this.setStartY(start.getYcoord());
@@ -21,17 +30,24 @@ public class EdgeLine extends Line {
 
     }
 
+    /**
+     * update the lines location based on nodes new location
+     * @param scaleX : x scale of map
+     * @param scaleY :y scale of map
+     * @param node : the node that has changed
+     */
     public void update(double scaleX, double scaleY, Node node){
-        if(node1 == node){
+        if(startNode == node){
             //set start point
-            this.setStartX(node1.getXcoord()*scaleX);
-            this.setStartY(node1.getYcoord()*scaleY);
+            this.setStartX(startNode.getXcoord()*scaleX);
+            this.setStartY(startNode.getYcoord()*scaleY);
         }
         else{
             //set end point
-            this.setEndX(node2.getXcoord()*scaleX);
-            this.setEndY(node2.getYcoord()*scaleY);
+            this.setEndX(endNode.getXcoord()*scaleX);
+            this.setEndY(endNode.getYcoord()*scaleY);
         }
+        System.out.println("updating:  " + startNode.getName() + " - "+ endNode.getName());
 
 
     }

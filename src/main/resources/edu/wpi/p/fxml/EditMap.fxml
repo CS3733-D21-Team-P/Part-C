@@ -22,9 +22,6 @@
          <children>
              <Button layoutX="1534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
          </children></AnchorPane>
-        <Pane layoutX="10.0" layoutY="10.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-
-        </Pane>
 
 
     </children>

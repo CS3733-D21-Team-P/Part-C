@@ -4,8 +4,6 @@ import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
 import edu.wpi.p.database.DBTable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 
 public class EditMap extends MapController{
     private DBTable dbTable = new DBTable();
@@ -29,8 +27,11 @@ public class EditMap extends MapController{
         nb.setOnMouseReleased(event -> {
             System.out.println("mouse released");
             Editcoord(nb, nb.getLayoutX(), nb.getLayoutY());
+            System.out.println(nb.getName());
             for(EdgeLine el: nb.getLines()){
                 el.update(scaleX,scaleY, nb.getNode());
+                EdgeLine oppositeLine = findEdgeLine(el.getEndNode(), nb.getNode());
+                oppositeLine.update(scaleX,scaleY,nb.getNode());
             }
         });
 

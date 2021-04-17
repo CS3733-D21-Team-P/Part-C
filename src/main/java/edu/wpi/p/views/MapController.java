@@ -19,6 +19,7 @@ import java.util.List;
 public abstract class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
+    List<EdgeLine> allLines = new ArrayList<>();
 
     double scaleX;
     double scaleY;
@@ -46,6 +47,7 @@ public abstract class MapController {
         for(Node n: children){
             EdgeLine el =addEdgeLine(node, n);
             nb.addLine(el);
+            allLines.add(el);
         }
 
         buttons.add(nb);
@@ -54,14 +56,33 @@ public abstract class MapController {
 
     /**
      * creates a line between two nodes
-     * @param node1
-     * @param node2
+     * @param node1: Node
+     * @param node2: Node
      * @return created EdgeLine
      */
     public EdgeLine addEdgeLine(Node node1, Node node2){
         EdgeLine el = new EdgeLine(node1, node2); //create line
         linePane.getChildren().add(el); //add line to screen
         return el;
+    }
+
+    /**
+     * finds an edge with given start and end nodes
+     * @param start: Node
+     * @param end: Node
+     * @return : EdgeLine - edge with corredt start and end else returns null
+     */
+    public EdgeLine findEdgeLine(Node start, Node end){
+        System.out.println("Finding:  "+ start.getName()+ " - "+ end.getName());
+        for(EdgeLine el: allLines){
+            if(el.getEndNode() == end && el.getStartNode()== start){
+                System.out.println("found: "+el.getStartNode().getName()+ " - " +el.getEndNode());
+                return el;
+            }
+        }
+        System.out.println("EDGE NOT FOUND");
+        return null;
+
     }
 
     public void homeButtonAc(ActionEvent actionEvent){
