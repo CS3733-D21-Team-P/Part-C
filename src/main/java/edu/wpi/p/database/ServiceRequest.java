@@ -8,7 +8,7 @@ public class ServiceRequest {
 
 
 
-    public void setName(String name, String location, String ID) {
+    public ServiceRequest (String name, String location, String ID) {
         this.name = name;
         this.ID = ID;
         this.location = location;
