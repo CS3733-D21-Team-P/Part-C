@@ -138,29 +138,21 @@ public class PathfindingMap extends MapController{
     }
 
 
-//    /**
-//     * creates a button associated  with a node
-//     * adds a line to neighbour nodes
-//     * @param node
-//     * @return created NodeButton
-//     */
-//    public NodeButton addNodeButton(Node node){
-//        NodeButton nb = super.addNodeButton(node);
-//        //set on click method
-//        nb.setOnAction(event -> {
-//            addNodeToSearch(event);});
-//
-//        return nb;
-//    }
-
     /**
-     * sets button for pathfinding by adding on action listener
-     * @param nb
-     * @return
+     * creates a button associated  with a node
+     * adds a line to neighbour nodes
+     * adds click function
+     * @param node
+     * @return created NodeButton
      */
-    public NodeButton changeButton(NodeButton nb){
+    @Override
+    public NodeButton addNodeButton(Node node){
+        NodeButton nb = super.addNodeButton(node);
+
+        //set on click method
         nb.setOnAction(event -> {
             addNodeToSearch(event);});
+
         return nb;
     }
 
@@ -170,13 +162,13 @@ public class PathfindingMap extends MapController{
      * run when page starts
      * adds buttons and edge lines to map
      */
+    @Override
     public void initialize()  {
         super.initialize();
         System.out.println("PATHFINDING INIT");
 
-        //add button
-        for(NodeButton nb: buttons){
-            changeButton(nb);
+        for (Node n: graph.getGraph()){
+            addNodeButton(n);
         }
 
     }

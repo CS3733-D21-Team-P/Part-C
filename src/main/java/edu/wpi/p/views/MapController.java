@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapController {
+public abstract class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
 
@@ -91,9 +91,6 @@ public class MapController {
 
         graph.scaleGraph(scaleX, scaleY);
 
-        for (Node n: graph.getGraph()){
-            addNodeButton(n);
-        }
 
     }
 
