@@ -15,11 +15,11 @@ public class DBServiceRequest {
 
 
     private void init() {
-        List<DBColumn> columns = new ArrayList<>();
-        columns.add(new DBColumn("name", "varchar(256)", ""));
-        columns.add(new DBColumn("id", "varchar(256)", ""));
-        columns.add(new DBColumn("location", "varchar(256)", ""));
-        columns.add(new DBColumn("whatever else", "varchar(256)", ""));
+        List<DBColumn> serviceRequestColumn = new ArrayList<>();
+        serviceRequestColumn.add(new DBColumn("name", "varchar(256)", ""));
+        serviceRequestColumn.add(new DBColumn("id", "varchar(256)", ""));
+        serviceRequestColumn.add(new DBColumn("location", "varchar(256)", ""));
+        serviceRequestColumn.add(new DBColumn("whatever else", "varchar(256)", ""));
     }
 
     public void DBServiceRequestTable(List<DBColumn> nodeColumns, List<DBColumn> edgeColumns) {
@@ -37,6 +37,7 @@ public class DBServiceRequest {
         if (doClear) {
             clearServiceRequest();
         }
+        init();
         DatabaseInterface.createTableIfNotExists(serviceRequestTable, this.serviceRequestColumn);
 
     }
