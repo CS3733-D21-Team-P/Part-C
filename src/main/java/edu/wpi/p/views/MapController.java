@@ -102,6 +102,10 @@ public abstract class MapController {
      */
     public void initialize()  {
 
+        buttons = new ArrayList<>();
+        allLines = new ArrayList<>();
+        graph = new NodeGraph();
+
         graph.genGraph(false);
 
         System.out.println("INIT SUPER!!!!");
