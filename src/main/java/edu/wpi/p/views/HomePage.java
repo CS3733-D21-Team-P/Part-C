@@ -1,6 +1,7 @@
 package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import java.io.IOException;
 import java.util.List;
@@ -29,23 +30,22 @@ public class HomePage {
   @FXML
   public Label addressLabel;
   @FXML
-  public TextField searchText;
+  public JFXTextField searchText;
   @FXML
-  public Button languageInterpretersBtn;
+  public JFXButton SRoption;
+//  public Button languageInterpretersBtn;
+//  @FXML
+//  public Button medicineDeliveryServiceBtn;
+//  @FXML
+//  public Button laundryServicesBtn;
+//  @FXML
+//  public Button externalPatientTransportationBtn;
   @FXML
-  public Button medicineDeliveryServiceBtn;
+  public JFXButton nodeButton;
   @FXML
-  public Button laundryServicesBtn;
+  public JFXButton edgeButton;
   @FXML
-  public Button externalPatientTransportationBtn;
-  @FXML
-  public Button nodeButton;
-  @FXML
-  public Button edgeButton;
-  @FXML
-  public Button pathButton;
-  @FXML
-  public Button SRoption;
+  public JFXButton pathButton;
 
 
 //  public JFXButton languageInterpretersBtn;
