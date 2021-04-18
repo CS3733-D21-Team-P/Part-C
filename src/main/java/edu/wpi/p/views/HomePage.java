@@ -1,6 +1,7 @@
 package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -22,9 +23,9 @@ public class HomePage {
   @FXML
   public Label addressLabel;
   @FXML
-  public TextField searchText;
+  public JFXTextField searchText;
   @FXML
-  public Button SRoption;
+  public JFXButton SRoption;
 //  public Button languageInterpretersBtn;
 //  @FXML
 //  public Button medicineDeliveryServiceBtn;
@@ -33,11 +34,11 @@ public class HomePage {
 //  @FXML
 //  public Button externalPatientTransportationBtn;
   @FXML
-  public Button nodeButton;
+  public JFXButton nodeButton;
   @FXML
-  public Button edgeButton;
+  public JFXButton edgeButton;
   @FXML
-  public Button pathButton;
+  public JFXButton pathButton;
 
 
 //  public JFXButton languageInterpretersBtn;
