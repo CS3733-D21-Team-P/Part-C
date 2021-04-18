@@ -4,6 +4,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import java.io.IOException;
+import java.util.List;
+
+import edu.wpi.p.csv.CSVData;
+import edu.wpi.p.csv.CSVHandler;
+import edu.wpi.p.database.CSVDBConverter;
+import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DatabaseInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +58,33 @@ public class HomePage {
   private void advanceScene(ActionEvent e) {
 
   }
+
+  @FXML
+  private void initialize(){
+    DatabaseInterface.init();
+    List<String> tableNames = DatabaseInterface.getTableNames();
+    if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
+      try {
+        CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
+        CSVData edgeData = CSVHandler.readCSVFile("bwPedges.csv");
+        CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    }
+  }
+
+  public void languageInterpretersBtn(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LanguageInterpreterServiceRequest.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public void medicineDeliveryServiceBtn(ActionEvent actionEvent) {}
 
   public void SRoptionAc(ActionEvent actionEvent) {
     try {
