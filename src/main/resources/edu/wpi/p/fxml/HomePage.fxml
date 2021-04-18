@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="1562.0" layoutY="160.0" prefHeight="35.0" prefWidth="292.0">
          <children>
@@ -20,8 +20,8 @@
          </children>
       </VBox>
       <TextField fx:id="searchText" alignment="CENTER" layoutX="1567.0" layoutY="212.0" prefHeight="23.0" prefWidth="282.0" promptText="Search" />
-      <Label fx:id="hospitalNameLabel" alignment="CENTER" layoutX="171.0" layoutY="195.0" prefHeight="35.0" prefWidth="282.0" text="Magic cures diseases, you are worthy of trust." />
-      <ImageView fx:id="imageView" fitHeight="135.0" fitWidth="1920.0" layoutX="239.0" layoutY="14.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="hospitalNameLabel" alignment="CENTER" layoutX="62.0" layoutY="151.0" prefHeight="17.0" prefWidth="271.0" text="Magic cures diseases, you are worthy of trust." />
+      <ImageView fx:id="imageView" fitHeight="126.0" fitWidth="600.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../../../image/BuildingPictures.jpg" />
          </image>
@@ -29,89 +29,14 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="7.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="57.0" fitWidth="75.0" layoutX="7.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../image/HospitalLogo.jpg" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="220.0" layoutY="362.0" prefHeight="52.0" prefWidth="257.0">
-         <children>
-            <Label text="Service Request Options" textFill="#108a00">
-               <font>
-                  <Font name="Yu Mincho Light" size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin></Label>
-            <Label text="Provide a wide range of language services">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" />
-               </VBox.margin></Label>
-            <Label text="covering all translation needs">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="SRoption" mnemonicParsing="false" onAction="#SRoptionAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#00a123">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin></Button>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="634.0" layoutY="363.0" prefHeight="70.0" prefWidth="188.0">
-         <children>
-            <Label text="Map P Node Data" textFill="#860297">
-               <font>
-                  <Font name="Agency FB" size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Check node data">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Add/delete/update node data">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="nodeButton" mnemonicParsing="false" onAction="#nodeButtonAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#8f03ab">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="976.0" layoutY="363.0" prefHeight="35.0" prefWidth="265.0">
-         <children>
-            <Label text="Map P Edge Data" textFill="#0220b2">
-               <font>
-                  <Font name="Agency FB" size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Check edge data">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label alignment="CENTER" text="Add/delete/update edge data">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="edgeButton" mnemonicParsing="false" onAction="#edgeButtonAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#0400ff">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
+      <VBox alignment="CENTER" layoutX="220.0" layoutY="362.0" prefHeight="52.0" prefWidth="257.0" />
+      <VBox alignment="CENTER" layoutX="634.0" layoutY="363.0" prefHeight="70.0" prefWidth="188.0" />
+      <VBox alignment="CENTER" layoutX="976.0" layoutY="363.0" prefHeight="35.0" prefWidth="265.0" />
       <VBox alignment="CENTER" layoutX="1409.0" layoutY="362.0" prefHeight="0.0" prefWidth="211.0">
          <children>
             <Label text="Map with pathfinding" textFill="#f54100">
@@ -144,10 +69,34 @@
             </Button>
          </children>
       </VBox>
-      <ImageView fitHeight="460.0" fitWidth="1920.0" layoutX="171.0" layoutY="659.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Label layoutX="83.0" layoutY="182.0" text="Map P Node Data" textFill="#860297">
+         <font>
+            <Font name="Agency FB" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="nodeButton" layoutX="72.0" layoutY="238.0" mnemonicParsing="false" onAction="#nodeButtonAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#8f03ab" />
+      <Label layoutX="91.0" layoutY="204.0" text="Check node data" />
+      <Label layoutX="67.0" layoutY="221.0" text="Add/delete/update node data" />
+      <ImageView fitHeight="135.0" fitWidth="607.0" layoutX="-6.0" layoutY="269.0" pickOnBounds="true">
          <image>
             <Image url="@../../../../image/advertising.jpg" />
          </image>
       </ImageView>
+      <Label layoutX="226.0" layoutY="179.0" prefHeight="30.0" prefWidth="265.0" text="Service Request Options" textFill="#108a00">
+         <font>
+            <Font name="Yu Mincho Light" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="227.0" layoutY="204.0" text="Provide a wide range of language services" />
+      <Label layoutX="256.0" layoutY="221.0" text="covering all translation needs" />
+      <Button fx:id="SRoption" layoutX="258.0" layoutY="238.0" mnemonicParsing="false" onAction="#SRoptionAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#00a123" />
+      <Label layoutX="477.0" layoutY="182.0" text="Map P Edge Data" textFill="#0220b2">
+         <font>
+            <Font name="Agency FB" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="485.0" layoutY="204.0" text="Check edge data" />
+      <Label alignment="CENTER" layoutX="470.0" layoutY="201.0" prefHeight="57.0" prefWidth="119.0" text="Add/delete/update edge data" />
+      <Button fx:id="edgeButton" layoutX="439.0" layoutY="238.0" mnemonicParsing="false" onAction="#edgeButtonAc" prefHeight="25.0" prefWidth="150.0" text="Learn more" textFill="#0400ff" />
    </children>
 </AnchorPane>
