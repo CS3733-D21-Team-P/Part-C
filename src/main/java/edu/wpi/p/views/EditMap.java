@@ -18,6 +18,10 @@ import java.io.File;
 
 public class EditMap extends MapController{
     private DBTable dbTable = new DBTable();
+    private Boolean isEditingEdges = false;
+
+    private NodeButton edgeNodeStart = null;
+    private NodeButton edgeNodeEnd = null;
 
     @FXML private TextField nodeFilepathField;
 
@@ -51,6 +55,41 @@ public class EditMap extends MapController{
         nb.setOnMouseClicked(event -> {
             System.out.println(nb.getNode().getXcoord());
             System.out.println(nb.getLayoutX());
+
+            if(isEditingEdges){
+                if(edgeNodeStart==null){
+                    edgeNodeStart=nb;
+                }
+                else if(edgeNodeEnd==null){ //both points have been specified so create edge
+                    edgeNodeEnd=nb;
+                    //create line there
+                    EdgeLine el =addEdgeLine(edgeNodeStart.getNode(), edgeNodeEnd.getNode());
+                    //scale lines
+                    el.update(scaleX,scaleY,edgeNodeStart.getNode());
+                    el.update(scaleX,scaleY,edgeNodeEnd.getNode());
+                    edgeNodeStart.addLine(el);
+                    allLines.add(el); //add to list of lines
+
+                    //create opposite line
+                    EdgeLine elOpposite =addEdgeLine(edgeNodeEnd.getNode(), edgeNodeStart.getNode());
+                    //scale lines
+                    elOpposite.update(scaleX,scaleY,edgeNodeStart.getNode());
+                    elOpposite.update(scaleX,scaleY,edgeNodeEnd.getNode());
+                    edgeNodeEnd.addLine(elOpposite);
+                    allLines.add(elOpposite); //add to list of lines
+
+                    //get node ids
+                    String startID =edgeNodeStart.getNode().getId();
+                    String endID = edgeNodeEnd.getNode().getId();
+
+                    // add edge to database
+                    dbTable.addEdge(startID+"_"+endID,startID, endID);
+
+                    //reset start and end so another line can be created
+                    edgeNodeStart=null;
+                    edgeNodeEnd=null;
+                }
+            }
         });
         return nb;
     }
@@ -129,5 +168,12 @@ public class EditMap extends MapController{
         CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
         CSVHandler.writeCSVData(newNodes, "newNodes.csv");
         CSVHandler.writeCSVData(newEdges, "newEdges.csv");
+    }
+
+    @FXML
+    private void switchEditEdges(ActionEvent actionEvent){
+        isEditingEdges = !isEditingEdges;
+        edgeNodeStart = null;
+        edgeNodeEnd = null;
     }
 }
