@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -19,6 +20,9 @@ import java.util.List;
 public class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
+
+    private double maxWidth = 15;
+    private double maxHeight = 15;
 
     @FXML
     public AnchorPane btnPane;
@@ -35,6 +39,34 @@ public class MapController {
      */
     public NodeButton addNodeButton(Node node){
         NodeButton nb = new NodeButton(node); //create button
+
+        //add icons to certain types of nodes
+        String nameOfFile ="";
+        switch (node.getType()) {
+            case "BATH":
+            case "REST":
+                nameOfFile = "/image/icons/restroom.jpg";
+                break;
+            case "RETL":
+                nameOfFile = "/image/icons/retail.png";
+                break;
+            case "ELEV":
+                nameOfFile = "/image/icons/elevator.png";
+                break;
+            case "STAI":
+                nameOfFile = "/image/icons/stairs.png";
+                break;
+            case "EXIT":
+                nameOfFile = "/image/icons/exit.jpg";
+                break;
+        }
+        if (!nameOfFile.isEmpty()) {
+            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile));
+            ImageView iconImage = new ImageView(buttonIcon);
+            iconImage.setFitHeight(maxHeight);
+            iconImage.setFitWidth(maxWidth);
+            nb.setGraphic(iconImage);
+        }
         //set on click method
 //        nb.setOnAction(event -> {
 //            addNodeToSearch(event);});
