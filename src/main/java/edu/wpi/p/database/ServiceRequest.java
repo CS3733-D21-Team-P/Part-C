@@ -2,41 +2,42 @@ package edu.wpi.p.database;
 
 public class ServiceRequest {
 
-    private String name;
-    private String location;
-    private String ID;
+    private String serviceRequestName;
+    private String serviceRequestLocation;
+    private String serviceRequestID;
 
 
 
-    public ServiceRequest (String name, String location, String ID) {
-        this.name = name;
-        this.ID = ID;
-        this.location = location;
+    public ServiceRequest (String serviceRequestName, String serviceRequestLocation, String serviceRequestID) {
+        this.serviceRequestName = serviceRequestName;
+        this.serviceRequestLocation = serviceRequestLocation;
+        this.serviceRequestID = serviceRequestID;
+
+    }
+
+    public String getServiceRequestName() {
+        return serviceRequestName;
+    }
+
+    public void setServiceRequestName(String serviceRequestName) {
+        this.serviceRequestName = serviceRequestName;
+    }
+
+    public String getServiceRequestLocation() {
+        return serviceRequestLocation;
+    }
+
+    public void setServiceRequestLocation(String serviceRequestLocation) {
+        this.serviceRequestLocation = serviceRequestLocation;
+    }
+
+    public String getServiceRequestID() {
+        return serviceRequestID;
+    }
+
+    public void setServiceRequestID(String serviceRequestID) {
+        this.serviceRequestID = serviceRequestID;
     }
 
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
 }
