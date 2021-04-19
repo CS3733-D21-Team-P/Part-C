@@ -14,16 +14,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.File;
+import java.util.List;
 
 public class EditMap extends MapController{
     private DBTable dbTable = new DBTable();
     private Boolean isEditingEdges = false;
+    private Boolean isAddingNodes = false;
+    private int btnIncrement = 1;
 
     private NodeButton edgeNodeStart = null;
     private NodeButton edgeNodeEnd = null;
@@ -47,6 +51,8 @@ public class EditMap extends MapController{
     @FXML private JFXButton submit;
     @FXML private JFXButton close;
     @FXML private AnchorPane propertiesBox;
+    @FXML private ToggleButton toggleEditNodes;
+    @FXML private ToggleButton toggleEditEdges;
 
 
     /**
@@ -86,7 +92,7 @@ public class EditMap extends MapController{
                 if(edgeNodeStart==null){
                     edgeNodeStart=nb;
                 }
-                else if(edgeNodeEnd==null){ //both points have been specified so create edge
+                else if(edgeNodeEnd==null && edgeNodeStart!=nb){ //both points have been specified so create edge
                     edgeNodeEnd=nb;
                     //create line there
                     EdgeLine el =addEdgeLine(edgeNodeStart.getNode(), edgeNodeEnd.getNode());
@@ -116,6 +122,7 @@ public class EditMap extends MapController{
                     edgeNodeEnd=null;
                 }
             }
+
         });
         return nb;
     }
@@ -132,6 +139,28 @@ public class EditMap extends MapController{
         dbTable.updateNode(node);
     }
 
+    /**
+     * returns an unique Id with the base+number where the number increases till the id is unique
+     * @param base: String- base name
+     * @return id: String
+     */
+    public String getNewID(String base){
+        List<String> ids = dbTable.getIDs();
+        String id = base;
+        boolean idFound = false;
+        while(!idFound) {
+            id = base + btnIncrement;
+            if (ids.contains(id)) {
+                System.out.println("contains "+ id);
+                btnIncrement++;
+            }
+            else{
+                idFound=true;
+            }
+        }
+        return id;
+    }
+
     @Override
     public void initialize()  {
         super.initialize();
@@ -142,6 +171,26 @@ public class EditMap extends MapController{
         for (Node n: graph.getGraph()){
             addNodeButton(n);
         }
+
+        //Add Node when screen is clicked
+        btnPane.setOnMouseClicked(event -> {
+            if(isAddingNodes ==true){ //if adding nodes
+                //set x and y to be position of mouse
+                int x = (int) (event.getSceneX());
+                int y = (int) (event.getSceneY());
+                System.out.println("create button: "+x+" , "+y);
+
+                String newId= getNewID("blankNode"); //get new id;
+                System.out.println("ID "+ newId);
+                Node node = new Node(newId, newId, x, y, "1","NONE", "NONE", "node"+btnIncrement);
+                addNodeButton(node);
+
+                //set so not scaled to image
+                node.setXcoord((int)(x/scaleX));
+                node.setYcoord((int)(y/scaleY));
+                dbTable.addNode(node);//add to database
+            }
+        });
 
 
     }
@@ -216,8 +265,17 @@ public class EditMap extends MapController{
     @FXML
     private void switchEditEdges(ActionEvent actionEvent){
         isEditingEdges = !isEditingEdges;
+        isAddingNodes = false;
+        toggleEditNodes.setSelected(false);
         edgeNodeStart = null;
         edgeNodeEnd = null;
+    }
+
+    @FXML
+    private void switchEditNodes(ActionEvent actionEvent){
+        isAddingNodes = !isAddingNodes;
+        isEditingEdges = false;
+        toggleEditEdges.setSelected(false);
     }
 
     @FXML

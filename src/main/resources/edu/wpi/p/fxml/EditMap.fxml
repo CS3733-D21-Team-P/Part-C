@@ -13,41 +13,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EditMap">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EditMap">
     <children>
         <ImageView fx:id="imageView" fitHeight="900.0" fitWidth="1600.0" layoutX="6.0" pickOnBounds="true" preserveRatio="false">
             <image>
                 <Image fx:id="mapImage" url="@Maps/00_thelowerlevel1.png" />
             </image>
         </ImageView>
-          <VBox prefHeight="118.0" prefWidth="182.0" spacing="15.0">
-              <children>
-                  <Button fx:id="importNodeCSV" mnemonicParsing="false" onAction="#importNodeCSVBtn" text="Import Nodes" />
-                  <Button fx:id="importEdgeCSV" mnemonicParsing="false" onAction="#importEdgeCSVBtn" text="Import Edges" />
-                  <Button fx:id="saveEdgeCSV" mnemonicParsing="false" onAction="#exportCSVBtn" text="Export Map to CSVs" />
-            <ToggleButton fx:id="toggleEditEdges" mnemonicParsing="false" onAction="#switchEditEdges" text="Edit Edges" />
-              </children>
-              <padding>
-                  <Insets left="20.0" top="20.0" />
-              </padding>
-          </VBox>
-          <Button mnemonicParsing="false" onAction="#homeButtonAc" text="Home" AnchorPane.rightAnchor="23.200000000000045" AnchorPane.topAnchor="26.0" />
-        <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
-            <children>
-                <Button layoutX="1528.0" layoutY="26.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" AnchorPane.rightAnchor="23.200000000000045" AnchorPane.topAnchor="26.0" />
-                <VBox prefHeight="118.0" prefWidth="182.0" spacing="15.0">
-                    <children>
-                        <Button fx:id="importNodeCSV" mnemonicParsing="false" onAction="#importNodeCSVBtn" text="Import Nodes" />
-                        <Button fx:id="importEdgeCSV" mnemonicParsing="false" onAction="#importEdgeCSVBtn" text="Import Edges" />
-                        <Button fx:id="saveEdgeCSV" mnemonicParsing="false" onAction="#exportCSVBtn" text="Export Map to CSVs" />
-                    </children>
-                    <padding>
-                        <Insets left="20.0" top="20.0" />
-                    </padding>
-                </VBox>
-            </children>
-        </AnchorPane>
-      <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
+
+        <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
         <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
          <children>
             <AnchorPane fx:id="propertiesBox" layoutX="1102.0" layoutY="672.0" prefHeight="214.0" prefWidth="484.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
@@ -99,7 +73,20 @@
                </children>
             </AnchorPane>
          </children>
-      </AnchorPane>
+        </AnchorPane>
+          <VBox prefHeight="118.0" prefWidth="182.0" spacing="15.0">
+              <children>
+                  <Button fx:id="importNodeCSV" mnemonicParsing="false" onAction="#importNodeCSVBtn" text="Import Nodes" />
+                  <Button fx:id="importEdgeCSV" mnemonicParsing="false" onAction="#importEdgeCSVBtn" text="Import Edges" />
+                  <Button fx:id="saveEdgeCSV" mnemonicParsing="false" onAction="#exportCSVBtn" text="Export Map to CSVs" />
+            <ToggleButton fx:id="toggleEditEdges" mnemonicParsing="false" onAction="#switchEditEdges" text="Add Edges" />
+            <ToggleButton fx:id="toggleEditNodes" mnemonicParsing="false" onAction="#switchEditNodes" text="Add Nodes" />
+              </children>
+              <padding>
+                  <Insets left="20.0" top="20.0" />
+              </padding>
+          </VBox>
+          <Button mnemonicParsing="false" onAction="#homeButtonAc" text="Home" AnchorPane.rightAnchor="23.200000000000045" AnchorPane.topAnchor="26.0" />
 
 
 

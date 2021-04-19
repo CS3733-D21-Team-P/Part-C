@@ -136,6 +136,25 @@ public class DBTable {
         return nodes;
     }
 
+    public List<String> getIDs() {
+        //parse L1Nodes
+        List<List<String>> nodeData = DatabaseInterface.getAllFromTable(nodeTable);//new ArrayList<>();
+
+        List<DBColumn> dbColumns = DatabaseInterface.getColumns(nodeTable);
+        int nodeID = indexOfColumnByName(dbColumns, "nodeID");
+
+
+        //create nodes
+        List<String> IDs = new ArrayList<>();
+        for(int i = 1; i < nodeData.size(); i++) {
+            List<String> nodeString = nodeData.get(i);
+            String id = nodeString.get(nodeID);
+            IDs.add(id);
+        }
+
+        return IDs;
+    }
+
     public List<List<String>> getEdgeData() {
         this.edgeData = DatabaseInterface.getAllFromTable(edgeTable);
         return edgeData;
