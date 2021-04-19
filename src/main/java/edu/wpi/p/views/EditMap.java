@@ -3,6 +3,8 @@ package edu.wpi.p.views;
 import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
@@ -10,7 +12,10 @@ import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -24,6 +29,25 @@ public class EditMap extends MapController{
     private NodeButton edgeNodeEnd = null;
 
     @FXML private TextField nodeFilepathField;
+    @FXML private Text name;
+    @FXML private Label id;
+    @FXML private Label floor;
+    @FXML private Label type;
+    @FXML private Label shortName;
+    @FXML private Label building;
+    @FXML private Label xCoordinate;
+    @FXML private Label yCoordinate;
+    @FXML private JFXTextField idText;
+    @FXML private JFXTextField floorText;
+    @FXML private JFXTextField typeText;
+    @FXML private JFXTextField shortNameText;
+    @FXML private JFXTextField buildingText;
+    @FXML private JFXTextField xCoordinateText;
+    @FXML private JFXTextField yCoordinateText;
+    @FXML private JFXButton submit;
+    @FXML private JFXButton close;
+    @FXML private AnchorPane propertiesBox;
+
 
     /**
      * creates a button associated  with a node
@@ -55,6 +79,8 @@ public class EditMap extends MapController{
         nb.setOnMouseClicked(event -> {
             System.out.println(nb.getNode().getXcoord());
             System.out.println(nb.getLayoutX());
+            propertiesBox.setVisible(true);
+            nodeClicked(nb.getNode());
 
             if(isEditingEdges){
                 if(edgeNodeStart==null){
@@ -109,6 +135,7 @@ public class EditMap extends MapController{
     @Override
     public void initialize()  {
         super.initialize();
+        propertiesBox.setVisible(false);
         System.out.println("EDIT INIT");
 
         //add buttons
@@ -171,9 +198,31 @@ public class EditMap extends MapController{
     }
 
     @FXML
+    private void nodeClicked(Node node)
+    {
+        String x = String.valueOf(node.getXcoord());
+        String y = String.valueOf(node.getYcoord());
+
+        name.setText(node.getName());
+        idText.setText(node.getId());
+        floorText.setText(node.getFloor());
+        typeText.setText(node.getType());
+        shortNameText.setText(node.getShortName());
+        buildingText.setText(node.getBuilding());
+        xCoordinateText.setText(x);
+        yCoordinateText.setText(y);
+    }
+
+    @FXML
     private void switchEditEdges(ActionEvent actionEvent){
         isEditingEdges = !isEditingEdges;
         edgeNodeStart = null;
         edgeNodeEnd = null;
+    }
+
+    @FXML
+    private void propertiesDisappear(ActionEvent actionEvent)
+    {
+        propertiesBox.setVisible(false);
     }
 }
