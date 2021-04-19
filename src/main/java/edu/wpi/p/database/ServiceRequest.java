@@ -23,7 +23,7 @@ public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
     }
 
 
-    public StringProperty getName() {
+    public StringProperty getServiceRequestName() {
         return this.name;
     }
 
@@ -32,7 +32,7 @@ public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
     }
 
 
-    public StringProperty getLocation() {
+    public StringProperty getServiceRequestLocation() {
         return this.location;
     }
 
@@ -40,7 +40,7 @@ public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
         this.location = location;
     }
 
-    public StringProperty getID() {
+    public StringProperty getServiceRequestID() {
         return this.ID;
     }
 

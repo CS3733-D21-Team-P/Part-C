@@ -34,7 +34,7 @@ public class RequestLogPage {
         reqName.setPrefWidth(150);
         reqName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
-                return p.getValue().getValue().getName();
+                return p.getValue().getValue().getServiceRequestName();
             }
         });
 
@@ -42,7 +42,7 @@ public class RequestLogPage {
         id.setPrefWidth(150);
         id.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
-                return p.getValue().getValue().getID();
+                return p.getValue().getValue().getServiceRequestID();
             }
         });
 
@@ -50,7 +50,7 @@ public class RequestLogPage {
         location.setPrefWidth(150);
         location.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
-                return p.getValue().getValue().getLocation();
+                return p.getValue().getValue().getServiceRequestLocation();
             }
         });
 
@@ -62,11 +62,8 @@ public class RequestLogPage {
             }
         });
 
-        ServiceRequest completedReq = new ServiceRequest("B", "here", "5", "Doctor");
-        completedReq.completed();
         ObservableList<ServiceRequest> requests = FXCollections.observableArrayList();
         //TODO: loop through DB to add Service requests to tableView
-        requests.add(completedReq);
         requests.add(new ServiceRequest("a", "there", "5", "nurse"));
         requests.add(new ServiceRequest("a", "there", "5", "nurse"));
         requests.add(new ServiceRequest("a", "there", "5", "nurse"));
