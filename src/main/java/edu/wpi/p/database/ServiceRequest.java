@@ -1,42 +1,64 @@
 package edu.wpi.p.database;
 
-public class ServiceRequest {
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-    private String name;
-    private String location;
-    private String ID;
+public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
+
+    private StringProperty name;
+    private StringProperty location;
+    private StringProperty ID;
+    private StringProperty assignment;
+    private boolean complete;
 
 
 
-    public ServiceRequest (String name, String location, String ID) {
+    public ServiceRequest (String name, String location, String ID, String assignment) {
+        this.name = new SimpleStringProperty(name);
+        this.ID = new SimpleStringProperty(ID);
+        this.location = new SimpleStringProperty(location);
+        this.assignment = new SimpleStringProperty(assignment);
+        this.complete = false;
+    }
+
+
+    public StringProperty getName() {
+        return this.name;
+    }
+
+    public void setName(StringProperty name) {
         this.name = name;
-        this.ID = ID;
+    }
+
+
+    public StringProperty getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(StringProperty location) {
         this.location = location;
     }
 
-
-    public String getName() {
-        return name;
+    public StringProperty getID() {
+        return this.ID;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
+    public void setID(StringProperty ID) {
         this.ID = ID;
+    }
+
+    public StringProperty getAssignment() {return this.assignment;}
+
+    public void setAssignment(StringProperty assignment) {
+        this.assignment = assignment;
+    }
+
+    public void completed() {
+        this.complete = true;
+    }
+
+    public boolean getCompleted() {
+        return this.complete;
     }
 }

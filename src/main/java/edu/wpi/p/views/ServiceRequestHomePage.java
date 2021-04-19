@@ -73,4 +73,13 @@ public class ServiceRequestHomePage {
             ex.printStackTrace();
         }
     }
+
+    public void requestLogBtnAc(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/RequestLogPage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
 }

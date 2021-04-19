@@ -21,7 +21,7 @@
                                 <ColorInput />
                             </effect>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: purple;" text="AAA" textFill="WHITE" translateY="150.0" />
+                        <JFXButton fx:id="requestLogBtn" buttonType="RAISED" onAction="#requestLogBtnAc" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: purple;" text="Request Log" textFill="WHITE" translateY="150.0" />
                     </children>
                 </VBox>
                 <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="410.0">
