@@ -1,5 +1,6 @@
 package AStar;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,5 +40,15 @@ public class NodeButton extends Button {
         return node.getName();
     }
 
+    public void pan(Rectangle2D viewport, double scaleX, double scaleY, double offsetScaleX, double offsetScaleY) {
+        this.setLayoutX((node.getXcoord() / scaleX) - viewport.getMinX() / offsetScaleX);
+        this.setLayoutY((node.getYcoord() / scaleY) - viewport.getMinY() / offsetScaleY);
+    }
 
+    public void setButtonSize(double buttonSize) {
+        this.setMinWidth(buttonSize);
+        this.setMinHeight(buttonSize);
+        this.setMaxWidth(buttonSize);
+        this.setMaxHeight(buttonSize);
+    }
 }

@@ -5,9 +5,13 @@ import AStar.Node;
 import AStar.NodeButton;
 import AStar.NodeGraph;
 import edu.wpi.p.App;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +24,10 @@ import java.util.List;
 public class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
+    List<EdgeLine> edgeLines = new ArrayList<>();
+
+    private double zoomSpeed = 1.005;
+    private double minZoomPixels = 800;
 
     private double maxWidth = 15;
     private double maxHeight = 15;
@@ -30,18 +38,21 @@ public class MapController {
     public AnchorPane linePane;
     @FXML
     public ImageView imageView;
+    @FXML
+    public AnchorPane inputPane;
 
     /**
      * creates a button associated  with a node
      * adds a line to neighbour nodes
+     *
      * @param node
      * @return created NodeButton
      */
-    public NodeButton addNodeButton(Node node){
+    public NodeButton addNodeButton(Node node) {
         NodeButton nb = new NodeButton(node); //create button
 
         //add icons to certain types of nodes
-        String nameOfFile ="";
+        String nameOfFile = "";
         switch (node.getType()) {
             case "BATH":
             case "REST":
@@ -72,7 +83,7 @@ public class MapController {
 //            addNodeToSearch(event);});
         btnPane.getChildren().add(nb); //add to page
         List<Node> children = node.getNeighbours();
-        for(Node n: children){
+        for (Node n : children) {
             addEdgeLine(node, n);
         }
 
@@ -82,17 +93,19 @@ public class MapController {
 
     /**
      * creates a line between two nodes
+     *
      * @param node1
      * @param node2
      * @return created EdgeLine
      */
-    public EdgeLine addEdgeLine(Node node1, Node node2){
+    public EdgeLine addEdgeLine(Node node1, Node node2) {
         EdgeLine el = new EdgeLine(node1, node2); //create line
+        edgeLines.add(el); //save for pan and zoom
         linePane.getChildren().add(el); //add line to screen
         return el;
     }
 
-    public void homeButtonAc(ActionEvent actionEvent){
+    public void homeButtonAc(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
@@ -107,26 +120,125 @@ public class MapController {
      * run when page starts
      * adds buttons and edge lines to map
      */
-    public void initialize(ImageView imageView)  {
+    public void initialize(ImageView imageView) {
 
         graph.genGraph(false);
 
         System.out.println("INIT SUPER!!!!");
-        //TODO fix aspect ratio & offset
-        double winWidth = imageView.getFitWidth();
+
         double imageWidth = imageView.getImage().getWidth();
-        double scaleX = winWidth / imageWidth;
-
-        double winHeight = imageView.getFitHeight();
         double imageHeight = imageView.getImage().getHeight();
-        double scaleY = winHeight / imageHeight;
 
-        graph.scaleGraph(scaleX, scaleY);
-
-        for (Node n: graph.getGraph()){
+        for (Node n : graph.getGraph()) {
             addNodeButton(n);
         }
 
+        resetImageView(imageView, imageWidth, imageHeight);
+
+        //pan
+        ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
+
+        btnPane.setOnMousePressed(e -> {
+            System.out.println("Pressed");
+            Point2D mousePress = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            mouseDown.set(mousePress);
+        });
+
+        btnPane.setOnMouseDragged(e -> {
+            System.out.println("Drag");
+            Point2D dragPoint = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            pan(imageView, dragPoint.subtract(mouseDown.get()));
+            mouseDown.set(imageViewToImage(new Point2D(e.getX(), e.getY())));
+        });
+
+        //zoom
+        btnPane.setOnScroll(e -> {
+            //System.out.println("ZOOOOOOOOOOOM");
+            double delta = -e.getDeltaY();
+            Rectangle2D viewport = imageView.getViewport();
+
+            double scrollMin = Math.min( minZoomPixels / viewport.getWidth(), minZoomPixels / viewport.getHeight());
+            double scrollMax = Math.max(imageWidth / viewport.getWidth(), imageHeight / viewport.getHeight());
+            double scale = clamp(Math.pow(zoomSpeed, delta), scrollMin, scrollMax);
+
+            Point2D mouse = imageViewToImage(new Point2D(e.getX(), e.getY()));
+
+            double newWidth = viewport.getWidth() * scale;
+            double newHeight = viewport.getHeight() * scale;
+
+            // newViewportMinX = x - (x - currentViewportMinX) * scale
+            // clamp to stop scroll further out than image size
+            double newMinX = clamp(mouse.getX() - (mouse.getX() - viewport.getMinX()) * scale,
+                    0, imageWidth - newWidth);
+            double newMinY = clamp(mouse.getY() - (mouse.getY() - viewport.getMinY()) * scale,
+                    0, imageHeight - newHeight);
+
+            imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
+            translateGraph(imageView);
+        });
+
+        //reset view
+        btnPane.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                //System.out.println("Reset");
+                resetImageView(imageView, imageWidth, imageHeight);
+            }
+        });
     }
 
+    private void resetImageView(ImageView imageView, double imageWidth, double imageHeight) {
+        imageView.setViewport(new Rectangle2D(0, 0, imageWidth, imageHeight));
+        translateGraph(imageView);
+    }
+
+    private void pan(ImageView imageView, Point2D delta) {
+        Rectangle2D viewport = imageView.getViewport();
+
+        double width = imageView.getImage().getWidth();
+        double height = imageView.getImage().getHeight();
+
+        double maxX = width - viewport.getWidth();
+        double maxY = height - viewport.getHeight();
+
+        double minX = clamp(viewport.getMinX() - delta.getX(), 0, maxX);
+        double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
+
+        imageView.setViewport(new Rectangle2D(minX, minY, viewport.getWidth(), viewport.getHeight()));
+
+        translateGraph(imageView);
+    }
+
+    private double clamp(double value, double min, double max) {
+        if (value < min) {
+            return min;
+        }
+        if (value > max) {
+            return max;
+        }
+        return value;
+    }
+
+    // imageView Point to image Point
+    private Point2D imageViewToImage(Point2D imageViewPoint) {
+        double xPercent = imageViewPoint.getX() / imageView.getBoundsInLocal().getWidth();
+        double yPercent = imageViewPoint.getY() / imageView.getBoundsInLocal().getHeight();
+
+        Rectangle2D viewport = imageView.getViewport();
+        return new Point2D(
+                viewport.getMinX() + xPercent * viewport.getWidth(),
+                viewport.getMinY() + yPercent * viewport.getHeight());
+    }
+
+    private void translateGraph(ImageView imageView) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double offsetScaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        for(NodeButton btn : buttons) {
+            btn.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+        }
+        for(EdgeLine el : edgeLines) {
+            el.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+        }
+    }
 }
