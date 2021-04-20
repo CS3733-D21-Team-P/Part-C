@@ -2,6 +2,7 @@ package edu.wpi.p.views;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.Edge;
 import edu.wpi.p.database.ServiceRequest;
@@ -19,6 +20,7 @@ import javafx.util.Callback;
 import com.jfoenix.controls.JFXTreeTableView;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class RequestLogPage {
@@ -28,6 +30,8 @@ public class RequestLogPage {
     public JFXButton markCompleteBtn;
     public JFXTextField filterField;
     public JFXButton incompleteBtn;
+    private List<ServiceRequest> requestList;
+    private DBServiceRequest dbServiceRequest = new DBServiceRequest();
 
     public void initialize() {
         JFXTreeTableColumn<ServiceRequest, String> reqName = new JFXTreeTableColumn<>("Name");
@@ -54,21 +58,18 @@ public class RequestLogPage {
             }
         });
 
-        JFXTreeTableColumn<ServiceRequest, String> assignment = new JFXTreeTableColumn<>("Location");
+        JFXTreeTableColumn<ServiceRequest, String> assignment = new JFXTreeTableColumn<>("Assignment");
         assignment.setPrefWidth(150);
         assignment.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
                 return p.getValue().getValue().getAssignment();
             }
         });
-
+        requestList = dbServiceRequest.getServiceRequests();
         ObservableList<ServiceRequest> requests = FXCollections.observableArrayList();
-        //TODO: loop through DB to add Service requests to tableView
-        requests.add(new ServiceRequest("a", "there", "5", "nurse"));
-        requests.add(new ServiceRequest("a", "there", "5", "nurse"));
-        requests.add(new ServiceRequest("a", "there", "5", "nurse"));
-        requests.add(new ServiceRequest("a", "there", "5", "nurse"));
-        requests.add(new ServiceRequest("a", "there", "5", "nurse"));
+        for (ServiceRequest r : requestList) {
+            requests.add(new ServiceRequest(r.getServiceRequestName(), r.getServiceRequestLocation(), r.getServiceRequestID(), r.getAssignment()));
+        }
 
         final TreeItem<ServiceRequest> root = new RecursiveTreeItem<>(requests, RecursiveTreeObject::getChildren);
         ReqLogView.getColumns().setAll(reqName, location, id, assignment);

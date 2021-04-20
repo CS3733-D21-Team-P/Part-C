@@ -22,6 +22,14 @@ public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
         this.complete = false;
     }
 
+    public ServiceRequest (StringProperty name, StringProperty location, StringProperty ID, StringProperty assignment) {
+        this.name = name;
+        this.ID = ID;
+        this.location = location;
+        this.assignment = assignment;
+        this.complete = false;
+    }
+
 
     public StringProperty getServiceRequestName() {
         return this.name;
