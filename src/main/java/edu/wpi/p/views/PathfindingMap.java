@@ -105,6 +105,7 @@ public class PathfindingMap extends MapController{
                 if(i>0) {
                     EdgeLine line = addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+                    super.translateGraph(imageView);
                     pathLine.add(line);
                 }
             }

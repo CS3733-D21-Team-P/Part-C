@@ -175,13 +175,19 @@ public class MapController {
 
         System.out.println("INIT SUPER!!!!");
 
-        double imageWidth = imageView.getImage().getWidth();
-        double imageHeight = imageView.getImage().getHeight();
         changeFloors();
 
         for (Node n : graph.getGraph()) {
             addNodeButton(n);
         }
+
+        panAndZoomEvents();
+    }
+
+    private void panAndZoomEvents() {
+
+        double imageWidth = imageView.getImage().getWidth();
+        double imageHeight = imageView.getImage().getHeight();
 
         resetImageView(imageView, imageWidth, imageHeight);
 
@@ -279,7 +285,7 @@ public class MapController {
                 viewport.getMinY() + yPercent * viewport.getHeight());
     }
 
-    private void translateGraph(ImageView imageView) {
+    void translateGraph(ImageView imageView) {
         double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
         double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
         double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
