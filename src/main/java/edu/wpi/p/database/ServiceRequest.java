@@ -27,8 +27,8 @@ public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
         return this.name;
     }
 
-    public void setName(StringProperty name) {
-        this.name = name;
+    public void setName(String name) {
+        this.name.setValue(name);
     }
 
 
@@ -36,22 +36,22 @@ public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
         return this.location;
     }
 
-    public void setLocation(StringProperty location) {
-        this.location = location;
+    public void setLocation(String location) {
+        this.location.setValue(location);
     }
 
     public StringProperty getServiceRequestID() {
         return this.ID;
     }
 
-    public void setID(StringProperty ID) {
-        this.ID = ID;
+    public void setID(String ID) {
+        this.ID.setValue(ID);
     }
 
     public StringProperty getAssignment() {return this.assignment;}
 
-    public void setAssignment(StringProperty assignment) {
-        this.assignment = assignment;
+    public void setAssignment(String assignment) {
+        this.assignment.setValue(assignment);
     }
 
     public void completed() {
