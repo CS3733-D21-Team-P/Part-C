@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EditMap">
     <children>
         <ImageView fx:id="imageView" fitHeight="900.0" fitWidth="1600.0" layoutX="6.0" pickOnBounds="true" preserveRatio="false">
@@ -20,10 +21,15 @@
       <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
         <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
          <children>
-             <Button layoutX="1534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
+             <Button fx:id="pathHomeBtn" layoutX="1534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
          </children></AnchorPane>
         <Pane layoutX="10.0" layoutY="10.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-
+            <VBox layoutX="10.0" prefHeight="212.0" prefWidth="174.0">
+                <children>
+                    <Label text="Floor:" />
+                    <ChoiceBox fx:id="floorChoiceBox" prefWidth="150.0" />
+                </children>
+            </VBox>
         </Pane>
 
 

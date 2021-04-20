@@ -7,12 +7,18 @@ import AStar.NodeGraph;
 import edu.wpi.p.App;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -32,27 +38,30 @@ public class MapController {
     private double maxWidth = 15;
     private double maxHeight = 15;
 
-    @FXML
-    public AnchorPane btnPane;
-    @FXML
-    public AnchorPane linePane;
-    @FXML
-    public ImageView imageView;
-    @FXML
-    public AnchorPane inputPane;
+    private String currFloorVal;
+
+    @FXML public AnchorPane btnPane;
+    @FXML public AnchorPane linePane;
+    @FXML public ImageView imageView;
+    @FXML private ChoiceBox<String> floorChoiceBox;
+    @FXML private Button pathHomeBtn;
+    private ObservableList<javafx.scene.Node> btnPaneSetup;
+    private ObservableList<javafx.scene.Node> linePaneSetup;
+
+    @FXML private Image mapImage;
+    @FXML public AnchorPane inputPane;
 
     /**
      * creates a button associated  with a node
      * adds a line to neighbour nodes
-     *
      * @param node
      * @return created NodeButton
      */
-    public NodeButton addNodeButton(Node node) {
+    public NodeButton addNodeButton(Node node){
         NodeButton nb = new NodeButton(node); //create button
 
         //add icons to certain types of nodes
-        String nameOfFile = "";
+        String nameOfFile ="";
         switch (node.getType()) {
             case "BATH":
             case "REST":
@@ -81,31 +90,31 @@ public class MapController {
         //set on click method
 //        nb.setOnAction(event -> {
 //            addNodeToSearch(event);});
-        btnPane.getChildren().add(nb); //add to page
-        List<Node> children = node.getNeighbours();
-        for (Node n : children) {
+        if (node.getFloor().equals(currFloorVal)) {
+          btnPane.getChildren().add(nb); //add to page
+          List<Node> children = node.getNeighbours();
+          for(Node n: children){
             addEdgeLine(node, n);
+          }
         }
-
         buttons.add(nb);
         return nb;
     }
 
     /**
      * creates a line between two nodes
-     *
      * @param node1
      * @param node2
      * @return created EdgeLine
      */
-    public EdgeLine addEdgeLine(Node node1, Node node2) {
+    public EdgeLine addEdgeLine(Node node1, Node node2){
         EdgeLine el = new EdgeLine(node1, node2); //create line
         edgeLines.add(el); //save for pan and zoom
         linePane.getChildren().add(el); //add line to screen
         return el;
     }
 
-    public void homeButtonAc(ActionEvent actionEvent) {
+    public void homeButtonAc(ActionEvent actionEvent){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
@@ -114,13 +123,53 @@ public class MapController {
         }
     }
 
+    public void changeFloors(){
+        final String[] availableFloors = new String[]{"Ground", "L1","L2","1","2","3"};
+        floorChoiceBox.setItems(FXCollections.observableArrayList(availableFloors));
+        floorChoiceBox.getSelectionModel().select(1);
+        currFloorVal = floorChoiceBox.getSelectionModel().getSelectedItem();
+        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+                currFloorVal = availableFloors[newValue.intValue()];
+                btnPane.getChildren().clear();
+                linePane.getChildren().clear();
+                btnPane.getChildren().add(pathHomeBtn);
+                //buttons.clear();
+                for (Node n: graph.getGraph()){
+                    addNodeButton(n);
+                }
+                switch (currFloorVal) {
+                    case "Ground":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thegroundfloor.png"));
+                        break;
+                    case "L1":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel1.png"));
+                        break;
+                    case "L2":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel2.png"));
+                        break;
+                    case "1":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/01_thefirstfloor.png"));
+                        break;
+                    case "2":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/02_thesecondfloor.png"));
+                        break;
+                    case "3":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/03_thethirdfloor.png"));
+                        break;
+                }
+                imageView.setImage(mapImage);
+            }
+        });
+    }
 
     @FXML
     /**
      * run when page starts
      * adds buttons and edge lines to map
      */
-    public void initialize(ImageView imageView) {
+    public void initialize(ImageView imageView)  {
 
         graph.genGraph(false);
 
@@ -128,6 +177,7 @@ public class MapController {
 
         double imageWidth = imageView.getImage().getWidth();
         double imageHeight = imageView.getImage().getHeight();
+        changeFloors();
 
         for (Node n : graph.getGraph()) {
             addNodeButton(n);
