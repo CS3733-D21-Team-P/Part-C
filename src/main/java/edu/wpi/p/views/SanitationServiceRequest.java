@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.ServiceRequest;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -100,53 +102,16 @@ public class SanitationServiceRequest implements Initializable {
         final String fullNameValue = fullNameText.getText();
         final String roomNumberValue = roomNumberText.getText();
         final String descriptionValue = description.getText();
+        final String typeOfSanitation = typeOfSanitationBox.getTypeSelector();
+        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, "ID", typeOfSanitation);
+        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        dbServiceRequest.addServiceRequest(sR);
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public JFXTextField getFullNameText() {
-        return fullNameText;
-    }
-
-    public void setFullNameText(JFXTextField fullNameText) {
-        this.fullNameText = fullNameText;
-    }
-
-
-    public JFXTextField getRoomNumberText() {
-        return roomNumberText;
-    }
-
-    public void setRoomNumberText(JFXTextField roomNumberText) {
-        this.roomNumberText = roomNumberText;
-    }
-
-    public JFXTextField getAdditionalInfoText() {
-        return additionalInfoText;
-    }
-
-    public void setAdditionalInfoText(JFXTextField additionalInfoText) {
-        this.additionalInfoText = additionalInfoText;
-    }
-
-    public JFXComboBox<Label> getTypeOfSanitationBox() {
-        return typeOfSanitationBox;
-    }
-
-    public void setTypeOfSanitationBox(JFXComboBox<Label> typeOfSanitationBox) {
-        this.typeOfSanitationBox = typeOfSanitationBox;
-    }
-
-    public Label getTitle() {
-        return title;
-    }
-
-    public void setTitle(Label title) {
-        this.title = title;
     }
 
 
