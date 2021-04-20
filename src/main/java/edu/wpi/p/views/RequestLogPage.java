@@ -2,6 +2,7 @@ package edu.wpi.p.views;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.Edge;
@@ -11,6 +12,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TreeItem;
@@ -20,6 +23,7 @@ import javafx.util.Callback;
 import com.jfoenix.controls.JFXTreeTableView;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -30,6 +34,7 @@ public class RequestLogPage {
     public JFXButton markCompleteBtn;
     public JFXTextField filterField;
     public JFXButton incompleteBtn;
+    public JFXButton backBtn;
     private List<ServiceRequest> requestList;
     private DBServiceRequest dbServiceRequest = new DBServiceRequest();
 
@@ -104,5 +109,14 @@ public class RequestLogPage {
                 return !flag;
             }
         });
+    }
+
+    public void backBtnAc(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
