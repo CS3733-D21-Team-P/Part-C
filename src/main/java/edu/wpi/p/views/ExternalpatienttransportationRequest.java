@@ -133,11 +133,14 @@ public class ExternalpatienttransportationRequest {
             + "\nTime: " + hour + ":" + min
             + "\nDetail: " + detail
 
-
-
-
     );
 
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
 
   }
 
