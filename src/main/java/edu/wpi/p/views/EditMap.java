@@ -81,83 +81,84 @@ public class EditMap extends MapController{
      */
     @Override
     public NodeButton addNodeButton(Node node){
-        NodeButton nb = super.addNodeButton(node);
-        //set on click method
-        nb.setOnMouseDragged(e -> {
-            nb.setLayoutX(e.getSceneX());
-            nb.setLayoutY(e.getSceneY());
+        //MAKE BUTTON IF ON CURRENT FLOOR
+        if (node.getFloor().equals(getCurrFloorVal())) {
+            System.out.println("adding button edit");
+            NodeButton nb = super.addNodeButton(node);
+            //set on click method
+            nb.setOnMouseDragged(e -> {
+                nb.setLayoutX(e.getSceneX());
+                nb.setLayoutY(e.getSceneY());
 
-        });
-        nb.setOnMouseReleased(event -> {
-            System.out.println("mouse released");
-            Editcoord(nb, nb.getLayoutX(), nb.getLayoutY()); //set new location
-            System.out.println(nb.getName());
-            for(EdgeLine el: nb.getLines()){
-                translateEdge(el);
-                //el.update(imageView, nb.getNode());
-                EdgeLine oppositeLine = findEdgeLine(el.getEndNode(), nb.getNode());
-                //oppositeLine.update(imageView,nb.getNode());
-                translateEdge(oppositeLine);
-            }
-        });
-
-        nb.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY)
-            {
-            System.out.println(nb.getNode().getXcoord());
-            System.out.println(nb.getLayoutX());
-
-            if(isEditingEdges){
-                if(edgeNodeStart==null){
-                    edgeNodeStart=nb;
-                }
-                else if(edgeNodeEnd==null && edgeNodeStart!=nb){ //both points have been specified so create edge
-                    edgeNodeEnd=nb;
-                    //create line there
-                    EdgeLine el =addEdgeLine(edgeNodeStart.getNode(), edgeNodeEnd.getNode());
-                    //scale lines
+            });
+            nb.setOnMouseReleased(event -> {
+                System.out.println("mouse released");
+                Editcoord(nb, nb.getLayoutX(), nb.getLayoutY()); //set new location
+                System.out.println(nb.getName());
+                for (EdgeLine el : nb.getLines()) {
                     translateEdge(el);
+                    //el.update(imageView, nb.getNode());
+                    EdgeLine oppositeLine = findEdgeLine(el.getEndNode(), nb.getNode());
+                    //oppositeLine.update(imageView,nb.getNode());
+                    translateEdge(oppositeLine);
+                }
+            });
+
+            nb.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    System.out.println(nb.getNode().getXcoord());
+                    System.out.println(nb.getLayoutX());
+
+                    if (isEditingEdges) {
+                        if (edgeNodeStart == null) {
+                            edgeNodeStart = nb;
+                        } else if (edgeNodeEnd == null && edgeNodeStart != nb) { //both points have been specified so create edge
+                            edgeNodeEnd = nb;
+                            //create line there
+                            EdgeLine el = addEdgeLine(edgeNodeStart.getNode(), edgeNodeEnd.getNode());
+                            //scale lines
+                            translateEdge(el);
 //                    el.update(scaleX,scaleY,edgeNodeStart.getNode());
 //                    el.update(scaleX,scaleY,edgeNodeEnd.getNode());
-                    edgeNodeStart.addLine(el);
-                    edgeLines.add(el); //add to list of lines
+                            edgeNodeStart.addLine(el);
+                            edgeLines.add(el); //add to list of lines
 
-                    //create opposite line
-                    EdgeLine elOpposite =addEdgeLine(edgeNodeEnd.getNode(), edgeNodeStart.getNode());
-                    //scale lines
-                    translateEdge(elOpposite);
+                            //create opposite line
+                            EdgeLine elOpposite = addEdgeLine(edgeNodeEnd.getNode(), edgeNodeStart.getNode());
+                            //scale lines
+                            translateEdge(elOpposite);
 //                    elOpposite.update(scaleX,scaleY,edgeNodeStart.getNode());
 //                    elOpposite.update(scaleX,scaleY,edgeNodeEnd.getNode());
-                    edgeNodeEnd.addLine(elOpposite);
-                    edgeLines.add(elOpposite); //add to list of lines
+                            edgeNodeEnd.addLine(elOpposite);
+                            edgeLines.add(elOpposite); //add to list of lines
 
-                    //get node ids
-                    String startID =edgeNodeStart.getNode().getId();
-                    String endID = edgeNodeEnd.getNode().getId();
+                            //get node ids
+                            String startID = edgeNodeStart.getNode().getId();
+                            String endID = edgeNodeEnd.getNode().getId();
 
-                    // add edge to database
-                    dbTable.addEdge(startID+"_"+endID,startID, endID);
+                            // add edge to database
+                            dbTable.addEdge(startID + "_" + endID, startID, endID);
 
-                    //reset start and end so another line can be created
-                    edgeNodeStart=null;
-                    edgeNodeEnd=null;
+                            //reset start and end so another line can be created
+                            edgeNodeStart = null;
+                            edgeNodeEnd = null;
+                        }
+                    }
+                } else if (event.getButton() == MouseButton.SECONDARY) {
+                    nodeHold = nb.getNode();
+                    nodeName.setText(nodeHold.getName());
+                    rClickPopup.setVisible(true);
+                    deleteConfirmation.setVisible(false);
+                    TranslateTransition transition = new TranslateTransition(Duration.millis(75), rClickPopup);
+                    transition.setToX(event.getSceneX() - rClickPopup.getLayoutX() - rClickPopup.getWidth() / 2 - event.getX() + 85);
+                    transition.setToY(event.getSceneY() - rClickPopup.getLayoutY() - rClickPopup.getHeight() / 2 - event.getY() - 55);
+                    transition.playFromStart();
                 }
-            }
-            }
-            else if (event.getButton() == MouseButton.SECONDARY)
-            {
-                nodeHold = nb.getNode();
-                nodeName.setText(nodeHold.getName());
-                rClickPopup.setVisible(true);
-                deleteConfirmation.setVisible(false);
-                TranslateTransition transition = new TranslateTransition(Duration.millis(75), rClickPopup);
-                transition.setToX(event.getSceneX() - rClickPopup.getLayoutX() - rClickPopup.getWidth() / 2 - event.getX() + 85);
-                transition.setToY(event.getSceneY() - rClickPopup.getLayoutY() - rClickPopup.getHeight() / 2 - event.getY() - 55);
-                transition.playFromStart();
-            }
 
-        });
-        return nb;
+            });
+            return nb;
+        }
+        return null;
     }
 
     /**
@@ -248,6 +249,7 @@ public class EditMap extends MapController{
         for (Node n: graph.getGraph()){
             addNodeButton(n);
         }
+        translateGraph(imageView);
 
         //Add Node when screen is clicked
         btnPane.setOnMouseClicked(event -> {

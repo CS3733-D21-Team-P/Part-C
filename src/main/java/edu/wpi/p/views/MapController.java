@@ -167,9 +167,12 @@ public abstract class MapController {
                 linePane.getChildren().clear();
                 btnPane.getChildren().add(pathHomeBtn);
                 //buttons.clear();
+                edgeLines= new ArrayList<>();
+                buttons= new ArrayList<>();
                 for (Node n: graph.getGraph()){
                     addNodeButton(n);
                 }
+                translateGraph(imageView);
                 switch (currFloorVal) {
                     case "Ground":
                         mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thegroundfloor.png"));
@@ -212,9 +215,9 @@ public abstract class MapController {
 
         changeFloors();
 
-        for (Node n : graph.getGraph()) {
-            addNodeButton(n);
-        }
+//        for (Node n : graph.getGraph()) {
+//            addNodeButton(n);
+//        }
 
         panAndZoomEvents();
     }

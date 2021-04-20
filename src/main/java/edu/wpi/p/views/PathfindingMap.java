@@ -190,6 +190,7 @@ public class PathfindingMap extends MapController{
             addNodeButton(n);
 
         }
+        translateGraph(imageView);
 
     }
 
