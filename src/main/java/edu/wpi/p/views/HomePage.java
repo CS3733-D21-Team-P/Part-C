@@ -136,7 +136,7 @@ public class HomePage {
 
   public void edgeButtonAc(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/EditMap.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPEdgeData.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -153,7 +153,7 @@ public class HomePage {
 
   public void editButtonAc(){
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("..."));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/EditMap.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
