@@ -12,11 +12,15 @@ import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +31,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditMap extends MapController{
@@ -41,6 +47,8 @@ public class EditMap extends MapController{
     private Node nodeHold;
     private NodeButton nodeButtonHold;
 
+    private String currFloorVal;
+    @FXML private Image mapImage;
     @FXML private TextField nodeFilepathField;
     @FXML private JFXTextField name;
     @FXML private Label id;
@@ -355,6 +363,7 @@ public class EditMap extends MapController{
         buildingText.setText(nodeHold.getBuilding());
         xCoordinateText.setText(x);
         yCoordinateText.setText(y);
+        propertiesBox.toFront();
     }
 
     @FXML
@@ -437,5 +446,16 @@ public class EditMap extends MapController{
         node.setYcoord(y);
         dbTable.updateNode(node);
         changesSavedText.setVisible(true);
+    }
+
+    @FXML
+    private void directToEdgeEditPage(ActionEvent actionEvent)
+    {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPEdgeData.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
