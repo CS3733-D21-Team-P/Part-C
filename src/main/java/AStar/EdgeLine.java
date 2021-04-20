@@ -1,6 +1,7 @@
 package AStar;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 
 public class EdgeLine extends Line {
@@ -37,16 +38,21 @@ public class EdgeLine extends Line {
      * @param scaleY :y scale of map
      * @param node : the node that has changed
      */
-    public void update(double scaleX, double scaleY, Node node){
+    public void update(ImageView imageView, Node node){
+        Rectangle2D viewport = imageView.getViewport();
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
         if(startNode == node){
             //set start point
-            this.setStartX(startNode.getXcoord()*scaleX);
-            this.setStartY(startNode.getYcoord()*scaleY);
+            this.setStartX((startNode.getXcoord()*scaleX) +(viewport.getMinX() / scaleX));
+            this.setStartY((startNode.getYcoord()*scaleY)+(viewport.getMinY() / scaleY));
         }
         else{
             //set end point
-            this.setEndX(endNode.getXcoord()*scaleX);
-            this.setEndY(endNode.getYcoord()*scaleY);
+            this.setEndX((endNode.getXcoord()*scaleX) +(viewport.getMinX() / scaleX));
+            this.setEndY((endNode.getYcoord()*scaleY)+(viewport.getMinY() / scaleY));
+//            this.setEndX(endNode.getXcoord()*scaleX);
+//            this.setEndY(endNode.getYcoord()*scaleY);
         }
         System.out.println("updating:  " + startNode.getName() + " - "+ endNode.getName());
 

@@ -17,6 +17,10 @@ public class NodeGraph {
         this.dbTable = new DBTable();
     }
 
+    public void addToGraph(Node node){
+        graph.add(node);
+    }
+
     public void genGraph(boolean enableDirectedPaths) {
         graph = new ArrayList<>();
         this.directedPaths = enableDirectedPaths;

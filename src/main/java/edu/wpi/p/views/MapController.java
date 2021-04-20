@@ -108,7 +108,7 @@ public abstract class MapController {
               edgeLines.add(el);
           }
         }
-
+        //translateNode(nb);
         buttons.add(nb);
         return nb;
     }
@@ -270,6 +270,11 @@ public abstract class MapController {
 
             imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
             translateGraph(imageView);
+
+            double scalex = imageView.getViewport().getWidth() / imageView.getFitWidth();
+            System.out.println("scale: " +scalex);
+            System.out.println("viewport: "+imageView.getViewport().getWidth());
+            System.out.println("fit "+ imageView.getFitWidth());
         });
 
         //reset view
@@ -299,7 +304,7 @@ public abstract class MapController {
         double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
 
         imageView.setViewport(new Rectangle2D(minX, minY, viewport.getWidth(), viewport.getHeight()));
-
+        System.out.println("panx"+minX);
         translateGraph(imageView);
     }
 
@@ -335,5 +340,37 @@ public abstract class MapController {
         for(EdgeLine el : edgeLines) {
             el.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
         }
+    }
+
+    void translateEdge( EdgeLine el){
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double offsetScaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        el.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+
+    }
+
+    //map coords to window coords
+    void translateNode(NodeButton btn){
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double offsetScaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        btn.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+    }
+
+    //window coords to map coords
+    double unScaleX(double x){
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        Rectangle2D viewport = imageView.getViewport();
+        return ((x*scaleX) +(viewport.getMinX() / scaleX));
+    }
+
+    double unScaleY(double y){
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        double scaleOpp = imageView.getFitHeight()/imageView.getViewport().getHeight();
+        Rectangle2D viewport = imageView.getViewport();
+        return ((y*scaleY)+(viewport.getMinY() / scaleY));
     }
 }
