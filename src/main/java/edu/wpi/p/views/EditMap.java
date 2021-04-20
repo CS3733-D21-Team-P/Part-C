@@ -4,6 +4,7 @@ import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.csv.CSVData;
@@ -38,9 +39,10 @@ public class EditMap extends MapController{
     private NodeButton edgeNodeEnd = null;
 
     private Node nodeHold;
+    private NodeButton nodeButtonHold;
 
     @FXML private TextField nodeFilepathField;
-    @FXML private Text name;
+    @FXML private JFXTextField name;
     @FXML private Label id;
     @FXML private Label floor;
     @FXML private Label type;
@@ -70,6 +72,8 @@ public class EditMap extends MapController{
     @FXML private ToggleButton toggleEditNodes;
     @FXML private ToggleButton toggleEditEdges;
     @FXML private Text nodeName;
+    @FXML private JFXButton closeButton;
+    @FXML private Text changesSavedText;
 
 
     /**
@@ -146,15 +150,15 @@ public class EditMap extends MapController{
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     nodeHold = nb.getNode();
+                    nodeButtonHold = nb;
                     nodeName.setText(nodeHold.getName());
                     rClickPopup.setVisible(true);
                     deleteConfirmation.setVisible(false);
                     TranslateTransition transition = new TranslateTransition(Duration.millis(75), rClickPopup);
-                    transition.setToX(event.getSceneX() - rClickPopup.getLayoutX() - rClickPopup.getWidth() / 2 - event.getX() + 85);
+                    transition.setToX(event.getSceneX() - rClickPopup.getLayoutX() - rClickPopup.getWidth() / 2 - event.getX() + 90);
                     transition.setToY(event.getSceneY() - rClickPopup.getLayoutY() - rClickPopup.getHeight() / 2 - event.getY() - 55);
                     transition.playFromStart();
                 }
-
             });
             return nb;
         }
@@ -243,6 +247,7 @@ public class EditMap extends MapController{
         propertiesBox.setVisible(false);
         rClickPopup.setVisible(false);
         deleteConfirmation.setVisible(false);
+        changesSavedText.setVisible(false);
         System.out.println("EDIT INIT");
 
         //add buttons
@@ -333,6 +338,7 @@ public class EditMap extends MapController{
     @FXML
     private void propertiesClicked(ActionEvent actionEvent)
     {
+        changesSavedText.setVisible(false);
         propertiesBox.setVisible(true);
         rClickPopup.setVisible(false);
         propertiesBox.toFront();
@@ -351,7 +357,11 @@ public class EditMap extends MapController{
     @FXML
     private void deleteConfirm(ActionEvent actionEvent)
     {
+        Node node = nodeHold;
+        DBTable dbTable = new DBTable();
+        dbTable.removeNode(node.getId());
         deleteConfirmation.setVisible(false);
+        nodeButtonHold.setVisible(false);
     }
 
     @FXML
@@ -392,8 +402,26 @@ public class EditMap extends MapController{
     }
 
     @FXML
-    private void clickOff(ActionEvent actionEvent)
+    private void closePopup(ActionEvent actionEvent)
     {
         rClickPopup.setVisible(false);
+    }
+
+    @FXML
+    private void updateNode(ActionEvent actionEvent)
+    {
+        Node node = nodeHold;
+        node.setName(name.getText());
+        node.setId(idText.getText());
+        node.setFloor(floorText.getText());
+        node.setType(typeText.getText());
+        node.setBuilding(buildingText.getText());
+        node.setShortName(shortNameText.getText());
+        int x = Integer.parseInt(xCoordinateText.getText());
+        int y = Integer.parseInt(yCoordinateText.getText());
+        node.setXcoord(x);
+        node.setYcoord(y);
+        dbTable.updateNode(node);
+        changesSavedText.setVisible(true);
     }
 }
