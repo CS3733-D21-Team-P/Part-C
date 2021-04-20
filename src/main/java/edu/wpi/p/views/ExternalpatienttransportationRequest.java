@@ -119,7 +119,7 @@ public class ExternalpatienttransportationRequest {
     final String hour = hourText.getText();
     final String min = minuteText.getText();
     final String detail = detailText.getText();
-    ServiceRequest sR = new ServiceRequest(firstName+lastName, roomNumber, firstName+lastName + "_" + roomNumber, " ");
+    ServiceRequest sR = new ServiceRequest(firstName+lastName, roomNumber, firstName+lastName + "_" + roomNumber, "External patient transportation");
     DBServiceRequest dbServiceRequest = new DBServiceRequest();
     dbServiceRequest.addServiceRequest(sR);
 

@@ -102,6 +102,6 @@
          </children>
       </GridPane>
       <JFXButton fx:id="back" layoutX="39.0" layoutY="330.0" onAction="#advanceScene" prefHeight="43.0" prefWidth="105.0" style="-fx-background-color: red;" text="Back" />
-      <JFXButton fx:id="submit" layoutX="458.0" layoutY="330.0" onAction="#advanceScene" prefHeight="43.0" prefWidth="105.0" style="-fx-background-color: green;" text="Submit" />
+      <JFXButton fx:id="submit" layoutX="458.0" layoutY="330.0" onAction="#submitPress" prefHeight="43.0" prefWidth="105.0" style="-fx-background-color: green;" text="Submit" />
   </children>
 </AnchorPane>
