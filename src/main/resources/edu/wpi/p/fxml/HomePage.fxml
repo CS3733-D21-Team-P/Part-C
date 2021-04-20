@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
    <children>
-      <VBox alignment="CENTER" layoutX="26.0" layoutY="447.0" prefHeight="166.0" prefWidth="265.0">
+      <VBox alignment="CENTER" layoutX="31.0" layoutY="447.0" prefHeight="166.0" prefWidth="232.0">
          <children>
             <Label alignment="CENTER" prefHeight="30.0" prefWidth="265.0" text="Service Request Options" textFill="#108a00">
                <font>
@@ -22,26 +22,26 @@
             <Label text="covering all translation needs" translateY="10.0" />
             <JFXButton fx:id="SRoption" buttonType="RAISED" onAction="#SRoptionAc" ripplerFill="#180fc1" style="-fx-background-color: green;" text="Learn more" textFill="WHITE" translateY="15.0" underline="true" />
          </children></VBox>
-      <VBox alignment="CENTER" layoutX="533.0" layoutY="488.0" prefHeight="70.0" prefWidth="188.0">
+      <VBox alignment="CENTER" layoutX="451.0" layoutY="488.0" prefHeight="84.0" prefWidth="173.0">
          <children>
             <Label text="Map P Edge Data" textFill="#0220b2">
                <font>
                   <Font name="Agency FB" size="20.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="57.0" prefWidth="119.0" text="Add/delete/update edge data" translateY="5.0" />
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="204.0" text="Add/delete/update edge data" translateY="5.0" />
             <Label text="Check edge data" translateY="10.0" />
             <JFXButton fx:id="edgeButton" buttonType="RAISED" onAction="#edgeButtonAc" style="-fx-background-color: blue;" text="Learn more" textFill="WHITE" translateY="15.0" />
          </children></VBox>
-      <VBox alignment="CENTER" layoutX="284.0" layoutY="460.0" prefHeight="139.0" prefWidth="265.0">
+      <VBox alignment="CENTER" layoutX="263.0" layoutY="460.0" prefHeight="139.0" prefWidth="188.0">
          <children>
             <Label text="Map P Node Data" textFill="#860297">
                <font>
                   <Font name="Agency FB" size="20.0" />
                </font>
             </Label>
-            <Label text="Check node data" translateY="5.0" />
-            <Label text="Add/delete/update node data" translateY="10.0" />
+            <Label text="Add/delete/update node data" translateY="5.0" />
+            <Label text="Check node data" translateY="10.0" />
             <JFXButton fx:id="nodeButton" buttonType="RAISED" onAction="#nodeButtonAc" style="-fx-background-color: purple;" text="Learn more" textFill="WHITE" translateY="15.0" />
          </children>
       </VBox>
@@ -57,7 +57,7 @@
             <Image url="@../../../../image/brigham-womens-facebook-712_0.jpg" />
          </image>
       </ImageView>
-      <VBox alignment="TOP_CENTER" layoutX="713.0" layoutY="471.0" prefHeight="151.0" prefWidth="282.0">
+      <VBox alignment="TOP_CENTER" layoutX="635.0" layoutY="468.0" prefHeight="151.0" prefWidth="188.0">
          <children>
             <Label text="Map with pathfinding" textFill="#f54100">
                <font>
@@ -75,11 +75,23 @@
             <Image url="@../../../../image/locations-harbor-medical-logo.png" />
          </image>
       </ImageView>
-      <VBox layoutX="14.0" layoutY="670.0" prefHeight="84.0" prefWidth="473.0">
+      <VBox alignment="CENTER" layoutX="14.0" layoutY="670.0" prefHeight="84.0" prefWidth="473.0">
          <children>
             <Label prefHeight="17.0" prefWidth="430.0" text="Throughout Brigham Health, every decision we make is guided by our vision of " />
             <Label text="a healthier world, and delivered through our mission of maintaining and restoring " />
             <Label text="health through leadership in compassionate care, scientific discovery and education." />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="837.0" layoutY="486.0" prefHeight="116.0" prefWidth="129.0">
+         <children>
+            <Label text="Map Editing" textFill="#c6880d">
+               <font>
+                  <Font name="Agency FB" size="20.0" />
+               </font>
+            </Label>
+            <Label text="Edit the map" translateY="5.0" />
+            <Label text="Edit nodes and edges" translateY="10.0" />
+            <JFXButton fx:id="editButton" buttonType="RAISED" onAction="#editButtonAc" style="-fx-background-color: orange;" text="Learn more" textFill="WHITE" translateY="15.0" />
          </children>
       </VBox>
    </children>

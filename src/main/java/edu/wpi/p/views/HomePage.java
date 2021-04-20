@@ -46,6 +46,9 @@ public class HomePage {
   public JFXButton edgeButton;
   @FXML
   public JFXButton pathButton;
+  @FXML
+  public JFXButton editButton;
+
 
 
 //  public JFXButton languageInterpretersBtn;
@@ -142,6 +145,15 @@ public class HomePage {
   public void nodeButtonAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPNodeData.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public void editButtonAc(){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("..."));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
