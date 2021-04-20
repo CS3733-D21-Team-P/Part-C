@@ -361,7 +361,18 @@ public class EditMap extends MapController{
         DBTable dbTable = new DBTable();
         dbTable.removeNode(node.getId());
         deleteConfirmation.setVisible(false);
-        nodeButtonHold.setVisible(false);
+        nodeButtonHold.setVisible(false); //make invisible
+        for(EdgeLine el: nodeButtonHold.getLines()){
+            //delete lines get lines
+            el.setVisible(false);
+            el.getEndNode();
+            EdgeLine opp =findEdgeLine(el.getEndNode(),node);
+            opp.setVisible(false);
+        }
+        for(Node neighbour: node.getNeighbours()){ //remove neighbors
+            neighbour.getNeighbours().remove(node);
+        }
+        graph.getGraph().remove(node);// remove from graph
     }
 
     @FXML

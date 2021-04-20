@@ -367,13 +367,13 @@ public abstract class MapController {
     double unScaleX(double x){
         double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
         Rectangle2D viewport = imageView.getViewport();
-        return ((x*scaleX) +(viewport.getMinX() / scaleX));
+        return ((x*scaleX) +(viewport.getMinX()));
     }
 
     double unScaleY(double y){
         double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
         double scaleOpp = imageView.getFitHeight()/imageView.getViewport().getHeight();
         Rectangle2D viewport = imageView.getViewport();
-        return ((y*scaleY)+(viewport.getMinY() / scaleY));
+        return ((y*scaleY)+(viewport.getMinY()));
     }
 }
