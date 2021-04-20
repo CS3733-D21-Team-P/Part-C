@@ -5,10 +5,20 @@ import AStar.Node;
 import AStar.NodeButton;
 import AStar.NodeGraph;
 import edu.wpi.p.App;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +31,10 @@ import java.util.Map;
 public abstract class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
+    List<EdgeLine> edgeLines = new ArrayList<>();
+
+    private double zoomSpeed = 1.005;
+    private double minZoomPixels = 800;
     List<EdgeLine> allLines = new ArrayList<>();
 
     double scaleX;
@@ -29,12 +43,18 @@ public abstract class MapController {
     private double maxWidth = 15;
     private double maxHeight = 15;
 
-    @FXML
-    public AnchorPane btnPane;
-    @FXML
-    public AnchorPane linePane;
-    @FXML
-    public ImageView imageView;
+    private String currFloorVal;
+
+    @FXML public AnchorPane btnPane;
+    @FXML public AnchorPane linePane;
+    @FXML public ImageView imageView;
+    @FXML private ChoiceBox<String> floorChoiceBox;
+    @FXML private Button pathHomeBtn;
+    private ObservableList<javafx.scene.Node> btnPaneSetup;
+    private ObservableList<javafx.scene.Node> linePaneSetup;
+
+    @FXML private Image mapImage;
+    @FXML public AnchorPane inputPane;
 
     /**
      * creates a button associated  with a node
@@ -75,12 +95,14 @@ public abstract class MapController {
         //set on click method
 //        nb.setOnAction(event -> {
 //            addNodeToSearch(event);});
-        btnPane.getChildren().add(nb); //add to page
-        List<Node> children = node.getNeighbours();
-        for(Node n: children){
-            EdgeLine el =addEdgeLine(node, n);
-            nb.addLine(el);
-            allLines.add(el);
+        if (node.getFloor().equals(currFloorVal)) {
+          btnPane.getChildren().add(nb); //add to page
+          List<Node> children = node.getNeighbours();
+          for(Node n: children){
+              EdgeLine el =addEdgeLine(node, n);
+              nb.addLine(el);
+              allLines.add(el);
+          }
         }
 
         buttons.add(nb);
@@ -95,6 +117,7 @@ public abstract class MapController {
      */
     public EdgeLine addEdgeLine(Node node1, Node node2){
         EdgeLine el = new EdgeLine(node1, node2); //create line
+        edgeLines.add(el); //save for pan and zoom
         linePane.getChildren().add(el); //add line to screen
         return el;
     }
@@ -127,6 +150,46 @@ public abstract class MapController {
         }
     }
 
+    public void changeFloors(){
+        final String[] availableFloors = new String[]{"Ground", "L1","L2","1","2","3"};
+        floorChoiceBox.setItems(FXCollections.observableArrayList(availableFloors));
+        floorChoiceBox.getSelectionModel().select(1);
+        currFloorVal = floorChoiceBox.getSelectionModel().getSelectedItem();
+        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+                currFloorVal = availableFloors[newValue.intValue()];
+                btnPane.getChildren().clear();
+                linePane.getChildren().clear();
+                btnPane.getChildren().add(pathHomeBtn);
+                //buttons.clear();
+                for (Node n: graph.getGraph()){
+                    addNodeButton(n);
+                }
+                switch (currFloorVal) {
+                    case "Ground":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thegroundfloor.png"));
+                        break;
+                    case "L1":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel1.png"));
+                        break;
+                    case "L2":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel2.png"));
+                        break;
+                    case "1":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/01_thefirstfloor.png"));
+                        break;
+                    case "2":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/02_thesecondfloor.png"));
+                        break;
+                    case "3":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/03_thethirdfloor.png"));
+                        break;
+                }
+                imageView.setImage(mapImage);
+            }
+        });
+    }
 
     @FXML
     /**
@@ -142,7 +205,17 @@ public abstract class MapController {
         graph.genGraph(false);
 
         System.out.println("INIT SUPER!!!!");
-        //TODO fix aspect ratio & offset
+
+        changeFloors();
+
+        for (Node n : graph.getGraph()) {
+            addNodeButton(n);
+        }
+
+        panAndZoomEvents();
+    }
+
+    private void panAndZoomEvents() {
         double winWidth = imageView.getFitWidth();
         double imageWidth = imageView.getImage().getWidth();
         scaleX = winWidth / imageWidth;
@@ -151,9 +224,112 @@ public abstract class MapController {
         double imageHeight = imageView.getImage().getHeight();
         scaleY = winHeight / imageHeight;
 
-        graph.scaleGraph(scaleX, scaleY);
+        resetImageView(imageView, imageWidth, imageHeight);
 
+        //pan
+        ObjectProperty<Point2D> mouseDown = new SimpleObjectProperty<>();
 
+        btnPane.setOnMousePressed(e -> {
+            System.out.println("Pressed");
+            Point2D mousePress = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            mouseDown.set(mousePress);
+        });
+
+        btnPane.setOnMouseDragged(e -> {
+            System.out.println("Drag");
+            Point2D dragPoint = imageViewToImage(new Point2D(e.getX(), e.getY()));
+            pan(imageView, dragPoint.subtract(mouseDown.get()));
+            mouseDown.set(imageViewToImage(new Point2D(e.getX(), e.getY())));
+        });
+
+        //zoom
+        btnPane.setOnScroll(e -> {
+            //System.out.println("ZOOOOOOOOOOOM");
+            double delta = -e.getDeltaY();
+            Rectangle2D viewport = imageView.getViewport();
+
+            double scrollMin = Math.min( minZoomPixels / viewport.getWidth(), minZoomPixels / viewport.getHeight());
+            double scrollMax = Math.max(imageWidth / viewport.getWidth(), imageHeight / viewport.getHeight());
+            double scale = clamp(Math.pow(zoomSpeed, delta), scrollMin, scrollMax);
+
+            Point2D mouse = imageViewToImage(new Point2D(e.getX(), e.getY()));
+
+            double newWidth = viewport.getWidth() * scale;
+            double newHeight = viewport.getHeight() * scale;
+
+            // newViewportMinX = x - (x - currentViewportMinX) * scale
+            // clamp to stop scroll further out than image size
+            double newMinX = clamp(mouse.getX() - (mouse.getX() - viewport.getMinX()) * scale,
+                    0, imageWidth - newWidth);
+            double newMinY = clamp(mouse.getY() - (mouse.getY() - viewport.getMinY()) * scale,
+                    0, imageHeight - newHeight);
+
+            imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
+            translateGraph(imageView);
+        });
+
+        //reset view
+        btnPane.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                //System.out.println("Reset");
+                resetImageView(imageView, imageWidth, imageHeight);
+            }
+        });
     }
 
+    private void resetImageView(ImageView imageView, double imageWidth, double imageHeight) {
+        imageView.setViewport(new Rectangle2D(0, 0, imageWidth, imageHeight));
+        translateGraph(imageView);
+    }
+
+    private void pan(ImageView imageView, Point2D delta) {
+        Rectangle2D viewport = imageView.getViewport();
+
+        double width = imageView.getImage().getWidth();
+        double height = imageView.getImage().getHeight();
+
+        double maxX = width - viewport.getWidth();
+        double maxY = height - viewport.getHeight();
+
+        double minX = clamp(viewport.getMinX() - delta.getX(), 0, maxX);
+        double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
+
+        imageView.setViewport(new Rectangle2D(minX, minY, viewport.getWidth(), viewport.getHeight()));
+
+        translateGraph(imageView);
+    }
+
+    private double clamp(double value, double min, double max) {
+        if (value < min) {
+            return min;
+        }
+        if (value > max) {
+            return max;
+        }
+        return value;
+    }
+
+    // imageView Point to image Point
+    private Point2D imageViewToImage(Point2D imageViewPoint) {
+        double xPercent = imageViewPoint.getX() / imageView.getBoundsInLocal().getWidth();
+        double yPercent = imageViewPoint.getY() / imageView.getBoundsInLocal().getHeight();
+
+        Rectangle2D viewport = imageView.getViewport();
+        return new Point2D(
+                viewport.getMinX() + xPercent * viewport.getWidth(),
+                viewport.getMinY() + yPercent * viewport.getHeight());
+    }
+
+    void translateGraph(ImageView imageView) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double offsetScaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        for(NodeButton btn : buttons) {
+            btn.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+        }
+        for(EdgeLine el : edgeLines) {
+            el.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+        }
+    }
 }

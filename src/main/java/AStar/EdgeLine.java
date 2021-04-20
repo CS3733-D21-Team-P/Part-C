@@ -1,5 +1,6 @@
 package AStar;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Line;
 
 public class EdgeLine extends Line {
@@ -50,5 +51,14 @@ public class EdgeLine extends Line {
         System.out.println("updating:  " + startNode.getName() + " - "+ endNode.getName());
 
 
+    }
+
+    //pan and zoom update transform
+    public void pan(Rectangle2D viewport, double scaleX, double scaleY, double offsetScaleX, double offsetScaleY) {
+        this.setStartX((startNode.getXcoord() / scaleX) - viewport.getMinX() / offsetScaleX);
+        this.setStartY((startNode.getYcoord() / scaleY) - viewport.getMinY() / offsetScaleY);
+
+        this.setEndX((endNode.getXcoord() / scaleX) - viewport.getMinX() / offsetScaleX);
+        this.setEndY((endNode.getYcoord() / scaleY) - viewport.getMinY() / offsetScaleY);
     }
 }

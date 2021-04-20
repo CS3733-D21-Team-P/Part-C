@@ -5,10 +5,14 @@ import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
 import edu.wpi.p.App;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathfindingMap extends MapController{
+
     enum State {
         ENTERSTART,
         ENTEREND,
@@ -42,6 +47,8 @@ public class PathfindingMap extends MapController{
     public TextField start;
     @FXML
     public TextField end;
+    @FXML
+    private ChoiceBox<String> floorChoiceBox;
 //    @FXML
 //    public AnchorPane btnPane;
 //    @FXML
@@ -98,6 +105,7 @@ public class PathfindingMap extends MapController{
                 if(i>0) {
                     EdgeLine line = addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+                    super.translateGraph(imageView);
                     pathLine.add(line);
                 }
             }
@@ -156,6 +164,17 @@ public class PathfindingMap extends MapController{
         return nb;
     }
 
+    private void getFloorChoiceBoxUpdate(){
+        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+                for (Node n : graph.getGraph()) {
+                    addNodeButton(n);
+                }
+            }
+        }
+    );}
+
 
     @FXML
     /**
@@ -166,9 +185,10 @@ public class PathfindingMap extends MapController{
     public void initialize()  {
         super.initialize();
         System.out.println("PATHFINDING INIT");
-
+        getFloorChoiceBoxUpdate();
         for (Node n: graph.getGraph()){
             addNodeButton(n);
+
         }
 
     }
