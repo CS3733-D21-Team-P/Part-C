@@ -103,7 +103,7 @@ public class SanitationServiceRequest implements Initializable {
         final String roomNumberValue = roomNumberText.getText();
         final String descriptionValue = description.getText();
         final String typeOfSanitation = typeOfSanitationBox.getTypeSelector();
-        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, "ID", typeOfSanitation);
+        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, fullNameValue + "_" + roomNumberValue, " ");
         DBServiceRequest dbServiceRequest = new DBServiceRequest();
         dbServiceRequest.addServiceRequest(sR);
         try {
