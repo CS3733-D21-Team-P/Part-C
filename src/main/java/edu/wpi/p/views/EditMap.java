@@ -116,7 +116,7 @@ public class EditMap extends MapController{
                     el.update(scaleX,scaleY,edgeNodeStart.getNode());
                     el.update(scaleX,scaleY,edgeNodeEnd.getNode());
                     edgeNodeStart.addLine(el);
-                    allLines.add(el); //add to list of lines
+                    edgeLines.add(el); //add to list of lines
 
                     //create opposite line
                     EdgeLine elOpposite =addEdgeLine(edgeNodeEnd.getNode(), edgeNodeStart.getNode());
@@ -124,7 +124,7 @@ public class EditMap extends MapController{
                     elOpposite.update(scaleX,scaleY,edgeNodeStart.getNode());
                     elOpposite.update(scaleX,scaleY,edgeNodeEnd.getNode());
                     edgeNodeEnd.addLine(elOpposite);
-                    allLines.add(elOpposite); //add to list of lines
+                    edgeLines.add(elOpposite); //add to list of lines
 
                     //get node ids
                     String startID =edgeNodeStart.getNode().getId();
@@ -212,7 +212,8 @@ public class EditMap extends MapController{
 
                 String newId= getNewID("blankNode"); //get new id;
                 System.out.println("ID "+ newId);
-                Node node = new Node(newId, newId, x, y, "1","NONE", "NONE", "node"+btnIncrement);
+
+                Node node = new Node(newId, newId, x, y, getCurrFloorVal(),"NONE", "NONE", "node"+btnIncrement);
                 addNodeButton(node);
 
                 //set so not scaled to image
@@ -221,8 +222,6 @@ public class EditMap extends MapController{
                 dbTable.addNode(node);//add to database
             }
         });
-
-
     }
 
     /**

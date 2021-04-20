@@ -23,7 +23,7 @@
             </image>
         </ImageView>
 
-        <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
+                    <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
         <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOff" prefHeight="900.0" prefWidth="1600.0">
          <children>
             <AnchorPane fx:id="propertiesBox" layoutX="1102.0" layoutY="672.0" prefHeight="214.0" prefWidth="484.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
@@ -43,23 +43,28 @@
                   <Label fx:id="id" layoutX="48.0" layoutY="55.0" text="ID:">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="floor" layoutX="29.0" layoutY="90.0" text="Floor:">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="type" layoutX="30.0" layoutY="127.0" text="Type:">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="shortName" layoutX="242.0" layoutY="55.0" text="Short Name:">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="building" layoutX="13.0" layoutY="166.0" text="Building:">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label layoutX="233.0" layoutY="92.0" text="X-Coordinate:" fx:id="xCoordinate">
                      <font>
                         <Font size="15.0" />

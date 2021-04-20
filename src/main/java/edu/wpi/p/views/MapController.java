@@ -26,22 +26,26 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public abstract class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
-    List<EdgeLine> edgeLines = new ArrayList<>();
+//    List<EdgeLine> edgeLines = new ArrayList<>();
 
     private double zoomSpeed = 1.005;
     private double minZoomPixels = 800;
-    List<EdgeLine> allLines = new ArrayList<>();
+
+    List<EdgeLine> edgeLines = new ArrayList<>();
 
     double scaleX;
     double scaleY;
 
     private double maxWidth = 15;
     private double maxHeight = 15;
+
+    public String getCurrFloorVal() {
+        return currFloorVal;
+    }
 
     private String currFloorVal;
 
@@ -101,7 +105,7 @@ public abstract class MapController {
           for(Node n: children){
               EdgeLine el =addEdgeLine(node, n);
               nb.addLine(el);
-              allLines.add(el);
+              edgeLines.add(el);
           }
         }
 
@@ -130,7 +134,7 @@ public abstract class MapController {
      */
     public EdgeLine findEdgeLine(Node start, Node end){
         System.out.println("Finding:  "+ start.getName()+ " - "+ end.getName());
-        for(EdgeLine el: allLines){
+        for(EdgeLine el: edgeLines){
             if(el.getEndNode() == end && el.getStartNode()== start){
                 System.out.println("found: "+el.getStartNode().getName()+ " - " +el.getEndNode());
                 return el;
@@ -199,7 +203,7 @@ public abstract class MapController {
     public void initialize()  {
 
         buttons = new ArrayList<>();
-        allLines = new ArrayList<>();
+        edgeLines = new ArrayList<>();
         graph = new NodeGraph();
 
         graph.genGraph(false);
