@@ -4,6 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import java.io.IOException;
+
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +42,10 @@ public class LanguageInterpreterServiceRequest {
     final String lang = interpLanguage.getText();
     final String loc = interpLoc.getText();
     final String details = interpDetails.getText();
+
+    ServiceRequest sR = new ServiceRequest(" ", loc, "Name" + "_" + loc, "Language Interpreter");
+    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+    dbServiceRequest.addServiceRequest(sR);
 
     System.out.println("submitting form for interpreter services");
     System.out.println("language = " + lang + "\nloc = " + loc + "\ndetails = " + details);

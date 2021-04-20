@@ -104,6 +104,6 @@
       </font>
     </Label>
       <JFXButton fx:id="back" layoutX="255.0" layoutY="608.0" onAction="#advanceScene" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: red;" text="Back" textFill="WHITE" />
-      <JFXButton fx:id="submit" layoutX="615.0" layoutY="608.0" onAction="#advanceScene" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE" />
+      <JFXButton fx:id="submit" layoutX="615.0" layoutY="608.0" onAction="#submitPress" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE" />
   </children>
 </AnchorPane>
