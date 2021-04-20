@@ -10,15 +10,19 @@ import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.util.List;
@@ -31,6 +35,8 @@ public class EditMap extends MapController{
 
     private NodeButton edgeNodeStart = null;
     private NodeButton edgeNodeEnd = null;
+
+    private Node nodeHold;
 
     @FXML private TextField nodeFilepathField;
     @FXML private Text name;
@@ -51,8 +57,18 @@ public class EditMap extends MapController{
     @FXML private JFXButton submit;
     @FXML private JFXButton close;
     @FXML private AnchorPane propertiesBox;
+    @FXML private JFXButton propertiesButton;
+    @FXML private JFXButton deleteButton;
+    @FXML private VBox rClickPopup;
+    @FXML private AnchorPane deleteConfirmation;
+    @FXML private AnchorPane btnPane;
+    @FXML private Text deleteConfirmText;
+    @FXML private Text confirmDeleteNode;
+    @FXML private JFXButton yesButton;
+    @FXML private JFXButton noButton;
     @FXML private ToggleButton toggleEditNodes;
     @FXML private ToggleButton toggleEditEdges;
+    @FXML private Text nodeName;
 
 
     /**
@@ -83,10 +99,10 @@ public class EditMap extends MapController{
         });
 
         nb.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY)
+            {
             System.out.println(nb.getNode().getXcoord());
             System.out.println(nb.getLayoutX());
-            propertiesBox.setVisible(true);
-            nodeClicked(nb.getNode());
 
             if(isEditingEdges){
                 if(edgeNodeStart==null){
@@ -121,6 +137,18 @@ public class EditMap extends MapController{
                     edgeNodeStart=null;
                     edgeNodeEnd=null;
                 }
+            }
+            }
+            else if (event.getButton() == MouseButton.SECONDARY)
+            {
+                nodeHold = nb.getNode();
+                nodeName.setText(nodeHold.getName());
+                rClickPopup.setVisible(true);
+                deleteConfirmation.setVisible(false);
+                TranslateTransition transition = new TranslateTransition(Duration.millis(75), rClickPopup);
+                transition.setToX(event.getSceneX() - rClickPopup.getLayoutX() - rClickPopup.getWidth() / 2 - event.getX() + 85);
+                transition.setToY(event.getSceneY() - rClickPopup.getLayoutY() - rClickPopup.getHeight() / 2 - event.getY() - 55);
+                transition.playFromStart();
             }
 
         });
@@ -165,6 +193,8 @@ public class EditMap extends MapController{
     public void initialize()  {
         super.initialize();
         propertiesBox.setVisible(false);
+        rClickPopup.setVisible(false);
+        deleteConfirmation.setVisible(false);
         System.out.println("EDIT INIT");
 
         //add buttons
@@ -247,19 +277,42 @@ public class EditMap extends MapController{
     }
 
     @FXML
-    private void nodeClicked(Node node)
+    private void propertiesClicked(ActionEvent actionEvent)
     {
-        String x = String.valueOf(node.getXcoord());
-        String y = String.valueOf(node.getYcoord());
-
-        name.setText(node.getName());
-        idText.setText(node.getId());
-        floorText.setText(node.getFloor());
-        typeText.setText(node.getType());
-        shortNameText.setText(node.getShortName());
-        buildingText.setText(node.getBuilding());
+        propertiesBox.setVisible(true);
+        rClickPopup.setVisible(false);
+        propertiesBox.toFront();
+        String x = String.valueOf(nodeHold.getXcoord());
+        String y = String.valueOf(nodeHold.getYcoord());
+        name.setText(nodeHold.getName());
+        idText.setText(nodeHold.getId());
+        floorText.setText(nodeHold.getFloor());
+        typeText.setText(nodeHold.getType());
+        shortNameText.setText(nodeHold.getShortName());
+        buildingText.setText(nodeHold.getBuilding());
         xCoordinateText.setText(x);
         yCoordinateText.setText(y);
+    }
+
+    @FXML
+    private void deleteConfirm(ActionEvent actionEvent)
+    {
+        deleteConfirmation.setVisible(false);
+    }
+
+    @FXML
+    private void deleteCancel(ActionEvent actionEvent)
+    {
+        deleteConfirmation.setVisible(false);
+    }
+
+    @FXML
+    private void openDeletePage(ActionEvent actionEvent)
+    {
+        deleteConfirmation.setVisible(true);
+        propertiesBox.setVisible(false);
+        rClickPopup.setVisible(false);
+        confirmDeleteNode.setText(nodeHold.getName());
     }
 
     @FXML
@@ -282,5 +335,11 @@ public class EditMap extends MapController{
     private void propertiesDisappear(ActionEvent actionEvent)
     {
         propertiesBox.setVisible(false);
+    }
+
+    @FXML
+    private void clickOff(ActionEvent actionEvent)
+    {
+        rClickPopup.setVisible(false);
     }
 }

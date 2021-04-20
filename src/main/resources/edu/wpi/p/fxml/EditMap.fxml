@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EditMap">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EditMap">
     <children>
         <ImageView fx:id="imageView" fitHeight="900.0" fitWidth="1600.0" layoutX="6.0" pickOnBounds="true" preserveRatio="false">
             <image>
@@ -22,13 +22,13 @@
         </ImageView>
 
         <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
-        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
+        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOff" prefHeight="900.0" prefWidth="1600.0">
          <children>
             <AnchorPane fx:id="propertiesBox" layoutX="1102.0" layoutY="672.0" prefHeight="214.0" prefWidth="484.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
                <children>
                   <Text fx:id="name" layoutX="42.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Default Text" textAlignment="CENTER" wrappingWidth="400.73828125">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                   </Text>
                   <JFXTextField fx:id="idText" layoutX="81.0" layoutY="53.0" />
@@ -36,8 +36,8 @@
                   <JFXTextField fx:id="typeText" layoutX="81.0" layoutY="125.0" />
                   <JFXTextField fx:id="shortNameText" layoutX="335.0" layoutY="53.0" />
                   <JFXTextField fx:id="buildingText" layoutX="81.0" layoutY="164.0" />
-                  <JFXButton fx:id="submit" layoutX="415.0" layoutY="175.0" style="-fx-background-color: green;" text="Submit" />
-                  <JFXButton fx:id="close" layoutX="442.0" layoutY="16.0" onAction="#propertiesDisappear" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: red;" text="X" />
+                  <JFXButton fx:id="submit" layoutX="379.0" layoutY="175.0" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #5dcf51;" text="Submit" />
+                  <JFXButton fx:id="close" layoutX="464.0" layoutY="2.0" onAction="#propertiesDisappear" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #ff5447;" text="X" />
                   <Label fx:id="id" layoutX="48.0" layoutY="55.0" text="ID:">
                      <font>
                         <Font size="15.0" />
@@ -87,6 +87,48 @@
               </padding>
           </VBox>
           <Button mnemonicParsing="false" onAction="#homeButtonAc" text="Home" AnchorPane.rightAnchor="23.200000000000045" AnchorPane.topAnchor="26.0" />
+      <VBox fx:id="rClickPopup" layoutX="700.0" layoutY="179.0" prefHeight="114.0" prefWidth="141.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
+         <children>
+            <Text fx:id="nodeName" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="144.13671875">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="propertiesButton" onAction="#propertiesClicked" prefHeight="46.0" prefWidth="146.0" text="Properties">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="deleteButton" onAction="#openDeletePage" prefHeight="47.0" prefWidth="147.0" text="Delete">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+      <AnchorPane fx:id="deleteConfirmation" layoutX="470.0" layoutY="300.0" prefHeight="285.0" prefWidth="565.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
+         <children>
+            <Text fx:id="deleteConfirmText" layoutX="9.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete the node: " textAlignment="CENTER" wrappingWidth="547.353515625">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Text fx:id="confirmDeleteNode" layoutX="13.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Node" textAlignment="CENTER" wrappingWidth="539.5302709341049">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="yesButton" layoutX="40.0" layoutY="230.0" onAction="#deleteConfirm" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #5dcf51;" text="YES">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="noButton" layoutX="432.0" layoutY="230.0" onAction="#deleteCancel" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ff5447;" text="NO">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
 
 
 
