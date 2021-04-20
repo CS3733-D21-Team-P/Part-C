@@ -98,7 +98,7 @@ public class RequestLogPage {
 
     public void markCompleteBtnAc(ActionEvent actionEvent) {
         ReqLogView.getSelectionModel().getSelectedItem().getValue().completed();
-        dbServiceRequest.removeServiceRequest(ReqLogView.getSelectionModel().getSelectedItem().getValue().getServiceRequestID().toString());
+        dbServiceRequest.updateServiceRequest(ReqLogView.getSelectionModel().getSelectedItem().getValue());
     }
 
     public void incompleteBtnAc(ActionEvent actionEvent) {
