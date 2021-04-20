@@ -5,10 +5,16 @@ import AStar.Node;
 import AStar.NodeButton;
 import AStar.NodeGraph;
 import edu.wpi.p.App;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -24,12 +30,18 @@ public class MapController {
     private double maxWidth = 15;
     private double maxHeight = 15;
 
-    @FXML
-    public AnchorPane btnPane;
-    @FXML
-    public AnchorPane linePane;
-    @FXML
-    public ImageView imageView;
+    private String currFloorVal;
+
+    @FXML public AnchorPane btnPane;
+    @FXML public AnchorPane linePane;
+    @FXML public ImageView imageView;
+    @FXML private ChoiceBox<String> floorChoiceBox;
+    @FXML private Button pathHomeBtn;
+    private ObservableList<javafx.scene.Node> btnPaneSetup;
+    private ObservableList<javafx.scene.Node> linePaneSetup;
+
+
+    @FXML private Image mapImage;
 
     /**
      * creates a button associated  with a node
@@ -70,12 +82,13 @@ public class MapController {
         //set on click method
 //        nb.setOnAction(event -> {
 //            addNodeToSearch(event);});
-        btnPane.getChildren().add(nb); //add to page
-        List<Node> children = node.getNeighbours();
-        for(Node n: children){
+        if (node.getFloor().equals(currFloorVal)) {
+          btnPane.getChildren().add(nb); //add to page
+          List<Node> children = node.getNeighbours();
+          for(Node n: children){
             addEdgeLine(node, n);
+          }
         }
-
         buttons.add(nb);
         return nb;
     }
@@ -101,6 +114,46 @@ public class MapController {
         }
     }
 
+    public void changeFloors(){
+        final String[] availableFloors = new String[]{"Ground", "L1","L2","1","2","3"};
+        floorChoiceBox.setItems(FXCollections.observableArrayList(availableFloors));
+        floorChoiceBox.getSelectionModel().select(1);
+        currFloorVal = floorChoiceBox.getSelectionModel().getSelectedItem();
+        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+                currFloorVal = availableFloors[newValue.intValue()];
+                btnPane.getChildren().clear();
+                linePane.getChildren().clear();
+                btnPane.getChildren().add(pathHomeBtn);
+                //buttons.clear();
+                for (Node n: graph.getGraph()){
+                    addNodeButton(n);
+                }
+                switch (currFloorVal) {
+                    case "Ground":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thegroundfloor.png"));
+                        break;
+                    case "L1":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel1.png"));
+                        break;
+                    case "L2":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel2.png"));
+                        break;
+                    case "1":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/01_thefirstfloor.png"));
+                        break;
+                    case "2":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/02_thesecondfloor.png"));
+                        break;
+                    case "3":
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/03_thethirdfloor.png"));
+                        break;
+                }
+                imageView.setImage(mapImage);
+            }
+        });
+    }
 
     @FXML
     /**
@@ -120,6 +173,7 @@ public class MapController {
         double winHeight = imageView.getFitHeight();
         double imageHeight = imageView.getImage().getHeight();
         double scaleY = winHeight / imageHeight;
+        changeFloors();
 
         graph.scaleGraph(scaleX, scaleY);
 

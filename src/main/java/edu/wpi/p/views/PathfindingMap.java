@@ -5,10 +5,14 @@ import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
 import edu.wpi.p.App;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathfindingMap extends MapController{
+
     enum State {
         ENTERSTART,
         ENTEREND,
@@ -42,6 +47,8 @@ public class PathfindingMap extends MapController{
     public TextField start;
     @FXML
     public TextField end;
+    @FXML
+    private ChoiceBox<String> floorChoiceBox;
 //    @FXML
 //    public AnchorPane btnPane;
 //    @FXML
@@ -138,20 +145,20 @@ public class PathfindingMap extends MapController{
     }
 
 
-//    /**
-//     * creates a button associated  with a node
-//     * adds a line to neighbour nodes
-//     * @param node
-//     * @return created NodeButton
-//     */
-//    public NodeButton addNodeButton(Node node){
-//        NodeButton nb = super.addNodeButton(node);
-//        //set on click method
-//        nb.setOnAction(event -> {
-//            addNodeToSearch(event);});
-//
-//        return nb;
-//    }
+    /**
+     * creates a button associated  with a node
+     * adds a line to neighbour nodes
+     * @param node
+     * @return created NodeButton
+     */
+    public NodeButton addNodeButton(Node node){
+        NodeButton nb = super.addNodeButton(node);
+        //set on click method
+        nb.setOnAction(event -> {
+            addNodeToSearch(event);});
+
+        return nb;
+    }
 
     /**
      * sets button for pathfinding by adding on action listener
@@ -164,6 +171,17 @@ public class PathfindingMap extends MapController{
         return nb;
     }
 
+    private void getFloorChoiceBoxUpdate(){
+        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+                for (Node n : graph.getGraph()) {
+                    addNodeButton(n);
+                }
+            }
+        }
+    );}
+
 
     @FXML
     /**
@@ -173,7 +191,7 @@ public class PathfindingMap extends MapController{
     public void initialize()  {
         super.initialize(imageView);
         System.out.println("PATHFINDING INIT");
-
+        getFloorChoiceBoxUpdate();
         //add button
         for(NodeButton nb: buttons){
             changeButton(nb);
