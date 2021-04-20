@@ -118,12 +118,15 @@ public class EditMap extends MapController{
                             edgeNodeStart = nb;
                         } else if (edgeNodeEnd == null && edgeNodeStart != nb) { //both points have been specified so create edge
                             edgeNodeEnd = nb;
+
+                            //update node neighbors so stay between switching floors
+                            edgeNodeStart.getNode().addNeighbour(edgeNodeEnd.getNode());
+                            edgeNodeEnd.getNode().addNeighbour(edgeNodeStart.getNode());
+
                             //create line there
                             EdgeLine el = addEdgeLine(edgeNodeStart.getNode(), edgeNodeEnd.getNode());
                             //scale lines
                             translateEdge(el);
-//                    el.update(scaleX,scaleY,edgeNodeStart.getNode());
-//                    el.update(scaleX,scaleY,edgeNodeEnd.getNode());
                             edgeNodeStart.addLine(el);
                             edgeLines.add(el); //add to list of lines
 
@@ -131,8 +134,6 @@ public class EditMap extends MapController{
                             EdgeLine elOpposite = addEdgeLine(edgeNodeEnd.getNode(), edgeNodeStart.getNode());
                             //scale lines
                             translateEdge(elOpposite);
-//                    elOpposite.update(scaleX,scaleY,edgeNodeStart.getNode());
-//                    elOpposite.update(scaleX,scaleY,edgeNodeEnd.getNode());
                             edgeNodeEnd.addLine(elOpposite);
                             edgeLines.add(elOpposite); //add to list of lines
 
@@ -142,6 +143,8 @@ public class EditMap extends MapController{
 
                             // add edge to database
                             dbTable.addEdge(startID + "_" + endID, startID, endID);
+
+
 
                             //reset start and end so another line can be created
                             edgeNodeStart = null;
