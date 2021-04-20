@@ -13,7 +13,7 @@ public class DBServiceRequest {
 
 
     /**
-     * Standard constructor, nothing fancy
+     * private List<DBColumn> serviceRequestColumn;
      */
     public DBServiceRequest(){
         createTable(false);
