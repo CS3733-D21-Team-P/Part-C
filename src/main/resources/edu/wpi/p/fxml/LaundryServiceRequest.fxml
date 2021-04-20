@@ -96,6 +96,8 @@
             <JFXTextField fx:id="fullName" GridPane.columnIndex="1" />
             <JFXTextField fx:id="pickUpLocation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <JFXTextArea fx:id="specialInstructions" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+
          </children>
       </GridPane>
     <Label layoutX="255.0" layoutY="239.0" prefHeight="53.0" prefWidth="480.0" text="Laundry Service Request Form" textFill="#0900ff" AnchorPane.topAnchor="200.0">

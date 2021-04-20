@@ -29,6 +29,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Language: ">
@@ -46,9 +47,15 @@
                   <Font size="18.0" />
                </font>
             </Label>
+             <Label text="Signature:" GridPane.rowIndex="3">
+                 <font>
+                     <Font size="18.0" />
+                 </font>
+             </Label>
             <JFXTextField fx:id="interpLanguage" GridPane.columnIndex="1" />
             <JFXTextField fx:id="interpLoc" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <JFXTextField fx:id="interpDetails" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+             <JFXTextField fx:id="doctorSignature" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
   </children>

@@ -70,8 +70,22 @@ public class MedicineDeliverySR {
 
 
 
-        ServiceRequest sR = new ServiceRequest("Name", location, "Name" + "_" + location, "Medicine Delivery");
+        ServiceRequest sR = new ServiceRequest(docSign, location, "Name" + "_" + location, "Medicine Delivery");
         DBServiceRequest dbServiceRequest = new DBServiceRequest();
         dbServiceRequest.addServiceRequest(sR);
+
+
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
+
+
+
+
 }

@@ -84,6 +84,8 @@ public class ExternalpatienttransportationRequest {
   public RadioButton PlaneBtn;
   @FXML
   public javafx.scene.control.DatePicker DatePicker;
+  @FXML
+  public TextField doctorSignature;
 
 
   ObservableList<String> hospitalList = FXCollections
@@ -119,7 +121,8 @@ public class ExternalpatienttransportationRequest {
     final String hour = hourText.getText();
     final String min = minuteText.getText();
     final String detail = detailText.getText();
-    ServiceRequest sR = new ServiceRequest(firstName+lastName, roomNumber, firstName+lastName + "_" + roomNumber, "External patient transportation");
+    final String doctorSig = doctorSignature.getText();
+    ServiceRequest sR = new ServiceRequest(doctorSig, roomNumber, firstName+lastName + "_" + roomNumber, "External patient transportation");
     DBServiceRequest dbServiceRequest = new DBServiceRequest();
     dbServiceRequest.addServiceRequest(sR);
 

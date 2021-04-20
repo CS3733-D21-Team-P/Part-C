@@ -103,11 +103,11 @@ public class SanitationServiceRequest implements Initializable {
         final String roomNumberValue = roomNumberText.getText();
         final String descriptionValue = description.getText();
         final String typeOfSanitation = typeOfSanitationBox.getTypeSelector();
-        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, fullNameValue + "_" + roomNumberValue, " ");
+        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, fullNameValue + "_" + roomNumberValue, "Sanitation");
         DBServiceRequest dbServiceRequest = new DBServiceRequest();
         dbServiceRequest.addServiceRequest(sR);
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
