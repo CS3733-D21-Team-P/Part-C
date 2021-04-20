@@ -43,7 +43,7 @@ public class LanguageInterpreterServiceRequest {
     final String loc = interpLoc.getText();
     final String details = interpDetails.getText();
 
-    ServiceRequest sR = new ServiceRequest(" ", loc, "Name" + "_" + loc, " ");
+    ServiceRequest sR = new ServiceRequest(" ", loc, "Name" + "_" + loc, "Language Interpreter");
     DBServiceRequest dbServiceRequest = new DBServiceRequest();
     dbServiceRequest.addServiceRequest(sR);
 

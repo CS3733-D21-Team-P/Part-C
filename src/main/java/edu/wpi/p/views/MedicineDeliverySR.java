@@ -1,6 +1,8 @@
 package edu.wpi.p.views;
 
 import edu.wpi.p.App;
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,5 +64,11 @@ public class MedicineDeliverySR {
         final String medReason = medicineReason.getText();
         final String medInfo = medicineInfo.getText();
         final String docSign = doctorSign.getText();
+
+
+
+        ServiceRequest sR = new ServiceRequest("Name", location, "Name" + "_" + location, "Medicine Delivery");
+        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        dbServiceRequest.addServiceRequest(sR);
     }
 }

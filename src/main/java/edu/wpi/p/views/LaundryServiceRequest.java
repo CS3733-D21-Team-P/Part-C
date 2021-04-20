@@ -42,7 +42,7 @@ public class LaundryServiceRequest {
         final String specialInstruction = specialInstructions.getText();
 
 
-        ServiceRequest sR = new ServiceRequest(fullname, location, fullname + "_" + location, " ");
+        ServiceRequest sR = new ServiceRequest(fullname, location, fullname + "_" + location, "Laundry");
         DBServiceRequest dbServiceRequest = new DBServiceRequest();
         dbServiceRequest.addServiceRequest(sR);
 
