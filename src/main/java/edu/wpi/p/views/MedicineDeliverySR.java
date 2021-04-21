@@ -1,6 +1,11 @@
 package edu.wpi.p.views;
 
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,23 +17,23 @@ import java.io.IOException;
 
 public class MedicineDeliverySR {
     @FXML
-    private TextField medicineName;
+    private JFXTextField medicineName;
     @FXML
-    private TextField medicineAmount;
+    private JFXTextField medicineAmount;
     @FXML
-    private TextField locationArea;
+    private JFXTextField locationArea;
     @FXML
-    private TextField medicineReason;
+    private JFXTextArea medicineReason;
     @FXML
-    private TextField medicineInfo;
+    private JFXTextArea medicineInfo;
     @FXML
-    private TextField doctorSign;
+    private JFXTextField doctorSign;
     @FXML
-    private CheckBox pat;
+    private JFXCheckBox pat;
     @FXML
-    private CheckBox doc;
+    private JFXCheckBox doc;
     @FXML
-    private CheckBox nurse;
+    private JFXCheckBox nurse;
 
     @FXML
     private void homePageButton(ActionEvent e) {
@@ -62,5 +67,25 @@ public class MedicineDeliverySR {
         final String medReason = medicineReason.getText();
         final String medInfo = medicineInfo.getText();
         final String docSign = doctorSign.getText();
+
+
+
+        ServiceRequest sR = new ServiceRequest(docSign, location, "Name" + "_" + location, "Medicine Delivery");
+        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        dbServiceRequest.addServiceRequest(sR);
+
+
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
+
+
+
+
 }

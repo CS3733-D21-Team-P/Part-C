@@ -4,6 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import java.io.IOException;
+
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 
 public class LanguageInterpreterServiceRequest {
-
+  @FXML
+  public JFXTextField doctorSignature;
   @FXML
   private JFXTextField interpLanguage;
   @FXML
@@ -39,8 +43,23 @@ public class LanguageInterpreterServiceRequest {
     final String lang = interpLanguage.getText();
     final String loc = interpLoc.getText();
     final String details = interpDetails.getText();
+    final String doctorSig = doctorSignature.getText();
+
+    ServiceRequest sR = new ServiceRequest(doctorSig, loc, "Name" + "_" + loc, "Language Interpreter");
+    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+    dbServiceRequest.addServiceRequest(sR);
 
     System.out.println("submitting form for interpreter services");
     System.out.println("language = " + lang + "\nloc = " + loc + "\ndetails = " + details);
+
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+
   }
+
+
 }

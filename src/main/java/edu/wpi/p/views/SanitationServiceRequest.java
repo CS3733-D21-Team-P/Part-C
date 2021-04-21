@@ -13,6 +13,9 @@ import java.time.LocalDate;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.ServiceRequest;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -99,11 +102,18 @@ public class SanitationServiceRequest implements Initializable {
         final String fullNameValue = fullNameText.getText();
         final String roomNumberValue = roomNumberText.getText();
         final String descriptionValue = description.getText();
+        final String typeOfSanitation = typeOfSanitationBox.getTypeSelector();
+        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, fullNameValue + "_" + roomNumberValue, "Sanitation");
+        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        dbServiceRequest.addServiceRequest(sR);
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
+
+
 }

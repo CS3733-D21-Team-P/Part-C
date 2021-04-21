@@ -1,6 +1,7 @@
 package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import java.io.IOException;
 import java.util.List;
@@ -29,23 +30,25 @@ public class HomePage {
   @FXML
   public Label addressLabel;
   @FXML
-  public TextField searchText;
+  public JFXTextField searchText;
   @FXML
-  public Button languageInterpretersBtn;
+  public JFXButton SRoption;
+//  public Button languageInterpretersBtn;
+//  @FXML
+//  public Button medicineDeliveryServiceBtn;
+//  @FXML
+//  public Button laundryServicesBtn;
+//  @FXML
+//  public Button externalPatientTransportationBtn;
   @FXML
-  public Button medicineDeliveryServiceBtn;
+  public JFXButton nodeButton;
   @FXML
-  public Button laundryServicesBtn;
+  public JFXButton edgeButton;
   @FXML
-  public Button externalPatientTransportationBtn;
+  public JFXButton pathButton;
   @FXML
-  public Button nodeButton;
-  @FXML
-  public Button edgeButton;
-  @FXML
-  public Button pathButton;
-  @FXML
-  public Button SRoption;
+  public JFXButton editButton;
+
 
 
 //  public JFXButton languageInterpretersBtn;
@@ -142,6 +145,15 @@ public class HomePage {
   public void nodeButtonAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPNodeData.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public void editButtonAc(){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/EditMap.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();

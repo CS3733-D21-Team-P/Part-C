@@ -13,19 +13,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.LaundryServiceRequest">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.LaundryServiceRequest">
   <children>
-    <Label layoutX="138.0" layoutY="14.0" prefHeight="35.0" prefWidth="322.0" text="Laundry Service Request Form" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="139.60000000000002">
-      <font>
-        <Font size="24.0" />
-      </font>
-    </Label>
-      <GridPane layoutX="39.0" layoutY="62.0" prefHeight="252.0" prefWidth="522.0">
+      <VBox layoutX="147.0" layoutY="39.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0" />
+      <GridPane alignment="CENTER" layoutX="197.0" layoutY="312.0" prefHeight="252.0" prefWidth="522.0" AnchorPane.bottomAnchor="274.0" AnchorPane.topAnchor="274.0">
         <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="279.20001220703125" minWidth="10.0" prefWidth="135.4000244140625" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="448.0" minWidth="10.0" prefWidth="386.5999755859375" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="279.20001220703125" minWidth="10.0" prefWidth="135.0000244140625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="572.7999877929688" minWidth="10.0" prefWidth="386.9999755859375" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -64,7 +61,7 @@
                   <Insets right="15.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Dropoff Date:" GridPane.rowIndex="3">
+            <Label prefHeight="17.0" prefWidth="78.0" text="Dropoff Date:" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="15.0" />
                </GridPane.margin>
@@ -85,7 +82,7 @@
                   <JFXTimePicker fx:id="dropoffTime" prefHeight="28.0" prefWidth="140.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="387.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="501.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <children>
                   <JFXDatePicker fx:id="pickUpDate" />
                   <Label text="Time: ">
@@ -99,9 +96,16 @@
             <JFXTextField fx:id="fullName" GridPane.columnIndex="1" />
             <JFXTextField fx:id="pickUpLocation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <JFXTextArea fx:id="specialInstructions" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+
          </children>
       </GridPane>
-      <JFXButton fx:id="back" layoutX="39.0" layoutY="330.0" onAction="#advanceScene" prefHeight="43.0" prefWidth="105.0" style="-fx-background-color: red;" text="Back" />
-      <JFXButton fx:id="submit" layoutX="458.0" layoutY="330.0" onAction="#advanceScene" prefHeight="43.0" prefWidth="105.0" style="-fx-background-color: green;" text="Submit" />
+    <Label layoutX="255.0" layoutY="239.0" prefHeight="53.0" prefWidth="480.0" text="Laundry Service Request Form" textFill="#0900ff" AnchorPane.topAnchor="200.0">
+      <font>
+        <Font size="36.0" />
+      </font>
+    </Label>
+      <JFXButton fx:id="back" layoutX="255.0" layoutY="608.0" onAction="#advanceScene" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: red;" text="Back" textFill="WHITE" />
+      <JFXButton fx:id="submit" layoutX="615.0" layoutY="608.0" onAction="#submitPress" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE" />
   </children>
 </AnchorPane>

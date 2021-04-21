@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Observable;
 
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -82,6 +84,8 @@ public class ExternalpatienttransportationRequest {
   public RadioButton PlaneBtn;
   @FXML
   public javafx.scene.control.DatePicker DatePicker;
+  @FXML
+  public TextField doctorSignature;
 
 
   ObservableList<String> hospitalList = FXCollections
@@ -117,6 +121,10 @@ public class ExternalpatienttransportationRequest {
     final String hour = hourText.getText();
     final String min = minuteText.getText();
     final String detail = detailText.getText();
+    final String doctorSig = doctorSignature.getText();
+    ServiceRequest sR = new ServiceRequest(doctorSig, roomNumber, firstName+lastName + "_" + roomNumber, "External patient transportation");
+    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+    dbServiceRequest.addServiceRequest(sR);
 
     System.out.println("Patien Name = " + firstName + lastName
             + "\nCurrent Hospital: " + currentHospital.getSelectionModel().getSelectedItem()
@@ -128,11 +136,14 @@ public class ExternalpatienttransportationRequest {
             + "\nTime: " + hour + ":" + min
             + "\nDetail: " + detail
 
-
-
-
     );
 
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
 
   }
 
