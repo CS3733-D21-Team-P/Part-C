@@ -23,7 +23,7 @@
         </ImageView>
 
                     <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
-        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
+        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" />
           <VBox prefHeight="326.0" prefWidth="182.0" spacing="15.0">
               <children>
                   <Button fx:id="importNodeCSV" mnemonicParsing="false" onAction="#importNodeCSVBtn" text="Import Nodes" />

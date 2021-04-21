@@ -20,7 +20,7 @@
       <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
         <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
          <children>
-            <Button fx:id="pathHomeBtn" layoutX="1534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
+            <Button fx:id="pathHomeBtn" layoutX="1534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="26.0" />
          </children></AnchorPane>
         <Pane layoutX="10.0" layoutY="10.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
