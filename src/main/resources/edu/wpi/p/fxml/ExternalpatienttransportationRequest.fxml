@@ -118,8 +118,8 @@
             <Button mnemonicParsing="false" onAction="#detailHelpPressed" text="?" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <children>
-                  <Button mnemonicParsing="false" onAction="#cancelPressed" prefHeight="37.0" prefWidth="70.0" text="Cancel" textFill="#e30e0e" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitPressed" prefHeight="38.0" prefWidth="70.0" text="Submit" textFill="#22a800">
+                  <Button mnemonicParsing="false" onAction="#cancelPressed" prefHeight="37.0" prefWidth="70.0" style="-fx-background-color: red;" text="Back" textFill="WHITE" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#submitPressed" prefHeight="38.0" prefWidth="70.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="90.0" />
                      </HBox.margin>
