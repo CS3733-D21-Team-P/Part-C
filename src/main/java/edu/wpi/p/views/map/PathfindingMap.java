@@ -1,9 +1,10 @@
-package edu.wpi.p.views;
+package edu.wpi.p.views.map;
 
 import edu.wpi.p.AStar.AStar;
 import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
+import edu.wpi.p.views.map.MapController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PathfindingMap extends MapController{
+public class PathfindingMap extends MapController {
 
     enum State {
         ENTERSTART,

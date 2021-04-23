@@ -1,4 +1,4 @@
-package edu.wpi.p.views;
+package edu.wpi.p.views.map;
 
 import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
@@ -31,7 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class EditMap extends MapController{
+public class EditMap extends MapController {
     private DBTable dbTable = new DBTable();
     private Boolean isEditingEdges = false;
     private Boolean isAddingNodes = false;

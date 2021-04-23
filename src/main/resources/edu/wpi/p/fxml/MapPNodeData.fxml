@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="464.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.MapPNodeData">
+<AnchorPane prefHeight="464.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapPNodeData">
     <children>
         <Label layoutX="13.0" layoutY="15.0" text="Node Data" />
         <Button fx:id="addNodeBtn" layoutX="492.0" layoutY="385.0" mnemonicParsing="false" onAction="#addNodeAc" text="Add Node" />

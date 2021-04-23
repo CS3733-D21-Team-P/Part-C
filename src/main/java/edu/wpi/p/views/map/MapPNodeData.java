@@ -1,4 +1,4 @@
-package edu.wpi.p.views;
+package edu.wpi.p.views.map;
 
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.App;

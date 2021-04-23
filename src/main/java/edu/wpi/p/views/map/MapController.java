@@ -1,4 +1,4 @@
-package edu.wpi.p.views;
+package edu.wpi.p.views.map;
 
 import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
