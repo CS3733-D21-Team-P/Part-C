@@ -111,10 +111,6 @@ public class PathfindingMap extends MapController{
             }
 
             graph.resetNodeGraph();
-            //graph= createGraph();
-//            for (Node n : graph) {
-//                n.setVisited(false);
-//            }
 
         }
         else{
@@ -155,13 +151,19 @@ public class PathfindingMap extends MapController{
      */
     @Override
     public NodeButton addNodeButton(Node node){
-        NodeButton nb = super.addNodeButton(node);
+        //MAKE BUTTON IF ON CURRENT FLOOR
+        if (node.getFloor().equals(getCurrFloorVal())) {
 
-        //set on click method
-        nb.setOnAction(event -> {
-            addNodeToSearch(event);});
+            NodeButton nb = super.addNodeButton(node);
 
-        return nb;
+            //set on click method
+            nb.setOnAction(event -> {
+                addNodeToSearch(event);
+            });
+
+            return nb;
+        }
+        return null;
     }
 
     private void getFloorChoiceBoxUpdate(){

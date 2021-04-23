@@ -32,39 +32,17 @@ public class EdgeLine extends Line {
 
     }
 
-    /**
-     * update the lines location based on nodes new location
-     * @param scaleX : x scale of map
-     * @param scaleY :y scale of map
-     * @param node : the node that has changed
-     */
-    public void update(ImageView imageView, Node node){
+
+    //pan and zoom update transform
+    public void pan(ImageView imageView) {
         Rectangle2D viewport = imageView.getViewport();
         double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
         double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        if(startNode == node){
-            //set start point
-            this.setStartX((startNode.getXcoord()*scaleX) +(viewport.getMinX() / scaleX));
-            this.setStartY((startNode.getYcoord()*scaleY)+(viewport.getMinY() / scaleY));
-        }
-        else{
-            //set end point
-            this.setEndX((endNode.getXcoord()*scaleX) +(viewport.getMinX() / scaleX));
-            this.setEndY((endNode.getYcoord()*scaleY)+(viewport.getMinY() / scaleY));
-//            this.setEndX(endNode.getXcoord()*scaleX);
-//            this.setEndY(endNode.getYcoord()*scaleY);
-        }
-        System.out.println("updating:  " + startNode.getName() + " - "+ endNode.getName());
 
+        this.setStartX((startNode.getXcoord() / scaleX) - viewport.getMinX() / scaleX);
+        this.setStartY((startNode.getYcoord() / scaleY) - viewport.getMinY() / scaleY);
 
-    }
-
-    //pan and zoom update transform
-    public void pan(Rectangle2D viewport, double scaleX, double scaleY, double offsetScaleX, double offsetScaleY) {
-        this.setStartX((startNode.getXcoord() / scaleX) - viewport.getMinX() / offsetScaleX);
-        this.setStartY((startNode.getYcoord() / scaleY) - viewport.getMinY() / offsetScaleY);
-
-        this.setEndX((endNode.getXcoord() / scaleX) - viewport.getMinX() / offsetScaleX);
-        this.setEndY((endNode.getYcoord() / scaleY) - viewport.getMinY() / offsetScaleY);
+        this.setEndX((endNode.getXcoord() / scaleX) - viewport.getMinX() / scaleX);
+        this.setEndY((endNode.getYcoord() / scaleY) - viewport.getMinY() / scaleY);
     }
 }

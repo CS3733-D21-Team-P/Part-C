@@ -4,7 +4,6 @@ import AStar.EdgeLine;
 import AStar.Node;
 import AStar.NodeButton;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.csv.CSVData;
@@ -12,11 +11,9 @@ import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -32,7 +29,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditMap extends MapController{
@@ -97,23 +93,20 @@ public class EditMap extends MapController{
         if (node.getFloor().equals(getCurrFloorVal())) {
             System.out.println("adding button edit");
             NodeButton nb = super.addNodeButton(node);
-            //set on click method
+            //set on click methods
+            //drag button
             nb.setOnMouseDragged(e -> {
                 nb.setLayoutX(e.getSceneX());
                 nb.setLayoutY(e.getSceneY());
-
             });
+            //drag released
             nb.setOnMouseReleased(event -> {
                 System.out.println("mouse released");
-                Editcoord(nb, nb.getLayoutX(), nb.getLayoutY()); //set new location
-                System.out.println(nb.getName());
-                for (EdgeLine el : nb.getLines()) {
-                    translateEdge(el);
-                    //el.update(imageView, nb.getNode());
-                    EdgeLine oppositeLine = findEdgeLine(el.getEndNode(), nb.getNode());
-                    //oppositeLine.update(imageView,nb.getNode());
-                    translateEdge(oppositeLine);
-                }
+                double newX=unScaleX(nb.getLayoutX());
+                double newY=unScaleY(nb.getLayoutY());
+
+                EditNodeLocation(nb, newX, newY); //set new location
+
             });
 
             nb.setOnMouseClicked(event -> {
@@ -121,38 +114,14 @@ public class EditMap extends MapController{
                     System.out.println(nb.getNode().getXcoord());
                     System.out.println(nb.getLayoutX());
 
-                    if (isEditingEdges) {
+                    if (isEditingEdges) { //if in mode adding edges
                         if (edgeNodeStart == null) {
-                            edgeNodeStart = nb;
+                            edgeNodeStart = nb; //set start button
                         } else if (edgeNodeEnd == null && edgeNodeStart != nb) { //both points have been specified so create edge
-                            edgeNodeEnd = nb;
+                            edgeNodeEnd = nb; //set end button
 
-                            //update node neighbors so stay between switching floors
-                            edgeNodeStart.getNode().addNeighbour(edgeNodeEnd.getNode());
-                            edgeNodeEnd.getNode().addNeighbour(edgeNodeStart.getNode());
-
-                            //create line there
-                            EdgeLine el = addEdgeLine(edgeNodeStart.getNode(), edgeNodeEnd.getNode());
-                            //scale lines
-                            translateEdge(el);
-                            edgeNodeStart.addLine(el);
-                            edgeLines.add(el); //add to list of lines
-
-                            //create opposite line
-                            EdgeLine elOpposite = addEdgeLine(edgeNodeEnd.getNode(), edgeNodeStart.getNode());
-                            //scale lines
-                            translateEdge(elOpposite);
-                            edgeNodeEnd.addLine(elOpposite);
-                            edgeLines.add(elOpposite); //add to list of lines
-
-                            //get node ids
-                            String startID = edgeNodeStart.getNode().getId();
-                            String endID = edgeNodeEnd.getNode().getId();
-
-                            // add edge to database
-                            dbTable.addEdge(startID + "_" + endID, startID, endID);
-
-
+                            //create edge and lines
+                            addEdgeBetween(edgeNodeStart,edgeNodeEnd);
 
                             //reset start and end so another line can be created
                             edgeNodeStart = null;
@@ -177,57 +146,56 @@ public class EditMap extends MapController{
     }
 
     /**
-     *
+     * Creates an edge between the two buttons, adds lines, and adds to database
+     * @param start
+     * @param end
+     */
+    public void addEdgeBetween(NodeButton start, NodeButton end){
+        //update node neighbors so stay between switching floors
+        start.getNode().addNeighbour(end.getNode());
+        end.getNode().addNeighbour(start.getNode());
+
+        //create line there
+        EdgeLine el = addEdgeLine(start.getNode(), end.getNode());
+        start.addLine(el);
+
+        //create opposite line
+        EdgeLine elOpposite = addEdgeLine(end.getNode(), start.getNode());
+        end.addLine(elOpposite);
+
+        //get node ids
+        String startID = start.getNode().getId();
+        String endID = end.getNode().getId();
+
+        // add edge to database
+        dbTable.addEdge(startID + "_" + endID, startID, endID);
+    }
+
+    /**
+     * given map/database coordinates and sets buttons new location and on window
      * @param nb
-     * @param newX position of button
+     * @param newX position of button in map/database coordinates
      * @param newY
      */
-    public void Editcoord(NodeButton nb, double newX, double newY) {
-        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
-        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        Rectangle2D viewport = imageView.getViewport();
-
-        //translateNode(nb);
-
-//        //set based on scale
-//        newY*= scaleY;
-//        newX*=scaleX;
-
-        double xShift= (viewport.getMinX()/scaleX);
-        double yShift = (viewport.getMinY()/scaleY);
-//        newY+=yShift;
-//        newX+= xShift;
-        //Window Zoom Coords to just Window Coords
-//        newY*= scaleY;
-//        newX*=scaleX;
-        //new map coordinates
-        newX=unScaleX(newX);
-        newY=unScaleY(newY);
-
+    public void EditNodeLocation(NodeButton nb, double newX, double newY) {
         Node node = nb.getNode(); //old map coordinates
-        double mx = node.getXcoord();
-        double my= node.getYcoord();
-
-        double diffX = (mx-newX);
-        double diffY= (my-newY);
 
         //set to be position without scale
         //set so not scaled to image
-//        node.setXcoord((int) unScaleX(newX));
-//        node.setYcoord((int) unScaleY(newY));
-        node.setXcoord((int) (mx-diffX));
-        node.setYcoord((int) (my-diffY));
+        node.setXcoord((int) (newX));
+        node.setYcoord((int) (newY));
 
-//        newX= (newX/scaleX);
-//        newY= (newY/scaleY);
-//
-//        node.setYcoord((int)(newY));
-//        node.setXcoord((int)(newX));
-        //translateNode(nb);
+        nb.pan(imageView); //move button
 
         //Update in DB
-        //DBTable dbTable = new DBTable();
         dbTable.updateNode(node);
+
+        //update edges
+        for (EdgeLine el : nb.getLines()) {
+            translateEdgeLine(el);
+            EdgeLine oppositeLine = findEdgeLine(el.getEndNode(), nb.getNode());
+            translateEdgeLine(oppositeLine);
+        }
     }
 
     /**
@@ -252,6 +220,27 @@ public class EditMap extends MapController{
         return id;
     }
 
+    /**
+     * Add a new Node Button to given map location
+     * @param x map location
+     * @param y
+     * @return New NodeButton
+     */
+    private NodeButton addNodeButtonAtLoc(int x, int y){
+        String floor = getCurrFloorVal();
+
+        String newId= getNewID("FLOOR"+floor+"-"); //get new id;
+        System.out.println("ID "+ newId);
+
+        Node node = new Node(newId, newId, x, y, floor,"NONE", "NONE", "node"+btnIncrement);
+        NodeButton nb =addNodeButton(node);
+
+        graph.addToGraph(node);
+
+        dbTable.addNode(node);//add to database
+        return nb;
+    }
+
     @Override
     public void initialize()  {
         super.initialize();
@@ -259,7 +248,6 @@ public class EditMap extends MapController{
         rClickPopup.setVisible(false);
         deleteConfirmation.setVisible(false);
         changesSavedText.setVisible(false);
-        System.out.println("EDIT INIT");
 
         //add buttons
         for (Node n: graph.getGraph()){
@@ -271,26 +259,9 @@ public class EditMap extends MapController{
         btnPane.setOnMouseClicked(event -> {
             if(isAddingNodes ==true){ //if adding nodes
                 //set x and y to be position of mouse
-                int x = (int) (event.getSceneX());
-                int y = (int) (event.getSceneY());
-                System.out.println("create button: "+x+" , "+y);
-
-                String newId= getNewID("blankNode"); //get new id;
-                System.out.println("ID "+ newId);
-
-                Node node = new Node(newId, newId, x, y, getCurrFloorVal(),"NONE", "NONE", "node"+btnIncrement);
-                NodeButton nb =addNodeButton(node);
-
-                Rectangle2D viewport = imageView.getViewport();
-
-                //set so not scaled to image
-                node.setXcoord((int) unScaleX(x));
-                node.setYcoord((int) unScaleY(y));
-
-                buttons.add(nb);
-                graph.addToGraph(node);
-
-                dbTable.addNode(node);//add to database
+                int x = (int) (unScaleX(event.getSceneX()));
+                int y = (int) (unScaleY(event.getSceneY()));
+                addNodeButtonAtLoc(x,y);
             }
         });
     }
@@ -369,22 +340,35 @@ public class EditMap extends MapController{
     @FXML
     private void deleteConfirm(ActionEvent actionEvent)
     {
-        Node node = nodeHold;
-        DBTable dbTable = new DBTable();
-        dbTable.removeNode(node.getId());
         deleteConfirmation.setVisible(false);
-        nodeButtonHold.setVisible(false); //make invisible
+
+        deleteNodeButton(nodeButtonHold);
+    }
+
+
+    /**
+     * delete given nodeButton and corresponding node and edges
+     * @param nb: NodeButton
+     */
+    private void deleteNodeButton(NodeButton nb){
+        Node node = nb.getNode();
+        nb.setVisible(false); //make invisible
         for(EdgeLine el: nodeButtonHold.getLines()){
             //delete lines get lines
             el.setVisible(false);
+            dbTable.removeEdge(nodeHold.getId(), el.getEndNode().getId());
             el.getEndNode();
             EdgeLine opp =findEdgeLine(el.getEndNode(),node);
+            dbTable.removeEdge(el.getEndNode().getId(), nodeHold.getId());
             opp.setVisible(false);
         }
         for(Node neighbour: node.getNeighbours()){ //remove neighbors
             neighbour.getNeighbours().remove(node);
         }
+
         graph.getGraph().remove(node);// remove from graph
+        dbTable.removeNode(node.getId()); //remove from database
+
     }
 
     @FXML
@@ -445,6 +429,12 @@ public class EditMap extends MapController{
         node.setXcoord(x);
         node.setYcoord(y);
         dbTable.updateNode(node);
+
+        //update how node button looks
+        nodeButtonHold.update(imageView);
+
+        EditNodeLocation(nodeButtonHold,x,y);
+
         changesSavedText.setVisible(true);
     }
 

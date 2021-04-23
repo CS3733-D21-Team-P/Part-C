@@ -1,9 +1,11 @@
 package AStar;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +16,8 @@ public class NodeButton extends Button {
     }
 
     private Node node;
-    private double maxWidth = 10;
-    private double maxHeight = 10;
+    private double maxWidth = 12;
+    private double maxHeight = 12;
 
     public List<EdgeLine> getLines() {
         return lines;
@@ -42,7 +44,45 @@ public class NodeButton extends Button {
 
         this.setText(newNode.getName());
 
+        setStyle();
 
+
+    }
+
+    private void setStyle(){
+        //add icons to certain types of nodes
+        String nameOfFile = "";
+        switch (node.getType()) {
+            case "BATH":
+            case "REST":
+                nameOfFile = "/image/icons/restroom.jpg";
+                break;
+            case "RETL":
+                nameOfFile = "/image/icons/retail.png";
+                break;
+            case "ELEV":
+                nameOfFile = "/image/icons/elevator.png";
+                break;
+            case "STAI":
+                nameOfFile = "/image/icons/stairs.png";
+                break;
+            case "EXIT":
+                nameOfFile = "/image/icons/exit.jpg";
+                break;
+        }
+        if (!nameOfFile.isEmpty()) {
+            int addedSize = 5;
+            setButtonSize(maxHeight+addedSize);
+            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),maxWidth+addedSize,maxHeight+addedSize,true, true);
+            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+            Background background = new Background(backgroundImage);
+            setBackground(background);
+        }
+    }
+
+    public void update(ImageView imageView){
+        setStyle();
+        pan(imageView);
     }
 
     public void addLine(EdgeLine el){
@@ -53,9 +93,12 @@ public class NodeButton extends Button {
         return node.getName();
     }
 
-    public void pan(Rectangle2D viewport, double scaleX, double scaleY, double offsetScaleX, double offsetScaleY) {
-        this.setLayoutX((node.getXcoord() / scaleX) - viewport.getMinX() / offsetScaleX);
-        this.setLayoutY((node.getYcoord() / scaleY) - viewport.getMinY() / offsetScaleY);
+    public void pan(ImageView imageView) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        Rectangle2D viewport = imageView.getViewport();
+        this.setLayoutX((node.getXcoord() / scaleX) - viewport.getMinX() / scaleX);
+        this.setLayoutY((node.getYcoord() / scaleY) - viewport.getMinY() / scaleY);
     }
 
     public void setButtonSize(double buttonSize) {

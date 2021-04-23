@@ -21,7 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,18 +30,13 @@ import java.util.List;
 public abstract class MapController {
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
-//    List<EdgeLine> edgeLines = new ArrayList<>();
+    List<EdgeLine> edgeLines = new ArrayList<>();
 
     private double zoomSpeed = 1.005;
     private double minZoomPixels = 800;
 
-    List<EdgeLine> edgeLines = new ArrayList<>();
-
     double scaleX;
     double scaleY;
-
-    private double maxWidth = 15;
-    private double maxHeight = 15;
 
     public String getCurrFloorVal() {
         return currFloorVal;
@@ -68,48 +63,20 @@ public abstract class MapController {
      */
     public NodeButton addNodeButton(Node node){
         NodeButton nb = new NodeButton(node); //create button
+        if (node.getFloor().equals(getCurrFloorVal())) {
 
-        //add icons to certain types of nodes
-        String nameOfFile ="";
-        switch (node.getType()) {
-            case "BATH":
-            case "REST":
-                nameOfFile = "/image/icons/restroom.jpg";
-                break;
-            case "RETL":
-                nameOfFile = "/image/icons/retail.png";
-                break;
-            case "ELEV":
-                nameOfFile = "/image/icons/elevator.png";
-                break;
-            case "STAI":
-                nameOfFile = "/image/icons/stairs.png";
-                break;
-            case "EXIT":
-                nameOfFile = "/image/icons/exit.jpg";
-                break;
+            btnPane.getChildren().add(nb); //add to page
+
+            //add edges
+            List<Node> children = node.getNeighbours();
+            for (Node n : children) {
+                EdgeLine el = addEdgeLine(node, n);
+                nb.addLine(el);
+                edgeLines.add(el);
+            }
+            translateNodeButton(nb);
+            buttons.add(nb);
         }
-        if (!nameOfFile.isEmpty()) {
-            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile));
-            ImageView iconImage = new ImageView(buttonIcon);
-            iconImage.setFitHeight(maxHeight);
-            iconImage.setFitWidth(maxWidth);
-            nb.setGraphic(iconImage);
-        }
-        //set on click method
-//        nb.setOnAction(event -> {
-//            addNodeToSearch(event);});
-        if (node.getFloor().equals(currFloorVal)) {
-          btnPane.getChildren().add(nb); //add to page
-          List<Node> children = node.getNeighbours();
-          for(Node n: children){
-              EdgeLine el =addEdgeLine(node, n);
-              nb.addLine(el);
-              edgeLines.add(el);
-          }
-        }
-        //translateNode(nb);
-        buttons.add(nb);
         return nb;
     }
 
@@ -123,6 +90,7 @@ public abstract class MapController {
         EdgeLine el = new EdgeLine(node1, node2); //create line
         edgeLines.add(el); //save for pan and zoom
         linePane.getChildren().add(el); //add line to screen
+        translateEdgeLine(el);
         return el;
     }
 
@@ -165,14 +133,14 @@ public abstract class MapController {
                 currFloorVal = availableFloors[newValue.intValue()];
                 btnPane.getChildren().clear();
                 linePane.getChildren().clear();
-                btnPane.getChildren().add(pathHomeBtn);
+                //btnPane.getChildren().add(pathHomeBtn);
                 //buttons.clear();
                 edgeLines= new ArrayList<>();
                 buttons= new ArrayList<>();
                 for (Node n: graph.getGraph()){
                     addNodeButton(n);
                 }
-                translateGraph(imageView);
+                //translateGraph(imageView);
                 switch (currFloorVal) {
                     case "Ground":
                         mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thegroundfloor.png"));
@@ -211,13 +179,7 @@ public abstract class MapController {
 
         graph.genGraph(false);
 
-        System.out.println("INIT SUPER!!!!");
-
         changeFloors();
-
-//        for (Node n : graph.getGraph()) {
-//            addNodeButton(n);
-//        }
 
         panAndZoomEvents();
     }
@@ -243,7 +205,6 @@ public abstract class MapController {
         });
 
         btnPane.setOnMouseDragged(e -> {
-            System.out.println("Drag");
             Point2D dragPoint = imageViewToImage(new Point2D(e.getX(), e.getY()));
             pan(imageView, dragPoint.subtract(mouseDown.get()));
             mouseDown.set(imageViewToImage(new Point2D(e.getX(), e.getY())));
@@ -264,7 +225,6 @@ public abstract class MapController {
             double newWidth = viewport.getWidth() * scale;
             double newHeight = viewport.getHeight() * scale;
 
-            // newViewportMinX = x - (x - currentViewportMinX) * scale
             // clamp to stop scroll further out than image size
             double newMinX = clamp(mouse.getX() - (mouse.getX() - viewport.getMinX()) * scale,
                     0, imageWidth - newWidth);
@@ -273,11 +233,6 @@ public abstract class MapController {
 
             imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
             translateGraph(imageView);
-
-            double scalex = imageView.getViewport().getWidth() / imageView.getFitWidth();
-            System.out.println("scale: " +scalex);
-            System.out.println("viewport: "+imageView.getViewport().getWidth());
-            System.out.println("fit "+ imageView.getFitWidth());
         });
 
         //reset view
@@ -307,7 +262,7 @@ public abstract class MapController {
         double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
 
         imageView.setViewport(new Rectangle2D(minX, minY, viewport.getWidth(), viewport.getHeight()));
-        System.out.println("panx"+minX);
+
         translateGraph(imageView);
     }
 
@@ -335,32 +290,26 @@ public abstract class MapController {
     void translateGraph(ImageView imageView) {
         double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
         double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
-        double offsetScaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
         for(NodeButton btn : buttons) {
-            btn.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+            btn.pan(imageView);
         }
         for(EdgeLine el : edgeLines) {
-            el.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+            el.pan(imageView);
         }
     }
 
-    void translateEdge( EdgeLine el){
+    void translateEdgeLine(EdgeLine el){
         double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
         double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
-        double offsetScaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        el.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+        el.pan(imageView);
 
     }
 
     //map coords to window coords
-    void translateNode(NodeButton btn){
+    void translateNodeButton(NodeButton btn){
         double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
         double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        double offsetScaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
-        double offsetScaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        btn.pan(imageView.getViewport(), scaleX, scaleY, offsetScaleX, offsetScaleY);
+        btn.pan(imageView);
     }
 
     //window coords to map coords
@@ -372,7 +321,6 @@ public abstract class MapController {
 
     double unScaleY(double y){
         double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
-        double scaleOpp = imageView.getFitHeight()/imageView.getViewport().getHeight();
         Rectangle2D viewport = imageView.getViewport();
         return ((y*scaleY)+(viewport.getMinY()));
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -18,10 +19,7 @@
             </image>
         </ImageView>
       <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
-        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0">
-         <children>
-            <Button fx:id="pathHomeBtn" layoutX="1534.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="26.0" />
-         </children></AnchorPane>
+        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
         <Pane layoutX="10.0" layoutY="10.0" prefHeight="170.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
                 <VBox layoutX="10.0" prefHeight="212.0" prefWidth="174.0">
@@ -43,4 +41,5 @@
                 </VBox>
             </children>
         </Pane>
+   <JFXButton fx:id="pathHomeBtn" onAction="#homeButtonAc" text="Home" AnchorPane.rightAnchor="14.200000000000045" AnchorPane.topAnchor="14.0" />
 </AnchorPane>
