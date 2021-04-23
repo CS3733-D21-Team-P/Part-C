@@ -1,4 +1,4 @@
-package AStar;
+package edu.wpi.p.AStar;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;

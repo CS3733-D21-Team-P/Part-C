@@ -1,8 +1,8 @@
 package edu.wpi.p.views;
 
-import AStar.EdgeLine;
-import AStar.Node;
-import AStar.NodeButton;
+import edu.wpi.p.AStar.EdgeLine;
+import edu.wpi.p.AStar.Node;
+import edu.wpi.p.AStar.NodeButton;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;

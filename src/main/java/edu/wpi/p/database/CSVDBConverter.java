@@ -1,6 +1,6 @@
 package edu.wpi.p.database;
 
-import AStar.Node;
+import edu.wpi.p.AStar.Node;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.Column;
 

@@ -1,4 +1,4 @@
-package AStar;
+package edu.wpi.p.AStar;
 
 import java.util.ArrayList;
 import java.util.List;

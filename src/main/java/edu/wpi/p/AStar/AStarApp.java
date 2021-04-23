@@ -1,4 +1,4 @@
-package AStar;
+package edu.wpi.p.AStar;
 
 import java.io.FileNotFoundException;
 import java.util.List;
