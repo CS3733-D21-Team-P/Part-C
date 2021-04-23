@@ -67,8 +67,8 @@ public class MapPEdgeData{
 
     @FXML
     private void initialize() throws Exception {
-//        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
-//        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
+//        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Nodes.csv");
+//        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Edges.csv");
 //        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
         edgeDataList = dbTable.getEdges();
         //set up the columns in the table

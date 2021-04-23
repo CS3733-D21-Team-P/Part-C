@@ -1,9 +1,9 @@
 package edu.wpi.p.views;
 
-import AStar.EdgeLine;
-import AStar.Node;
-import AStar.NodeButton;
-import AStar.NodeGraph;
+import edu.wpi.p.AStar.EdgeLine;
+import edu.wpi.p.AStar.Node;
+import edu.wpi.p.AStar.NodeButton;
+import edu.wpi.p.AStar.NodeGraph;
 import edu.wpi.p.App;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

@@ -1,6 +1,6 @@
 package edu.wpi.p.database;
 
-import AStar.Node;
+import edu.wpi.p.AStar.Node;
 
 import java.util.ArrayList;
 import java.util.List;

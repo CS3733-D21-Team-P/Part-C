@@ -1,4 +1,4 @@
-package edu.wpi.p.views;
+package edu.wpi.p.views.servicerequests;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;

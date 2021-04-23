@@ -1,10 +1,9 @@
 package edu.wpi.p.views;
 
-import AStar.EdgeLine;
-import AStar.Node;
-import AStar.NodeButton;
+import edu.wpi.p.AStar.EdgeLine;
+import edu.wpi.p.AStar.Node;
+import edu.wpi.p.AStar.NodeButton;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.csv.CSVData;
@@ -12,7 +11,6 @@ import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +30,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditMap extends MapController{

@@ -1,4 +1,4 @@
-package AStar;
+package edu.wpi.p.AStar;
 
 import edu.wpi.p.database.DBTable;
 
