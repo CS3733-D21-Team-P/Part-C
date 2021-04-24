@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.CovidSurvey">
+   <children>
+      <Text fx:id="firstText" layoutX="107.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I have had a symptomatic COVID-19 test or I have received positive test result for COVID-19 in the last 14 days " wrappingWidth="458.029296875" />
+      <Text fx:id="secondText" layoutX="105.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I am experiencing COVID-19-like symptoms" />
+      <Text fx:id="thirdText" layoutX="104.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I have been in close contact with comeone diagnosed with COVID-19 in the last 14 days" />
+      <Text fx:id="fourthText" layoutX="104.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I have been asked to self-isolate or quarantine by a doctor or local public health official in the last 14 days" wrappingWidth="464.3437385559082" />
+      <Text fx:id="fifthText" layoutX="105.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I feel good (No COVID/No Symptoms)" />
+      <JFXCheckBox fx:id="firstCheckBox" layoutX="37.0" layoutY="58.0" text=" " />
+      <JFXCheckBox fx:id="secondCheckBox" layoutX="37.0" layoutY="120.0" text=" " />
+      <JFXCheckBox fx:id="thirdCheckBox" layoutX="37.0" layoutY="183.0" text=" " />
+      <JFXCheckBox fx:id="fourthCheckBox" layoutX="37.0" layoutY="245.0" text=" " />
+      <JFXCheckBox fx:id="fifthCheckBox" layoutX="37.0" layoutY="311.0" text=" " />
+      <JFXButton fx:id="submitButton" layoutX="513.0" layoutY="348.0" onAction="#submitPressed" text="Submit" />
+      <JFXButton fx:id="cancelButton" layoutX="40.0" layoutY="348.0" onAction="#cancelPressed" text="Cancel" />
+   </children>
+</AnchorPane>
