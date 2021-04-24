@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="userName" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.LoginPage">
+   <children>
+      <ImageView fitHeight="1470.0" fitWidth="960.0" layoutX="-9.0" layoutY="-5.0" pickOnBounds="true">
+         <viewport>
+            <Rectangle2D height="1080.0" width="960.0" />
+         </viewport>
+         <image>
+            <Image url="@../../../../../../../../../Pictures/LoginScreen2.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3159" height="765.0" layoutX="1135.0" layoutY="144.0" stroke="#2f3159" strokeMiterLimit="0.0" strokeWidth="40.0" width="608.0" />
+      <ImageView fitHeight="249.0" fitWidth="213.0" layoutX="1322.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../Pictures/Brigham_and_Womens_Hospital_logo.svg.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="1382.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 20;" text="Username:">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Text>
+      <JFXTextArea id="usernameTXT" focusColor="WHITE" layoutX="1275.0" layoutY="495.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF; -fx-font-family: &quot;open sans&quot;; -fx-font-size: 20;" unFocusColor="WHITE" />
+      <Text fill="WHITE" layoutX="1380.0" layoutY="606.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 20;" text="Password:">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Text>
+      <JFXButton alignment="CENTER" contentDisplay="TOP" layoutX="1348.0" layoutY="713.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="158.0" style="-fx-font-size: 30; -fx-font-family: &quot;open sans&quot;; -fx-background-color: #5990D9; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Login" textAlignment="CENTER">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="1291.0" layoutY="811.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #187bcd; -fx-background-radius: 15px;" text="Continue As Guest" />
+      <JFXPasswordField id="passwordTXT" focusColor="WHITE" layoutX="1275.0" layoutY="616.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF; -fx-font-size: 20;" />
+   </children>
+</AnchorPane>
