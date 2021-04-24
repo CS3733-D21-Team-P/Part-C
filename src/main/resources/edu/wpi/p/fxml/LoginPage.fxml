@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="userName" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.LoginPage">
+<AnchorPane id="userName" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.LoginPage">
    <children>
       <ImageView fitHeight="1470.0" fitWidth="960.0" layoutX="-9.0" layoutY="-5.0" pickOnBounds="true">
          <viewport>
@@ -43,7 +43,7 @@
             <Font size="30.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="1291.0" layoutY="811.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #187bcd; -fx-background-radius: 15px;" text="Continue As Guest" />
+      <JFXButton layoutX="1277.0" layoutY="811.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-background-radius: 15px; -fx-alignment: center;" text="Continue As Guest" textAlignment="CENTER" />
       <JFXPasswordField id="passwordTXT" focusColor="WHITE" layoutX="1275.0" layoutY="616.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="314.0" style="-fx-background-color: #FFFFFF; -fx-font-size: 20;" />
    </children>
 </AnchorPane>
