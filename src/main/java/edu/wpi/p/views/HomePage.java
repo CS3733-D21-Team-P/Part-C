@@ -127,7 +127,7 @@ public class HomePage {
 
   public void pathButtonAc(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/PathfindingMap.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/PathfindingMap.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -136,7 +136,7 @@ public class HomePage {
 
   public void edgeButtonAc(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPEdgeData.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/MapPEdgeData.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -144,7 +144,7 @@ public class HomePage {
   }
   public void nodeButtonAc(ActionEvent actionEvent) {
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPNodeData.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/MapPNodeData.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -153,7 +153,7 @@ public class HomePage {
 
   public void editButtonAc(){
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/EditMap.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/EditMap.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
