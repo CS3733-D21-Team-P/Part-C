@@ -16,23 +16,16 @@ public class Node extends DBRow {
     private String nodeTypeCol = "NODETYPE";
     private String shortNameCol = "SHORTNAME";
 
-    private String name;
-    private String id;
-    private int xcoord;
-    private int ycoord;
     private Boolean visited;
     private Boolean blockade; //not used
     private Node parent;
     private float globalDist;
     private float localDist;
-    private String floor;
-    private String type;
-    private String building;
-    private String shortName;
     private List<Node> neighbours;
 
     public Node() {
         super();
+        init();
     }
     public Node (String id, String name, int xcoord, int ycoord){
         super();
@@ -41,9 +34,7 @@ public class Node extends DBRow {
         this.addValue(idCol, id);
         this.addValue(xcoordCol, xcoord);
         this.addValue(ycoordCol, ycoord);
-        this.visited = false;
-        resetGoals();
-        this.neighbours = new ArrayList<>();
+        init();
     }
 
     public Node(String name, String id, int xcoord, int ycoord, String floor, String building, String type, String shortName) {
@@ -56,6 +47,10 @@ public class Node extends DBRow {
         this.addValue(buildingCol, building);
         this.addValue(nodeTypeCol, type);
         this.addValue(shortNameCol, shortName);
+        init();
+    }
+
+    private void init() {
         this.visited = false;
         resetGoals();
         this.neighbours = new ArrayList<>();

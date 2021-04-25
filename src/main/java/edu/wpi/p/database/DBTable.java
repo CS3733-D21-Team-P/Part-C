@@ -178,31 +178,21 @@ public class DBTable {
 
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(nodeTable);
 
-        // this is bad, but the database currently doesn't guarantee order of the columns
-        int nodeID = indexOfColumnByName(dbColumns, "nodeID");
-        int xcoord = indexOfColumnByName(dbColumns, "xcoord");
-        int ycoord = indexOfColumnByName(dbColumns, "ycoord");
-        int floor = indexOfColumnByName(dbColumns, "floor");
-        int building = indexOfColumnByName(dbColumns, "building");
-        int nodeType = indexOfColumnByName(dbColumns, "nodeType");
-        int longName = indexOfColumnByName(dbColumns, "longName");
-        int shortName = indexOfColumnByName(dbColumns, "shortName");
-
-        //create nodes
         List<Node> nodes = new ArrayList<>(nodeData.size());
-        for(int i = 1; i < nodeData.size(); i++) {
-            List<String> nodeString = nodeData.get(i);
 
-            Node node = new Node(
-                    nodeString.get(longName),
-                    nodeString.get(nodeID),
-                    Integer.parseInt(nodeString.get(xcoord)),
-                    Integer.parseInt(nodeString.get(ycoord)),
-                    nodeString.get(floor),
-                    nodeString.get(building),
-                    nodeString.get(nodeType),
-                    nodeString.get(shortName));
-            nodes.add(node);
+        for (List<String> row : nodeData) {
+            Node n = new Node();
+            for (int i = 0; i < row.size(); i++) {
+                String type = dbColumns.get(i).getType();
+                if (type.equals("INTEGER")) {
+                    n.addValue(dbColumns.get(i).getName(), Integer.parseInt(row.get(i)));
+                }
+                else {
+                    n.addValue(dbColumns.get(i).getName(), row.get(i));
+                }
+
+            }
+            nodes.add(n);
         }
 
         return nodes;
@@ -254,12 +244,6 @@ public class DBTable {
         }
 
         return edges;
-//        int edgeID = indexOfColumnByName(dbColumns, "edgeID");
-//        int startNode = indexOfColumnByName(dbColumns, "startNode");
-//        int endNode = indexOfColumnByName(dbColumns, "endNode");
-//        return edgeData.stream()
-//                .map(strings -> new Edge(strings.get(edgeID), strings.get(startNode), strings.get(endNode)))
-//                .collect(Collectors.toList());
     }
 
 
