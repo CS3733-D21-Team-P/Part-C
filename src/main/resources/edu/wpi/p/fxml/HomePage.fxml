@@ -54,7 +54,7 @@
       </VBox>
       <ImageView fitHeight="362.0" fitWidth="1000.0">
          <image>
-            <Image url="@../../../../image/brigham-womens-facebook-712_0.jpg" />
+            <Image url="@../image/brigham-womens-facebook-712_0.jpg" />
          </image>
       </ImageView>
       <VBox alignment="TOP_CENTER" layoutX="635.0" layoutY="468.0" prefHeight="151.0" prefWidth="188.0">
@@ -72,7 +72,7 @@
       </VBox>
       <ImageView fitHeight="213.0" fitWidth="360.0" layoutX="635.0" layoutY="587.0">
          <image>
-            <Image url="@../../../../image/locations-harbor-medical-logo.png" />
+            <Image url="@../image/locations-harbor-medical-logo.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" layoutX="14.0" layoutY="670.0" prefHeight="84.0" prefWidth="473.0">

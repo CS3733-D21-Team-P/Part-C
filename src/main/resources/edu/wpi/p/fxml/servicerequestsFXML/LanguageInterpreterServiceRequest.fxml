@@ -16,10 +16,10 @@
   <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="444.0" layoutY="-11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url = "@../../../../image/brigham-womens-hospital-building-websized.jpg" />
+            <Image url="@../../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
       </ImageView>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1110.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0" />
+      <VBox style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1110.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0" />
       <JFXButton fx:id="submit" layoutX="624.0" layoutY="557.0" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE" AnchorPane.bottomAnchor="473.0" AnchorPane.leftAnchor="1466.0" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="557.0" />
     <Label layoutX="334.0" layoutY="208.0" text="Request Interpreter" textFill="WHITE" AnchorPane.bottomAnchor="802.0" AnchorPane.leftAnchor="1175.6" AnchorPane.rightAnchor="334.0" AnchorPane.topAnchor="208.0">
       <font>
@@ -71,7 +71,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../../../image/icons/home.png" />
+                        <Image url="@../../image/icons/home.png" />
                      </image>
                   </ImageView>
                </graphic></JFXButton>
@@ -79,7 +79,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../../../image/icons/path.png" />
+                        <Image url="@../../image/icons/path icon.png" />
                      </image>
                   </ImageView>
                </graphic></JFXButton>
@@ -87,7 +87,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../../../image/icons/edit.png" />
+                        <Image url="@../../image/icons/edit.png" />
                      </image>
                   </ImageView>
                </graphic></JFXButton>
@@ -95,7 +95,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../../../image/icons/service.png" />
+                        <Image url="@../../image/icons/request.png" />
                      </image>
                   </ImageView>
                </graphic></JFXButton>
@@ -103,7 +103,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../../../image/icons/covid.png" />
+                        <Image url="@../../image/icons/covid.png" />
                      </image>
                   </ImageView>
                </graphic></JFXButton>
