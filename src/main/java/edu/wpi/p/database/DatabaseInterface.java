@@ -79,6 +79,40 @@ public class DatabaseInterface {
         return createTable(tableName, columns);
     }
 
+    public static boolean insertDBRowIntoTable(String table, DBRow row) {
+        try {
+            List<DBColumn> cols = getColumns(table);
+            String query = "INSERT INTO " + table + "(";
+            query += String.join(", ", cols.stream().map(DBColumn::getName).collect(Collectors.toList()));
+            query += ") VALUES (";
+            for (int i = 0; i < cols.size(); i++) {
+                query += "?";
+                if (i < cols.size() - 1) {
+                    query += ", ";
+                }
+            }
+            query += ")";
+            PreparedStatement statement = conn.prepareStatement(query);
+            for (int i = 0; i < cols.size(); i++) {
+                DBColumn col = cols.get(i);
+                if (col.getType().equals("INTEGER")) {
+                    statement.setInt(i + 1, (Integer) row.getValue(col.getName()));
+                }
+                else if (col.getType().equals("BOOLEAN")) {
+                    statement.setBoolean(i + 1, (Boolean) row.getValue(col.getName()));
+                }
+                else {
+                    statement.setString(i + 1, (String) row.getValue(col.getName()));
+                }
+            }
+            statement.execute();
+            statement.close();
+        } catch (Exception e) {
+            SQLExceptionPrint((SQLException) e);
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static boolean insertIntoTable(String table, String data) {
         try {
             String insertString = "INSERT INTO "  + table + " VALUES (" + data + ")";
@@ -99,7 +133,7 @@ public class DatabaseInterface {
             return;
         }
         try {
-            System.out.println("executeUpdate command: " + command);
+//            System.out.println("executeUpdate command: " + command);
             PreparedStatement statement = conn.prepareStatement(command);
             statement.executeUpdate();
         } catch (Exception e) {
@@ -148,8 +182,6 @@ public class DatabaseInterface {
         }
         try {
             PreparedStatement statement = conn.prepareStatement(selectQuery);
-//            statement.setString(1, table);
-//            statement.setString(2, condition);
             ResultSet result = statement.executeQuery();
             List<DBColumn> columns = getColumns(table);
             List<List<String>> rows = new ArrayList<>();

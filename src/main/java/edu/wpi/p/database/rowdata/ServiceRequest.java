@@ -5,6 +5,8 @@ import edu.wpi.p.database.DBRow;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import javax.xml.ws.Service;
+
 public class ServiceRequest extends DBRow {
     private String nameCol = "NAME";
     private String locationCol = "LOCATION";
@@ -17,6 +19,10 @@ public class ServiceRequest extends DBRow {
 //    private StringProperty assignment;
 //    private boolean complete;
 
+
+    public ServiceRequest() {
+
+    }
 
     public ServiceRequest(String name, String location, String ID, String assignment) {
         this.addValue(nameCol, name);

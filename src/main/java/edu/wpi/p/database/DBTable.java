@@ -3,6 +3,7 @@ package edu.wpi.p.database;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.database.rowdata.Edge;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,8 +103,7 @@ public class DBTable {
      * @param n
      */
     public void addNode(Node n) {
-        String insertValue = "'" + n.getId() + "', " + n.getXcoord() + ", " + n.getYcoord() + ", '" + n.getFloor() + "', '" + n.getBuilding() + "', '" + n.getType() + "', '" + n.getName() + "', '" + n.getShortName() + "'";
-        DatabaseInterface.insertIntoTable(nodeTable, insertValue);
+        DatabaseInterface.insertDBRowIntoTable(nodeTable, n);
     }
 
     /**
