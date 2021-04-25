@@ -80,7 +80,7 @@
             </HBox>
          </children>
       </GridPane>
-      <ImageView fitHeight="1080.0" fitWidth="956.0" layoutX="464.0" layoutY="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="464.0" layoutY="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
