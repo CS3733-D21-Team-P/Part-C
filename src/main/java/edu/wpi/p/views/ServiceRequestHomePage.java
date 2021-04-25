@@ -15,6 +15,12 @@ public class ServiceRequestHomePage {
     public JFXButton laundryServicesBtn;
     public JFXButton externalPatientTransportationBtn;
     public JFXButton sanitationServiceBtn;
+    public JFXButton homeButton;
+    public JFXButton pathButton;
+    public JFXButton editButton;
+    public JFXButton serviceButton;
+    public JFXButton covidButton;
+
 
     @FXML
     private void advanceScene(ActionEvent e) {
@@ -80,6 +86,38 @@ public class ServiceRequestHomePage {
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException exception) {
             exception.printStackTrace();
+        }
+    }
+    public void pathButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/PathfindingMap.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void editButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/EditMap.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void serviceButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void covidButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("..."));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
