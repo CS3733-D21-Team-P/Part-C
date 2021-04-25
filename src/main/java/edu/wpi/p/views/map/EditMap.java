@@ -121,11 +121,16 @@ public class EditMap extends MapController {
                     if (isEditingEdges) { //if in mode adding edges
                         if (edgeNodeStart == null) {
                             edgeNodeStart = nb; //set start button
-                        } else if (edgeNodeEnd == null && edgeNodeStart != nb) { //both points have been specified so create edge
-                            edgeNodeEnd = nb; //set end button
+                            nb.toggleIsSelected(true);
+                        } else if (edgeNodeEnd == null ) {
+                            if(edgeNodeStart != nb) {//both points have been specified so create edge
+                                edgeNodeEnd = nb; //set end button
 
-                            //create edge and lines
-                            addEdgeBetween(edgeNodeStart,edgeNodeEnd);
+                                //create edge and lines
+                                addEdgeBetween(edgeNodeStart, edgeNodeEnd);
+                            }
+
+                            edgeNodeStart.toggleIsSelected(false);
 
                             //reset start and end so another line can be created
                             edgeNodeStart = null;

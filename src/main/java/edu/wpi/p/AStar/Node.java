@@ -19,6 +19,8 @@ public class Node {
     private String building;
     private String shortName;
     private List<Node> neighbours;
+    private boolean isSelected = false;
+
 
     public Node (String id, String name, int xcoord, int ycoord){
         this.name = name;
@@ -165,5 +167,18 @@ public class Node {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public boolean toggleIsSelected(){
+        isSelected= !isSelected;
+        return isSelected;
+    }
+
+    public boolean getIsSelected(){
+        return isSelected;
+    }
+
+    public void setIsSelected(Boolean isSelected){
+        this.isSelected= isSelected;
     }
 }

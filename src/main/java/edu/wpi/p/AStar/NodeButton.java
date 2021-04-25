@@ -1,6 +1,5 @@
 package edu.wpi.p.AStar;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -27,6 +26,12 @@ public class NodeButton extends Button {
 
     private List<EdgeLine> lines = new ArrayList<EdgeLine>();
 
+    public boolean toggleIsSelected(boolean isSelected){
+        node.setIsSelected(isSelected);
+        setButtonStyle();
+        return node.getIsSelected();
+    }
+
 
     public NodeButton(Node newNode) {
         super();
@@ -46,16 +51,14 @@ public class NodeButton extends Button {
 
         this.setText(newNode.getName());
 
-        setStyle();
+        setButtonStyle();
 
 
     }
 
-    private void setStyle(){
+    public void setButtonStyle(){
         //add icons to certain types of nodes
         String nameOfFile = "";
-
-
 
         switch (node.getType()) {
             case "BATH":
@@ -83,6 +86,10 @@ public class NodeButton extends Button {
             addedSize += 2;
             //setStyle("-fx-background-color: #00ff00");
         }
+        else {
+            setStyle("-fx-border-color: none; -fx-border-width: 0px;");
+        }
+
 
         if (!nameOfFile.isEmpty()) {
             addedSize+=5;
@@ -93,11 +100,15 @@ public class NodeButton extends Button {
             setBackground(background);
         }
 
+        if(node.getIsSelected()){
+            setStyle("-fx-border-color: #5990D9; -fx-border-width: 2px;");
+        }
+
 
     }
 
     public void update(ImageView imageView){
-        setStyle();
+        setButtonStyle();
         pan(imageView);
     }
 
@@ -105,7 +116,7 @@ public class NodeButton extends Button {
         lines.add(el);
         if(el.connectsLevels()){
             connectsLevels=true;
-            setStyle();
+            setButtonStyle();
         }
     }
 
