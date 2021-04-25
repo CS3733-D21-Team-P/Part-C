@@ -23,7 +23,7 @@
    <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="454.0" layoutY="-1.0" AnchorPane.rightAnchor="960.0">
          <image>
-            <Image url="@../../image/brigham-womens-hospital-building-websized.jpg" />
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
       </ImageView>
       <GridPane alignment="CENTER" prefHeight="679.0" prefWidth="500.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1110.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
@@ -176,7 +176,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../image/icons/home.png" />
+                        <Image url="@../image/icons/home.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -185,7 +185,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../image/icons/path%20icon.png" />
+                        <Image url="@../image/icons/path icon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -194,7 +194,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../image/icons/edit.png" />
+                        <Image url="@../image/icons/edit.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -203,7 +203,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../image/icons/request.png" />
+                        <Image url="@../image/icons/request.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -212,7 +212,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../image/icons/covid.png" />
+                        <Image url="@../image/icons/covid.png" />
                      </image>
                   </ImageView>
                </graphic>

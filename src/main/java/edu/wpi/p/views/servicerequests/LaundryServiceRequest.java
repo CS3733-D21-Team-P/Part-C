@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.views.Toolbar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class LaundryServiceRequest {
+public class LaundryServiceRequest extends Toolbar {
 
     public JFXTextField fullName;
     public JFXTextField pickUpLocation;

@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.views.Toolbar;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -29,7 +30,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class SanitationServiceRequest implements Initializable {
+public class SanitationServiceRequest extends Toolbar implements Initializable {
 
     @FXML
     public Label title;

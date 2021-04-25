@@ -54,19 +54,19 @@ public class NodeButton extends Button {
         switch (node.getType()) {
             case "BATH":
             case "REST":
-                nameOfFile = "/edu/wpi/p/image/icons/restroom.jpg";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/restroom.jpg";
                 break;
             case "RETL":
-                nameOfFile = "/edu/wpi/p/image/icons/retail.png";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/retail.png";
                 break;
             case "ELEV":
-                nameOfFile = "/edu/wpi/p/image/icons/elevator.png";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/elevator.png";
                 break;
             case "STAI":
-                nameOfFile = "/edu/wpi/p/image/icons/stairs.png";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/stairs.png";
                 break;
             case "EXIT":
-                nameOfFile = "/edu/wpi/p/image/icons/exit.jpg";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/exit.jpg";
                 break;
         }
         if (!nameOfFile.isEmpty()) {
