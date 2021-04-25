@@ -1,10 +1,12 @@
 package edu.wpi.p.AStar;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Node {
+public class Node extends RecursiveTreeObject<Node> {
     private String name;
     private String id;
     private int xcoord;
