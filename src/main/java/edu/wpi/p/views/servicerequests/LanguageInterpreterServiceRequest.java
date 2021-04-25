@@ -6,12 +6,11 @@ import edu.wpi.p.App;
 import java.io.IOException;
 
 import edu.wpi.p.database.DBServiceRequest;
-import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.database.rowdata.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 
 public class LanguageInterpreterServiceRequest {
   @FXML

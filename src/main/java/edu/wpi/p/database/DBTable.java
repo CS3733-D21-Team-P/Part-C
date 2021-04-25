@@ -1,10 +1,10 @@
 package edu.wpi.p.database;
 
 import edu.wpi.p.AStar.Node;
+import edu.wpi.p.database.rowdata.Edge;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class DBTable {

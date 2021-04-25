@@ -1,4 +1,4 @@
-package edu.wpi.p.database;
+package edu.wpi.p.database.rowdata;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleStringProperty;

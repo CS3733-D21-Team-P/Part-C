@@ -3,12 +3,11 @@ package edu.wpi.p.views.servicerequests;
 import com.jfoenix.controls.*;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
-import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.database.rowdata.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 

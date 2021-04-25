@@ -1,6 +1,8 @@
-package edu.wpi.p.database;
+package edu.wpi.p.database.rowdata;
 
-public class Edge extends DBRow{
+import edu.wpi.p.database.DBRow;
+
+public class Edge extends DBRow {
     private String edgeIDCol = "EDGEID";
     private String startNodeCol = "STARTNODE";
     private String endNodeCol = "ENDNODE";
@@ -16,7 +18,7 @@ public class Edge extends DBRow{
     }
 
     public String getEdgeID() {
-        return this.getValue(edgeIDCol);
+        return (String) this.getValue(edgeIDCol);
     }
 
     public void setEdgeID(String edgeID) {
@@ -24,7 +26,7 @@ public class Edge extends DBRow{
     }
 
     public String getStartNode() {
-        return this.getValue(startNodeCol);
+        return (String) this.getValue(startNodeCol);
     }
 
     public void setStartNode(String startNode) {
@@ -32,7 +34,7 @@ public class Edge extends DBRow{
     }
 
     public String getEndNode() {
-        return this.getValue(endNodeCol);
+        return (String) this.getValue(endNodeCol);
     }
 
     public void setEndNode(String endNode) {
