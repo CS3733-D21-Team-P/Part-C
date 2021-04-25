@@ -90,7 +90,7 @@ public class EditMap extends MapController {
     @Override
     public NodeButton addNodeButton(Node node){
         //MAKE BUTTON IF ON CURRENT FLOOR
-        if (node.getFloor().equals(getCurrFloorVal())) {
+//        if (node.getFloor().equals(getCurrFloorVal())) {
             System.out.println("adding button edit");
             NodeButton nb = super.addNodeButton(node);
             //set on click methods
@@ -150,8 +150,8 @@ public class EditMap extends MapController {
                 }
             });
             return nb;
-        }
-        return null;
+//        }
+//        return null;
     }
 
     /**

@@ -81,13 +81,18 @@ public class PathfindingMap extends MapController {
                 System.out.print(n.getName() + " ");
             }
 
-            //clear old path
-            if(pathLine.size()!=0) {
-                int numChildren = linePane.getChildren().size();
-                int oldPathSize = pathLine.size();
-                linePane.getChildren().remove(numChildren-oldPathSize, numChildren);
-                pathLine.clear();
+//            //clear old path
+//            if(pathLine.size()!=0) {
+//                int numChildren = linePane.getChildren().size();
+//                int oldPathSize = pathLine.size();
+//                linePane.getChildren().remove(numChildren-oldPathSize, numChildren);
+//                pathLine.clear();
+//            }
+
+            for(EdgeLine el: pathLine){
+                linePane.getChildren().remove(el);
             }
+            pathLine.clear();
 
 
             //Make path red
@@ -96,7 +101,6 @@ public class PathfindingMap extends MapController {
                 if(i>0) {
                     EdgeLine line = addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
-                    super.translateGraph(imageView);
                     pathLine.add(line);
                 }
             }
@@ -143,7 +147,7 @@ public class PathfindingMap extends MapController {
     @Override
     public NodeButton addNodeButton(Node node){
         //MAKE BUTTON IF ON CURRENT FLOOR
-        if (node.getFloor().equals(getCurrFloorVal())) {
+//        if (node.getFloor().equals(getCurrFloorVal())) {
 
             NodeButton nb = super.addNodeButton(node);
 
@@ -153,20 +157,20 @@ public class PathfindingMap extends MapController {
             });
 
             return nb;
-        }
-        return null;
+//        }
+//        return null;
     }
 
-    private void getFloorChoiceBoxUpdate(){
-        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
-                for (Node n : graph.getGraph()) {
-                    addNodeButton(n);
-                }
-            }
-        }
-    );}
+//    private void getFloorChoiceBoxUpdate(){
+//        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+//                for (Node n : graph.getGraph()) {
+//                    addNodeButton(n);
+//                }
+//            }
+//        }
+//    );}
 
 
     @FXML
@@ -178,7 +182,7 @@ public class PathfindingMap extends MapController {
     public void initialize()  {
         super.initialize();
         System.out.println("PATHFINDING INIT");
-        getFloorChoiceBoxUpdate();
+        //getFloorChoiceBoxUpdate();
         for (Node n: graph.getGraph()){
             addNodeButton(n);
 
