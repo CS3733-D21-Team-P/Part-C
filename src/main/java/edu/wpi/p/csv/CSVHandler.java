@@ -44,6 +44,8 @@ public class CSVHandler {
      * @throws Exception If there is an issue with the csv file, like the rows not all being the same size, an exception is thrown
      */
     public static CSVData readCSVFile(String filename) throws Exception {
+        // TODO: check if looks like valid csv file
+
         // get the name from between the last backlash in the path, and the last '.'
         String name = filename.substring(filename.lastIndexOf('\\') + 1, filename.lastIndexOf('.'));
         CSVData csvData = new CSVData(name);

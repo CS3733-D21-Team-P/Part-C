@@ -6,6 +6,9 @@ import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.Edge;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +20,11 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MapPEdgeData{
 
@@ -67,10 +72,8 @@ public class MapPEdgeData{
 
     @FXML
     private void initialize() throws Exception {
-//        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Nodes.csv");
-//        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Edges.csv");
-//        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
         edgeDataList = dbTable.getEdges();
+
         //set up the columns in the table
         edgeIDCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("edgeID"));
         startNodeCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("startNode"));
@@ -107,13 +110,8 @@ public class MapPEdgeData{
         Edge edge = edgeDataTableView.getSelectionModel().getSelectedItem();
         edge.setStartNode(startNodeEditEvent.getNewValue());
 
-        //Find Edge
-        TablePosition edgeIDPos = edgeDataTableView.getSelectionModel().getSelectedCells().get(0);
-        int edgeIDRow = edgeIDPos.getRow();
-        Edge edgeID = edgeDataTableView.getItems().get(edgeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateEdge(edgeID.getEdgeID(), edgeID);
+        dbTable.updateEdge(edge.getEdgeID(), edge);
     }
 
     @FXML
@@ -121,13 +119,8 @@ public class MapPEdgeData{
         Edge edge = edgeDataTableView.getSelectionModel().getSelectedItem();
         edge.setEndNode(endNodeEditEvent.getNewValue());
 
-        //Find Edge
-        TablePosition edgeIDPos = edgeDataTableView.getSelectionModel().getSelectedCells().get(0);
-        int edgeIDRow = edgeIDPos.getRow();
-        Edge edgeID = edgeDataTableView.getItems().get(edgeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateEdge(edgeID.getEdgeID(), edgeID);
+        dbTable.updateEdge(edge.getEdgeID(), edge);
 
     }
 
@@ -138,7 +131,6 @@ public class MapPEdgeData{
         int edgeIDRow = edgeIDPos.getRow();
         Edge edge = edgeDataTableView.getItems().get(edgeIDRow);
         //Remove from DB
-        DBTable dbTable = new DBTable();
         dbTable.removeEdge(edge.getStartNode(), edge.getEndNode());
         //Remove from TableView
         edgeDataTableView.getItems().removeAll(edgeDataTableView.getSelectionModel().getSelectedItem());

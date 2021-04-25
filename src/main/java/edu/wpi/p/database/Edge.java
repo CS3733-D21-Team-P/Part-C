@@ -1,37 +1,47 @@
 package edu.wpi.p.database;
 
-public class Edge {
-    private String edgeID;
-    private String startNode;
-    private String endNode;
+public class Edge extends DBRow{
+    private String edgeIDCol = "EDGEID";
+    private String startNodeCol = "STARTNODE";
+    private String endNodeCol = "ENDNODE";
 
+    public Edge() {
+        super();
+    }
     public Edge(String edgeID, String startNode, String endNode) {
-        this.edgeID = edgeID;
-        this.startNode = startNode;
-        this.endNode = endNode;
+        super();
+        this.addValue(edgeIDCol, edgeID);
+        this.addValue(startNodeCol, startNode);
+        this.addValue(endNodeCol, endNode);
     }
 
     public String getEdgeID() {
-        return edgeID;
+        return this.getValue(edgeIDCol);
     }
 
     public void setEdgeID(String edgeID) {
-        this.edgeID = edgeID;
+        this.changeValue(edgeIDCol, edgeID);
     }
 
     public String getStartNode() {
-        return startNode;
+        return this.getValue(startNodeCol);
     }
 
     public void setStartNode(String startNode) {
-        this.startNode = startNode;
+        this.changeValue(startNodeCol, startNode);
     }
 
     public String getEndNode() {
-        return endNode;
+        return this.getValue(endNodeCol);
     }
 
     public void setEndNode(String endNode) {
-        this.endNode = endNode;
+        this.changeValue(endNodeCol, endNode);
+    }
+
+    public String toString() {
+        return edgeIDCol + ": " + this.getEdgeID() + ", "
+                + startNodeCol + ": " + this.getStartNode() + ", "
+                + endNodeCol + ": " + this.getEndNode();
     }
 }

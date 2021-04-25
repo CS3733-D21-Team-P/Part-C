@@ -134,9 +134,9 @@ public class DBTable {
      * @param edge new edge to update the information from
      */
     public void updateEdge(String edgeID, Edge edge) {
-        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = "+edge.getEdgeID()+" WHERE nodeID = '"+edge.getEdgeID()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET STARTNODE = "+edge.getStartNode()+" WHERE nodeID = '"+edge.getEdgeID()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE nodeID = '"+edge.getEdgeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = '"+edge.getEdgeID()+"' WHERE edgeID = '"+edgeID+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET STARTNODE = '"+edge.getStartNode()+"' WHERE edgeID = '"+edgeID+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE edgeID = '"+edgeID+"'");
     }
 
     /**
@@ -243,12 +243,23 @@ public class DBTable {
     public List<Edge> getEdges() {
         List<List<String>> edgeData = this.getEdgeData();
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(edgeTable);
-        int edgeID = indexOfColumnByName(dbColumns, "edgeID");
-        int startNode = indexOfColumnByName(dbColumns, "startNode");
-        int endNode = indexOfColumnByName(dbColumns, "endNode");
-        return edgeData.stream()
-                .map(strings -> new Edge(strings.get(edgeID), strings.get(startNode), strings.get(endNode)))
-                .collect(Collectors.toList());
+        List<Edge> edges = new ArrayList<>(edgeData.size());
+
+        for (List<String> row : edgeData) {
+            Edge e = new Edge();
+            for (int i = 0; i < row.size(); i++) {
+                e.addValue(dbColumns.get(i).getName(), row.get(i));
+            }
+            edges.add(e);
+        }
+
+        return edges;
+//        int edgeID = indexOfColumnByName(dbColumns, "edgeID");
+//        int startNode = indexOfColumnByName(dbColumns, "startNode");
+//        int endNode = indexOfColumnByName(dbColumns, "endNode");
+//        return edgeData.stream()
+//                .map(strings -> new Edge(strings.get(edgeID), strings.get(startNode), strings.get(endNode)))
+//                .collect(Collectors.toList());
     }
 
 
