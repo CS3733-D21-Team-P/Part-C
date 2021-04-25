@@ -18,22 +18,22 @@
       </ImageView>
           <VBox alignment="TOP_CENTER" layoutX="1297.0" layoutY="582.0" prefHeight="448.0" prefWidth="410.0" style="-fx-background-color: #2F3159;">
               <children>
-                  <JFXButton fx:id="laundryServicesBtn" onAction="#laundryServicesBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Laundry Services" textFill="WHITE" />
-                  <JFXButton fx:id="externalPatientTransportationBtn" onAction="#externalPatientTransportationBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="External Patient Transportation" textFill="WHITE" translateY="50.0" />
-                  <JFXButton fx:id="requestLogBtn" buttonType="RAISED" onAction="#requestLogBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Request Log" textFill="WHITE" translateY="100.0" />
-                  <JFXButton fx:id="backButton" onAction="#backButtonAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Back To Home Screen" textFill="WHITE" translateY="150.0" />
+                  <JFXButton fx:id="laundryServicesBtn" onAction="#laundryServicesBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="Laundry Services" textFill="WHITE" />
+                  <JFXButton fx:id="externalPatientTransportationBtn" onAction="#externalPatientTransportationBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="External Patient Transportation" textFill="WHITE" translateY="50.0" />
+                  <JFXButton fx:id="requestLogBtn" buttonType="RAISED" onAction="#requestLogBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="Request Log" textFill="WHITE" translateY="100.0" />
+                  <JFXButton fx:id="backButton" onAction="#backButtonAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="Back To Home Screen" textFill="WHITE" translateY="150.0" />
               </children>
           </VBox>
           <VBox alignment="TOP_CENTER" layoutX="1297.0" layoutY="128.0" prefHeight="454.0" prefWidth="410.0" style="-fx-background-color: #2F3159;">
               <children>
-                  <JFXButton fx:id="languageInterpretersBtn" buttonType="RAISED" minWidth="-Infinity" onAction="#languageInterpretersBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #5990D9;" text="Language Interpreters" textFill="WHITE" translateY="50.0" />
-                  <JFXButton fx:id="medicineDeliveryServiceBtn" buttonType="RAISED" onAction="#medicineDeliveryServiceBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Medicine Delivery Service" textFill="WHITE" translateY="100.0" />
-                  <JFXButton fx:id="sanitationServiceBtn" buttonType="RAISED" onAction="#sanitationServiceBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #5990D9;" text="Sanitation Service" textFill="WHITE" translateY="150.0">
+                  <JFXButton fx:id="languageInterpretersBtn" buttonType="RAISED" minWidth="-Infinity" onAction="#languageInterpretersBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="Language Interpreters" textFill="WHITE" translateY="50.0" />
+                  <JFXButton fx:id="medicineDeliveryServiceBtn" buttonType="RAISED" onAction="#medicineDeliveryServiceBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="Medicine Delivery Service" textFill="WHITE" translateY="100.0" />
+                  <JFXButton fx:id="sanitationServiceBtn" buttonType="RAISED" onAction="#sanitationServiceBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="Sanitation Service" textFill="WHITE" translateY="150.0">
                       <effect>
                           <ColorInput />
                       </effect>
                   </JFXButton>
-                  <JFXButton prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="AAA" textFill="WHITE" translateY="200.0" />
+                  <JFXButton prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9; -fx-border-radius: #15px;" text="AAA" textFill="WHITE" translateY="200.0" />
               </children>
           </VBox>
         <Text fill="#2f3159" layoutX="1109.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests Systems" wrappingWidth="785.4276123046875">
