@@ -79,13 +79,13 @@ public class TestServiceRequestDB {
         List<ServiceRequest> serviceRequests = dbServiceRequest.getServiceRequests();
         assertEquals(3, serviceRequests.size());
 
-        assertEquals("Alice", serviceRequests.get(0).getAssignment().getValue());
+        assertEquals("Alice", serviceRequests.get(0).getAssignment());
         assertEquals(false, serviceRequests.get(0).getCompleted());
 
-        assertEquals("stairs_test_sr_2", serviceRequests.get(1).getServiceRequestID().getValue());
-        assertEquals("stairs", serviceRequests.get(1).getServiceRequestLocation().getValue());
+        assertEquals("stairs_test_sr_2", serviceRequests.get(1).getID());
+        assertEquals("stairs", serviceRequests.get(1).getLocation());
 
-        assertEquals("test3", serviceRequests.get(2).getServiceRequestName().getValue());
+        assertEquals("test3", serviceRequests.get(2).getName());
         assertEquals(true, serviceRequests.get(2).getCompleted());
 
     }
@@ -102,9 +102,9 @@ public class TestServiceRequestDB {
 
         List<ServiceRequest> serviceRequests = dbServiceRequest.getServiceRequests();
         assertEquals(1, serviceRequests.size());
-        assertEquals("Bob", serviceRequests.get(0).getAssignment().getValue());
-        assertEquals("stairs", serviceRequests.get(0).getServiceRequestLocation().getValue());
-        assertEquals("new name", serviceRequests.get(0).getServiceRequestName().getValue());
+        assertEquals("Bob", serviceRequests.get(0).getAssignment());
+        assertEquals("stairs", serviceRequests.get(0).getLocation());
+        assertEquals("new name", serviceRequests.get(0).getName());
         assertEquals(true, serviceRequests.get(0).getCompleted());
     }
 
@@ -122,8 +122,8 @@ public class TestServiceRequestDB {
 
         List<ServiceRequest> serviceRequests = dbServiceRequest.getServiceRequests();
         assertEquals(2, serviceRequests.size());
-        assertEquals("lobby_test_sr_1", serviceRequests.get(0).getServiceRequestID().getValue());
-        assertEquals("cafe_test_sr_2", serviceRequests.get(1).getServiceRequestID().getValue());
+        assertEquals("lobby_test_sr_1", serviceRequests.get(0).getID());
+        assertEquals("cafe_test_sr_2", serviceRequests.get(1).getID());
 
     }
 }

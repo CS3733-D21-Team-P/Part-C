@@ -1,72 +1,78 @@
 package edu.wpi.p.database.rowdata;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.p.database.DBRow;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class ServiceRequest extends RecursiveTreeObject<ServiceRequest> {
+public class ServiceRequest extends DBRow {
+    private String nameCol = "NAME";
+    private String locationCol = "LOCATION";
+    private String IDCol = "ID";
+    private String assignmentCol = "ASSIGNMENT";
+    private String completeCol = "COMPLETE";
+//    private StringProperty name;
+//    private StringProperty location;
+//    private StringProperty ID;
+//    private StringProperty assignment;
+//    private boolean complete;
 
-    private StringProperty name;
-    private StringProperty location;
-    private StringProperty ID;
-    private StringProperty assignment;
-    private boolean complete;
 
-
-
-    public ServiceRequest (String name, String location, String ID, String assignment) {
-        this.name = new SimpleStringProperty(name);
-        this.ID = new SimpleStringProperty(ID);
-        this.location = new SimpleStringProperty(location);
-        this.assignment = new SimpleStringProperty(assignment);
-        this.complete = false;
+    public ServiceRequest(String name, String location, String ID, String assignment) {
+        this.addValue(nameCol, name);
+        this.addValue(IDCol, ID);
+        this.addValue(locationCol, location);
+        this.addValue(assignmentCol, assignment);
+        this.addValue(completeCol, false);
     }
 
-    public ServiceRequest (StringProperty name, StringProperty location, StringProperty ID, StringProperty assignment) {
-        this.name = name;
-        this.ID = ID;
-        this.location = location;
-        this.assignment = assignment;
-        this.complete = false;
-    }
+//    public ServiceRequest (StringProperty name, StringProperty location, StringProperty ID, StringProperty assignment) {
+//        this.name = name;
+//        this.ID = ID;
+//        this.location = location;
+//        this.assignment = assignment;
+//        this.complete = false;
+//    }
 
 
-    public StringProperty getServiceRequestName() {
-        return this.name;
+    public String getName() {
+        return (String) this.getValue(nameCol);
     }
 
     public void setName(String name) {
-        this.name.setValue(name);
+        this.changeValue(nameCol, name);
     }
 
 
-    public StringProperty getServiceRequestLocation() {
-        return this.location;
+    public String getLocation() {
+        return (String) this.getValue(locationCol);
     }
 
     public void setLocation(String location) {
-        this.location.setValue(location);
+        this.changeValue(locationCol, location);
     }
 
-    public StringProperty getServiceRequestID() {
-        return this.ID;
+    public String getID() {
+        return (String) this.getValue(IDCol);
     }
 
     public void setID(String ID) {
-        this.ID.setValue(ID);
+        this.changeValue(IDCol, ID);
     }
 
-    public StringProperty getAssignment() {return this.assignment;}
+    public String getAssignment() {
+        return (String) this.getValue(assignmentCol);
+    }
 
     public void setAssignment(String assignment) {
-        this.assignment.setValue(assignment);
+        this.changeValue(assignmentCol, assignment);
     }
 
     public void completed() {
-        this.complete = true;
+        this.changeValue(completeCol, true);
     }
 
     public boolean getCompleted() {
-        return this.complete;
+        return (boolean) this.getValue(completeCol);
     }
 }

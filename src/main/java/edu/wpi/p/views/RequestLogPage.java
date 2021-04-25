@@ -5,6 +5,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import com.jfoenix.controls.JFXTreeTableView;
 
@@ -24,7 +26,7 @@ import java.util.function.Predicate;
 public class RequestLogPage {
 
 
-    public JFXTreeTableView<ServiceRequest> ReqLogView;
+    public JFXTreeTableView<ServiceRequestTableEntry> ReqLogView;
     public JFXButton markCompleteBtn;
     public JFXTextField filterField;
     public JFXButton incompleteBtn;
@@ -33,44 +35,44 @@ public class RequestLogPage {
     private DBServiceRequest dbServiceRequest = new DBServiceRequest();
 
     public void initialize() {
-        JFXTreeTableColumn<ServiceRequest, String> reqName = new JFXTreeTableColumn<>("Name");
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> reqName = new JFXTreeTableColumn<>("Name");
         reqName.setPrefWidth(150);
-        reqName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
-                return p.getValue().getValue().getServiceRequestName();
+        reqName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getServiceRequest().getName());
             }
         });
 
-        JFXTreeTableColumn<ServiceRequest, String> id = new JFXTreeTableColumn<>("ID");
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> id = new JFXTreeTableColumn<>("ID");
         id.setPrefWidth(150);
-        id.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
-                return p.getValue().getValue().getServiceRequestID();
+        id.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getServiceRequest().getID());
             }
         });
 
-        JFXTreeTableColumn<ServiceRequest, String> location = new JFXTreeTableColumn<>("Location");
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> location = new JFXTreeTableColumn<>("Location");
         location.setPrefWidth(150);
-        location.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
-                return p.getValue().getValue().getServiceRequestLocation();
+        location.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getServiceRequest().getLocation());
             }
         });
 
-        JFXTreeTableColumn<ServiceRequest, String> assignment = new JFXTreeTableColumn<>("Assignment");
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> assignment = new JFXTreeTableColumn<>("Assignment");
         assignment.setPrefWidth(150);
-        assignment.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequest, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequest, String> p) {
-                return p.getValue().getValue().getAssignment();
+        assignment.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getServiceRequest().getAssignment());
             }
         });
         requestList = dbServiceRequest.getServiceRequests();
-        ObservableList<ServiceRequest> requests = FXCollections.observableArrayList();
+        ObservableList<ServiceRequestTableEntry> requests = FXCollections.observableArrayList();
         for (ServiceRequest r : requestList) {
-            requests.add(new ServiceRequest(r.getServiceRequestName(), r.getServiceRequestLocation(), r.getServiceRequestID(), r.getAssignment()));
+            requests.add(new ServiceRequestTableEntry(new ServiceRequest(r.getName(), r.getLocation(), r.getID(), r.getAssignment())));
         }
 
-        final TreeItem<ServiceRequest> root = new RecursiveTreeItem<>(requests, RecursiveTreeObject::getChildren);
+        final TreeItem<ServiceRequestTableEntry> root = new RecursiveTreeItem<>(requests, RecursiveTreeObject::getChildren);
         ReqLogView.getColumns().setAll(reqName, location, id, assignment);
         ReqLogView.setRoot(root);
         ReqLogView.setShowRoot(false);
@@ -78,10 +80,10 @@ public class RequestLogPage {
         filterField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                ReqLogView.setPredicate(new Predicate<TreeItem<ServiceRequest>>() {
+                ReqLogView.setPredicate(new Predicate<TreeItem<ServiceRequestTableEntry>>() {
                     @Override
-                    public boolean test(TreeItem<ServiceRequest> serviceRequestTreeItem) {
-                        Boolean flag = serviceRequestTreeItem.getValue().getAssignment().getValue().contains(newValue);
+                    public boolean test(TreeItem<ServiceRequestTableEntry> serviceRequestTreeItem) {
+                        Boolean flag = serviceRequestTreeItem.getValue().getServiceRequest().getAssignment().contains(newValue);
                         return flag;
                     }
                 });
@@ -91,15 +93,15 @@ public class RequestLogPage {
     }
 
     public void markCompleteBtnAc(ActionEvent actionEvent) {
-        ReqLogView.getSelectionModel().getSelectedItem().getValue().completed();
-        dbServiceRequest.updateServiceRequest(ReqLogView.getSelectionModel().getSelectedItem().getValue());
+        ReqLogView.getSelectionModel().getSelectedItem().getValue().getServiceRequest().completed();
+        dbServiceRequest.updateServiceRequest(ReqLogView.getSelectionModel().getSelectedItem().getValue().getServiceRequest());
     }
 
     public void incompleteBtnAc(ActionEvent actionEvent) {
-        ReqLogView.setPredicate(new Predicate<TreeItem<ServiceRequest>>() {
+        ReqLogView.setPredicate(new Predicate<TreeItem<ServiceRequestTableEntry>>() {
             @Override
-            public boolean test(TreeItem<ServiceRequest> serviceRequestTreeItem) {
-                Boolean flag = serviceRequestTreeItem.getValue().getCompleted();
+            public boolean test(TreeItem<ServiceRequestTableEntry> serviceRequestTreeItem) {
+                Boolean flag = serviceRequestTreeItem.getValue().getServiceRequest().getCompleted();
                 return !flag;
             }
         });

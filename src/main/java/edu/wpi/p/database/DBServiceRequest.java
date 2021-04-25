@@ -76,10 +76,10 @@ public class DBServiceRequest {
      * @param s Service request that contains the same ID as one in the database, updates the DB so that the other values match
      */
     public void updateServiceRequest(ServiceRequest s) {
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET NAME = '" + s.getServiceRequestName().getValue() + "' WHERE ID = '" + s.getServiceRequestID().getValue() + "'");
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET LOCATION = '" + s.getServiceRequestLocation().get() + "' WHERE ID = '" + s.getServiceRequestID().getValue() + "'");
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET ASSIGNMENT = '" + s.getAssignment().getValue() + "' WHERE ID = '" + s.getServiceRequestID().getValue() + "'");
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET COMPLETE = " + (s.getCompleted() ? "true" : "false") + " WHERE ID = '" + s.getServiceRequestID().getValue() + "'");
+        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET NAME = '" + s.getName() + "' WHERE ID = '" + s.getID() + "'");
+        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET LOCATION = '" + s.getLocation() + "' WHERE ID = '" + s.getID() + "'");
+        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET ASSIGNMENT = '" + s.getAssignment() + "' WHERE ID = '" + s.getID() + "'");
+        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET COMPLETE = " + (s.getCompleted() ? "true" : "false") + " WHERE ID = '" + s.getID() + "'");
     }
 
 
@@ -88,10 +88,10 @@ public class DBServiceRequest {
      * @param serviceRequest new service request to add to the database
      */
     public void addServiceRequest(ServiceRequest serviceRequest) {
-        String insertValue = "'" + serviceRequest.getServiceRequestName().getValue() + "', '" +
-                serviceRequest.getServiceRequestID().getValue() + "', '" +
-                serviceRequest.getServiceRequestLocation().getValue() + "', '" +
-                serviceRequest.getAssignment().getValue() + "', " +
+        String insertValue = "'" + serviceRequest.getName() + "', '" +
+                serviceRequest.getID() + "', '" +
+                serviceRequest.getLocation() + "', '" +
+                serviceRequest.getAssignment() + "', " +
                 (serviceRequest.getCompleted() ? "true" : "false");
         DatabaseInterface.insertIntoTable(serviceRequestTable, insertValue);
     }
