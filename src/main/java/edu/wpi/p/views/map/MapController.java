@@ -143,22 +143,22 @@ public abstract class MapController {
                 //translateGraph(imageView);
                 switch (currFloorVal) {
                     case "Ground":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thegroundfloor.png"));
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thegroundfloor.png"));
                         break;
                     case "L1":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel1.png"));
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel1.png"));
                         break;
                     case "L2":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel2.png"));
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel2.png"));
                         break;
                     case "1":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/01_thefirstfloor.png"));
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/01_thefirstfloor.png"));
                         break;
                     case "2":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/02_thesecondfloor.png"));
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/02_thesecondfloor.png"));
                         break;
                     case "3":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/03_thethirdfloor.png"));
+                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/03_thethirdfloor.png"));
                         break;
                 }
                 imageView.setImage(mapImage);

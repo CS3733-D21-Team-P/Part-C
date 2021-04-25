@@ -110,6 +110,10 @@ public class EditMap extends MapController {
             });
 
             nb.setOnMouseClicked(event -> {
+                for(EdgeLine el: nb.getLines()){
+                    System.out.println(el.getEndNode().getFloor());
+                }
+
                 if (event.getButton() == MouseButton.PRIMARY) {
                     System.out.println(nb.getNode().getXcoord());
                     System.out.println(nb.getLayoutX());
@@ -194,7 +198,10 @@ public class EditMap extends MapController {
         for (EdgeLine el : nb.getLines()) {
             translateEdgeLine(el);
             EdgeLine oppositeLine = findEdgeLine(el.getEndNode(), nb.getNode());
-            translateEdgeLine(oppositeLine);
+            if(oppositeLine!=null) {
+                translateEdgeLine(oppositeLine);
+            }
+
         }
     }
 
@@ -359,8 +366,10 @@ public class EditMap extends MapController {
             dbTable.removeEdge(nodeHold.getId(), el.getEndNode().getId());
             el.getEndNode();
             EdgeLine opp =findEdgeLine(el.getEndNode(),node);
-            dbTable.removeEdge(el.getEndNode().getId(), nodeHold.getId());
-            opp.setVisible(false);
+            if(opp!=null) {
+                dbTable.removeEdge(el.getEndNode().getId(), nodeHold.getId());
+                opp.setVisible(false);
+            }
         }
         for(Node neighbour: node.getNeighbours()){ //remove neighbors
             neighbour.getNeighbours().remove(node);
