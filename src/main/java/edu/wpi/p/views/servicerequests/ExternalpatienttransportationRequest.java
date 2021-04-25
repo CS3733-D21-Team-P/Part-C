@@ -30,11 +30,11 @@ public class ExternalpatienttransportationRequest extends Toolbar {
   @FXML
   public Label currentRoomNumberLabel;
   @FXML
-  public ChoiceBox currentHospital;
+  public ComboBox currentHospital;
   @FXML
   public TextField currentRoomNumText;
   @FXML
-  public ChoiceBox endHospital;
+  public ComboBox endHospital;
   @FXML
   public Label endHospitalLabel;
   @FXML
@@ -155,6 +155,47 @@ public class ExternalpatienttransportationRequest extends Toolbar {
   }
 
   public void nameHelpPressed(ActionEvent actionEvent) {
+  }
+
+  public void homeButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void pathButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/PathfindingMap.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void editButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/EditMap.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void serviceButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void covidButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("..."));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
   }
 
 }
