@@ -2,9 +2,7 @@ package edu.wpi.p.database;
 
 import java.sql.Connection;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DatabaseInterface {
@@ -81,7 +79,7 @@ public class DatabaseInterface {
     }
 
     public static boolean updateDBRow(String table, String idCol, String id, DBRow row) {
-        Collection<String> columnsToUpdate = row.getCols();
+        Collection<String> columnsToUpdate = new HashSet<String>(row.getCols());
         columnsToUpdate.removeIf(s -> s.equals(idCol));
         String updateQuery = "UPDATE " + table + " SET ";
         List<String> updates = columnsToUpdate.stream().map(s -> s + " = ?").collect(Collectors.toList());

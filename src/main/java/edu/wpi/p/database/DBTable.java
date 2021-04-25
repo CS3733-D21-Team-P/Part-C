@@ -6,6 +6,7 @@ import edu.wpi.p.database.rowdata.Edge;
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class DBTable {
@@ -197,6 +198,8 @@ public class DBTable {
             }
             nodes.add(n);
         }
+
+        System.out.println("returning nodes with id's: " + nodes.stream().map(n -> n.getId() + ", ").collect(Collectors.toList()));
 
         return nodes;
     }
