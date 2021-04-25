@@ -185,7 +185,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../image/icons/path%20icon.png" />
+                        <Image url="@../../image/icons/path icon.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.SanitationServiceRequest">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.SanitationServiceRequest">
    <children>
       <GridPane layoutX="395.0" layoutY="379.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
@@ -80,7 +80,7 @@
             </HBox>
          </children>
       </GridPane>
-      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="464.0" layoutY="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="1080.0" fitWidth="956.0" layoutX="464.0" layoutY="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
@@ -100,7 +100,7 @@
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0">
                      <image>
-                        <Image url="@../../image/icons/path%20icon.png" />
+                        <Image url="@../../image/icons/path icon.png" />
                      </image>
                   </ImageView>
                </graphic>
