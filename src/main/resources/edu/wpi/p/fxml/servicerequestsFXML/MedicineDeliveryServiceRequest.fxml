@@ -105,12 +105,12 @@
             <JFXTextField fx:id="doctorSign" focusColor="WHITE" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
                <children>
-                  <JFXButton onAction="#homePageButton" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: red;" text="Back" textFill="WHITE">
+                  <JFXButton onAction="#homePageButton" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE">
+                  <JFXButton onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>

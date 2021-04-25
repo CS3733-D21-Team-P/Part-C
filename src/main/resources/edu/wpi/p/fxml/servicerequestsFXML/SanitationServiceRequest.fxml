@@ -65,13 +65,13 @@
             <JFXTextField fx:id="additionalInfoText" focusColor="WHITE" labelFloat="true" promptText="Comments" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <children>
-                  <JFXButton fx:id="cancelButton" buttonType="RAISED" onAction="#cancelPressed" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: de1414;" text="Cancel">
+                  <JFXButton fx:id="cancelButton" buttonType="RAISED" onAction="#cancelPressed" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #5990D9;" text="Cancel">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="helpButton" buttonType="RAISED" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: orange;" text="Help" />
-                  <JFXButton fx:id="submitButton" buttonType="RAISED" onAction="#submitPressed" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #1cc738;" text="Submit">
+                  <JFXButton fx:id="helpButton" buttonType="RAISED" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #5990D9;" text="Help" />
+                  <JFXButton fx:id="submitButton" buttonType="RAISED" onAction="#submitPressed" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #5990D9" text="Submit">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.effect.ColorInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,38 +10,41 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.ServiceRequestHomePage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.ServiceRequestHomePage">
     <children>
       <ImageView fitHeight="1080.0" fitWidth="956.0" layoutX="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="964.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@image/brigham-womens-hospital-building-websized.jpg" />
          </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
       </ImageView>
-          <VBox alignment="TOP_CENTER" layoutX="1297.0" layoutY="582.0" prefHeight="448.0" prefWidth="410.0" style="-fx-background-color: #2F3159;">
+          <VBox alignment="TOP_CENTER" layoutX="1297.0" layoutY="582.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="410.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="1297.0" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="582.0">
               <children>
-                  <JFXButton fx:id="laundryServicesBtn" onAction="#laundryServicesBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Laundry Services" textFill="WHITE" translateY="10.0" />
-                  <JFXButton fx:id="externalPatientTransportationBtn" onAction="#externalPatientTransportationBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="External Patient Transportation" textFill="WHITE" translateY="35.0" />
-            <JFXButton fx:id="internalPatientTransportationBtn" buttonType="RAISED" onAction="#internalPatientTransportationBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Internal Patient Transportation" textFill="WHITE" translateY="60.0" />
-            <JFXButton prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="85.0" />
-                  <JFXButton fx:id="requestLogBtn" buttonType="RAISED" onAction="#requestLogBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Request Log" textFill="WHITE" translateY="110.0" />
-                  <JFXButton fx:id="backButton" onAction="#backButtonAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Back To Home Screen" textFill="WHITE" translateY="135.0" />
+                  <JFXButton fx:id="laundryServicesBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#laundryServicesBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Laundry Services" textFill="WHITE" translateY="10.0" />
+                  <JFXButton fx:id="externalPatientTransportationBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#externalPatientTransportationBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="External Patient Transportation" textFill="WHITE" translateY="35.0" />
+            <JFXButton fx:id="internalPatientTransportationBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#internalPatientTransportationBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Internal Patient Transportation" textFill="WHITE" translateY="60.0" />
+            <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="85.0" />
+                  <JFXButton fx:id="requestLogBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#requestLogBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Request Log" textFill="WHITE" translateY="110.0" />
+                  <JFXButton fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backButtonAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Back To Home Screen" textFill="WHITE" translateY="135.0" />
               </children>
           </VBox>
-          <VBox alignment="TOP_CENTER" layoutX="1297.0" layoutY="128.0" prefHeight="454.0" prefWidth="410.0" style="-fx-background-color: #2F3159;">
+          <VBox alignment="TOP_CENTER" layoutX="1297.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="410.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="498.0" AnchorPane.leftAnchor="1297.0" AnchorPane.rightAnchor="213.0" AnchorPane.topAnchor="128.0">
               <children>
-                  <JFXButton fx:id="languageInterpretersBtn" buttonType="RAISED" minWidth="-Infinity" onAction="#languageInterpretersBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #5990D9;" text="Language Interpreters" textFill="WHITE" translateY="15.0" />
-                  <JFXButton fx:id="medicineDeliveryServiceBtn" buttonType="RAISED" onAction="#medicineDeliveryServiceBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Medicine Delivery Service" textFill="WHITE" translateY="40.0" />
-                  <JFXButton fx:id="sanitationServiceBtn" buttonType="RAISED" onAction="#sanitationServiceBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #5990D9;" text="Sanitation Service" textFill="WHITE" translateY="65.0">
+                  <JFXButton fx:id="languageInterpretersBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#languageInterpretersBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="WHITE" style="-fx-background-color: #5990D9;" text="Language Interpreters" textFill="WHITE" translateY="15.0" />
+                  <JFXButton fx:id="medicineDeliveryServiceBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#medicineDeliveryServiceBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Medicine Delivery Service" textFill="WHITE" translateY="40.0" />
+                  <JFXButton fx:id="sanitationServiceBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#sanitationServiceBtn" prefHeight="50.0" prefWidth="200.0" ripplerFill="BLACK" style="-fx-background-color: #5990D9;" text="Sanitation Service" textFill="WHITE" translateY="65.0">
                       <effect>
                           <ColorInput />
                       </effect>
                   </JFXButton>
-            <JFXButton buttonType="RAISED" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="90.0" />
-            <JFXButton prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="115.0" />
-                  <JFXButton prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="140.0" />
+            <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="90.0" />
+            <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="115.0" />
+                  <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="140.0" />
               </children>
           </VBox>
-        <Text fill="#2f3159" layoutX="1109.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests Systems" wrappingWidth="785.4276123046875">
+        <Text fill="#2f3159" layoutX="1109.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests Systems" wrappingWidth="785.4276123046875" AnchorPane.bottomAnchor="968.42578125" AnchorPane.leftAnchor="1108.8276123046876" AnchorPane.rightAnchor="25.5723876953125" AnchorPane.topAnchor="31.83984375">
             <font>
                 <Font name="Times New Roman Bold" size="72.0" />
             </font>
