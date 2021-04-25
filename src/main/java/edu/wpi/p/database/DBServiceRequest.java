@@ -75,10 +75,11 @@ public class DBServiceRequest {
      * @param s Service request that contains the same ID as one in the database, updates the DB so that the other values match
      */
     public void updateServiceRequest(ServiceRequest s) {
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET NAME = '" + s.getName() + "' WHERE ID = '" + s.getID() + "'");
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET LOCATION = '" + s.getLocation() + "' WHERE ID = '" + s.getID() + "'");
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET ASSIGNMENT = '" + s.getAssignment() + "' WHERE ID = '" + s.getID() + "'");
-        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET COMPLETE = " + (s.getCompleted() ? "true" : "false") + " WHERE ID = '" + s.getID() + "'");
+        DatabaseInterface.updateDBRow(serviceRequestTable, "ID", s.getID(), s);
+//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET NAME = '" + s.getName() + "' WHERE ID = '" + s.getID() + "'");
+//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET LOCATION = '" + s.getLocation() + "' WHERE ID = '" + s.getID() + "'");
+//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET ASSIGNMENT = '" + s.getAssignment() + "' WHERE ID = '" + s.getID() + "'");
+//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET COMPLETE = " + (s.getCompleted() ? "true" : "false") + " WHERE ID = '" + s.getID() + "'");
     }
 
 

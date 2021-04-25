@@ -89,13 +89,14 @@ public class DBTable {
      * @param n Node with an ID that matches one in the DB, and other values will be set for that row in the DB
      */
     public void updateNode(Node n) {
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET floor = '"+n.getFloor()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET building = '"+n.getBuilding()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET nodeType = '"+n.getType()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET longName = '"+n.getName()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET shortName = '"+n.getShortName()+"' WHERE nodeID = '"+n.getId()+"'");
+        DatabaseInterface.updateDBRow(nodeTable, "NODEID", n.getId(), n);
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET floor = '"+n.getFloor()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET building = '"+n.getBuilding()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET nodeType = '"+n.getType()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET longName = '"+n.getName()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET shortName = '"+n.getShortName()+"' WHERE nodeID = '"+n.getId()+"'");
     }
 
     /**
@@ -114,6 +115,7 @@ public class DBTable {
      */
     public void addEdge(String edgeID, String nodeIDOne, String nodeIDTwo) {
         String insertValue = "'" + edgeID + "', '" + nodeIDOne + "', '" + nodeIDTwo + "'";
+        System.out.println("INSERTING EDGE: " + insertValue);
         DatabaseInterface.insertIntoTable(edgeTable, insertValue);
     }
 
@@ -134,9 +136,10 @@ public class DBTable {
      * @param edge new edge to update the information from
      */
     public void updateEdge(String edgeID, Edge edge) {
-        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = '"+edge.getEdgeID()+"' WHERE edgeID = '"+edgeID+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET STARTNODE = '"+edge.getStartNode()+"' WHERE edgeID = '"+edgeID+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE edgeID = '"+edgeID+"'");
+        DatabaseInterface.updateDBRow(edgeTable, "EDGEID", edgeID, edge);
+//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = '"+edge.getEdgeID()+"' WHERE edgeID = '"+edgeID+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET STARTNODE = '"+edge.getStartNode()+"' WHERE edgeID = '"+edgeID+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE edgeID = '"+edgeID+"'");
     }
 
     /**

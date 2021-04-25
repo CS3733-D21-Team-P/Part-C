@@ -3,6 +3,7 @@ package edu.wpi.p.database;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,6 +78,40 @@ public class DatabaseInterface {
             return false;
         }
         return createTable(tableName, columns);
+    }
+
+    public static boolean updateDBRow(String table, String idCol, String id, DBRow row) {
+        Collection<String> columnsToUpdate = row.getCols();
+        columnsToUpdate.removeIf(s -> s.equals(idCol));
+        String updateQuery = "UPDATE " + table + " SET ";
+        List<String> updates = columnsToUpdate.stream().map(s -> s + " = ?").collect(Collectors.toList());
+        updateQuery += String.join(", ", updates);
+        updateQuery +=  " WHERE " + idCol + " = '" + id + "'";
+//        System.out.println("update query is " + updateQuery);
+        try {
+            List<DBColumn> cols = getColumns(table);
+            PreparedStatement statement = conn.prepareStatement(updateQuery);
+            int i = 1;
+            for (String c : columnsToUpdate) {
+                DBColumn column = cols.stream().filter(col -> col.getName().equals(c)).findFirst().get();
+                if (column.getType().equals("INTEGER")) {
+                    statement.setInt(i, (Integer) row.getValue(column.getName()));
+                }
+                else if (column.getType().equals("BOOLEAN")) {
+                    statement.setBoolean(i, (Boolean) row.getValue(column.getName()));
+                }
+                else {
+                    statement.setString(i, (String) row.getValue(column.getName()));
+                }
+                i++;
+            }
+            statement.execute();
+            statement.close();
+        } catch (Exception e) {
+            SQLExceptionPrint((SQLException) e);
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static boolean insertDBRowIntoTable(String table, DBRow row) {
