@@ -66,7 +66,7 @@ public class EditMap extends MapController {
     public NodeButton addNodeButton(Node node){
         //MAKE BUTTON IF ON CURRENT FLOOR
 //        if (node.getFloor().equals(getCurrFloorVal())) {
-            System.out.println("adding button edit");
+            //System.out.println("adding button edit");
             NodeButton nb = super.addNodeButton(node);
             //set on click methods
             //drag button
@@ -251,6 +251,7 @@ public class EditMap extends MapController {
     public void initialize()  {
         super.initialize();
         editTabController.injectEditMap(this);
+        findTabController.injectEditMap(this);
         rClickPopup.setVisible(false);
         deleteConfirmation.setVisible(false);
 

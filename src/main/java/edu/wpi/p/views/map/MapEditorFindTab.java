@@ -34,7 +34,7 @@ public class MapEditorFindTab {
 
     public void initialize() {
         JFXTreeTableColumn<Node, String> nodeName = new JFXTreeTableColumn<>("Name");
-        nodeName.setPrefWidth(20);
+        nodeName.setPrefWidth(70);
         nodeName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getShortName());
@@ -42,7 +42,7 @@ public class MapEditorFindTab {
         });
 
         JFXTreeTableColumn<Node, String> nodeType = new JFXTreeTableColumn<>("Type");
-        nodeType.setPrefWidth(20);
+        nodeType.setPrefWidth(70);
         nodeType.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getType());
@@ -50,7 +50,7 @@ public class MapEditorFindTab {
         });
 
         JFXTreeTableColumn<Node, String> nodeFloor = new JFXTreeTableColumn<>("Floor");
-        nodeFloor.setPrefWidth(20);
+        nodeFloor.setPrefWidth(70);
         nodeFloor.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getFloor());
@@ -58,7 +58,7 @@ public class MapEditorFindTab {
         });
 
         JFXTreeTableColumn<Node, String> nodeBuilding = new JFXTreeTableColumn<>("Building");
-        nodeBuilding.setPrefWidth(20);
+        nodeBuilding.setPrefWidth(70);
         nodeBuilding.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getBuilding());
