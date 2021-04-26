@@ -18,6 +18,7 @@ public class ServiceRequestHomePage {
     public JFXButton sanitationServiceBtn;
     public JFXButton floralDeliveryBtn;
     public JFXButton foodDeliveryBtn;
+    public JFXButton facilitiesMaintenanceBtn;
     public JFXButton homeButton;
     public JFXButton pathButton;
     public JFXButton editButton;
@@ -98,6 +99,15 @@ public class ServiceRequestHomePage {
             ex.printStackTrace();
         }
     }
+    public void facilitiesMaintenanceBtn(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/FacilitiesMaintenanceRequest.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void backButtonAc(ActionEvent actionEvent){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
