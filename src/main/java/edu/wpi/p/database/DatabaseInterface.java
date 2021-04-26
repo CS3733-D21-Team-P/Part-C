@@ -93,6 +93,21 @@ public class DatabaseInterface {
         return false;
     }
 
+    public static String checkColumnObjects(String aString) {
+        try {
+            ;
+//            System.out.println(insertString);
+            PreparedStatement statement = conn.prepareStatement(aString);
+            statement.execute();
+            statement.close();
+            return aString;
+        } catch (Exception e) {
+            SQLExceptionPrint((SQLException) e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void executeUpdate(String command) {
         if (conn == null) {
             System.out.println("tried to list the tables before connection initialized, returning");
