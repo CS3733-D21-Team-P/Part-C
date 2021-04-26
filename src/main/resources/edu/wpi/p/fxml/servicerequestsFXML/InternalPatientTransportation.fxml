@@ -101,7 +101,7 @@
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Time:" translateX="-10.0" GridPane.rowIndex="4" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Location:" translateX="-10.0" GridPane.rowIndex="5" />
                   <JFXTimePicker fx:id="time" defaultColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <JFXButton fx:id="back" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="6" />
+                  <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="6" />
                   <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                </children>
             </GridPane>

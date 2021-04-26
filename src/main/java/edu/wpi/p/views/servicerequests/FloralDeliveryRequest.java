@@ -13,27 +13,38 @@ import javafx.scene.Parent;
 import java.io.IOException;
 
 public class FloralDeliveryRequest extends Toolbar {
-
+    @FXML
     public JFXTextField name;
-    public JFXTextField location;
+    @FXML
+    public JFXTextField currRoom;
+    @FXML
     public JFXCheckBox roses;
+    @FXML
     public JFXCheckBox tulips;
+    @FXML
     public JFXCheckBox painBush;
+    @FXML
     public JFXCheckBox small;
+    @FXML
     public JFXCheckBox medium;
+    @FXML
     public JFXCheckBox large;
+    @FXML
     public JFXColorPicker color;
+    @FXML
     public JFXTextArea message;
+    @FXML
     public JFXButton back;
+    @FXML
     public JFXButton submit;
 
     @FXML
     private void submitForm(ActionEvent e) {
         final String doctor = name.getText();
-        final String currRoom = location.getText();
+        final String location = currRoom.getText();
 
 
-        ServiceRequest sR = new ServiceRequest(doctor, currRoom, "Name" + "_" + currRoom, "Floral Delivery Request");
+        ServiceRequest sR = new ServiceRequest(doctor, location, "Name" + "_" + location, "Floral Delivery Request");
         DBServiceRequest dbServiceRequest = new DBServiceRequest();
         dbServiceRequest.addServiceRequest(sR);
 

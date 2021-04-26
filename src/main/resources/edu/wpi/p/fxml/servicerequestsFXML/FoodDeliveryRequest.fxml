@@ -86,16 +86,16 @@
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.rowIndex="1" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" GridPane.rowIndex="2" />
-            <JFXButton fx:id="back" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="5" />
+            <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="5" />
             <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Special accommodations" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Type:" GridPane.rowIndex="3" />
             <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="location" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <JFXTextArea fx:id="accommodations" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <JFXCheckBox fx:id="vegetarian" text="Vegetarian" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXCheckBox fx:id="regular" text="Regular" textFill="WHITE" translateX="25.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXCheckBox fx:id="vegan" text="Vegan" textFill="WHITE" translateX="225.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="currRoom" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Text fill="WHITE" layoutX="1262.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Delivery Request" translateY="100.0">

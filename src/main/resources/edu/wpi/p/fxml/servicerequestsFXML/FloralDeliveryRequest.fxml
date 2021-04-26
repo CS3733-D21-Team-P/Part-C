@@ -89,7 +89,6 @@
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" GridPane.rowIndex="2" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of Flowers:" GridPane.rowIndex="3" />
-            <JFXTextField fx:id="location" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Bouquet Size:" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrapping Color:" GridPane.rowIndex="5" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Message:" GridPane.rowIndex="6" />
@@ -97,7 +96,7 @@
             <JFXCheckBox fx:id="tulips" text="Tulips" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXCheckBox fx:id="roses" text="Roses" textFill="WHITE" translateX="25.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXCheckBox fx:id="painBush" text="Pain Bush" textFill="WHITE" translateX="225.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <JFXButton fx:id="back" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="7" />
+            <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="7" />
             <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             <JFXColorPicker fx:id="color" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <JFXCheckBox fx:id="small" text="Small" textFill="WHITE" translateX="25.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -105,6 +104,7 @@
             <JFXCheckBox fx:id="medium" text="Medium" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.rowIndex="1" />
             <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="currRoom" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Text fill="WHITE" layoutX="1259.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Floral Delivery Request" translateY="125.0">

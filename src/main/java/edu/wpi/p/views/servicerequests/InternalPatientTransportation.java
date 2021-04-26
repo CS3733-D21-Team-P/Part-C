@@ -15,12 +15,19 @@ import javafx.scene.Parent;
 import java.io.IOException;
 
 public class InternalPatientTransportation extends Toolbar {
+    @FXML
     public JFXTextField drName;
+    @FXML
     public JFXTextField currRoom;
+    @FXML
     public JFXTextField patientName;
+    @FXML
     public JFXTextField destination;
+    @FXML
     public JFXTimePicker time;
+    @FXML
     public JFXButton back;
+    @FXML
     public JFXButton submit;
 
     @FXML

@@ -7,13 +7,14 @@ import java.io.IOException;
 
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.views.Toolbar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 
-public class LanguageInterpreterServiceRequest {
+public class LanguageInterpreterServiceRequest extends Toolbar {
   @FXML
   public JFXTextField doctorSignature;
   @FXML
@@ -26,11 +27,7 @@ public class LanguageInterpreterServiceRequest {
   private JFXButton submit;
   @FXML
   private JFXButton back;
-  public JFXButton homeButton;
-  public JFXButton pathButton;
-  public JFXButton editButton;
-  public JFXButton serviceButton;
-  public JFXButton covidButton;
+
 
 
 
