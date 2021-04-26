@@ -1,15 +1,17 @@
 package edu.wpi.p.AStar;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NodeButton extends Button {
+public class NodeButton extends JFXButton {
     public Node getNode() {
         return node;
     }
@@ -40,20 +42,19 @@ public class NodeButton extends Button {
         this.setLayoutY(node.getYcoord());
 
         //set size of button
-        this.setMinWidth(maxWidth);
-        this.setMinHeight(maxHeight);
-        this.setMaxWidth(maxWidth);
-        this.setMaxHeight(maxHeight);
+//        this.setMinWidth(maxWidth);
+//        this.setMinHeight(maxHeight);
+//        this.setMaxWidth(maxWidth);
+//        this.setMaxHeight(maxHeight);
 
         //translate so node point is in the center of the button
-        this.setTranslateX(-maxWidth/2);
-        this.setTranslateY(-(maxHeight/2));
+//        this.setTranslateX(-maxWidth/2);
+//        this.setTranslateY(-(maxHeight/2));
 
-        this.setText(newNode.getName());
+        this.setTranslateX(-3);
+        this.setTranslateY(-3);
 
         setButtonStyle();
-
-
     }
 
     public void setButtonStyle(){
@@ -82,7 +83,7 @@ public class NodeButton extends Button {
         int addedSize = 0;
 
         if(connectsLevels) {
-            setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            setStyle("-fx-border-color: #00d1b5; -fx-border-width: 2px;");
             addedSize += 2;
             //setStyle("-fx-background-color: #00ff00");
         }
@@ -100,8 +101,33 @@ public class NodeButton extends Button {
             setBackground(background);
         }
 
-        if(node.getIsSelected()){
-            setStyle("-fx-border-color: #5990D9; -fx-border-width: 2px;");
+        if (nameOfFile.isEmpty() && !this.getNode().getIsSelected())
+        {
+            this.setStyle(
+                    "-fx-background-radius: 5em; " +
+                            "-fx-min-width: 6px; " +
+                            "-fx-min-height: 6px; " +
+                            "-fx-max-width: 6px; " +
+                            "-fx-max-height: 6px;" +
+                            "-fx-background-color: #2F3159"
+            );
+        }
+
+        if (nameOfFile.isEmpty() && this.getNode().getIsSelected())
+        {
+            this.setStyle(
+                    "-fx-background-radius: 5em; " +
+                            "-fx-min-width: 6px; " +
+                            "-fx-min-height: 6px; " +
+                            "-fx-max-width: 6px; " +
+                            "-fx-max-height: 6px;" +
+                            "-fx-background-color: red"
+            );
+        }
+
+        if (!nameOfFile.isEmpty() && this.getNode().getIsSelected())
+        {
+            setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         }
 
 
@@ -137,5 +163,11 @@ public class NodeButton extends Button {
         this.setMinHeight(buttonSize);
         this.setMaxWidth(buttonSize);
         this.setMaxHeight(buttonSize);
+    }
+
+    public void deselect()
+    {
+            this.getNode().setIsSelected(false);
+            this.setButtonStyle();
     }
 }

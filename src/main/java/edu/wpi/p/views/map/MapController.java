@@ -84,7 +84,6 @@ public abstract class MapController {
 //                edgeLines.add(el);
             }
             translateNodeButton(nb);
-
             buttonLists.get(node.getFloor()).add(nb);
             //buttons.add(nb);
 //        }

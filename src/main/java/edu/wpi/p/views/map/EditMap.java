@@ -117,6 +117,11 @@ public class EditMap extends MapController {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     System.out.println(nb.getNode().getXcoord());
                     System.out.println(nb.getLayoutX());
+                    if (nodeButtonHold != null)
+                    {
+                        nodeButtonHold.deselect();
+                    }
+                    nodeClicked(nb);
 
                     if (isEditingEdges) { //if in mode adding edges
                         if (edgeNodeStart == null) {
@@ -138,8 +143,11 @@ public class EditMap extends MapController {
                         }
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
-                    nodeHold = nb.getNode();
-                    nodeButtonHold = nb;
+                    if (nodeButtonHold != null)
+                    {
+                        nodeButtonHold.deselect();
+                    }
+                    nodeClicked(nb);
                     nodeName.setText(nodeHold.getName());
                     rClickPopup.setVisible(true);
                     deleteConfirmation.setVisible(false);
@@ -152,6 +160,14 @@ public class EditMap extends MapController {
             return nb;
 //        }
 //        return null;
+    }
+
+    private void nodeClicked(NodeButton nb)
+    {
+        nodeHold = nb.getNode();
+        nodeButtonHold = nb;
+        nodeButtonHold.getNode().setIsSelected(true);
+        nodeButtonHold.setButtonStyle();
     }
 
     /**
@@ -269,6 +285,10 @@ public class EditMap extends MapController {
 
         //Add Node when screen is clicked
         btnPane.setOnMouseClicked(event -> {
+            if (nodeButtonHold != null)
+            {
+                nodeButtonHold.deselect();
+            }
             if(isAddingNodes ==true){ //if adding nodes
                 //set x and y to be position of mouse
                 int x = (int) (unScaleX(event.getSceneX()));
