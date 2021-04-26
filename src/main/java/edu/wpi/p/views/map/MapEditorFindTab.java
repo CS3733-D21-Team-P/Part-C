@@ -1,23 +1,20 @@
 package edu.wpi.p.views.map;
 
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
-import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.database.DBTable;
-import edu.wpi.p.database.ServiceRequest;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import com.jfoenix.controls.JFXTreeTableView;
 import javafx.util.Callback;
-
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -25,6 +22,7 @@ public class MapEditorFindTab {
 
     public JFXTreeTableView nodeTable;
     public JFXTextField filterField;
+    public JFXButton searchBtn;
     private List<Node> nodeList;
 
     private EditMap editMapController;
@@ -76,23 +74,29 @@ public class MapEditorFindTab {
         nodeTable.setRoot(root);
         nodeTable.setShowRoot(false);
 
+        NodeButton nodeButton = new NodeButton(nodeList.get(0));
+
         filterField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 nodeTable.setPredicate(new Predicate<TreeItem<Node>>() {
                     @Override
                     public boolean test(TreeItem<Node> nodeTreeItem) {
-                        Boolean flag = nodeTreeItem.getValue().getName().equals(newValue);
+                        Boolean flag = nodeTreeItem.getValue().getShortName().contains(newValue);
+                        //nodeTreeItem.getValue().setIsSelected(flag);
+                        //nodeButton.setButtonStyle();
                         return flag;
                     }
                 });
             }
         });
-
     }
 
     public void injectEditMap(EditMap editMap){
         this.editMapController = editMap;
     }
 
+    public void searchBtnAc(ActionEvent actionEvent) {
+
+    }
 }
