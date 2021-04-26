@@ -1,5 +1,7 @@
 package edu.wpi.p.views.map;
 
+import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXToggleButton;
 import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
@@ -15,11 +17,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -32,52 +32,32 @@ import java.io.IOException;
 import java.util.List;
 
 public class EditMap extends MapController {
+
+
     private DBTable dbTable = new DBTable();
-    private Boolean isEditingEdges = false;
-    private Boolean isAddingNodes = false;
     private int btnIncrement = 1;
 
-    private NodeButton edgeNodeStart = null;
-    private NodeButton edgeNodeEnd = null;
-
     private Node nodeHold;
-    private NodeButton nodeButtonHold;
+    public NodeButton nodeButtonHold;
+
+    @FXML private EditTabController editTabController;
 
     private String currFloorVal;
     @FXML private Image mapImage;
-    @FXML private TextField nodeFilepathField;
-    @FXML private JFXTextField name;
-    @FXML private Label id;
-    @FXML private Label floor;
-    @FXML private Label type;
-    @FXML private Label shortName;
-    @FXML private Label building;
-    @FXML private Label xCoordinate;
-    @FXML private Label yCoordinate;
-    @FXML private JFXTextField idText;
-    @FXML private JFXTextField floorText;
-    @FXML private JFXTextField typeText;
-    @FXML private JFXTextField shortNameText;
-    @FXML private JFXTextField buildingText;
-    @FXML private JFXTextField xCoordinateText;
-    @FXML private JFXTextField yCoordinateText;
-    @FXML private JFXButton submit;
-    @FXML private JFXButton close;
-    @FXML private AnchorPane propertiesBox;
-    @FXML private JFXButton propertiesButton;
-    @FXML private JFXButton deleteButton;
-    @FXML private VBox rClickPopup;
+
+    @FXML public VBox rClickPopup;
     @FXML private AnchorPane deleteConfirmation;
-    @FXML private AnchorPane btnPane;
+    @FXML public AnchorPane btnPane;
     @FXML private Text deleteConfirmText;
     @FXML private Text confirmDeleteNode;
     @FXML private JFXButton yesButton;
     @FXML private JFXButton noButton;
-    @FXML private ToggleButton toggleEditNodes;
-    @FXML private ToggleButton toggleEditEdges;
     @FXML private Text nodeName;
     @FXML private JFXButton closeButton;
-    @FXML private Text changesSavedText;
+
+
+//    @FXML private JFXTabPane tabPane;
+//    @FXML private Tab editTab;
 
 
     /**
@@ -111,21 +91,23 @@ public class EditMap extends MapController {
 
             nb.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
+                    nodeButtonHold = nb;
+                    editTabController.updateProperties();
                     System.out.println(nb.getNode().getXcoord());
                     System.out.println(nb.getLayoutX());
 
-                    if (isEditingEdges) { //if in mode adding edges
-                        if (edgeNodeStart == null) {
-                            edgeNodeStart = nb; //set start button
-                        } else if (edgeNodeEnd == null && edgeNodeStart != nb) { //both points have been specified so create edge
-                            edgeNodeEnd = nb; //set end button
+                    if (editTabController.getEditingEdges()) { //if in mode adding edges
+                        if (editTabController.getEdgeNodeStart() == null) {
+                            editTabController.setEdgeNodeStart(nb); //set start button
+                        } else if (editTabController.getEdgeNodeEnd() == null && editTabController.getEdgeNodeStart() != nb) { //both points have been specified so create edge
+                            editTabController.setEdgeNodeEnd(nb); //set end button
 
                             //create edge and lines
-                            addEdgeBetween(edgeNodeStart,edgeNodeEnd);
+                            addEdgeBetween(editTabController.getEdgeNodeStart(),editTabController.getEdgeNodeEnd());
 
                             //reset start and end so another line can be created
-                            edgeNodeStart = null;
-                            edgeNodeEnd = null;
+                            editTabController.setEdgeNodeStart(null);
+                            editTabController.setEdgeNodeEnd(null);
                         }
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
@@ -244,10 +226,11 @@ public class EditMap extends MapController {
     @Override
     public void initialize()  {
         super.initialize();
-        propertiesBox.setVisible(false);
+        editTabController.injectEditMap(this);
+//        propertiesBox.setVisible(false);
         rClickPopup.setVisible(false);
         deleteConfirmation.setVisible(false);
-        changesSavedText.setVisible(false);
+//        changesSavedText.setVisible(false);
 
         //add buttons
         for (Node n: graph.getGraph()){
@@ -257,84 +240,13 @@ public class EditMap extends MapController {
 
         //Add Node when screen is clicked
         btnPane.setOnMouseClicked(event -> {
-            if(isAddingNodes ==true){ //if adding nodes
+            if(editTabController.getAddingNodes() ==true){ //if adding nodes
                 //set x and y to be position of mouse
                 int x = (int) (unScaleX(event.getSceneX()));
                 int y = (int) (unScaleY(event.getSceneY()));
                 addNodeButtonAtLoc(x,y);
             }
         });
-    }
-
-    /**
-     * Opens a file dialoge for the user to choose a CSV file
-     * @return File: Chosen file
-     */
-    private File chooseFile(){
-        //Open file dialogue to choose a set of nodes
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Node File");//set tile
-        fileChooser.getExtensionFilters().addAll(//limit to a CSV file
-                new ExtensionFilter("CSV Files", "*.csv")
-        );
-        File file = fileChooser.showOpenDialog(App.getPrimaryStage()); //open dialogue
-        return file;
-    }
-
-    @FXML
-    private void importNodeCSVBtn(ActionEvent actionEvent) throws Exception {
-        File file = chooseFile();
-        CSVData nodeData = CSVHandler.readCSVFile(file.getName());
-
-        dbTable.clearNodes();//clear database
-        CSVDBConverter.addCSVNodesToTable(dbTable, nodeData); //update database
-
-        //clear buttons and lines
-        btnPane.getChildren().clear();
-        linePane.getChildren().clear();
-        initialize(); //reload to create all new buttons and lines
-    }
-
-    @FXML
-    private void importEdgeCSVBtn(ActionEvent actionEvent) throws Exception {
-        File file = chooseFile();
-        CSVData edgeData = CSVHandler.readCSVFile(file.getName());
-
-        dbTable.clearEdges();//clear database
-        CSVDBConverter.addCSVEdgesToTable(dbTable, edgeData); //update database
-
-        //clear buttons and lines
-        btnPane.getChildren().clear();
-        linePane.getChildren().clear();
-        initialize(); //reload to create all new buttons and lines
-    }
-
-    @FXML
-    private void exportCSVBtn(ActionEvent actionEvent) {
-        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
-        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
-        CSVHandler.writeCSVData(newNodes, "newNodes.csv");
-        CSVHandler.writeCSVData(newEdges, "newEdges.csv");
-    }
-
-    @FXML
-    private void propertiesClicked(ActionEvent actionEvent)
-    {
-        changesSavedText.setVisible(false);
-        propertiesBox.setVisible(true);
-        rClickPopup.setVisible(false);
-        propertiesBox.toFront();
-        String x = String.valueOf(nodeHold.getXcoord());
-        String y = String.valueOf(nodeHold.getYcoord());
-        name.setText(nodeHold.getName());
-        idText.setText(nodeHold.getId());
-        floorText.setText(nodeHold.getFloor());
-        typeText.setText(nodeHold.getType());
-        shortNameText.setText(nodeHold.getShortName());
-        buildingText.setText(nodeHold.getBuilding());
-        xCoordinateText.setText(x);
-        yCoordinateText.setText(y);
-        propertiesBox.toFront();
     }
 
     @FXML
@@ -381,32 +293,32 @@ public class EditMap extends MapController {
     private void openDeletePage(ActionEvent actionEvent)
     {
         deleteConfirmation.setVisible(true);
-        propertiesBox.setVisible(false);
+        //propertiesBox.setVisible(false);
         rClickPopup.setVisible(false);
         confirmDeleteNode.setText(nodeHold.getName());
     }
 
-    @FXML
-    private void switchEditEdges(ActionEvent actionEvent){
-        isEditingEdges = !isEditingEdges;
-        isAddingNodes = false;
-        toggleEditNodes.setSelected(false);
-        edgeNodeStart = null;
-        edgeNodeEnd = null;
-    }
+//    @FXML
+//    private void switchEditEdges(ActionEvent actionEvent){
+//        isEditingEdges = !isEditingEdges;
+//        isAddingNodes = false;
+//        toggleEditNodes.setSelected(false);
+//        edgeNodeStart = null;
+//        edgeNodeEnd = null;
+//    }
 
-    @FXML
-    private void switchEditNodes(ActionEvent actionEvent){
-        isAddingNodes = !isAddingNodes;
-        isEditingEdges = false;
-        toggleEditEdges.setSelected(false);
-    }
+//    @FXML
+//    private void switchEditNodes(ActionEvent actionEvent){
+//        isAddingNodes = !isAddingNodes;
+//        isEditingEdges = false;
+//        toggleEditEdges.setSelected(false);
+//    }
 
-    @FXML
-    private void propertiesDisappear(ActionEvent actionEvent)
-    {
-        propertiesBox.setVisible(false);
-    }
+//    @FXML
+//    private void propertiesDisappear(ActionEvent actionEvent)
+//    {
+//        propertiesBox.setVisible(false);
+//    }
 
     @FXML
     private void closePopup(ActionEvent actionEvent)
@@ -414,38 +326,27 @@ public class EditMap extends MapController {
         rClickPopup.setVisible(false);
     }
 
-    @FXML
-    private void updateNode(ActionEvent actionEvent)
-    {
-        Node node = nodeHold;
-        node.setName(name.getText());
-        node.setId(idText.getText());
-        node.setFloor(floorText.getText());
-        node.setType(typeText.getText());
-        node.setBuilding(buildingText.getText());
-        node.setShortName(shortNameText.getText());
-        int x = Integer.parseInt(xCoordinateText.getText());
-        int y = Integer.parseInt(yCoordinateText.getText());
-        node.setXcoord(x);
-        node.setYcoord(y);
-        dbTable.updateNode(node);
-
-        //update how node button looks
-        nodeButtonHold.update(imageView);
-
-        EditNodeLocation(nodeButtonHold,x,y);
-
-        changesSavedText.setVisible(true);
-    }
-
-    @FXML
-    private void directToEdgeEditPage(ActionEvent actionEvent)
-    {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/MapPEdgeData.fxml"));
-            App.getPrimaryStage().getScene().setRoot(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+//    @FXML
+//    private void updateNode(ActionEvent actionEvent)
+//    {
+//        Node node = nodeHold;
+//        node.setName(editTabController.name.getText());
+//        node.setId(editTabController.idText.getText());
+//        node.setFloor(editTabController.floorText.getText());
+//        node.setType(editTabController.typeText.getText());
+//        node.setBuilding(editTabController.buildingText.getText());
+//        node.setShortName(editTabController.shortNameText.getText());
+//        int x = Integer.parseInt(editTabController.xCoordinateText.getText());
+//        int y = Integer.parseInt(editTabController.yCoordinateText.getText());
+//        node.setXcoord(x);
+//        node.setYcoord(y);
+//        dbTable.updateNode(node);
+//
+//        //update how node button looks
+//        nodeButtonHold.update(imageView);
+//
+//        EditNodeLocation(nodeButtonHold,x,y);
+//
+//        changesSavedText.setVisible(true);
+//    }
 }

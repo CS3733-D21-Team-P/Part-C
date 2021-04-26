@@ -38,8 +38,7 @@ public class PathfindingMap extends MapController {
     public TextField start;
     @FXML
     public TextField end;
-    @FXML
-    private ChoiceBox<String> floorChoiceBox;
+    @FXML private ChoiceBox<String> floorChoiceBox;
 //    @FXML
 //    public AnchorPane btnPane;
 //    @FXML
@@ -157,16 +156,16 @@ public class PathfindingMap extends MapController {
         return null;
     }
 
-    private void getFloorChoiceBoxUpdate(){
-        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
-                for (Node n : graph.getGraph()) {
-                    addNodeButton(n);
-                }
-            }
-        }
-    );}
+//    private void getFloorChoiceBoxUpdate(){
+//        floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue ov, Number oldValue, Number newValue) {
+//                for (Node n : graph.getGraph()) {
+//                    addNodeButton(n);
+//                }
+//            }
+//        }
+//    );}
 
 
     @FXML
@@ -178,7 +177,7 @@ public class PathfindingMap extends MapController {
     public void initialize()  {
         super.initialize();
         System.out.println("PATHFINDING INIT");
-        getFloorChoiceBoxUpdate();
+//        getFloorChoiceBoxUpdate();
         for (Node n: graph.getGraph()){
             addNodeButton(n);
 
