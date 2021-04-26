@@ -13,12 +13,12 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.CovidSurvey">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3159" height="765.0" layoutX="1145.0" layoutY="154.0" stroke="#00caffcc" strokeMiterLimit="0.0" width="608.0" />
-      <JFXButton fx:id="submitButton" layoutX="1541.0" layoutY="829.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-background-color: #008000; -fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Submit" textFill="WHITE" />
-      <JFXButton fx:id="cancelButton" layoutX="1194.0" layoutY="828.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancelPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-font-size: 30; -fx-font-family: &quot;open sans&quot;; -fx-background-color: FF0000; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Cancel" textFill="WHITE">
+      <JFXButton fx:id="submitButton" layoutX="1541.0" layoutY="828.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-background-color: #5990D9; -fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Submit" textFill="WHITE" />
+      <JFXButton fx:id="cancelButton" layoutX="1194.0" layoutY="828.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancelPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-font-size: 30; -fx-font-family: &quot;open sans&quot;; -fx-background-color: #5990D9; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Cancel" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font></JFXButton>
-      <VBox layoutX="1253.0" layoutY="199.0" prefHeight="241.0" prefWidth="384.0" spacing="50.0">
+      <VBox layoutX="1253.0" layoutY="250.0" prefHeight="241.0" prefWidth="384.0" spacing="50.0">
          <children>
             <Text fx:id="firstText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I have had a symptomatic COVID-19 test or I have received positive test result for COVID-19 in the last 14 days " wrappingWidth="458.029296875">
                <font>
@@ -47,15 +47,16 @@
             </Text>
          </children>
       </VBox>
-      <JFXCheckBox fx:id="secondCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="334.0" prefWidth="29.0" text=" " unCheckedColor="WHITE" />
-      <JFXCheckBox fx:id="fourthCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="518.0" text=" " unCheckedColor="WHITE" />
-      <JFXCheckBox fx:id="fifthCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="646.0" text=" " unCheckedColor="WHITE" />
-      <JFXCheckBox fx:id="thirdCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="414.0" text=" " unCheckedColor="WHITE" />
-      <JFXCheckBox fx:id="firstCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="205.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="secondCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="385.0" prefWidth="29.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="fourthCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="569.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="fifthCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="700.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="thirdCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="465.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="firstCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="256.0" text=" " unCheckedColor="WHITE" />
       <ImageView fitHeight="1080.0" fitWidth="878.0" layoutX="100.0" pickOnBounds="true">
          <image>
             <Image url="@../../../../../../../../../Pictures/LoginScreen2.jpg" />
          </image>
       </ImageView>
+      <Text fill="WHITE" layoutX="1311.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 35;" text="COVID-19 Survery" textAlignment="CENTER" wrappingWidth="282.900390625" />
    </children>
 </AnchorPane>
