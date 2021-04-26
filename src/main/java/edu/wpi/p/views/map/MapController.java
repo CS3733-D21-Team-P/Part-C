@@ -142,7 +142,55 @@ public abstract class MapController {
         }
     }
 
-    public void changeFloors(){
+    public void changeFloors(String currFloorVal){
+
+        //make previous floor buttons hidden
+        for(NodeButton nb: buttons){
+            nb.setVisible(false);
+        }
+        for(EdgeLine el: edgeLines){
+            el.setVisible(false);
+        }
+
+        //set current lists of buttons and lines
+        buttons = buttonLists.get(currFloorVal);
+        edgeLines=edgeLists.get(currFloorVal);
+
+        //make buttons for current floor visible
+        for(NodeButton nb: buttons){
+            nb.setVisible(true);
+        }
+        for(EdgeLine el: edgeLines){
+            if(!el.connectsLevels()) {
+                el.setVisible(true);
+            }
+        }
+        translateGraph(imageView);
+
+        switch (currFloorVal) {
+            case "Ground":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thegroundfloor.png"));
+                break;
+            case "L1":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel1.png"));
+                break;
+            case "L2":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel2.png"));
+                break;
+            case "1":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/01_thefirstfloor.png"));
+                break;
+            case "2":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/02_thesecondfloor.png"));
+                break;
+            case "3":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/03_thethirdfloor.png"));
+                break;
+        }
+        imageView.setImage(mapImage);
+    }
+
+    public void floorInit(){
         floorChoiceBox.setItems(FXCollections.observableArrayList(availableFloors));
         floorChoiceBox.getSelectionModel().select(1);
         buttons = buttonLists.get(availableFloors[1]);
@@ -151,51 +199,7 @@ public abstract class MapController {
             @Override
             public void changed(ObservableValue ov, Number oldValue, Number newValue) {
                 currFloorVal = availableFloors[newValue.intValue()];
-
-                //make previous floor buttons hidden
-                for(NodeButton nb: buttons){
-                    nb.setVisible(false);
-                }
-                for(EdgeLine el: edgeLines){
-                    el.setVisible(false);
-                }
-
-                //set current lists of buttons and lines
-                buttons = buttonLists.get(currFloorVal);
-                edgeLines=edgeLists.get(currFloorVal);
-
-                //make buttons for current floor visible
-                for(NodeButton nb: buttons){
-                    nb.setVisible(true);
-                }
-                for(EdgeLine el: edgeLines){
-                    if(!el.connectsLevels()) {
-                        el.setVisible(true);
-                    }
-                }
-                translateGraph(imageView);
-
-                switch (currFloorVal) {
-                    case "Ground":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thegroundfloor.png"));
-                        break;
-                    case "L1":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel1.png"));
-                        break;
-                    case "L2":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel2.png"));
-                        break;
-                    case "1":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/01_thefirstfloor.png"));
-                        break;
-                    case "2":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/02_thesecondfloor.png"));
-                        break;
-                    case "3":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/03_thethirdfloor.png"));
-                        break;
-                }
-                imageView.setImage(mapImage);
+                changeFloors(currFloorVal);
             }
         });
     }
@@ -219,7 +223,7 @@ public abstract class MapController {
         }
 
 
-        changeFloors();
+        floorInit();
 
         panAndZoomEvents();
     }

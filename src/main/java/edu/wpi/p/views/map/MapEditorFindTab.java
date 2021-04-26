@@ -104,6 +104,7 @@ public class MapEditorFindTab {
                     TreeTableView.TreeTableViewSelectionModel<Node> sm = nodeTable.getSelectionModel();
                     Node n = (Node) sm.getSelectedItem().getValue(); //selected node
                     String floor = n.getFloor(); //current floor
+                    editMapController.changeFloors(floor);
 
                     //find nodeButton
                     List<NodeButton> list = editMapController.buttonLists.get(floor);
