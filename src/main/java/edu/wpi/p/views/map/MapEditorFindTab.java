@@ -26,8 +26,9 @@ public class MapEditorFindTab {
     public JFXButton searchBtn;
     private List<Node> nodeList;
 
-    private EditMap editMapController;
-    private PathfindingMap pathfindingMapController;
+    private MapController mapController;
+//    private EditMap editMapController;
+//    private PathfindingMap pathfindingMapController;
     private DBTable dbTable = new DBTable();
 
 
@@ -104,23 +105,23 @@ public class MapEditorFindTab {
                     TreeTableView.TreeTableViewSelectionModel<Node> sm = nodeTable.getSelectionModel();
                     Node n = (Node) sm.getSelectedItem().getValue(); //selected node
                     String floor = n.getFloor(); //current floor
-                    editMapController.changeFloors(floor);
+                    mapController.changeFloors(floor);
 
                     //find nodeButton
-                    List<NodeButton> list = editMapController.buttonLists.get(floor);
+                    List<NodeButton> list = mapController.buttonLists.get(floor);
                     for(NodeButton nb: list){
                         if(nb.getNode().getId().equals(n.getId())){
                             //found node button
                             System.out.println("found");
 
-                            if(editMapController.nodeButtonHold!=null) { //check if there is a current selection
+                            if(mapController.nodeButtonHold!=null) { //check if there is a current selection
                                 //deselect prev node
-                                editMapController.nodeButtonHold.getNode().setIsSelected(false);
-                                editMapController.nodeButtonHold.setButtonStyle();
+                                mapController.nodeButtonHold.getNode().setIsSelected(false);
+                                mapController.nodeButtonHold.setButtonStyle();
                             }
 
                             //select new node
-                            editMapController.nodeClicked(nb);
+                            mapController.nodeClicked(nb);
                             continue;
                         }
 
@@ -130,8 +131,8 @@ public class MapEditorFindTab {
         });
     }
 
-    public void injectEditMap(EditMap editMap){
-        this.editMapController = editMap;
+    public void injectMapController(MapController mapController){
+        this.mapController = mapController;
     }
 
     public void searchBtnAc(ActionEvent actionEvent) {

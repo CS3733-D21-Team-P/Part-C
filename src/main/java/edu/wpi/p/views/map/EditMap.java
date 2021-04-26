@@ -36,11 +36,7 @@ public class EditMap extends MapController {
     private DBTable dbTable = new DBTable();
     private int btnIncrement = 1;
 
-    private Node nodeHold;
-    public NodeButton nodeButtonHold;
-
     @FXML private EditTabController editTabController;
-    @FXML private MapEditorFindTab findTabController;
 
     private String currFloorVal;
     @FXML private Image mapImage;
@@ -251,7 +247,6 @@ public class EditMap extends MapController {
     public void initialize()  {
         super.initialize();
         editTabController.injectEditMap(this);
-        findTabController.injectEditMap(this);
         rClickPopup.setVisible(false);
         deleteConfirmation.setVisible(false);
 

@@ -31,9 +31,15 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class MapController {
+
+    @FXML private MapEditorFindTab findTabController;
+
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
     List<EdgeLine> edgeLines = new ArrayList<>();
+
+    Node nodeHold;
+    NodeButton nodeButtonHold;
 
     HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
     HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
@@ -142,6 +148,14 @@ public abstract class MapController {
         }
     }
 
+    public void nodeClicked(NodeButton nb)
+    {
+        nodeHold = nb.getNode();
+        nodeButtonHold = nb;
+        nodeButtonHold.getNode().setIsSelected(true);
+        nodeButtonHold.setButtonStyle();
+    }
+
     public void changeFloors(String currFloorVal){
 
         //make previous floor buttons hidden
@@ -210,7 +224,7 @@ public abstract class MapController {
      * adds buttons and edge lines to map
      */
     public void initialize()  {
-
+        findTabController.injectMapController(this);
         buttons = new ArrayList<>();
         edgeLines = new ArrayList<>();
         graph = new NodeGraph();
