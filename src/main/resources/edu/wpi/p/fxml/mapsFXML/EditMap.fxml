@@ -13,15 +13,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.EditMap">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.EditMap">
     <children>
-        <ImageView fx:id="imageView" fitHeight="800.0" fitWidth="1000.0" layoutX="6.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1520.0" layoutX="281.0" layoutY="14.0" pickOnBounds="true" preserveRatio="false" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
             <image>
                 <Image fx:id="mapImage" url="@Maps/00_thelowerlevel1.png" />
             </image>
         </ImageView>
-        <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" />
-        <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" />
+        <AnchorPane fx:id="linePane" layoutX="275.0" layoutY="14.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
+        <AnchorPane fx:id="btnPane" layoutX="275.0" layoutY="14.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
         <VBox fx:id="rClickPopup" layoutX="435.0" layoutY="100.0" prefHeight="115.0" prefWidth="147.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
             <children>
                 <Text fx:id="nodeName" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="144.13671875">
