@@ -40,6 +40,7 @@ public class EditMap extends MapController {
     public NodeButton nodeButtonHold;
 
     @FXML private EditTabController editTabController;
+    @FXML private MapEditorFindTab findTabController;
 
     private String currFloorVal;
     @FXML private Image mapImage;

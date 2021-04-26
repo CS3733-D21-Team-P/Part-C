@@ -3,13 +3,16 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapEditorFindTab">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="300.0" style="-fx-background-color: #2f3159;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapEditorFindTab">
    <children>
-      <JFXTreeTableView fx:id="nodeTable" layoutX="6.0" layoutY="205.0" prefHeight="868.0" prefWidth="288.0" />
-      <JFXTextField fx:id="filterField" layoutX="92.0" layoutY="161.0" prefHeight="25.0" prefWidth="194.0" promptText="Location Name" />
-      <Text layoutX="26.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" wrappingWidth="42.13671875" />
+      <JFXTreeTableView fx:id="nodeTable" layoutX="6.0" layoutY="170.0" prefHeight="868.0" prefWidth="288.0" style="-fx-background-color: #b6d6f2;" />
+      <JFXTextField fx:id="filterField" blendMode="ADD" layoutX="92.0" layoutY="126.0" prefHeight="25.0" prefWidth="194.0" promptText="Location Name" unFocusColor="WHITE" />
+      <Text fill="WHITE" layoutX="28.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:" wrappingWidth="54.136714935302734">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Text>
    </children>
 </AnchorPane>

@@ -26,7 +26,10 @@ public class MapEditorFindTab {
     public JFXTreeTableView nodeTable;
     public JFXTextField filterField;
     private List<Node> nodeList;
-    private DBTable dbTable;
+
+    private EditMap editMapController;
+    private PathfindingMap pathfindingMapController;
+    private DBTable dbTable = new DBTable();
 
 
     public void initialize() {
@@ -86,6 +89,10 @@ public class MapEditorFindTab {
             }
         });
 
+    }
+
+    public void injectEditMap(EditMap editMap){
+        this.editMapController = editMap;
     }
 
 }

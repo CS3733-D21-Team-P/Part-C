@@ -1,5 +1,6 @@
 package edu.wpi.p.views.map;
 
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
@@ -55,7 +56,7 @@ public abstract class MapController {
     @FXML public AnchorPane btnPane;
     @FXML public AnchorPane linePane;
     @FXML public ImageView imageView;
-    @FXML private ChoiceBox<String> floorChoiceBox;
+    @FXML private JFXComboBox<String> floorChoiceBox;
     @FXML private Button pathHomeBtn;
     private ObservableList<javafx.scene.Node> btnPaneSetup;
     private ObservableList<javafx.scene.Node> linePaneSetup;
