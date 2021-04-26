@@ -39,8 +39,8 @@
                           <ColorInput />
                       </effect>
                   </JFXButton>
-            <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="90.0" />
-            <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="115.0" />
+            <JFXButton fx:id="floralDeliveryBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#floralDeliveryBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Floral Delivery" textFill="WHITE" translateY="90.0" />
+            <JFXButton fx:id="foodDeliveryBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#foodDeliveryBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Food Delivery" textFill="WHITE" translateY="115.0" />
                   <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="140.0" />
               </children>
           </VBox>
