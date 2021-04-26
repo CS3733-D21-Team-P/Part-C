@@ -140,7 +140,7 @@ public class EditMap extends MapController {
 //        return null;
     }
 
-    private void nodeClicked(NodeButton nb)
+    public void nodeClicked(NodeButton nb)
     {
         nodeHold = nb.getNode();
         nodeButtonHold = nb;

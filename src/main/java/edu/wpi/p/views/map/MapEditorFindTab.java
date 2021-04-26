@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
+import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
 import java.util.List;
 import java.util.function.Predicate;
@@ -88,6 +89,42 @@ public class MapEditorFindTab {
                         return flag;
                     }
                 });
+            }
+        });
+
+        /**
+         * Listener for selection changes on "find tab" tableview.
+         * Updates nodeButton style to highlight node entry selected in table.
+         */
+        nodeTable.getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<Node>>(){
+            @Override
+            public void changed(ObservableValue<? extends TreeItem<Node>>
+                                        observable, TreeItem<Node> oldValue, TreeItem<Node> newValue) {
+                if (!(oldValue == newValue)) {
+                    TreeTableView.TreeTableViewSelectionModel<Node> sm = nodeTable.getSelectionModel();
+                    Node n = (Node) sm.getSelectedItem().getValue(); //selected node
+                    String floor = n.getFloor(); //current floor
+
+                    //find nodeButton
+                    List<NodeButton> list = editMapController.buttonLists.get(floor);
+                    for(NodeButton nb: list){
+                        if(nb.getNode().getId().equals(n.getId())){
+                            //found node button
+                            System.out.println("found");
+
+                            if(editMapController.nodeButtonHold!=null) { //check if there is a current selection
+                                //deselect prev node
+                                editMapController.nodeButtonHold.getNode().setIsSelected(false);
+                                editMapController.nodeButtonHold.setButtonStyle();
+                            }
+
+                            //select new node
+                            editMapController.nodeClicked(nb);
+                            continue;
+                        }
+
+                    }
+                }
             }
         });
     }
