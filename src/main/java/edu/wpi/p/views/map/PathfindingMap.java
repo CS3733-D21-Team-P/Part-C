@@ -36,7 +36,6 @@ public class PathfindingMap extends MapController {
     private boolean enteringStart = false;
     @FXML public TextField start;
     @FXML public TextField end;
-    @FXML private ChoiceBox<String> floorChoiceBox;
 //    @FXML
 //    public AnchorPane btnPane;
 //    @FXML
