@@ -54,7 +54,7 @@
       <JFXCheckBox fx:id="firstCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="256.0" text=" " unCheckedColor="WHITE" />
       <ImageView fitHeight="1080.0" fitWidth="878.0" layoutX="100.0" pickOnBounds="true">
          <image>
-            <Image url="@../../../../../../../../../Pictures/LoginScreen2.jpg" />
+            <Image url="@../../../../image/LoginScreen2.jpg" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="1311.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 35;" text="COVID-19 Survery" textAlignment="CENTER" wrappingWidth="282.900390625" />
