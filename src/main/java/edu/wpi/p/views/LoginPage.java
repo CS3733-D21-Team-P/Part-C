@@ -19,10 +19,39 @@ import com.jfoenix.controls.JFXTreeTableView;
 
 import java.util.List;
 
+
+import java.io.IOException;
+
 public class LoginPage {
     @FXML
-    private TextField usernameTXT;
-    @FXML private TextField passwordTXT;
+    public JFXTextArea usernameTXT;
+    @FXML
+    public JFXPasswordField passwordTXT;
+    @FXML
+    public JFXButton loginButton;
+    @FXML
+    public JFXButton guestButton;
+    public void loginButtonAC(ActionEvent actionEvent) {
+        final String user = usernameTXT.getText();
+        final String pass = passwordTXT.getText();
+        if(user.equals("admin")&& pass.equals("pass")) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+                App.getPrimaryStage().getScene().setRoot(root);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        }
+    public void guestButtonAC(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
 
     private DBUser dbuser = new DBUser();
