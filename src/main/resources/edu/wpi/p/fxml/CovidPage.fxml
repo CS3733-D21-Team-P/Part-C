@@ -2,22 +2,60 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.CovidSurvey">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.CovidSurvey">
    <children>
-      <Text fx:id="firstText" layoutX="107.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I have had a symptomatic COVID-19 test or I have received positive test result for COVID-19 in the last 14 days " wrappingWidth="458.029296875" />
-      <Text fx:id="secondText" layoutX="105.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I am experiencing COVID-19-like symptoms" />
-      <Text fx:id="thirdText" layoutX="104.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I have been in close contact with comeone diagnosed with COVID-19 in the last 14 days" />
-      <Text fx:id="fourthText" layoutX="104.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I have been asked to self-isolate or quarantine by a doctor or local public health official in the last 14 days" wrappingWidth="464.3437385559082" />
-      <Text fx:id="fifthText" layoutX="105.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I feel good (No COVID/No Symptoms)" />
-      <JFXCheckBox fx:id="firstCheckBox" layoutX="37.0" layoutY="58.0" text=" " />
-      <JFXCheckBox fx:id="secondCheckBox" layoutX="37.0" layoutY="120.0" text=" " />
-      <JFXCheckBox fx:id="thirdCheckBox" layoutX="37.0" layoutY="183.0" text=" " />
-      <JFXCheckBox fx:id="fourthCheckBox" layoutX="37.0" layoutY="245.0" text=" " />
-      <JFXCheckBox fx:id="fifthCheckBox" layoutX="37.0" layoutY="311.0" text=" " />
-      <JFXButton fx:id="submitButton" layoutX="513.0" layoutY="348.0" onAction="#submitPressed" text="Submit" />
-      <JFXButton fx:id="cancelButton" layoutX="40.0" layoutY="348.0" onAction="#cancelPressed" text="Cancel" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3159" height="765.0" layoutX="1145.0" layoutY="154.0" stroke="#00caffcc" strokeMiterLimit="0.0" width="608.0" />
+      <JFXButton fx:id="submitButton" layoutX="1541.0" layoutY="829.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-background-color: #008000; -fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Submit" textFill="WHITE" />
+      <JFXButton fx:id="cancelButton" layoutX="1194.0" layoutY="828.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancelPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-font-size: 30; -fx-font-family: &quot;open sans&quot;; -fx-background-color: FF0000; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font></JFXButton>
+      <VBox layoutX="1253.0" layoutY="199.0" prefHeight="241.0" prefWidth="384.0" spacing="50.0">
+         <children>
+            <Text fx:id="firstText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I have had a symptomatic COVID-19 test or I have received positive test result for COVID-19 in the last 14 days " wrappingWidth="458.029296875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="secondText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I am experiencing COVID-19-like symptoms">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="thirdText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I have been in close contact with comeone diagnosed with COVID-19 in the last 14 days" wrappingWidth="477.90625">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="fourthText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I have been asked to self-isolate or quarantine by a doctor or local public health official in the last 14 days" wrappingWidth="464.3437385559082">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="fifthText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I feel good (No COVID/No Symptoms)">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <JFXCheckBox fx:id="secondCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="334.0" prefWidth="29.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="fourthCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="518.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="fifthCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="646.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="thirdCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="414.0" text=" " unCheckedColor="WHITE" />
+      <JFXCheckBox fx:id="firstCheckBox" checkedColor="#22dacb" layoutX="1180.0" layoutY="205.0" text=" " unCheckedColor="WHITE" />
+      <ImageView fitHeight="1080.0" fitWidth="878.0" layoutX="100.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../../../../../../Pictures/LoginScreen2.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
