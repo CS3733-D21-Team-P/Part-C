@@ -293,7 +293,7 @@ public class EditMap extends MapController {
             }
             if(editTabController.getAddingNodes() ==true){ //if adding nodes
                 //set x and y to be position of mouse
-                int x = (int) (unScaleX(event.getSceneX()));
+                int x = (int) (unScaleX(event.getSceneX()-100));
                 int y = (int) (unScaleY(event.getSceneY()));
                 addNodeButtonAtLoc(x,y);
             }
