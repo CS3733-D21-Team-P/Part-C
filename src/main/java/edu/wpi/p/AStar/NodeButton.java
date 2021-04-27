@@ -1,5 +1,6 @@
 package edu.wpi.p.AStar;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
