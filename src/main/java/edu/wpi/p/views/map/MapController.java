@@ -49,7 +49,7 @@ public abstract class MapController {
     HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
     HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
 
-    private final String[] availableFloors = new String[]{"Ground", "L1","L2","1","2","3"};
+    final String[] availableFloors = new String[]{"Ground", "L1","L2","1","2","3"};
 
 
     private double zoomSpeed = 1.005;
@@ -70,7 +70,7 @@ public abstract class MapController {
     @FXML public AnchorPane btnPane;
     @FXML public AnchorPane linePane;
     @FXML public ImageView imageView;
-    @FXML private JFXComboBox<String> floorChoiceBox;
+    @FXML JFXComboBox<String> floorChoiceBox;
     @FXML private Button pathHomeBtn;
     private ObservableList<javafx.scene.Node> btnPaneSetup;
     private ObservableList<javafx.scene.Node> linePaneSetup;

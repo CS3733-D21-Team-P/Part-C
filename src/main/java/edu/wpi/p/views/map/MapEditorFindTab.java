@@ -16,6 +16,8 @@ import javafx.scene.control.TreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.scene.control.TreeTableView;
 import javafx.util.Callback;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -105,7 +107,7 @@ public class MapEditorFindTab {
                     TreeTableView.TreeTableViewSelectionModel<NodeTableEntry> sm = nodeTable.getSelectionModel();
                     Node n = (Node) sm.getSelectedItem().getValue().getNode(); //selected node
                     String floor = n.getFloor(); //current floor
-                    mapController.changeFloors(floor);
+                    mapController.floorChoiceBox.getSelectionModel().select(Arrays.asList(mapController.availableFloors).indexOf(floor));
 
                     //find nodeButton
                     List<NodeButton> list = mapController.buttonLists.get(floor);
