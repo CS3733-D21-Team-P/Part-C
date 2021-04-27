@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import com.jfoenix.controls.JFXTreeTableView;
+import org.sqlite.core.DB;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -64,7 +65,25 @@ public class LoginPage {
             }
 
         }
-        dbuser = new DBUser();
+        if (!tableNames.contains("USER")) {
+            dbuser = new DBUser();
+            dbuser.addUser(admin);
+            dbuser.addUser(aemployee);
+            dbuser.addUser(bemployee);
+            dbuser.addUser(cemployee);
+            dbuser.addUser(demployee);
+            dbuser.addUser(eemployee);
+            dbuser.addUser(femployee);
+            dbuser.addUser(gemployee);
+            dbuser.addUser(hemployee);
+            dbuser.addUser(iemployee);
+            dbuser.addUser(jemployee);
+        }
+        else {
+            dbuser = new DBUser();
+        }
+
+
     }
 
     public void guestButtonAC(ActionEvent actionEvent) {
@@ -78,17 +97,7 @@ public class LoginPage {
 
 
     public void loginButtonAC(ActionEvent actionEvent){
-        dbuser.addUser(admin);
-        dbuser.addUser(aemployee);
-        dbuser.addUser(bemployee);
-        dbuser.addUser(cemployee);
-        dbuser.addUser(demployee);
-        dbuser.addUser(eemployee);
-        dbuser.addUser(femployee);
-        dbuser.addUser(gemployee);
-        dbuser.addUser(hemployee);
-        dbuser.addUser(iemployee);
-        dbuser.addUser(jemployee);
+
         if((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())){
             if((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")){
                 try {

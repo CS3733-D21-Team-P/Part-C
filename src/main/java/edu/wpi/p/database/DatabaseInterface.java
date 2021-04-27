@@ -166,6 +166,7 @@ public class DatabaseInterface {
             PreparedStatement statement = conn.prepareStatement(aString);
 
             ResultSet result = statement.executeQuery();
+            System.out.println("result size: " + result.getFetchSize());
             if (result.next()) {
                 return result.getString(columnName);
             }
