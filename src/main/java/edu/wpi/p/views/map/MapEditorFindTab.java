@@ -136,6 +136,30 @@ public class MapEditorFindTab {
     }
 
     public void searchBtnAc(ActionEvent actionEvent) {
+//        TreeTableView.TreeTableViewSelectionModel<Node> sm = nodeTable.getSelectionModel();
+//        Node n = (Node) sm.getSelectedItem().getValue(); //selected node
+//        String floor = n.getFloor(); //current floor
+//
+//        //find nodeButton
+//        List<NodeButton> list = editMapController.buttonLists.get(floor);
+//        for(NodeButton nb: list){
+//            if(nb.getNode().getId().equals(n.getId())){
+//                //found node button
+//                System.out.println("found");
+//
+//                if(editMapController.nodeButtonHold!=null) { //check if there is a current selection
+//                    //deselect prev node
+//                    editMapController.nodeButtonHold.getNode().setIsSelected(false);
+//                    editMapController.nodeButtonHold.setButtonStyle();
+//                }
+//
+//                //select new node
+//                editMapController.nodeClicked(nb);
+//                continue;
+//            }
+//
+//        }
+//        System.out.println("no errors");
 
     }
 }

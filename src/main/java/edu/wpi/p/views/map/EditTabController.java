@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -140,6 +141,7 @@ public class EditTabController{
         fileChooser.getExtensionFilters().addAll(//limit to a CSV file
                 new FileChooser.ExtensionFilter("CSV Files", "*.csv")
         );
+
         File file = fileChooser.showOpenDialog(App.getPrimaryStage()); //open dialogue
         return file;
     }
@@ -173,11 +175,51 @@ public class EditTabController{
     }
 
     @FXML
+    private void importCSVBtn(ActionEvent actionEvent) throws Exception{
+        File file = chooseFile();
+        CSVData data = CSVHandler.readCSVFile(file.getName());
+
+        //check if edges or nodes
+        int numColumns = data.getAllColumns().size();
+        if(numColumns>5){
+            dbTable.clearNodes();//clear database
+            CSVDBConverter.addCSVNodesToTable(dbTable, data); //update database
+        }
+        else{
+            dbTable.clearEdges();//clear database
+            CSVDBConverter.addCSVEdgesToTable(dbTable, data); //update database
+        }
+
+        //clear buttons and lines
+        editMapController.btnPane.getChildren().clear();
+        editMapController.linePane.getChildren().clear();
+        editMapController.initialize(); //reload to create all new buttons and lines
+    }
+
+    @FXML
     private void exportCSVBtn(ActionEvent actionEvent) {
         CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
         CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
-        CSVHandler.writeCSVData(newNodes, "newNodes.csv");
-        CSVHandler.writeCSVData(newEdges, "newEdges.csv");
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Node File");//set tile
+        fileChooser.getExtensionFilters().addAll(//limit to a CSV file
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
+        );
+
+        File file = fileChooser.showSaveDialog(App.getPrimaryStage()); //open dialogue
+
+        System.out.println(file.getName());
+        String name = file.getName().split(".csv")[0];
+        String path = file.getAbsolutePath();
+        String nativeDir = path.substring(0, path.lastIndexOf(File.separator));
+        nativeDir+=File.separator;
+        System.out.println(file.getPath()+name);
+        System.out.println(nativeDir);
+
+
+        CSVHandler.writeCSVData(newNodes, nativeDir+name+"-Nodes.csv");
+        CSVHandler.writeCSVData(newEdges, nativeDir+name+"-Edges.csv");
     }
 
     public void injectEditMap(EditMap editMap){

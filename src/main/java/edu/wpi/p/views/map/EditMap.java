@@ -67,7 +67,7 @@ public class EditMap extends MapController {
             //set on click methods
             //drag button
             nb.setOnMouseDragged(e -> {
-                nb.setLayoutX(e.getSceneX());
+                nb.setLayoutX(e.getSceneX()-100);
                 nb.setLayoutY(e.getSceneY());
             });
             //drag released
