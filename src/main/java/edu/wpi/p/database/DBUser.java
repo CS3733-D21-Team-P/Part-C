@@ -8,8 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBUser {
-    String DBUser = "User";
+    String DBUser = "USER";
     private List<DBColumn> columns = new ArrayList<>();
+
+    public DBUser(){
+        init();
+        createUserTable(columns);
+    }
 
     private void init(){
         columns.add(new DBColumn("Name", "varchar(256)", ""));
@@ -35,12 +40,12 @@ public class DBUser {
     }
 
     public String checkUsername(String Username) {
-        String selectCommand ="SELECT Password FROM (" + DBUser + ") WHERE Username='" + Username + "";
+        String selectCommand ="SELECT Password FROM " + DBUser + " WHERE Username='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand);
     }
 
     public String checkIdentity(String Username) {
-        String selectCommand ="SELECT Identity FROM (" + DBUser + ") WHERE Username='" + Username + "";
+        String selectCommand ="SELECT Identity FROM " + DBUser + " WHERE Username='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand);
     }
 

@@ -45,7 +45,7 @@ public class DatabaseInterface {
             }
         }
         String tableCreation = "CREATE TABLE " + tableName + " (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
-//        System.out.println(tableCreation);
+        System.out.println(tableCreation);
         if (conn == null) {
             System.out.println("tried to create a table before connection initialized, returning");
             return false;
@@ -95,8 +95,7 @@ public class DatabaseInterface {
 
     public static String checkColumnObjects(String aString) {
         try {
-            ;
-//            System.out.println(insertString);
+            System.out.println(aString);
             PreparedStatement statement = conn.prepareStatement(aString);
             statement.execute();
             statement.close();

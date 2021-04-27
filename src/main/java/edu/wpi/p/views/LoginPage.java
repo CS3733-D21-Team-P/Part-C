@@ -2,6 +2,8 @@ package edu.wpi.p.views;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
+import edu.wpi.p.csv.CSVData;
+import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.*;
 import edu.wpi.p.App;
 import javafx.beans.value.ChangeListener;
@@ -17,6 +19,7 @@ import javafx.scene.control.*;
 import javafx.util.Callback;
 import com.jfoenix.controls.JFXTreeTableView;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -31,7 +34,25 @@ public class LoginPage {
     public JFXButton loginButton;
     @FXML
     public JFXButton guestButton;
-    public void loginButtonAC(ActionEvent actionEvent) {
+
+    @FXML
+    private void initialize(){
+        DatabaseInterface.init();
+        List<String> tableNames = DatabaseInterface.getTableNames();
+        if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
+            try {
+                CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
+                CSVData edgeData = CSVHandler.readCSVFile("bwPedges.csv");
+                CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        dbuser = new DBUser();
+    }
+
+    public void loginButtonAc(ActionEvent actionEvent) {
         final String user = usernameTXT.getText();
         final String pass = passwordTXT.getText();
         if(user.equals("admin")&& pass.equals("pass")) {
@@ -54,27 +75,33 @@ public class LoginPage {
 
 
 
-    private DBUser dbuser = new DBUser();
-    private List<User> userDataList;
+    private DBUser dbuser;
+    User admin = new User("Yang", "admin", "admin", "Admin");
+    User aemployee = new User("David", "David", "123456", "Employee");
 
-    private ObservableList<User> getUserData(){
-        ObservableList<User> users = FXCollections.observableArrayList();
-        for (User n : userDataList){
-            users.add(n);
-        }
-        return users;
-    }
 
-    public boolean checkUsernameAc(ActionEvent actionEvent) {
-        if(dbuser.checkUsername(usernameTXT.getText()) == passwordTXT.getText()){
-            if(dbuser.checkIdentity(usernameTXT.getText()) == "Employee"){
-                return true;//Return to different pages
-            }else if(dbuser.checkIdentity(usernameTXT.getText()) == "Admin"){
-                return true;//Return to different pages
+    public void loginButtonAC(ActionEvent actionEvent){
+        dbuser.addUser(admin);
+        dbuser.addUser(aemployee);
+        if((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())){
+            if((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")){
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+                    App.getPrimaryStage().getScene().setRoot(root);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }else if((dbuser.checkIdentity(usernameTXT.getText())).equals("Admin")){
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+                    App.getPrimaryStage().getScene().setRoot(root);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
             }
 
         }
-        return false;//Print error message
     }
 
-}
+
