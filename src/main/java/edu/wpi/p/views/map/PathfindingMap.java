@@ -32,7 +32,6 @@ public class PathfindingMap extends MapController {
 //    NodeGraph graph = new NodeGraph();
     //List<Node> graph = new ArrayList<>();
 
-
     private boolean enteringStart = false;
     @FXML public TextField start;
     @FXML public TextField end;
@@ -78,7 +77,7 @@ public class PathfindingMap extends MapController {
             }
 
             for(EdgeLine el: pathLine){
-                linePane.getChildren().remove(el);
+                edges.remove(el);
             }
             pathLine.clear();
 
@@ -90,6 +89,7 @@ public class PathfindingMap extends MapController {
                     EdgeLine line = addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
                     pathLine.add(line);
+                    line.toFront();
                 }
             }
 
@@ -161,7 +161,7 @@ public class PathfindingMap extends MapController {
 
         }
         translateGraph(imageView);
-
+        isEditingMap = false;
     }
 
 }

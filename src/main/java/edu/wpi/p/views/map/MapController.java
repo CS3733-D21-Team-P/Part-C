@@ -6,6 +6,7 @@ import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.AStar.NodeGraph;
 import edu.wpi.p.App;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -22,7 +23,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +41,8 @@ public abstract class MapController {
     List<NodeButton> buttons = new ArrayList<>();
     List<EdgeLine> edgeLines = new ArrayList<>();
 
+    Boolean isEditingMap = false;
+    public EdgeLine edgeHold;
     Node nodeHold;
     NodeButton nodeButtonHold;
 
@@ -58,6 +63,9 @@ public abstract class MapController {
     }
 
     private String currFloorVal;
+
+    public ArrayList<EdgeLine> edges = new ArrayList<>();
+    public ArrayList<NodeButton> nodeButtons = new ArrayList<>();
 
     @FXML public AnchorPane btnPane;
     @FXML public AnchorPane linePane;
@@ -82,6 +90,7 @@ public abstract class MapController {
             nb.setVisible(false);
         }
             btnPane.getChildren().add(nb); //add to page
+            nodeButtons.add(nb);
 
             //add edges
             List<Node> children = node.getNeighbours();
@@ -105,7 +114,33 @@ public abstract class MapController {
      */
     public EdgeLine addEdgeLine(Node node1, Node node2){
         EdgeLine el = new EdgeLine(node1, node2); //create line
-        linePane.getChildren().add(el); //add line to screen
+        btnPane.getChildren().add(el); //add line to screen
+        edges.add(el);
+        el.toBack();
+        el.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && isEditingMap)
+            {
+                if (edgeHold != null) {
+                    edgeHold.setSelected(false);
+                    edgeHold.updateStyle();
+                }
+                el.setSelected(true);
+                el.updateStyle();
+                edgeHold = el;
+            }
+            else if (event.getButton() == MouseButton.SECONDARY && isEditingMap)
+            {
+                if (edgeHold != null) {
+                    edgeHold.setSelected(false);
+                    edgeHold.updateStyle();
+                }
+                el.setSelected(true);
+                el.updateStyle();
+                edgeHold = el;
+                openEdgePopup(event.getSceneX(), event.getSceneY());
+            }
+        });
+
         translateEdgeLine(el);
         //if not on current floor make invisible/hidden
         if (!node1.getFloor().equals(getCurrFloorVal()) || el.connectsLevels()) {
@@ -119,6 +154,8 @@ public abstract class MapController {
         }
         return el;
     }
+
+    public void openEdgePopup(double sceneX, double sceneY) { };
 
     /**
      * finds an edge with given start and end nodes
