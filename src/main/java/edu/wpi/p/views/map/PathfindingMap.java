@@ -1,9 +1,6 @@
 package edu.wpi.p.views.map;
 
-import edu.wpi.p.AStar.AStar;
-import edu.wpi.p.AStar.EdgeLine;
-import edu.wpi.p.AStar.Node;
-import edu.wpi.p.AStar.NodeButton;
+import edu.wpi.p.AStar.*;
 import edu.wpi.p.views.map.MapController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -70,6 +67,11 @@ public class PathfindingMap extends MapController {
             //find path
             List<Node> path = new ArrayList<>();
             path = search.findShortestPath(startNode, endNode);
+
+            //Path To Text
+            PathToText textPath = new PathToText();
+            textPath.getDirections(path);
+            textPath.PrintPath();
 
             //print path
             System.out.println("Path: ");
