@@ -92,7 +92,7 @@
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Bouquet Size:" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrapping Color:" GridPane.rowIndex="5" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Message:" GridPane.rowIndex="6" />
-            <JFXTextArea fx:id="message" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <JFXTextArea fx:id="message" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <JFXCheckBox fx:id="tulips" text="Tulips" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXCheckBox fx:id="roses" text="Roses" textFill="WHITE" translateX="25.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXCheckBox fx:id="painBush" text="Pain Bush" textFill="WHITE" translateX="225.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -103,8 +103,8 @@
             <JFXCheckBox fx:id="large" text="Large" textFill="WHITE" translateX="225.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <JFXCheckBox fx:id="medium" text="Medium" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="currRoom" focusColor="WHITE" prefWidth="300.0" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="currRoom" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Text fill="WHITE" layoutX="1259.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Floral Delivery Request" translateY="125.0">

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.GiftDelivery">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.GiftDelivery">
   <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="444.0" layoutY="-11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -61,9 +61,9 @@
                      <Font size="18.0" />
                  </font>
              </Label>
-            <JFXTextField fx:id="name" focusColor="WHITE" promptText="Full Name" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="phoneNumber" focusColor="WHITE" promptText="000-000-0000" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <JFXTextField fx:id="address" focusColor="WHITE" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="name" focusColor="WHITE" promptText="Full Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="phoneNumber" focusColor="WHITE" promptText="000-000-0000" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="address" focusColor="WHITE" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
           <Label alignment="CENTER" prefHeight="70.0" prefWidth="434.0" text="Gift Delivery" textFill="WHITE" GridPane.columnIndex="2">
             <font>
               <Font size="30.0" />
@@ -71,12 +71,12 @@
           </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <children>
-                  <JFXButton fx:id="back" onAction="#advanceScene" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: red;" text="Back" textFill="WHITE">
+                  <JFXButton fx:id="back" onAction="#advanceScene" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE">
+                  <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -87,7 +87,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="98.0" prefWidth="441.0">
                      <children>
-                        <JFXTextField fx:id="recipient" focusColor="WHITE" prefHeight="23.0" prefWidth="539.0" promptText="Full Name" unFocusColor="WHITE" />
+                        <JFXTextField fx:id="recipient" focusColor="WHITE" prefHeight="23.0" prefWidth="539.0" promptText="Full Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" />
                      </children>
                   </HBox>
                </children>
@@ -116,7 +116,7 @@
                   </HBox>
                </children>
             </HBox>
-            <JFXTextArea fx:id="detailText" focusColor="WHITE" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <JFXTextArea fx:id="detailText" focusColor="WHITE" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label text="Recipient" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
