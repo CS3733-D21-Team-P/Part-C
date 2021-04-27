@@ -21,7 +21,7 @@ public class DBColumn {
     }
 
     public String toString() {
-        return "\"" + name + "\" " + type + " " + options;
+        return  name + " " +  type + " " + options;
     }
 
     public String getName() {

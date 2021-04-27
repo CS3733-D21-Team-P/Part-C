@@ -78,7 +78,7 @@ public class MapEditorFindTab {
         nodeTable.setRoot(root);
         nodeTable.setShowRoot(false);
 
-        NodeButton nodeButton = new NodeButton(nodeList.get(0));
+//        NodeButton nodeButton = new NodeButton(nodeList.get(0));
 
         filterField.textProperty().addListener(new ChangeListener<String>() {
             @Override

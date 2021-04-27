@@ -43,7 +43,7 @@ public class DatabaseInterface {
                 break;
             }
         }
-        String tableCreation = "CREATE TABLE \"" + tableName + "\" (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
+        String tableCreation = "CREATE TABLE " + tableName + " (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
         System.out.println(tableCreation);
         if (conn == null) {
             System.out.println("tried to create a table before connection initialized, returning");
@@ -116,7 +116,7 @@ public class DatabaseInterface {
         try {
             List<DBColumn> cols = getColumns(table);
             String query = "INSERT INTO " + table + "(";
-            query += String.join(", ", cols.stream().map(DBColumn::getName).collect(Collectors.toList()));
+            query += String.join(", ", cols.stream().map(c -> "" + c.getName() + "").collect(Collectors.toList()));
             query += ") VALUES (";
             for (int i = 0; i < cols.size(); i++) {
                 query += "?";
@@ -148,7 +148,7 @@ public class DatabaseInterface {
     }
     public static boolean insertIntoTable(String table, String data) {
         try {
-            String insertString = "INSERT INTO \""  + table + "\" VALUES (" + data + ")";
+            String insertString = "INSERT INTO "  + table + " VALUES (" + data + ")";
 //            System.out.println(insertString);
             PreparedStatement statement = conn.prepareStatement(insertString);
             statement.execute();
@@ -166,10 +166,22 @@ public class DatabaseInterface {
             PreparedStatement statement = conn.prepareStatement(aString);
 
             ResultSet result = statement.executeQuery();
+            System.out.println("result size: " + result.getFetchSize());
+            ResultSetMetaData rsMetaData = result.getMetaData();
+            System.out.println("List of column names in the current table: ");
+            //Retrieving the list of column names
+            int count = rsMetaData.getColumnCount();
+            for(int i = 1; i<=count; i++) {
+                System.out.println(rsMetaData.getColumnName(i));
+            }
+            String ret = "";
             if (result.next()) {
-                return result.getString(columnName);
+
+                ret =  result.getString(columnName);
             }
             statement.close();
+            System.out.println("ret is: " + ret);
+            return ret;
         } catch (Exception e) {
             SQLExceptionPrint((SQLException) e);
             e.printStackTrace();

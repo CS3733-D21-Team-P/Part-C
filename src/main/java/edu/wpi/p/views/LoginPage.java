@@ -1,4 +1,5 @@
 package edu.wpi.p.views;
+
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import com.jfoenix.controls.JFXTreeTableView;
+import org.sqlite.core.DB;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -51,20 +53,37 @@ public class LoginPage {
 
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         DatabaseInterface.init();
         List<String> tableNames = DatabaseInterface.getTableNames();
-        if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
+        if (!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
             try {
-                CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
-                CSVData edgeData = CSVHandler.readCSVFile("bwPedges.csv");
+                CSVData nodeData = CSVHandler.readCSVString("nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName");
+                CSVData edgeData = CSVHandler.readCSVString("edgeID,startNode,endNode");
                 CSVDBConverter.tableFromCSVData(nodeData, edgeData);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
-        dbuser = new DBUser();
+        if (!tableNames.contains("USER")) {
+            dbuser = new DBUser();
+            dbuser.addUser(admin);
+            dbuser.addUser(aemployee);
+            dbuser.addUser(bemployee);
+            dbuser.addUser(cemployee);
+            dbuser.addUser(demployee);
+            dbuser.addUser(eemployee);
+            dbuser.addUser(femployee);
+            dbuser.addUser(gemployee);
+            dbuser.addUser(hemployee);
+            dbuser.addUser(iemployee);
+            dbuser.addUser(jemployee);
+        } else {
+            dbuser = new DBUser();
+        }
+
+
     }
 
     public void guestButtonAC(ActionEvent actionEvent) {
@@ -77,27 +96,17 @@ public class LoginPage {
     }
 
 
-    public void loginButtonAC(ActionEvent actionEvent){
-        dbuser.addUser(admin);
-        dbuser.addUser(aemployee);
-        dbuser.addUser(bemployee);
-        dbuser.addUser(cemployee);
-        dbuser.addUser(demployee);
-        dbuser.addUser(eemployee);
-        dbuser.addUser(femployee);
-        dbuser.addUser(gemployee);
-        dbuser.addUser(hemployee);
-        dbuser.addUser(iemployee);
-        dbuser.addUser(jemployee);
-        if((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())){
-            if((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")){
+    public void loginButtonAC(ActionEvent actionEvent) {
+
+        if ((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())) {
+            if ((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")) {
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
                     App.getPrimaryStage().getScene().setRoot(root);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-            }else if((dbuser.checkIdentity(usernameTXT.getText())).equals("Admin")){
+            } else if ((dbuser.checkIdentity(usernameTXT.getText())).equals("Admin")) {
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
                     App.getPrimaryStage().getScene().setRoot(root);
@@ -105,11 +114,9 @@ public class LoginPage {
                     ex.printStackTrace();
                 }
             }
-            }else {
-            loginButton.setOnAction(e -> AlertBox.display("Wrong Information", "Please enter the correct Username and Password"));
         }
-
-        }
+        AlertBox.display("Wrong Information", "Please enter the correct Username and Password");
     }
+}
 
 
