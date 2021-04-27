@@ -32,7 +32,6 @@ public class PathfindingMap extends MapController {
 //    NodeGraph graph = new NodeGraph();
     //List<Node> graph = new ArrayList<>();
 
-
     private boolean enteringStart = false;
     @FXML public TextField start;
     @FXML public TextField end;
@@ -162,7 +161,7 @@ public class PathfindingMap extends MapController {
 
         }
         translateGraph(imageView);
-
+        isEditingMap = false;
     }
 
 }

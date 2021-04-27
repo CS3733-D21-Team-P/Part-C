@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -42,14 +43,24 @@ public class EditMap extends MapController {
     @FXML private Image mapImage;
 
     @FXML public VBox rClickPopup;
+    @FXML public VBox rClickPopup1;
     @FXML private AnchorPane deleteConfirmation;
+    @FXML private AnchorPane deleteConfirmation1;
     @FXML public AnchorPane btnPane;
     @FXML private Text deleteConfirmText;
     @FXML private Text confirmDeleteNode;
     @FXML private JFXButton yesButton;
     @FXML private JFXButton noButton;
+    @FXML private Text deleteConfirmText1;
+    @FXML private Text confirmDeleteNode1;
+    @FXML private Text confirmDeleteNode2;
+    @FXML private JFXButton yesButton1;
+    @FXML private JFXButton noButton1;
     @FXML private Text nodeName;
+    @FXML private Text nodeName1;
+    @FXML private Text nodeName2;
     @FXML private JFXButton closeButton;
+    @FXML private JFXButton closeButton1;
 
     /**
      * creates a button associated  with a node
@@ -89,6 +100,7 @@ public class EditMap extends MapController {
                     if (nodeButtonHold != null)
                     {
                         nodeButtonHold.deselect();
+                        nodeButtonHold = null;
                     }
                     if (edgeHold != null)
                     {
@@ -125,11 +137,19 @@ public class EditMap extends MapController {
                     if (nodeButtonHold != null)
                     {
                         nodeButtonHold.deselect();
+                        nodeButtonHold = null;
+                    }
+                    if (edgeHold != null)
+                    {
+                        edgeHold.setSelected(false);
+                        edgeHold.updateStyle();
                     }
                     nodeClicked(nb);
                     nodeName.setText(nodeHold.getName());
                     rClickPopup.setVisible(true);
+                    rClickPopup1.setVisible(false);
                     deleteConfirmation.setVisible(false);
+                    deleteConfirmation1.setVisible(false);
                     TranslateTransition transition = new TranslateTransition(Duration.millis(75), rClickPopup);
                     transition.setToX(event.getSceneX() - rClickPopup.getLayoutX() - rClickPopup.getWidth() / 2 - event.getX() + 90);
                     transition.setToY(event.getSceneY() - rClickPopup.getLayoutY() - rClickPopup.getHeight() / 2 - event.getY() - 55);
@@ -173,6 +193,10 @@ public class EditMap extends MapController {
 
         // add edge to database
         dbTable.addEdge(startID + "_" + endID, startID, endID);
+
+        // set opposites
+        el.setOpposite(elOpposite);
+        elOpposite.setOpposite(el);
     }
 
     /**
@@ -253,7 +277,10 @@ public class EditMap extends MapController {
         super.initialize();
         editTabController.injectEditMap(this);
         rClickPopup.setVisible(false);
+        rClickPopup1.setVisible(false);
         deleteConfirmation.setVisible(false);
+        deleteConfirmation1.setVisible(false);
+        isEditingMap = true;
 
         //add buttons
         for (Node n: graph.getGraph()){
@@ -266,6 +293,7 @@ public class EditMap extends MapController {
             if (nodeButtonHold != null)
             {
                 nodeButtonHold.deselect();
+                nodeButtonHold = null;
             }
             if(editTabController.getAddingNodes() ==true){ //if adding nodes
                 //set x and y to be position of mouse
@@ -282,6 +310,17 @@ public class EditMap extends MapController {
         deleteConfirmation.setVisible(false);
 
         deleteNodeButton(nodeButtonHold);
+    }
+    // deletes selected edge from screen and database
+    @FXML
+    private void deleteConfirm1(ActionEvent actionEvent)
+    {
+        deleteConfirmation1.setVisible(false);
+        edgeHold.setVisible(false);
+        edgeHold.getOpposite().setVisible(false);
+        deleteNodeButton(nodeButtonHold);
+        dbTable.removeEdge(edgeHold.getStartNode().getId(), edgeHold.getEndNode().getId());
+        dbTable.removeEdge(edgeHold.getEndNode().getId(), edgeHold.getStartNode().getId());
     }
 
 
@@ -319,6 +358,12 @@ public class EditMap extends MapController {
     }
 
     @FXML
+    private void deleteCancel1(ActionEvent actionEvent)
+    {
+        deleteConfirmation1.setVisible(false);
+    }
+
+    @FXML
     private void openDeletePage(ActionEvent actionEvent)
     {
         deleteConfirmation.setVisible(true);
@@ -327,9 +372,39 @@ public class EditMap extends MapController {
     }
 
     @FXML
+    private void openDeletePage1(ActionEvent actionEvent)
+    {
+        deleteConfirmation1.setVisible(true);
+        rClickPopup1.setVisible(false);
+        confirmDeleteNode1.setText(edgeHold.getStartNode().getName());
+        confirmDeleteNode2.setText(edgeHold.getEndNode().getName());
+
+    }
+
+    @FXML
     private void closePopup(ActionEvent actionEvent)
     {
         rClickPopup.setVisible(false);
     }
 
+    @FXML
+    private void closePopup1(ActionEvent actionEvent)
+    {
+        rClickPopup1.setVisible(false);
+    }
+
+    @Override
+    public void openEdgePopup(double sceneX, double sceneY)
+    {
+        nodeName1.setText(edgeHold.getStartNode().getName());
+        nodeName2.setText(edgeHold.getEndNode().getName());
+        rClickPopup1.setVisible(true);
+        rClickPopup.setVisible(false);
+        deleteConfirmation.setVisible(false);
+        deleteConfirmation1.setVisible(false);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(75), rClickPopup1);
+        transition.setToX(sceneX - 430);
+        transition.setToY(sceneY - 215);
+        transition.playFromStart();
+    }
 }

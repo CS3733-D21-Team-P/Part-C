@@ -6,6 +6,7 @@ import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.AStar.NodeGraph;
 import edu.wpi.p.App;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -22,7 +23,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public abstract class MapController {
     List<NodeButton> buttons = new ArrayList<>();
     List<EdgeLine> edgeLines = new ArrayList<>();
 
+    Boolean isEditingMap = false;
     public EdgeLine edgeHold;
     Node nodeHold;
     NodeButton nodeButtonHold;
@@ -114,14 +118,27 @@ public abstract class MapController {
         edges.add(el);
         el.toBack();
         el.setOnMouseClicked(event -> {
-            if (edgeHold != null)
+            if (event.getButton() == MouseButton.PRIMARY && isEditingMap)
             {
-                edgeHold.setSelected(false);
-                edgeHold.updateStyle();
+                if (edgeHold != null) {
+                    edgeHold.setSelected(false);
+                    edgeHold.updateStyle();
+                }
+                el.setSelected(true);
+                el.updateStyle();
+                edgeHold = el;
             }
-            el.setSelected(true);
-            el.updateStyle();
-            edgeHold = el;
+            else if (event.getButton() == MouseButton.SECONDARY && isEditingMap)
+            {
+                if (edgeHold != null) {
+                    edgeHold.setSelected(false);
+                    edgeHold.updateStyle();
+                }
+                el.setSelected(true);
+                el.updateStyle();
+                edgeHold = el;
+                openEdgePopup(event.getSceneX(), event.getSceneY());
+            }
         });
 
         translateEdgeLine(el);
@@ -137,6 +154,8 @@ public abstract class MapController {
         }
         return el;
     }
+
+    public void openEdgePopup(double sceneX, double sceneY) { };
 
     /**
      * finds an edge with given start and end nodes
