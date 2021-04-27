@@ -93,13 +93,16 @@ public class DatabaseInterface {
         return false;
     }
 
-    public static String checkColumnObjects(String aString) {
+    public static String checkColumnObjects(String aString, String columnName) {
         try {
             System.out.println(aString);
             PreparedStatement statement = conn.prepareStatement(aString);
-            statement.execute();
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getString(columnName);
+            }
             statement.close();
-            return aString;
         } catch (Exception e) {
             SQLExceptionPrint((SQLException) e);
             e.printStackTrace();
