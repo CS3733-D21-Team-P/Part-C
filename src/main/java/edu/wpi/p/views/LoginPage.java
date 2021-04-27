@@ -49,6 +49,7 @@ public class LoginPage {
     User iemployee = new User("Nicolas", "Nicolas", "123456", "Employee");
     User jemployee = new User("Ian", "Ian", "123456", "Employee");
 
+
     @FXML
     private void initialize(){
         DatabaseInterface.init();
@@ -104,7 +105,9 @@ public class LoginPage {
                     ex.printStackTrace();
                 }
             }
-            }
+            }else {
+            loginButton.setOnAction(e -> AlertBox.display("Wrong Information", "Please enter the correct Username and Password"));
+        }
 
         }
     }
