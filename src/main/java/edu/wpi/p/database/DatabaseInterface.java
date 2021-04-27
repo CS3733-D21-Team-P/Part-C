@@ -44,7 +44,7 @@ public class DatabaseInterface {
                 break;
             }
         }
-        String tableCreation = "CREATE TABLE " + tableName + " (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
+        String tableCreation = "CREATE TABLE \"" + tableName + "\" (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
         System.out.println(tableCreation);
         if (conn == null) {
             System.out.println("tried to create a table before connection initialized, returning");
@@ -81,7 +81,7 @@ public class DatabaseInterface {
 
     public static boolean insertIntoTable(String table, String data) {
         try {
-            String insertString = "INSERT INTO "  + table + " VALUES (" + data + ")";
+            String insertString = "INSERT INTO \""  + table + "\" VALUES (" + data + ")";
 //            System.out.println(insertString);
             PreparedStatement statement = conn.prepareStatement(insertString);
             statement.execute();

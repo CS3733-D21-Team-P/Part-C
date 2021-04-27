@@ -40,12 +40,12 @@ public class DBUser {
     }
 
     public String checkUsername(String Username) {
-        String selectCommand ="SELECT Password FROM " + DBUser + " WHERE Username='" + Username + "'";
+        String selectCommand ="SELECT \"Password\" FROM \"" + DBUser + "\" WHERE \"Username\"='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand);
     }
 
     public String checkIdentity(String Username) {
-        String selectCommand ="SELECT Identity FROM " + DBUser + " WHERE Username='" + Username + "'";
+        String selectCommand ="SELECT \"Identity\" FROM \"" + DBUser + "\" WHERE \"Username\"='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand);
     }
 
@@ -55,7 +55,7 @@ public class DBUser {
     }
 
     public void removeUser(String Username) {
-        String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "";
+        String removeCommand = "DELETE FROM \"" + DBUser +"\" WHERE Username='" + Username + "";
         DatabaseInterface.executeUpdate(removeCommand);
     }
 
