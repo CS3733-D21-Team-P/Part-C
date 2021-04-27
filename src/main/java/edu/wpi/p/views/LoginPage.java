@@ -114,10 +114,8 @@ public class LoginPage {
                     ex.printStackTrace();
                 }
             }
-        } else {
-            loginButton.setOnAction(e -> AlertBox.display("Wrong Information", "Please enter the correct Username and Password"));
         }
-
+        loginButton.setOnAction(e -> AlertBox.display("Wrong Information", "Please enter the correct Username and Password"));
     }
 }
 
