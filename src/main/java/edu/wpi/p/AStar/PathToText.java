@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PathToText {
     float turnAngle = 30;
-    List<String> directions;
+    List<String> directions = new ArrayList<>();
 
     public void PrintPath() {
         for(String s : directions) {
@@ -13,7 +13,11 @@ public class PathToText {
         }
     }
 
-    public List<String> getDirections(List<Node> path) {
+    public List<String> getDirections() {
+        return directions;
+    }
+
+    public List<String> makeDirections(List<Node> path) {
         directions = new ArrayList<>();
         for (int i = 0; i < path.size() - 1; i++) {
             if (i != path.size() - 1) {
@@ -27,13 +31,6 @@ public class PathToText {
                     prevNode = path.get(i - 1);
                     to = new float[]{currentNode.getXcoord(), currentNode.getYcoord(), nextNode.getXcoord(), nextNode.getYcoord()};
                     from = new float[]{prevNode.getXcoord(), prevNode.getYcoord(), currentNode.getXcoord(), currentNode.getYcoord()};
-
-                    System.out.println("from Rise: " + vy(from));
-                    System.out.println("from Run: " + vx(from));
-
-                    System.out.println("to Rise: " + vy(to));
-                    System.out.println("to Run: " + vx(to));
-
                     float dot = dot(to, from);
                     if(dot == 0) {
                         angle = 90;
@@ -46,23 +43,17 @@ public class PathToText {
                 //determine left or right
                 if (angle >= turnAngle) {
                     if(angle == 90) {
-                        System.out.println("Hit: Nudge");
                         nudge(from);
                     }
                     float[] lp = leftPerpendicular(from);
-                    System.out.println("lp Rise: " + vy(lp));
-                    System.out.println("lp Run: " + vx(lp));
                     float dot = dot(lp, to);
-                    System.out.println("DOT: "+dot);
                     float lpAngle = (float)(Math.acos(dot / (mag(to) * mag(lp))) * (180/Math.PI));
-                    System.out.println("angle: "+angle);
-                    System.out.println("lpAngle: "+lpAngle);
                     if (lpAngle > 90) {
                         //left
                         angle *= -1;
                     }
                 }
-                directions.add(getInstruction(nextNode, angle));
+                directions.add(getInstruction(currentNode, nextNode, angle));
             }
         }
         return directions;
@@ -94,33 +85,35 @@ public class PathToText {
     }
 
 
-    private String getInstruction(Node destination, Float angle) {
+    private String getInstruction(Node current, Node destination, Float angle) {
+        boolean turning = false;
         String instruction = "";
 
         if (Math.abs(angle) >= turnAngle) {
+            turning = true;
             instruction = "Turn ";
             if (angle > 0) {
                 //right
-                instruction += "right ";
+                instruction += "right";
             } else {
                 //left
-                instruction += "left ";
+                instruction += "left";
             }
         }
 
         //Switch Node Type
         switch (destination.getType()) {
             case "HALL":
-                instruction += hallwayDirection(destination.getName());
+                instruction += hallwayDirection(destination.getName(), turning);
                 break;
 
             case "STAI":
-                instruction += stairDirection(destination.getName(), destination.getFloor());
+                instruction += stairDirection(current.getFloor(), destination.getName(), destination.getFloor(), turning);
                 break;
-//
-//            case "ELEV":
-//                ellevatorDirection(destination.getName());
-//                break;
+
+            case "ELEV":
+                instruction += stairDirection(current.getFloor(), destination.getName(), destination.getFloor(), turning);
+                break;
 
             //case "DEPT":
             //case "EXIT":
@@ -135,18 +128,34 @@ public class PathToText {
             //case "WALK"
 
             default:
-                instruction += "towards " + destination.getName();
+                if(!turning) {
+                    instruction += "Head";
+                }
+                instruction += " towards " + destination.getName();
                 break;
         }
 
         return instruction;
     }
 
-    private String hallwayDirection(String name) {
-        return "down " + name;
+    private String hallwayDirection(String name, boolean turning) {
+        String direction = "";
+        if(!turning) {
+            direction += "Head";
+        }
+        direction += " down " + name;
+        return direction;
     }
 
-    private String stairDirection(String name, String floor) {
-        return "take " + name + " to " + floor;
+    //TODO look ahead to traverse multiple floors at once
+    private String stairDirection(String currentFloor, String name, String nextFloor, Boolean turning) {
+
+        String direction = "";
+        if(!currentFloor.equals(nextFloor)) {
+            direction +=  " take " + name + " to " + nextFloor;
+        } else {
+            direction += " towards " + name;
+        }
+        return direction;
     }
 }
