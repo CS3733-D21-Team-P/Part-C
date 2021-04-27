@@ -193,10 +193,6 @@ public class EditMap extends MapController {
 
         // add edge to database
         dbTable.addEdge(startID + "_" + endID, startID, endID);
-
-        // set opposites
-        el.setOpposite(elOpposite);
-        elOpposite.setOpposite(el);
     }
 
     /**
@@ -317,10 +313,14 @@ public class EditMap extends MapController {
     {
         deleteConfirmation1.setVisible(false);
         edgeHold.setVisible(false);
-        edgeHold.getOpposite().setVisible(false);
-        deleteNodeButton(nodeButtonHold);
         dbTable.removeEdge(edgeHold.getStartNode().getId(), edgeHold.getEndNode().getId());
-        dbTable.removeEdge(edgeHold.getEndNode().getId(), edgeHold.getStartNode().getId());
+        edgeHold.getEndNode();
+        EdgeLine opp =findEdgeLine(edgeHold.getEndNode(), edgeHold.getStartNode());
+        if(opp!=null) {
+            dbTable.removeEdge(edgeHold.getEndNode().getId(), edgeHold.getStartNode().getId());
+            opp.setVisible(false);
+        }
+        System.out.println("Deleted");
     }
 
 

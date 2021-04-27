@@ -19,8 +19,6 @@ public class EdgeLine extends Line {
 
     private Boolean selected = false;
 
-    private EdgeLine opposite;
-
     public EdgeLine(Node start, Node end) {
         super();
 
@@ -49,15 +47,6 @@ public class EdgeLine extends Line {
     public void setSelected(Boolean selected) {
         this.selected = selected;
     }
-
-    public EdgeLine getOpposite() {
-        return opposite;
-    }
-
-    public void setOpposite(EdgeLine opposite) {
-        this.opposite = opposite;
-    }
-
 
     /**
      * returns true if start and end node are on different levels
