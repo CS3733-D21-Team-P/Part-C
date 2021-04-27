@@ -22,7 +22,7 @@
         </ImageView>
         <AnchorPane fx:id="linePane" layoutX="275.0" layoutY="14.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
         <AnchorPane fx:id="btnPane" layoutX="275.0" layoutY="14.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
-        <VBox fx:id="rClickPopup" layoutX="435.0" layoutY="100.0" prefHeight="76.0" prefWidth="147.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
+        <VBox fx:id="rClickPopup" layoutX="435.0" layoutY="100.0" prefHeight="76.0" prefWidth="147.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
             <children>
                 <Text fx:id="nodeName" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="144.13671875">
                     <font><Font name="System Bold" size="14.0" /></font>
@@ -35,7 +35,7 @@
                 </JFXButton>
             </children>
         </VBox>
-        <AnchorPane fx:id="deleteConfirmation" layoutX="225.0" layoutY="250.0" prefHeight="285.0" prefWidth="565.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
+        <AnchorPane fx:id="deleteConfirmation" layoutX="550.0" layoutY="250.0" prefHeight="285.0" prefWidth="565.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
             <children>
                 <Text fx:id="deleteConfirmText" layoutX="9.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete the node: " textAlignment="CENTER" wrappingWidth="547.353515625">
                     <font>
@@ -47,12 +47,12 @@
                         <Font name="System Bold" size="30.0" />
                     </font>
                 </Text>
-                <JFXButton fx:id="yesButton" layoutX="40.0" layoutY="230.0" onAction="#deleteConfirm" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #5dcf51;" text="YES">
+                <JFXButton fx:id="yesButton" layoutX="40.0" layoutY="230.0" onAction="#deleteConfirm" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #79cc70;" text="YES">
                     <font>
                     <Font name="System Bold" size="12.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="noButton" layoutX="432.0" layoutY="230.0" onAction="#deleteCancel" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ff5447;" text="NO">
+                <JFXButton fx:id="noButton" layoutX="432.0" layoutY="230.0" onAction="#deleteCancel" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #edc5c5;" text="NO">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -79,7 +79,7 @@
                   <JFXButton fx:id="pathHomeBtn" buttonType="RAISED" onAction="#homeButtonAc" style="-fx-background-color: #f2f2f2;" text="Home" AnchorPane.rightAnchor="9.200000000000045" AnchorPane.topAnchor="14.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="deleteConfirmation1" layoutX="235.0" layoutY="260.0" prefHeight="285.0" prefWidth="565.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
+      <AnchorPane fx:id="deleteConfirmation1" layoutX="550.0" layoutY="250.0" prefHeight="285.0" prefWidth="565.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
          <children>
             <Text fx:id="deleteConfirmText1" layoutX="9.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete the edge between:" textAlignment="CENTER" wrappingWidth="547.353515625">
                <font>
@@ -91,12 +91,12 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Text>
-            <JFXButton fx:id="yesButton1" layoutX="40.0" layoutY="230.0" onAction="#deleteConfirm1" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #5dcf51;" text="YES">
+            <JFXButton fx:id="yesButton1" layoutX="40.0" layoutY="230.0" onAction="#deleteConfirm1" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #79cc70;" text="YES">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="noButton1" layoutX="432.0" layoutY="230.0" onAction="#deleteCancel1" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ff5447;" text="NO">
+            <JFXButton fx:id="noButton1" layoutX="432.0" layoutY="230.0" onAction="#deleteCancel1" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #edc5c5;" text="NO">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -108,7 +108,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <VBox fx:id="rClickPopup1" layoutX="445.0" layoutY="110.0" prefHeight="102.0" prefWidth="147.0" style="-fx-background-color: #edebda; -fx-border-style: solid; -fx-border-color: #f5dd9f;">
+      <VBox fx:id="rClickPopup1" layoutX="445.0" layoutY="110.0" prefHeight="102.0" prefWidth="147.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
          <children>
             <Text fx:id="nodeName1" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="144.13671875">
                <font>
