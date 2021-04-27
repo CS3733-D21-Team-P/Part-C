@@ -6,8 +6,8 @@ import edu.wpi.p.App;
 import java.io.IOException;
 
 import edu.wpi.p.database.DBServiceRequest;
-import edu.wpi.p.database.ServiceRequest;
 import edu.wpi.p.views.Toolbar;
+import edu.wpi.p.database.rowdata.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +27,6 @@ public class LanguageInterpreterServiceRequest extends Toolbar {
   private JFXButton submit;
   @FXML
   private JFXButton back;
-
-
 
 
   @FXML

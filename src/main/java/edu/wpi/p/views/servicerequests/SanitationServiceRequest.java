@@ -14,7 +14,7 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 import edu.wpi.p.database.DBServiceRequest;
-import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.Toolbar;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
