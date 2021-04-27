@@ -78,7 +78,7 @@ public class PathfindingMap extends MapController {
             }
 
             for(EdgeLine el: pathLine){
-                linePane.getChildren().remove(el);
+                edges.remove(el);
             }
             pathLine.clear();
 
@@ -90,6 +90,7 @@ public class PathfindingMap extends MapController {
                     EdgeLine line = addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
                     pathLine.add(line);
+                    line.toFront();
                 }
             }
 

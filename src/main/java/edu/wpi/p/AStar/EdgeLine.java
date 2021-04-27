@@ -17,6 +17,8 @@ public class EdgeLine extends Line {
 
     private Node endNode;
 
+    private Boolean selected = false;
+
     public EdgeLine(Node start, Node end) {
         super();
 
@@ -36,6 +38,14 @@ public class EdgeLine extends Line {
             this.setVisible(false);
         }
 
+    }
+
+    public Boolean getSelected() {
+        return this.selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 
     /**
@@ -58,5 +68,17 @@ public class EdgeLine extends Line {
 
         this.setEndX((endNode.getXcoord() / scaleX) - viewport.getMinX() / scaleX);
         this.setEndY((endNode.getYcoord() / scaleY) - viewport.getMinY() / scaleY);
+    }
+
+    public void updateStyle()
+    {
+        if (selected)
+        {
+            this.setStyle("-fx-stroke: red; -fx-stroke-width: 3");
+        }
+        else
+        {
+            this.setStyle("-fx-stroke: #5990D9; -fx-stroke-width: 2");
+        }
     }
 }

@@ -38,6 +38,7 @@ public abstract class MapController {
     List<NodeButton> buttons = new ArrayList<>();
     List<EdgeLine> edgeLines = new ArrayList<>();
 
+    public EdgeLine edgeHold;
     Node nodeHold;
     NodeButton nodeButtonHold;
 
@@ -58,6 +59,9 @@ public abstract class MapController {
     }
 
     private String currFloorVal;
+
+    public ArrayList<EdgeLine> edges = new ArrayList<>();
+    public ArrayList<NodeButton> nodeButtons = new ArrayList<>();
 
     @FXML public AnchorPane btnPane;
     @FXML public AnchorPane linePane;
@@ -82,6 +86,7 @@ public abstract class MapController {
             nb.setVisible(false);
         }
             btnPane.getChildren().add(nb); //add to page
+            nodeButtons.add(nb);
 
             //add edges
             List<Node> children = node.getNeighbours();
@@ -105,7 +110,20 @@ public abstract class MapController {
      */
     public EdgeLine addEdgeLine(Node node1, Node node2){
         EdgeLine el = new EdgeLine(node1, node2); //create line
-        linePane.getChildren().add(el); //add line to screen
+        btnPane.getChildren().add(el); //add line to screen
+        edges.add(el);
+        el.toBack();
+        el.setOnMouseClicked(event -> {
+            if (edgeHold != null)
+            {
+                edgeHold.setSelected(false);
+                edgeHold.updateStyle();
+            }
+            el.setSelected(true);
+            el.updateStyle();
+            edgeHold = el;
+        });
+
         translateEdgeLine(el);
         //if not on current floor make invisible/hidden
         if (!node1.getFloor().equals(getCurrFloorVal()) || el.connectsLevels()) {

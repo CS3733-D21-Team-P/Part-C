@@ -90,6 +90,11 @@ public class EditMap extends MapController {
                     {
                         nodeButtonHold.deselect();
                     }
+                    if (edgeHold != null)
+                    {
+                        edgeHold.setSelected(false);
+                        edgeHold.updateStyle();
+                    }
                     nodeButtonHold = nb;
                     editTabController.updateProperties();
                     System.out.println(nb.getNode().getXcoord());
