@@ -59,15 +59,14 @@
                 </JFXButton>
             </children>
         </AnchorPane>
-            <JFXTabPane fx:id="tabPane" layoutX="1449.0" prefHeight="800.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
-                    <Tab text="Edit">
-                        <fx:include fx:id="editTab" source="Map_Editor_Edit_Tab.fxml" />
-                    </Tab>
-                    <Tab text="Find">
-                        <fx:include fx:id="findTab" source="Map_Editor_Find_Tab.fxml" />
-                    </Tab>
-            </JFXTabPane>
-        <Pane />
+        <JFXTabPane fx:id="tabPane" layoutX="1449.0" prefHeight="800.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
+            <Tab text="Edit">
+                <fx:include fx:id="editTab" source="Map_Editor_Edit_Tab.fxml" />
+            </Tab>
+            <Tab text="Find">
+                <fx:include fx:id="findTab" source="Map_Editor_Find_Tab.fxml" />
+            </Tab>
+        </JFXTabPane>
       <AnchorPane prefHeight="75.0" prefWidth="300.0" style="-fx-background-color: #2f3159;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXComboBox fx:id="floorChoiceBox" layoutX="58.0" layoutY="23.0" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: #b6d6f2;" />

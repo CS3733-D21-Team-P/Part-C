@@ -222,9 +222,7 @@ public class EditTabController{
         CSVHandler.writeCSVData(newEdges, nativeDir+name+"-Edges.csv");
     }
 
-    public void injectEditMap(EditMap editMap){
-        this.editMapController = editMap;
-    }
+    public void injectEditMap(EditMap editMap){ this.editMapController = editMap; }
 
     public NodeButton getEdgeNodeStart() {
         return edgeNodeStart;
