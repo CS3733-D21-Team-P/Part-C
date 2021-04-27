@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.ServiceRequestHomePage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.ServiceRequestHomePage">
     <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="964.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -25,7 +25,7 @@
                   <JFXButton fx:id="laundryServicesBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#laundryServicesBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Laundry Services" textFill="WHITE" translateY="10.0" />
                   <JFXButton fx:id="externalPatientTransportationBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#externalPatientTransportationBtn" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="External Patient Transportation" textFill="WHITE" translateY="35.0" />
             <JFXButton fx:id="internalPatientTransportationBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#internalPatientTransportationBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Internal Patient Transportation" textFill="WHITE" translateY="60.0" />
-            <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="New Request" textFill="WHITE" translateY="85.0" />
+            <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#giftDelivery" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Gift Delivery" textFill="WHITE" translateY="85.0" />
                   <JFXButton fx:id="requestLogBtn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#requestLogBtnAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Request Log" textFill="WHITE" translateY="110.0" />
                   <JFXButton fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#backButtonAc" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #5990D9;" text="Back To Home Screen" textFill="WHITE" translateY="135.0" />
               </children>

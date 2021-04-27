@@ -157,4 +157,16 @@ public class ServiceRequestHomePage {
             ex.printStackTrace();
         }
     }
+
+    public void giftDelivery(ActionEvent actionEvent) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/GiftDelivery.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
+    }
 }
