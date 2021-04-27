@@ -18,6 +18,7 @@ public class TestDBTable {
     private static final String NODE_NAME = "NODES";
     private static final String EDGE_NAME = "EDGES";
     private DBTable dbTable;
+
     @BeforeAll
     static void setup() {
         DatabaseInterface.init();

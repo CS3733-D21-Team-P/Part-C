@@ -33,45 +33,45 @@ public class MapEditorFindTab {
 
 
     public void initialize() {
-        JFXTreeTableColumn<Node, String> nodeName = new JFXTreeTableColumn<>("Name");
+        JFXTreeTableColumn<NodeTableEntry, String> nodeName = new JFXTreeTableColumn<>("Name");
         nodeName.setPrefWidth(70);
-        nodeName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
-                return new SimpleStringProperty(p.getValue().getValue().getShortName());
+        nodeName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getNode().getShortName());
             }
         });
 
-        JFXTreeTableColumn<Node, String> nodeType = new JFXTreeTableColumn<>("Type");
+        JFXTreeTableColumn<NodeTableEntry, String> nodeType = new JFXTreeTableColumn<>("Type");
         nodeType.setPrefWidth(70);
-        nodeType.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
-                return new SimpleStringProperty(p.getValue().getValue().getType());
+        nodeType.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getNode().getType());
             }
         });
 
-        JFXTreeTableColumn<Node, String> nodeFloor = new JFXTreeTableColumn<>("Floor");
+        JFXTreeTableColumn<NodeTableEntry, String> nodeFloor = new JFXTreeTableColumn<>("Floor");
         nodeFloor.setPrefWidth(70);
-        nodeFloor.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
-                return new SimpleStringProperty(p.getValue().getValue().getFloor());
+        nodeFloor.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getNode().getFloor());
             }
         });
 
-        JFXTreeTableColumn<Node, String> nodeBuilding = new JFXTreeTableColumn<>("Building");
+        JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding = new JFXTreeTableColumn<>("Building");
         nodeBuilding.setPrefWidth(70);
-        nodeBuilding.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Node, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Node, String> p) {
-                return new SimpleStringProperty(p.getValue().getValue().getBuilding());
+        nodeBuilding.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getNode().getBuilding());
             }
         });
 
         nodeList = dbTable.getNodes();
-        ObservableList<Node> nodes = FXCollections.observableArrayList();
+        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
         for (Node node : nodeList) {
-            nodes.add(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName()));
+            nodes.add(new NodeTableEntry(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName())));
         }
 
-        final TreeItem<Node> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
+        final TreeItem<NodeTableEntry> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
         nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
         nodeTable.setRoot(root);
         nodeTable.setShowRoot(false);
@@ -97,13 +97,13 @@ public class MapEditorFindTab {
          * Listener for selection changes on "find tab" tableview.
          * Updates nodeButton style to highlight node entry selected in table.
          */
-        nodeTable.getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<Node>>(){
+        nodeTable.getSelectionModel().selectedItemProperty().addListener( new ChangeListener<TreeItem<NodeTableEntry>>(){
             @Override
-            public void changed(ObservableValue<? extends TreeItem<Node>>
-                                        observable, TreeItem<Node> oldValue, TreeItem<Node> newValue) {
+            public void changed(ObservableValue<? extends TreeItem<NodeTableEntry>>
+                                        observable, TreeItem<NodeTableEntry> oldValue, TreeItem<NodeTableEntry> newValue) {
                 if (!(oldValue == newValue)) {
-                    TreeTableView.TreeTableViewSelectionModel<Node> sm = nodeTable.getSelectionModel();
-                    Node n = (Node) sm.getSelectedItem().getValue(); //selected node
+                    TreeTableView.TreeTableViewSelectionModel<NodeTableEntry> sm = nodeTable.getSelectionModel();
+                    Node n = (Node) sm.getSelectedItem().getValue().getNode(); //selected node
                     String floor = n.getFloor(); //current floor
                     mapController.changeFloors(floor);
 
