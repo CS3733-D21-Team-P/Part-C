@@ -1,4 +1,5 @@
 package edu.wpi.p.views;
+
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
@@ -52,10 +53,10 @@ public class LoginPage {
 
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         DatabaseInterface.init();
         List<String> tableNames = DatabaseInterface.getTableNames();
-        if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
+        if (!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
             try {
                 CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
                 CSVData edgeData = CSVHandler.readCSVFile("bwPedges.csv");
@@ -78,8 +79,7 @@ public class LoginPage {
             dbuser.addUser(hemployee);
             dbuser.addUser(iemployee);
             dbuser.addUser(jemployee);
-        }
-        else {
+        } else {
             dbuser = new DBUser();
         }
 
@@ -96,17 +96,17 @@ public class LoginPage {
     }
 
 
-    public void loginButtonAC(ActionEvent actionEvent){
+    public void loginButtonAC(ActionEvent actionEvent) {
 
-        if((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())){
-            if((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")){
+        if ((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())) {
+            if ((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")) {
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
                     App.getPrimaryStage().getScene().setRoot(root);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-            }else if((dbuser.checkIdentity(usernameTXT.getText())).equals("Admin")){
+            } else if ((dbuser.checkIdentity(usernameTXT.getText())).equals("Admin")) {
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
                     App.getPrimaryStage().getScene().setRoot(root);
@@ -114,11 +114,11 @@ public class LoginPage {
                     ex.printStackTrace();
                 }
             }
-            }else {
+        } else {
             loginButton.setOnAction(e -> AlertBox.display("Wrong Information", "Please enter the correct Username and Password"));
         }
 
-        }
     }
+}
 
 

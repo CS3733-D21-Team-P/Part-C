@@ -167,10 +167,21 @@ public class DatabaseInterface {
 
             ResultSet result = statement.executeQuery();
             System.out.println("result size: " + result.getFetchSize());
+            ResultSetMetaData rsMetaData = result.getMetaData();
+            System.out.println("List of column names in the current table: ");
+            //Retrieving the list of column names
+            int count = rsMetaData.getColumnCount();
+            for(int i = 1; i<=count; i++) {
+                System.out.println(rsMetaData.getColumnName(i));
+            }
+            String ret = "";
             if (result.next()) {
-                return result.getString(columnName);
+
+                ret =  result.getString(columnName);
             }
             statement.close();
+            System.out.println("ret is: " + ret);
+            return ret;
         } catch (Exception e) {
             SQLExceptionPrint((SQLException) e);
             e.printStackTrace();
