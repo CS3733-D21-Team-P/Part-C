@@ -19,8 +19,10 @@ public class EdgeLine extends Line {
 
     public EdgeLine(Node start, Node end) {
         super();
+
         this.startNode = start;
         this.endNode = end;
+
         //set start point
         this.setStartX(start.getXcoord());
         this.setStartY(start.getYcoord());
@@ -28,8 +30,20 @@ public class EdgeLine extends Line {
         this.setEndX(end.getXcoord());
         this.setEndY(end.getYcoord());
 
-        this.setStyle("-fx-stroke: blue;");
+        this.setStyle("-fx-stroke: #5990d9;-fx-stroke-width: 2");
 
+        if(connectsLevels()) {
+            this.setVisible(false);
+        }
+
+    }
+
+    /**
+     * returns true if start and end node are on different levels
+     * @return
+     */
+    public boolean connectsLevels(){
+        return !endNode.getFloor().equals(startNode.getFloor());
     }
 
 

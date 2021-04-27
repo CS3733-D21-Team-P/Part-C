@@ -12,7 +12,7 @@
         <Label layoutX="13.0" layoutY="15.0" text="Node Data" />
         <Button fx:id="addNodeBtn" layoutX="492.0" layoutY="385.0" mnemonicParsing="false" onAction="#addNodeAc" text="Add Node" />
         <Button fx:id="deleteNodeBtn" layoutX="492.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteNodeAc" prefHeight="35.0" prefWidth="83.0" text="Delete Node" />
-      <TableView fx:id="nodeDataTableView" layoutX="-9.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
+      <TableView fx:id="nodeDataTableView" layoutX="10.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
         <columns>
           <TableColumn fx:id="nodeIDCol" text="nodeID" />
           <TableColumn fx:id="nodeXCoordCol" onEditCommit="#Editxcoord" text="xCoord" />

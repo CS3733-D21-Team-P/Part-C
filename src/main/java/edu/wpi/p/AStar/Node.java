@@ -1,44 +1,60 @@
 package edu.wpi.p.AStar;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
+import edu.wpi.p.database.DBRow;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Node {
-    private String name;
-    private String id;
-    private int xcoord;
-    private int ycoord;
+public class Node extends DBRow {
+    private String nameCol = "LONGNAME";
+    private String idCol = "NODEID";
+    private String xcoordCol = "XCOORD";
+    private String ycoordCol = "YCOORD";
+    private String floorCol = "FLOOR";
+    private String buildingCol = "BUILDING";
+    private String nodeTypeCol = "NODETYPE";
+    private String shortNameCol = "SHORTNAME";
+
     private Boolean visited;
     private Boolean blockade; //not used
     private Node parent;
     private float globalDist;
     private float localDist;
-    private String floor;
-    private String type;
-    private String building;
-    private String shortName;
     private List<Node> neighbours;
+    private boolean isSelected = false;
 
+
+    public Node() {
+        super();
+        init();
+    }
     public Node (String id, String name, int xcoord, int ycoord){
-        this.name = name;
-        this.id = id;
-        this.xcoord = xcoord;
-        this.ycoord = ycoord;
-        this.visited = false;
-        resetGoals();
-        this.neighbours = new ArrayList<>();
+        super();
+        this.addValue(nameCol, name);
+        this.addValue(nameCol, name);
+        this.addValue(idCol, id);
+        this.addValue(xcoordCol, xcoord);
+        this.addValue(ycoordCol, ycoord);
+        init();
     }
 
     public Node(String name, String id, int xcoord, int ycoord, String floor, String building, String type, String shortName) {
-        this.name = name;
-        this.id = id;
-        this.xcoord = xcoord;
-        this.ycoord = ycoord;
-        this.floor = floor;
-        this.building = building;
-        this.type = type;
-        this.shortName = shortName;
+        super();
+        this.addValue(nameCol, name);
+        this.addValue(idCol, id);
+        this.addValue(xcoordCol, xcoord);
+        this.addValue(ycoordCol, ycoord);
+        this.addValue(floorCol, floor);
+        this.addValue(buildingCol, building);
+        this.addValue(nodeTypeCol, type);
+        this.addValue(shortNameCol, shortName);
+        init();
+    }
+
+    private void init() {
         this.visited = false;
         resetGoals();
         this.neighbours = new ArrayList<>();
@@ -52,35 +68,35 @@ public class Node {
     }
 
     public String getName() {
-        return name;
+        return (String) this.getValue(nameCol);
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.changeValue(nameCol, name);
     }
 
     public String getId() {
-        return id;
+        return (String) this.getValue(idCol);
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.changeValue(idCol, id);
     }
 
     public int getXcoord() {
-        return xcoord;
+        return (int) this.getValue(xcoordCol);
     }
 
     public void setXcoord(int xcoord) {
-        this.xcoord = xcoord;
+        this.changeValue(xcoordCol, xcoord);
     }
 
     public int getYcoord() {
-        return ycoord;
+        return (int) this.getValue(ycoordCol);
     }
 
     public void setYcoord(int ycoord) {
-        this.ycoord = ycoord;
+        this.changeValue(ycoordCol, ycoord);
     }
 
     public Boolean getVisited() {
@@ -136,34 +152,47 @@ public class Node {
     }
 
     public String getFloor() {
-        return floor;
+        return (String) this.getValue(floorCol);
     }
 
     public void setFloor(String floor) {
-        this.floor = floor;
+        this.changeValue(floorCol, floor);
     }
 
     public String getType() {
-        return type;
+        return (String) this.getValue(nodeTypeCol);
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.changeValue(nodeTypeCol, type);
     }
 
     public String getBuilding() {
-        return building;
+        return (String) this.getValue(buildingCol);
     }
 
     public void setBuilding(String building) {
-        this.building = building;
+        this.changeValue(buildingCol, building);
     }
 
     public String getShortName() {
-        return shortName;
+        return (String) this.getValue(shortNameCol);
     }
 
     public void setShortName(String shortName) {
-        this.shortName = shortName;
+        this.changeValue(shortNameCol, shortName);
+    }
+
+    public boolean toggleIsSelected(){
+        isSelected= !isSelected;
+        return isSelected;
+    }
+
+    public boolean getIsSelected(){
+        return isSelected;
+    }
+
+    public void setIsSelected(Boolean isSelected){
+        this.isSelected= isSelected;
     }
 }

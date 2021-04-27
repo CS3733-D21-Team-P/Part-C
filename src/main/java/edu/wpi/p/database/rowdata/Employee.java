@@ -1,4 +1,4 @@
-package edu.wpi.p.database;
+package edu.wpi.p.database.rowdata;
 
 public class Employee {
     private String Name;

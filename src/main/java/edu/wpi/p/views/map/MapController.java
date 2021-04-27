@@ -1,5 +1,6 @@
 package edu.wpi.p.views.map;
 
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
@@ -25,12 +26,26 @@ import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class MapController {
+
+    @FXML private MapEditorFindTab findTabController;
+
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
     List<EdgeLine> edgeLines = new ArrayList<>();
+
+    Node nodeHold;
+    NodeButton nodeButtonHold;
+
+    HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
+    HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
+
+    private final String[] availableFloors = new String[]{"Ground", "L1","L2","1","2","3"};
+
 
     private double zoomSpeed = 1.005;
     private double minZoomPixels = 800;
@@ -47,7 +62,7 @@ public abstract class MapController {
     @FXML public AnchorPane btnPane;
     @FXML public AnchorPane linePane;
     @FXML public ImageView imageView;
-    @FXML private ChoiceBox<String> floorChoiceBox;
+    @FXML private JFXComboBox<String> floorChoiceBox;
     @FXML private Button pathHomeBtn;
     private ObservableList<javafx.scene.Node> btnPaneSetup;
     private ObservableList<javafx.scene.Node> linePaneSetup;
@@ -63,8 +78,9 @@ public abstract class MapController {
      */
     public NodeButton addNodeButton(Node node){
         NodeButton nb = new NodeButton(node); //create button
-        if (node.getFloor().equals(getCurrFloorVal())) {
-
+        if (!node.getFloor().equals(getCurrFloorVal())) {
+            nb.setVisible(false);
+        }
             btnPane.getChildren().add(nb); //add to page
 
             //add edges
@@ -72,11 +88,12 @@ public abstract class MapController {
             for (Node n : children) {
                 EdgeLine el = addEdgeLine(node, n);
                 nb.addLine(el);
-                edgeLines.add(el);
+//                edgeLines.add(el);
             }
             translateNodeButton(nb);
-            buttons.add(nb);
-        }
+            buttonLists.get(node.getFloor()).add(nb);
+            //buttons.add(nb);
+//        }
         return nb;
     }
 
@@ -88,9 +105,18 @@ public abstract class MapController {
      */
     public EdgeLine addEdgeLine(Node node1, Node node2){
         EdgeLine el = new EdgeLine(node1, node2); //create line
-        edgeLines.add(el); //save for pan and zoom
         linePane.getChildren().add(el); //add line to screen
         translateEdgeLine(el);
+        //if not on current floor make invisible/hidden
+        if (!node1.getFloor().equals(getCurrFloorVal()) || el.connectsLevels()) {
+            el.setVisible(false);
+        }
+        if(node1.getFloor().equals(node2.getFloor())) { //if floors equal each other
+            edgeLists.get(node1.getFloor()).add(el); //add to list of lists
+            if ((node1.getFloor().equals(currFloorVal))) {
+                edgeLines.add(el); //save for pan and zoom
+            }
+        }
         return el;
     }
 
@@ -122,46 +148,73 @@ public abstract class MapController {
         }
     }
 
-    public void changeFloors(){
-        final String[] availableFloors = new String[]{"Ground", "L1","L2","1","2","3"};
+    public void nodeClicked(NodeButton nb)
+    {
+        nodeHold = nb.getNode();
+        nodeButtonHold = nb;
+        nodeButtonHold.getNode().setIsSelected(true);
+        nodeButtonHold.setButtonStyle();
+    }
+
+
+    public void changeFloors(String currFloorVal){
+
+        //make previous floor buttons hidden
+        for(NodeButton nb: buttons){
+            nb.setVisible(false);
+        }
+        for(EdgeLine el: edgeLines){
+            el.setVisible(false);
+        }
+
+        //set current lists of buttons and lines
+        buttons = buttonLists.get(currFloorVal);
+        edgeLines=edgeLists.get(currFloorVal);
+
+        //make buttons for current floor visible
+        for(NodeButton nb: buttons){
+            nb.setVisible(true);
+        }
+        for(EdgeLine el: edgeLines){
+            if(!el.connectsLevels()) {
+                el.setVisible(true);
+            }
+        }
+        translateGraph(imageView);
+
+        switch (currFloorVal) {
+            case "Ground":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thegroundfloor.png"));
+                break;
+            case "L1":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel1.png"));
+                break;
+            case "L2":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/00_thelowerlevel2.png"));
+                break;
+            case "1":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/01_thefirstfloor.png"));
+                break;
+            case "2":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/02_thesecondfloor.png"));
+                break;
+            case "3":
+                mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/mapsFXML/Maps/03_thethirdfloor.png"));
+                break;
+        }
+        imageView.setImage(mapImage);
+    }
+
+    public void floorInit(){
         floorChoiceBox.setItems(FXCollections.observableArrayList(availableFloors));
         floorChoiceBox.getSelectionModel().select(1);
+        buttons = buttonLists.get(availableFloors[1]);
         currFloorVal = floorChoiceBox.getSelectionModel().getSelectedItem();
         floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue ov, Number oldValue, Number newValue) {
                 currFloorVal = availableFloors[newValue.intValue()];
-                btnPane.getChildren().clear();
-                linePane.getChildren().clear();
-                //btnPane.getChildren().add(pathHomeBtn);
-                //buttons.clear();
-                edgeLines= new ArrayList<>();
-                buttons= new ArrayList<>();
-                for (Node n: graph.getGraph()){
-                    addNodeButton(n);
-                }
-                //translateGraph(imageView);
-                switch (currFloorVal) {
-                    case "Ground":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thegroundfloor.png"));
-                        break;
-                    case "L1":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel1.png"));
-                        break;
-                    case "L2":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/00_thelowerlevel2.png"));
-                        break;
-                    case "1":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/01_thefirstfloor.png"));
-                        break;
-                    case "2":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/02_thesecondfloor.png"));
-                        break;
-                    case "3":
-                        mapImage = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/Maps/03_thethirdfloor.png"));
-                        break;
-                }
-                imageView.setImage(mapImage);
+                changeFloors(currFloorVal);
             }
         });
     }
@@ -172,14 +225,20 @@ public abstract class MapController {
      * adds buttons and edge lines to map
      */
     public void initialize()  {
-
+        findTabController.injectMapController(this);
         buttons = new ArrayList<>();
         edgeLines = new ArrayList<>();
         graph = new NodeGraph();
 
         graph.genGraph(false);
 
-        changeFloors();
+        for(String s: availableFloors){
+            buttonLists.put(s, new ArrayList<NodeButton>());
+            edgeLists.put(s, new ArrayList<EdgeLine>());
+        }
+
+
+        floorInit();
 
         panAndZoomEvents();
     }

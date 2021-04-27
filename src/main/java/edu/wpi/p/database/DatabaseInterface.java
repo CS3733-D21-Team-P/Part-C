@@ -2,8 +2,7 @@ package edu.wpi.p.database;
 
 import java.sql.Connection;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DatabaseInterface {
@@ -79,6 +78,74 @@ public class DatabaseInterface {
         return createTable(tableName, columns);
     }
 
+    public static boolean updateDBRow(String table, String idCol, String id, DBRow row) {
+        Collection<String> columnsToUpdate = new HashSet<String>(row.getCols());
+        columnsToUpdate.removeIf(s -> s.equals(idCol));
+        String updateQuery = "UPDATE " + table + " SET ";
+        List<String> updates = columnsToUpdate.stream().map(s -> s + " = ?").collect(Collectors.toList());
+        updateQuery += String.join(", ", updates);
+        updateQuery +=  " WHERE " + idCol + " = '" + id + "'";
+//        System.out.println("update query is " + updateQuery);
+        try {
+            List<DBColumn> cols = getColumns(table);
+            PreparedStatement statement = conn.prepareStatement(updateQuery);
+            int i = 1;
+            for (String c : columnsToUpdate) {
+                DBColumn column = cols.stream().filter(col -> col.getName().equals(c)).findFirst().get();
+                if (column.getType().equals("INTEGER")) {
+                    statement.setInt(i, (Integer) row.getValue(column.getName()));
+                }
+                else if (column.getType().equals("BOOLEAN")) {
+                    statement.setBoolean(i, (Boolean) row.getValue(column.getName()));
+                }
+                else {
+                    statement.setString(i, (String) row.getValue(column.getName()));
+                }
+                i++;
+            }
+            statement.execute();
+            statement.close();
+        } catch (Exception e) {
+            SQLExceptionPrint((SQLException) e);
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean insertDBRowIntoTable(String table, DBRow row) {
+        try {
+            List<DBColumn> cols = getColumns(table);
+            String query = "INSERT INTO " + table + "(";
+            query += String.join(", ", cols.stream().map(DBColumn::getName).collect(Collectors.toList()));
+            query += ") VALUES (";
+            for (int i = 0; i < cols.size(); i++) {
+                query += "?";
+                if (i < cols.size() - 1) {
+                    query += ", ";
+                }
+            }
+            query += ")";
+            PreparedStatement statement = conn.prepareStatement(query);
+            for (int i = 0; i < cols.size(); i++) {
+                DBColumn col = cols.get(i);
+                if (col.getType().equals("INTEGER")) {
+                    statement.setInt(i + 1, (Integer) row.getValue(col.getName()));
+                }
+                else if (col.getType().equals("BOOLEAN")) {
+                    statement.setBoolean(i + 1, (Boolean) row.getValue(col.getName()));
+                }
+                else {
+                    statement.setString(i + 1, (String) row.getValue(col.getName()));
+                }
+            }
+            statement.execute();
+            statement.close();
+        } catch (Exception e) {
+            SQLExceptionPrint((SQLException) e);
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static boolean insertIntoTable(String table, String data) {
         try {
             String insertString = "INSERT INTO "  + table + " VALUES (" + data + ")";
@@ -148,8 +215,6 @@ public class DatabaseInterface {
         }
         try {
             PreparedStatement statement = conn.prepareStatement(selectQuery);
-//            statement.setString(1, table);
-//            statement.setString(2, condition);
             ResultSet result = statement.executeQuery();
             List<DBColumn> columns = getColumns(table);
             List<List<String>> rows = new ArrayList<>();
