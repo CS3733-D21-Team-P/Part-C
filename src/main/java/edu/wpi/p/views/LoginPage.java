@@ -35,6 +35,20 @@ public class LoginPage {
     @FXML
     public JFXButton guestButton;
 
+    private DBUser dbuser;
+
+    User admin = new User("Admin", "admin", "admin", "Admin");
+    User aemployee = new User("David", "David", "123456", "Employee");
+    User bemployee = new User("Alex", "Alex", "123456", "Employee");
+    User cemployee = new User("Andrew", "Andrew", "123456", "Employee");
+    User demployee = new User("Nina", "Nina", "123456", "Employee");
+    User eemployee = new User("Loren", "Loren", "123456", "Employee");
+    User femployee = new User("Yoko", "Yoko", "123456", "Employee");
+    User gemployee = new User("Yang", "Yang", "123456", "Employee");
+    User hemployee = new User("Rohan", "Rohan", "123456", "Employee");
+    User iemployee = new User("Nicolas", "Nicolas", "123456", "Employee");
+    User jemployee = new User("Ian", "Ian", "123456", "Employee");
+
     @FXML
     private void initialize(){
         DatabaseInterface.init();
@@ -52,18 +66,6 @@ public class LoginPage {
         dbuser = new DBUser();
     }
 
-    public void loginButtonAc(ActionEvent actionEvent) {
-        final String user = usernameTXT.getText();
-        final String pass = passwordTXT.getText();
-        if(user.equals("admin")&& pass.equals("pass")) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
-                App.getPrimaryStage().getScene().setRoot(root);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-        }
     public void guestButtonAC(ActionEvent actionEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
@@ -74,15 +76,18 @@ public class LoginPage {
     }
 
 
-
-    private DBUser dbuser;
-    User admin = new User("Yang", "admin", "admin", "Admin");
-    User aemployee = new User("David", "David", "123456", "Employee");
-
-
     public void loginButtonAC(ActionEvent actionEvent){
         dbuser.addUser(admin);
         dbuser.addUser(aemployee);
+        dbuser.addUser(bemployee);
+        dbuser.addUser(cemployee);
+        dbuser.addUser(demployee);
+        dbuser.addUser(eemployee);
+        dbuser.addUser(femployee);
+        dbuser.addUser(gemployee);
+        dbuser.addUser(hemployee);
+        dbuser.addUser(iemployee);
+        dbuser.addUser(jemployee);
         if((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())){
             if((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")){
                 try {
