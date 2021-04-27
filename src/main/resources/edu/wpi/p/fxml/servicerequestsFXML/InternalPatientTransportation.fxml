@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.InternalPatientTransportation">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.InternalPatientTransportation">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -91,16 +91,16 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="drName" prefHeight="25.0" prefWidth="300.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXTextField fx:id="currRoom" prefHeight="25.0" prefWidth="300.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXTextField fx:id="patientName" prefWidth="300.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <JFXTextField fx:id="destination" prefWidth="300.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="drName" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="currRoom" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXTextField fx:id="patientName" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXTextField fx:id="destination" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Doctor Name:" translateX="-10.0" GridPane.rowIndex="1" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Room:" translateX="-10.0" GridPane.rowIndex="2" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name:" translateX="-10.0" GridPane.rowIndex="3" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Time:" translateX="-10.0" GridPane.rowIndex="4" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Location:" translateX="-10.0" GridPane.rowIndex="5" />
-                  <JFXTimePicker fx:id="time" defaultColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <JFXTimePicker fx:id="time" defaultColor="BLACK" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="6" />
                   <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                </children>

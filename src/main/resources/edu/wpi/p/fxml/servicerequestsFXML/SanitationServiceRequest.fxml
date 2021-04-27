@@ -44,25 +44,25 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="fullNameText" focusColor="WHITE" labelFloat="true" prefHeight="27.0" prefWidth="171.0" promptText="Full Name" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="fullNameText" focusColor="WHITE" labelFloat="true" prefHeight="27.0" prefWidth="171.0" promptText="Full Name" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="roomNumber" text="Room Number:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="roomNumberText" focusColor="WHITE" labelFloat="true" promptText="Room #" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="roomNumberText" focusColor="WHITE" labelFloat="true" promptText="Room #" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="typeOfSanitation" text="Type of Sanitation:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="typeOfSanitationBox" accessibleText="hello" focusColor="WHITE" labelFloat="true" prefHeight="27.0" prefWidth="190.0" promptText="Services" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <JFXComboBox fx:id="typeOfSanitationBox" accessibleText="hello" focusColor="WHITE" labelFloat="true" prefHeight="27.0" prefWidth="190.0" promptText="Services" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="description" text="Additional Information:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="additionalInfoText" focusColor="WHITE" labelFloat="true" promptText="Comments" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="additionalInfoText" focusColor="WHITE" labelFloat="true" promptText="Comments" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <children>
                   <JFXButton fx:id="cancelButton" buttonType="RAISED" onAction="#cancelPressed" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #5990D9;" text="Cancel">
