@@ -43,7 +43,7 @@ public class DatabaseInterface {
                 break;
             }
         }
-        String tableCreation = "CREATE TABLE \"" + tableName + "\" (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
+        String tableCreation = "CREATE TABLE " + tableName + " (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
         System.out.println(tableCreation);
         if (conn == null) {
             System.out.println("tried to create a table before connection initialized, returning");
@@ -116,7 +116,7 @@ public class DatabaseInterface {
         try {
             List<DBColumn> cols = getColumns(table);
             String query = "INSERT INTO " + table + "(";
-            query += String.join(", ", cols.stream().map(DBColumn::getName).collect(Collectors.toList()));
+            query += String.join(", ", cols.stream().map(c -> "" + c.getName() + "").collect(Collectors.toList()));
             query += ") VALUES (";
             for (int i = 0; i < cols.size(); i++) {
                 query += "?";
@@ -148,7 +148,7 @@ public class DatabaseInterface {
     }
     public static boolean insertIntoTable(String table, String data) {
         try {
-            String insertString = "INSERT INTO \""  + table + "\" VALUES (" + data + ")";
+            String insertString = "INSERT INTO "  + table + " VALUES (" + data + ")";
 //            System.out.println(insertString);
             PreparedStatement statement = conn.prepareStatement(insertString);
             statement.execute();

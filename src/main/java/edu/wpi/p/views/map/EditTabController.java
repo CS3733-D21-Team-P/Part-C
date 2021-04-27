@@ -177,7 +177,7 @@ public class EditTabController{
     @FXML
     private void importCSVBtn(ActionEvent actionEvent) throws Exception{
         File file = chooseFile();
-        CSVData data = CSVHandler.readCSVFile(file.getName());
+        CSVData data = CSVHandler.readCSVFile(file.getAbsolutePath());
 
         //check if edges or nodes
         int numColumns = data.getAllColumns().size();

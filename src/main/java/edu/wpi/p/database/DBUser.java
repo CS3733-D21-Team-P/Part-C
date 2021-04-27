@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBUser {
-    String DBUser = "USER";
+    String DBUser = "USERS";
     private List<DBColumn> columns = new ArrayList<>();
 
     public DBUser(){
@@ -20,7 +20,7 @@ public class DBUser {
         columns.add(new DBColumn("Name", "varchar(256)", ""));
         columns.add(new DBColumn("Username", "varchar(256)", ""));
         columns.add(new DBColumn("Password", "varchar(256)", ""));
-        columns.add(new DBColumn("Identity", "varchar(256)", ""));
+        columns.add(new DBColumn("Status", "varchar(256)", ""));
     }
 
     private void createTables(boolean doClear) {
@@ -40,13 +40,13 @@ public class DBUser {
     }
 
     public String checkUsername(String Username) {
-        String selectCommand ="SELECT \"Password\" FROM \"" + DBUser + "\" WHERE \"Username\"='" + Username + "'";
+        String selectCommand ="SELECT Password FROM " + DBUser + " WHERE Username='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand, "Password");
     }
 
     public String checkIdentity(String Username) {
-        String selectCommand ="SELECT \"Identity\" FROM \"" + DBUser + "\" WHERE \"Username\"='" + Username + "'";
-        return DatabaseInterface.checkColumnObjects(selectCommand, "Identity");
+        String selectCommand ="SELECT Status FROM " + DBUser + " WHERE Username='" + Username + "'";
+        return DatabaseInterface.checkColumnObjects(selectCommand, "Status");
     }
 
     public void addUser(User e) {
@@ -55,7 +55,7 @@ public class DBUser {
     }
 
     public void removeUser(String Username) {
-        String removeCommand = "DELETE FROM \"" + DBUser +"\" WHERE Username='" + Username + "";
+        String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "";
         DatabaseInterface.executeUpdate(removeCommand);
     }
 

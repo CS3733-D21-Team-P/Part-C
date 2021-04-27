@@ -58,8 +58,8 @@ public class LoginPage {
         List<String> tableNames = DatabaseInterface.getTableNames();
         if (!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
             try {
-                CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
-                CSVData edgeData = CSVHandler.readCSVFile("bwPedges.csv");
+                CSVData nodeData = CSVHandler.readCSVString("nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName");
+                CSVData edgeData = CSVHandler.readCSVString("edgeID,startNode,endNode");
                 CSVDBConverter.tableFromCSVData(nodeData, edgeData);
             } catch (Exception e) {
                 e.printStackTrace();
