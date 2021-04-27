@@ -43,8 +43,8 @@ public class DatabaseInterface {
                 break;
             }
         }
-        String tableCreation = "CREATE TABLE " + tableName + " (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
-//        System.out.println(tableCreation);
+        String tableCreation = "CREATE TABLE \"" + tableName + "\" (" + columnDefinitions + (primaryKeyName.equals("") ? "" : ",\nPRIMARY KEY (" + primaryKeyName + ")") + ")";
+        System.out.println(tableCreation);
         if (conn == null) {
             System.out.println("tried to create a table before connection initialized, returning");
             return false;
@@ -148,7 +148,7 @@ public class DatabaseInterface {
     }
     public static boolean insertIntoTable(String table, String data) {
         try {
-            String insertString = "INSERT INTO "  + table + " VALUES (" + data + ")";
+            String insertString = "INSERT INTO \""  + table + "\" VALUES (" + data + ")";
 //            System.out.println(insertString);
             PreparedStatement statement = conn.prepareStatement(insertString);
             statement.execute();
@@ -158,6 +158,23 @@ public class DatabaseInterface {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static String checkColumnObjects(String aString, String columnName) {
+        try {
+            System.out.println(aString);
+            PreparedStatement statement = conn.prepareStatement(aString);
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getString(columnName);
+            }
+            statement.close();
+        } catch (Exception e) {
+            SQLExceptionPrint((SQLException) e);
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void executeUpdate(String command) {
