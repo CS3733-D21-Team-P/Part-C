@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
-import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.database.rowdata.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

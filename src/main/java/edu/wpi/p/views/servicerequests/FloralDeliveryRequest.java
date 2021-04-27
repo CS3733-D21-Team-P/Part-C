@@ -3,7 +3,7 @@ package edu.wpi.p.views.servicerequests;
 import com.jfoenix.controls.*;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
-import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.Toolbar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

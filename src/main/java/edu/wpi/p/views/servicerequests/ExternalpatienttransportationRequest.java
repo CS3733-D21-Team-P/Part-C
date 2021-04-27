@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.Observable;
 
 import edu.wpi.p.database.DBServiceRequest;
-import edu.wpi.p.database.ServiceRequest;
 import edu.wpi.p.views.Toolbar;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 import javafx.collections.FXCollections;
