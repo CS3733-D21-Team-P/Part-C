@@ -1,49 +1,69 @@
 package edu.wpi.p.views.servicerequests;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.ServiceRequest;
-import edu.wpi.p.views.Toolbar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class LaundryServiceRequest extends Toolbar {
-
-    public JFXTextField fullName;
-    public JFXTextField pickUpLocation;
-    public JFXDatePicker pickUpDate;
-    public JFXDatePicker dropOffDate;
-    public JFXTimePicker pickupTime;
-    public JFXTimePicker dropoffTime;
-    public JFXTextArea specialInstructions;
-    public JFXButton back;
-    public JFXButton submit;
-
+public class GiftDelivery {
     @FXML
-    private void advanceScene(ActionEvent e) {
+    public JFXTextField name;
+    @FXML
+    public JFXTextField phoneNumber;
+    @FXML
+    public JFXTextField address;
+    @FXML
+    public JFXButton back;
+    @FXML
+    public JFXButton submit;
+    @FXML
+    public JFXTextField recipient;
+    @FXML
+    public JFXCheckBox giftBox;
+    @FXML
+    public JFXCheckBox giftRibbon;
+    @FXML
+    public JFXTextArea detailText;
+    @FXML
+    public JFXButton homeButton;
+    @FXML
+    public JFXButton pathButton;
+    @FXML
+    public JFXButton editButton;
+    @FXML
+    public JFXButton serviceButton;
+    @FXML
+    public JFXButton covidButton;
+
+
+
+
+
+
+    public void advanceScene(ActionEvent actionEvent) {
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
     }
 
-    @FXML
-    private void submitPress(ActionEvent e) {
-
-        final String fullname = fullName.getText();
-        final String location = pickUpLocation.getText();
-        final String specialInstruction = specialInstructions.getText();
-
-
-        ServiceRequest sR = new ServiceRequest(fullname, location, fullname + "_" + location, "Laundry");
+    public void submitForm(ActionEvent actionEvent) {
+        final String Name = name.getText();
+        final String Add = address.getText();
+        ServiceRequest sR = new ServiceRequest(Name, Add, Name + "_" + Add, "Gift Delivery");
         DBServiceRequest dbServiceRequest = new DBServiceRequest();
         dbServiceRequest.addServiceRequest(sR);
 
@@ -98,5 +118,4 @@ public class LaundryServiceRequest extends Toolbar {
             ex.printStackTrace();
         }
     }
-
 }

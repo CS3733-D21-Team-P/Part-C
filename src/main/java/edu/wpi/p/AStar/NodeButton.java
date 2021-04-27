@@ -1,6 +1,5 @@
 package edu.wpi.p.AStar;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -64,19 +63,19 @@ public class NodeButton extends JFXButton {
         switch (node.getType()) {
             case "BATH":
             case "REST":
-                nameOfFile = "/image/icons/restroom.jpg";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/restroom.jpg";
                 break;
             case "RETL":
-                nameOfFile = "/image/icons/retail.png";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/retail.png";
                 break;
             case "ELEV":
-                nameOfFile = "/image/icons/elevator.png";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/elevator.png";
                 break;
             case "STAI":
-                nameOfFile = "/image/icons/stairs.png";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/stairs.png";
                 break;
             case "EXIT":
-                nameOfFile = "/image/icons/exit.jpg";
+                nameOfFile = "/edu/wpi/p/fxml/image/icons/exit.jpg";
                 break;
         }
 

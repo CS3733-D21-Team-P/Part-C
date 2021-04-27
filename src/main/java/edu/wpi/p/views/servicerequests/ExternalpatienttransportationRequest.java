@@ -7,6 +7,7 @@ import java.util.Observable;
 
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.ServiceRequest;
+import edu.wpi.p.views.Toolbar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 
-public class ExternalpatienttransportationRequest {
+public class ExternalpatienttransportationRequest extends Toolbar {
 
 
 
@@ -29,11 +30,11 @@ public class ExternalpatienttransportationRequest {
   @FXML
   public Label currentRoomNumberLabel;
   @FXML
-  public ChoiceBox currentHospital;
+  public ComboBox currentHospital;
   @FXML
   public TextField currentRoomNumText;
   @FXML
-  public ChoiceBox endHospital;
+  public ComboBox endHospital;
   @FXML
   public Label endHospitalLabel;
   @FXML
@@ -154,6 +155,47 @@ public class ExternalpatienttransportationRequest {
   }
 
   public void nameHelpPressed(ActionEvent actionEvent) {
+  }
+
+  public void homeButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void pathButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/PathfindingMap.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void editButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/EditMap.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void serviceButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void covidButtonAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("..."));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
   }
 
 }

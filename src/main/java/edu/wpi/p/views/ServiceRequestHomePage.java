@@ -14,7 +14,17 @@ public class ServiceRequestHomePage {
     public JFXButton medicineDeliveryServiceBtn;
     public JFXButton laundryServicesBtn;
     public JFXButton externalPatientTransportationBtn;
+    public JFXButton internalPatientTransportationBtn;
     public JFXButton sanitationServiceBtn;
+    public JFXButton floralDeliveryBtn;
+    public JFXButton foodDeliveryBtn;
+    public JFXButton facilitiesMaintenanceBtn;
+    public JFXButton homeButton;
+    public JFXButton pathButton;
+    public JFXButton editButton;
+    public JFXButton serviceButton;
+    public JFXButton covidButton;
+
 
     @FXML
     private void advanceScene(ActionEvent e) {
@@ -56,6 +66,14 @@ public class ServiceRequestHomePage {
             ex.printStackTrace();
         }
     }
+    public void internalPatientTransportationBtnAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/InternalPatientTransportation.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public void sanitationServiceBtn(ActionEvent actionEvent) {
         try {
@@ -65,6 +83,31 @@ public class ServiceRequestHomePage {
             ex.printStackTrace();
         }
     }
+    public void floralDeliveryBtn(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/FloralDeliveryRequest.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void foodDeliveryBtn(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/FoodDeliveryRequest.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void facilitiesMaintenanceBtn(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/FacilitiesMaintenanceRequest.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void backButtonAc(ActionEvent actionEvent){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
@@ -81,5 +124,49 @@ public class ServiceRequestHomePage {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+    public void pathButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/PathfindingMap.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void editButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/EditMap.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void serviceButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void covidButtonAc(ActionEvent actionEvent){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("..."));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void giftDelivery(ActionEvent actionEvent) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/GiftDelivery.fxml"));
+            App.getPrimaryStage().getScene().setRoot(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 }
