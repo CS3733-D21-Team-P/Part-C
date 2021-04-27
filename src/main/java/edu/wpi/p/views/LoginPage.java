@@ -66,7 +66,7 @@ public class LoginPage {
             }
 
         }
-        if (!tableNames.contains("USER")) {
+        if (!tableNames.contains("USERS")) {
             dbuser = new DBUser();
             dbuser.addUser(admin);
             dbuser.addUser(aemployee);
@@ -97,6 +97,10 @@ public class LoginPage {
 
 
     public void loginButtonAC(ActionEvent actionEvent) {
+        if(passwordTXT.getText().equals("")){
+            AlertBox.display("Wrong Information", "Please enter the Password");
+            return;
+        }
 
         if ((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())) {
             if ((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")) {
@@ -114,8 +118,9 @@ public class LoginPage {
                     ex.printStackTrace();
                 }
             }
+        }else {
+            AlertBox.display("Wrong Information", "Please enter the correct Username and Password");
         }
-        AlertBox.display("Wrong Information", "Please enter the correct Username and Password");
     }
 }
 
