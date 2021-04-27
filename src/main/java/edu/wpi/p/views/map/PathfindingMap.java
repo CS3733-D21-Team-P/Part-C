@@ -23,6 +23,14 @@ public class PathfindingMap extends MapController {
             //set on click method
             nb.setOnAction(event -> {
                 pathTabController.addNodeToSearch(event);
+
+                //select button
+                if (nodeButtonHold != null)
+                {
+                    nodeButtonHold.deselect();
+                }
+                nodeButtonHold = nb;
+                nodeClicked(nb);
             });
 
             return nb;

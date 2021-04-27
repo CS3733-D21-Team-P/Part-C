@@ -5,8 +5,10 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import edu.wpi.p.AStar.*;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -35,6 +37,7 @@ public class PathTabController {
 
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
+    @FXML public Label instructions;
 
 
     private boolean enteringStart = false;
@@ -51,6 +54,21 @@ public class PathTabController {
     public void enterStart(MouseEvent e){
         mapState = PathTabController.State.ENTERSTART;
         System.out.println("enter start!");
+
+    }
+
+
+    public void textChanged(){
+        System.out.println("text changed");
+        if(start.getText()==null || start.getText().equals("")){
+            instructions.setText("click a point to ender a location");
+        }
+        else if(end.getText()==null || end.getText().equals("")){
+            instructions.setText("enter and end node");
+        }
+        else{
+            instructions.setText("press search to find a path");
+        }
     }
 
     /**
@@ -67,6 +85,17 @@ public class PathTabController {
      * @param actionEvent
      */
     public void findPath(ActionEvent actionEvent){
+        if (startNode==null || !start.getText().equals(startNode.getName())){
+            System.out.println("set start");
+            String startText = start.getText();
+            startNode = pathfindingMap.graph.getNodeByName(startText);
+        }
+        if (endNode ==null || !end.getText().equals(endNode.getName())){
+            System.out.println("set end");
+            String endText = end.getText();
+            endNode = pathfindingMap.graph.getNodeByName(endText);
+        }
+
         if(startNode!=null && endNode!=null) {
             //find path
             List<Node> path = new ArrayList<>();
@@ -124,15 +153,34 @@ public class PathTabController {
         //get button that was clicked on
         NodeButton button = (NodeButton) actionEvent.getSource();
 
-        if(mapState.equals(PathTabController.State.ENTERSTART)){
+
+        if(mapState.equals(State.ENTERSTART)){
+//            instructions.setText("enter and end node");
             startNode= button.getNode();
             start.setText(button.getName()); //set text field text to be node name
             System.out.println("start: "+ button.getName());
+            mapState = State.ENTEREND;
         }
-        else if(mapState.equals(PathTabController.State.ENTEREND)){
+        else if(mapState.equals(State.ENTEREND)){
+//            instructions.setText("press search to find a path");
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
+        }
+
+        String text1= start.getText();
+        System.out.println(text1);
+        String text2= end.getText();
+        System.out.println(text2);
+
+        if(start.getText()==null || start.getText().equals("")){
+            instructions.setText("click a point to ender a location");
+        }
+        else if(end.getText()==null || end.getText().equals("")){
+            instructions.setText("enter and end node");
+        }
+        else{
+            instructions.setText("press search to find a path");
         }
     }
 }
