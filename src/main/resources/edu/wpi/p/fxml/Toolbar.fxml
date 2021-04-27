@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,20 +9,23 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.Toolbar">
    <children>
-      <VBox layoutX="124.0" layoutY="130.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="124.0" layoutY="130.0" prefHeight="1080.0" prefWidth="100.0" spacing="50.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <JFXButton fx:id="homeButton" onAction="#homeButtonAc" style="-fx-background-color: #5990D9;" text=" ">
+            <JFXButton fx:id="homeButton" maxHeight="50.0" maxWidth="50.0" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #5990D9;" text=" ">
                <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
+                  <ImageView fitHeight="75.0" fitWidth="75.0">
                      <image>
                         <Image url="@image/icons/home.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
             </JFXButton>
             <JFXButton fx:id="pathButton" onAction="#pathButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="25.0">
                <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
+                  <ImageView fitHeight="75.0" fitWidth="75.0">
                      <image>
                         <Image url="@image/icons/path icon.png" />
                      </image>
@@ -30,7 +34,7 @@
             </JFXButton>
             <JFXButton fx:id="editButton" onAction="#editButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="50.0">
                <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
+                  <ImageView fitHeight="75.0" fitWidth="75.0">
                      <image>
                         <Image url="@image/icons/edit.png" />
                      </image>
@@ -39,7 +43,7 @@
             </JFXButton>
             <JFXButton fx:id="serviceButton" onAction="#serviceButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="75.0">
                <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
+                  <ImageView fitHeight="75.0" fitWidth="75.0">
                      <image>
                         <Image url="@image/icons/request.png" />
                      </image>
@@ -48,7 +52,7 @@
             </JFXButton>
             <JFXButton fx:id="covidButton" onAction="#covidButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="100.0">
                <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
+                  <ImageView fitHeight="75.0" fitWidth="75.0">
                      <image>
                         <Image url="@image/icons/covid.png" />
                      </image>
