@@ -49,7 +49,7 @@ public class Toolbar {
     }
     public void covidButtonAc(ActionEvent actionEvent){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("..."));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/CovidPage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
