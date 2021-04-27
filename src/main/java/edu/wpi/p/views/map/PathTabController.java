@@ -75,6 +75,7 @@ public class PathTabController {
             //Path To Text
             PathToText textPath = new PathToText();
             textPath.makeDirections(path);
+            textDirectionsField.clear();
             for (String text : textPath.getDirections()){
                 textDirectionsField.appendText(text);
                 textDirectionsField.appendText("\n");
