@@ -115,7 +115,7 @@ public class LoginPage {
                 }
             }
         }
-        loginButton.setOnAction(e -> AlertBox.display("Wrong Information", "Please enter the correct Username and Password"));
+        AlertBox.display("Wrong Information", "Please enter the correct Username and Password");
     }
 }
 
