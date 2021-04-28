@@ -61,10 +61,13 @@ public class PathTabController {
     public void textChanged(){
         System.out.println("text changed");
         if(start.getText()==null || start.getText().equals("")){
-            instructions.setText("click a point to ender a location");
+            instructions.setText("click a point to enter a location");
         }
         else if(end.getText()==null || end.getText().equals("")){
-            instructions.setText("enter and end node");
+            instructions.setText("enter and end location");
+        }
+        else if(end.getText().equals(start.getText())){
+            instructions.setText("choose two different locations");
         }
         else{
             instructions.setText("press search to find a path");
@@ -118,7 +121,7 @@ public class PathTabController {
             }
 
             for(EdgeLine el: pathLine){
-                pathfindingMap.linePane.getChildren().remove(el);
+                pathfindingMap.btnPane.getChildren().remove(el);
             }
             pathLine.clear();
 

@@ -22,6 +22,9 @@ public class NodeButton extends JFXButton {
     private double maxWidth = 12;
     private double maxHeight = 12;
 
+    private String nameOfFile = "";
+
+
     public List<EdgeLine> getLines() {
         return lines;
     }
@@ -59,7 +62,6 @@ public class NodeButton extends JFXButton {
 
     public void setButtonStyle(){
         //add icons to certain types of nodes
-        String nameOfFile = "";
 
         switch (node.getType()) {
             case "BATH":
@@ -82,29 +84,16 @@ public class NodeButton extends JFXButton {
 
         int addedSize = 0;
 
-        if(connectsLevels) {
-            setStyle("-fx-border-color: #00d1b5; -fx-border-width: 2px;");
-            addedSize += 2;
-            //setStyle("-fx-background-color: #00ff00");
-        }
-        else {
-            setStyle("-fx-border-color: none; -fx-border-width: 0px;");
+        if(connectsLevels) { //if connecting levels
+            setStyle(getStyle()+";-fx-border-color: #00d1b5; -fx-border-width: 2px;");
+            addedSize += 3;
         }
 
 
-        if (!nameOfFile.isEmpty()) {
-            addedSize+=5;
-            setButtonSize(maxHeight+addedSize);
-            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),maxWidth+addedSize,maxHeight+addedSize,true, true);
-            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-            Background background = new Background(backgroundImage);
-            setBackground(background);
-        }
-
-        if (nameOfFile.isEmpty() && !this.getNode().getIsSelected())
+        if (nameOfFile.isEmpty() && !this.getNode().getIsSelected()) //no image and not selected
         {
-            this.setStyle(
-                    "-fx-background-radius: 5em; " +
+            this.setStyle(getStyle()+
+                    ";-fx-background-radius: 5em; " +
                             "-fx-min-width: 6px; " +
                             "-fx-min-height: 6px; " +
                             "-fx-max-width: 6px; " +
@@ -113,7 +102,7 @@ public class NodeButton extends JFXButton {
             );
         }
 
-        if (nameOfFile.isEmpty() && this.getNode().getIsSelected())
+        if (nameOfFile.isEmpty() && this.getNode().getIsSelected()) //no image and is selected
         {
             this.setStyle(
                     "-fx-background-radius: 5em; " +
@@ -125,7 +114,19 @@ public class NodeButton extends JFXButton {
             );
         }
 
-        if (!nameOfFile.isEmpty() && this.getNode().getIsSelected())
+
+        if (!nameOfFile.isEmpty()) { //set image if there is an image specified
+            addedSize+=5;
+            setButtonSize(maxHeight+addedSize);
+            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),maxWidth+addedSize,maxHeight+addedSize,true, true);
+            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+            Background background = new Background(backgroundImage);
+            setBackground(background);
+            setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
+
+        }
+
+        if (!nameOfFile.isEmpty() && this.getNode().getIsSelected()) //if is image and is selected
         {
             setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         }
@@ -156,6 +157,29 @@ public class NodeButton extends JFXButton {
         Rectangle2D viewport = imageView.getViewport();
         this.setLayoutX((node.getXcoord() / scaleX) - viewport.getMinX() / scaleX);
         this.setLayoutY((node.getYcoord() / scaleY) - viewport.getMinY() / scaleY);
+
+
+//        //BASIC SCALING
+//        int small = 2;
+//
+//        System.out.println(3.2-scaleX);
+//        double scaleButtonSize = small+((3.2-scaleX)*3);
+//        System.out.println(scaleButtonSize);
+//
+//        int addedSize =0;
+//
+//        if (!nameOfFile.isEmpty()) { //set image if there is an image specified
+//            addedSize=10;//size added because it is a image button
+//            //setButtonSize(maxHeight+addedSize+scaleButtonSize);
+//            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),small+scaleButtonSize+addedSize,small+scaleButtonSize+addedSize,true, true);
+//            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+//            Background background = new Background(backgroundImage);
+//            setBackground(background);
+//            setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
+//
+//        }
+//        setButtonSize(small+scaleButtonSize+addedSize);
+
     }
 
     public void setButtonSize(double buttonSize) {

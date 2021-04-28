@@ -49,9 +49,11 @@ public class CSVHandler {
         // get the name from between the last backlash in the path, and the last '.'
         String name = filename.substring(filename.lastIndexOf('\\') + 1, filename.lastIndexOf('.'));
         CSVData csvData = new CSVData(name);
+        System.out.println("filename is " + filename);
 
         // this code can almost assuredly be improved, it's currently a weird mix of lists and streams
         try (Stream<String> lines = Files.lines(Paths.get(filename))) {
+            System.out.println("number of lines is : " + Files.lines(Paths.get(filename)).count());
             // tokenize all the lines
             List<List<String>> tokenizedLines = lines.map(CSVHandler::splitLine).collect(Collectors.toList());
             // raise and exception if the rows aren't all the same length, exits the method

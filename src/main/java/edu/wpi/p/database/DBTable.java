@@ -116,7 +116,7 @@ public class DBTable {
      */
     public void addEdge(String edgeID, String nodeIDOne, String nodeIDTwo) {
         String insertValue = "'" + edgeID + "', '" + nodeIDOne + "', '" + nodeIDTwo + "'";
-        System.out.println("INSERTING EDGE: " + insertValue);
+//        System.out.println("INSERTING EDGE: " + insertValue);
         DatabaseInterface.insertIntoTable(edgeTable, insertValue);
     }
 
