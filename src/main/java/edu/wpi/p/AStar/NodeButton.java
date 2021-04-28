@@ -159,26 +159,26 @@ public class NodeButton extends JFXButton {
         this.setLayoutY((node.getYcoord() / scaleY) - viewport.getMinY() / scaleY);
 
 
-        //BASIC SCALING
-        int small = 2;
-
-        System.out.println(3.2-scaleX);
-        double scaleButtonSize = small+((3.2-scaleX)*3);
-        System.out.println(scaleButtonSize);
-
-        int addedSize =0;
-
-        if (!nameOfFile.isEmpty()) { //set image if there is an image specified
-            addedSize=10;//size added because it is a image button
-            //setButtonSize(maxHeight+addedSize+scaleButtonSize);
-            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),small+scaleButtonSize+addedSize,small+scaleButtonSize+addedSize,true, true);
-            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-            Background background = new Background(backgroundImage);
-            setBackground(background);
-            setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
-
-        }
-        setButtonSize(small+scaleButtonSize+addedSize);
+//        //BASIC SCALING
+//        int small = 2;
+//
+//        System.out.println(3.2-scaleX);
+//        double scaleButtonSize = small+((3.2-scaleX)*3);
+//        System.out.println(scaleButtonSize);
+//
+//        int addedSize =0;
+//
+//        if (!nameOfFile.isEmpty()) { //set image if there is an image specified
+//            addedSize=10;//size added because it is a image button
+//            //setButtonSize(maxHeight+addedSize+scaleButtonSize);
+//            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),small+scaleButtonSize+addedSize,small+scaleButtonSize+addedSize,true, true);
+//            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+//            Background background = new Background(backgroundImage);
+//            setBackground(background);
+//            setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
+//
+//        }
+//        setButtonSize(small+scaleButtonSize+addedSize);
 
     }
 
