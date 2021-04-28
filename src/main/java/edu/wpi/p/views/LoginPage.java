@@ -87,6 +87,7 @@ public class LoginPage {
     }
 
     public void guestButtonAC(ActionEvent actionEvent) {
+        HomePage.Isguest = true;
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);

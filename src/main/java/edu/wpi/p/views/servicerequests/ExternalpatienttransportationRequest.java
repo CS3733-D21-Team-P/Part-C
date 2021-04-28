@@ -94,7 +94,7 @@ public class ExternalpatienttransportationRequest extends Toolbar {
 
 
   @FXML
-  private void initialize(){
+  public void initialize(){
     currentHospital.setValue("A hospital");
     currentHospital.setItems(hospitalList);
     endHospital.setValue("A hospital");

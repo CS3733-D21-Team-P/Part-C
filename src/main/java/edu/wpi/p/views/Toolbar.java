@@ -1,6 +1,7 @@
 package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.p.AStar.Node;
 import edu.wpi.p.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -53,6 +54,14 @@ public class Toolbar {
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public void initialize() {
+        if(HomePage.Isguest)
+        {
+            serviceButton.setVisible(false);
+            editButton.setVisible(false);
         }
     }
 }

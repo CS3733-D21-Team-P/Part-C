@@ -47,6 +47,8 @@ public class HomePage {
   public JFXButton editButton;
 
 
+  public static boolean Isguest;
+  public JFXButton requsetLog;
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -72,6 +74,11 @@ public class HomePage {
         e.printStackTrace();
       }
 
+    }
+    if(Isguest){
+      editButton.setVisible(false);
+      SRoption.setVisible(false);
+      requsetLog.setVisible(false);
     }
   }
 
