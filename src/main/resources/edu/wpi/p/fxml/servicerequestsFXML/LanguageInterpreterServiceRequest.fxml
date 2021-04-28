@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.BorderPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.LanguageInterpreterServiceRequest">
   <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="444.0" layoutY="-11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
@@ -65,49 +66,8 @@
              <JFXTextField fx:id="doctorSignature" focusColor="WHITE" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <VBox layoutX="24.0" layoutY="111.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <JFXButton fx:id="homeButton" onAction="#homeButtonAc" prefWidth="100.0" style="-fx-background-color: #5990D9;" text=" ">
-               <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
-                     <image>
-                        <Image url="@../image/icons/home.png" />
-                     </image>
-                  </ImageView>
-               </graphic></JFXButton>
-            <JFXButton fx:id="pathButton" onAction="#pathButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="25.0">
-               <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
-                     <image>
-                        <Image url="@../image/icons/path icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic></JFXButton>
-            <JFXButton fx:id="editButton" onAction="#editButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="50.0">
-               <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
-                     <image>
-                        <Image url="@../image/icons/edit.png" />
-                     </image>
-                  </ImageView>
-               </graphic></JFXButton>
-            <JFXButton fx:id="serviceButton" onAction="#serviceButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="75.0">
-               <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
-                     <image>
-                        <Image url="@../image/icons/request.png" />
-                     </image>
-                  </ImageView>
-               </graphic></JFXButton>
-            <JFXButton fx:id="covidButton" onAction="#covidButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="100.0">
-               <graphic>
-                  <ImageView fitHeight="100.0" fitWidth="100.0">
-                     <image>
-                        <Image url="@../image/icons/covid.png" />
-                     </image>
-                  </ImageView>
-               </graphic></JFXButton>
-         </children>
-      </VBox>
+      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
+      </BorderPane>
   </children>
 </AnchorPane>

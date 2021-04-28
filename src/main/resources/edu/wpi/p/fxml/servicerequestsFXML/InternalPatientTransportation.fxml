@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.BorderPane?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.InternalPatientTransportation">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -27,55 +28,9 @@
                   <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
                </image>
             </ImageView>
-            <VBox layoutX="124.0" layoutY="130.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <JFXButton fx:id="homeButton" onAction="#homeButtonAc" style="-fx-background-color: #5990D9;" text=" ">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="100.0">
-                           <image>
-                              <Image url="@../image/icons/home.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="pathButton" onAction="#pathButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="25.0">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="100.0">
-                           <image>
-                              <Image url="@../image/icons/path icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="editButton" onAction="#editButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="50.0">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="100.0">
-                           <image>
-                              <Image url="@../image/icons/edit.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="serviceButton" onAction="#serviceButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="75.0">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="100.0">
-                           <image>
-                              <Image url="@../image/icons/request.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="covidButton" onAction="#covidButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="100.0">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="100.0">
-                           <image>
-                              <Image url="@../image/icons/covid.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </VBox>
+            <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
+            </BorderPane>
             <GridPane alignment="CENTER" layoutX="1343.0" layoutY="280.0" prefHeight="700.0" prefWidth="660.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1110.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="321.199951171875" minWidth="10.0" prefWidth="220.0" />

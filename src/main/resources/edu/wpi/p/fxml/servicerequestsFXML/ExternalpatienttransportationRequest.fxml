@@ -179,7 +179,7 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
       </BorderPane>
    </children>
