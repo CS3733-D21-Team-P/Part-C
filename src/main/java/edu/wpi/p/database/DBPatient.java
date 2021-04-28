@@ -1,5 +1,7 @@
 package edu.wpi.p.database;
 
+import edu.wpi.p.database.rowdata.Patient;
+
 import java.util.ArrayList;
 import java.util.List;
 

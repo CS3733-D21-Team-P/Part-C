@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="300.0" style="-fx-background-color: #2f3159;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapEditorFindTab">
+   <children>
+      <JFXTreeTableView fx:id="nodeTable" layoutX="6.0" layoutY="182.0" prefHeight="760.0" prefWidth="288.0" style="-fx-background-color: #b6d6f2;" />
+      <JFXTextField fx:id="filterField" blendMode="ADD" layoutX="92.0" layoutY="138.0" prefHeight="25.0" prefWidth="194.0" promptText="Location Name" unFocusColor="WHITE" />
+      <JFXButton fx:id="searchBtn" layoutX="14.0" layoutY="138.0" onAction="#searchBtnAc" text="Search" textFill="#95979c" />
+   </children>
+</AnchorPane>

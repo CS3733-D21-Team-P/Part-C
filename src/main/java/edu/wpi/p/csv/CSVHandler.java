@@ -44,12 +44,16 @@ public class CSVHandler {
      * @throws Exception If there is an issue with the csv file, like the rows not all being the same size, an exception is thrown
      */
     public static CSVData readCSVFile(String filename) throws Exception {
+        // TODO: check if looks like valid csv file
+
         // get the name from between the last backlash in the path, and the last '.'
         String name = filename.substring(filename.lastIndexOf('\\') + 1, filename.lastIndexOf('.'));
         CSVData csvData = new CSVData(name);
+        System.out.println("filename is " + filename);
 
         // this code can almost assuredly be improved, it's currently a weird mix of lists and streams
         try (Stream<String> lines = Files.lines(Paths.get(filename))) {
+            System.out.println("number of lines is : " + Files.lines(Paths.get(filename)).count());
             // tokenize all the lines
             List<List<String>> tokenizedLines = lines.map(CSVHandler::splitLine).collect(Collectors.toList());
             // raise and exception if the rows aren't all the same length, exits the method
@@ -88,5 +92,38 @@ public class CSVHandler {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Parses the given csv at the given filename
+     * @param csv String of the csv data
+     * @return CSVData instance with the same name as the filename, and with the data from the file
+     * @throws Exception If there is an issue with the csv file, like the rows not all being the same size, an exception is thrown
+     */
+    public static CSVData readCSVString(String csv) throws Exception {
+        // get the name from between the last backlash in the path, and the last '.'
+        String name = "csv from string";//filename.substring(filename.lastIndexOf('\\') + 1, filename.lastIndexOf('.'));
+        CSVData csvData = new CSVData(name);
+
+        // this code can almost assuredly be improved, it's currently a weird mix of lists and streams
+        try (Stream<String> lines = Arrays.stream(csv.split("\n"))) {
+            // tokenize all the lines
+            List<List<String>> tokenizedLines = lines.map(CSVHandler::splitLine).collect(Collectors.toList());
+            // raise and exception if the rows aren't all the same length, exits the method
+            testLinesEqual(tokenizedLines.stream());
+
+            // for every column of data, make it into a single list and put it in the CSVData
+            for (int i = 0; i < tokenizedLines.get(0).size(); i++) {
+                final int index = i;
+                List<String> columnValues = tokenizedLines.stream().map(s -> s.get(index)).collect(Collectors.toList());
+                // first element is the name, the rest are the values
+                csvData.addColumnFromStringData(columnValues.get(0), columnValues.subList(1, columnValues.size()));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return csvData;
     }
 }

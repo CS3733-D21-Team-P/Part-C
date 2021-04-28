@@ -1,12 +1,7 @@
 package edu.wpi.p.views;
 
-import AStar.Node;
-import AStar.NodeButton;
-import edu.wpi.p.App;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxToolkit;
+
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

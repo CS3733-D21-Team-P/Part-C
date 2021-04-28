@@ -1,7 +1,9 @@
 package edu.wpi.p.database;
 
-import AStar.Node;
+import edu.wpi.p.AStar.Node;
+import edu.wpi.p.database.rowdata.Edge;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,13 +90,14 @@ public class DBTable {
      * @param n Node with an ID that matches one in the DB, and other values will be set for that row in the DB
      */
     public void updateNode(Node n) {
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET floor = '"+n.getFloor()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET building = '"+n.getBuilding()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET nodeType = '"+n.getType()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET longName = '"+n.getName()+"' WHERE nodeID = '"+n.getId()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET shortName = '"+n.getShortName()+"' WHERE nodeID = '"+n.getId()+"'");
+        DatabaseInterface.updateDBRow(nodeTable, "NODEID", n.getId(), n);
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET floor = '"+n.getFloor()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET building = '"+n.getBuilding()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET nodeType = '"+n.getType()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET longName = '"+n.getName()+"' WHERE nodeID = '"+n.getId()+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET shortName = '"+n.getShortName()+"' WHERE nodeID = '"+n.getId()+"'");
     }
 
     /**
@@ -102,8 +105,7 @@ public class DBTable {
      * @param n
      */
     public void addNode(Node n) {
-        String insertValue = "'" + n.getId() + "', " + n.getXcoord() + ", " + n.getYcoord() + ", '" + n.getFloor() + "', '" + n.getBuilding() + "', '" + n.getType() + "', '" + n.getName() + "', '" + n.getShortName() + "'";
-        DatabaseInterface.insertIntoTable(nodeTable, insertValue);
+        DatabaseInterface.insertDBRowIntoTable(nodeTable, n);
     }
 
     /**
@@ -114,6 +116,7 @@ public class DBTable {
      */
     public void addEdge(String edgeID, String nodeIDOne, String nodeIDTwo) {
         String insertValue = "'" + edgeID + "', '" + nodeIDOne + "', '" + nodeIDTwo + "'";
+//        System.out.println("INSERTING EDGE: " + insertValue);
         DatabaseInterface.insertIntoTable(edgeTable, insertValue);
     }
 
@@ -134,9 +137,10 @@ public class DBTable {
      * @param edge new edge to update the information from
      */
     public void updateEdge(String edgeID, Edge edge) {
-        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = "+edge.getEdgeID()+" WHERE nodeID = '"+edge.getEdgeID()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET STARTNODE = "+edge.getStartNode()+" WHERE nodeID = '"+edge.getEdgeID()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE nodeID = '"+edge.getEdgeID()+"'");
+        DatabaseInterface.updateDBRow(edgeTable, "EDGEID", edgeID, edge);
+//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = '"+edge.getEdgeID()+"' WHERE edgeID = '"+edgeID+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET STARTNODE = '"+edge.getStartNode()+"' WHERE edgeID = '"+edgeID+"'");
+//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE edgeID = '"+edgeID+"'");
     }
 
     /**
@@ -178,32 +182,24 @@ public class DBTable {
 
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(nodeTable);
 
-        // this is bad, but the database currently doesn't guarantee order of the columns
-        int nodeID = indexOfColumnByName(dbColumns, "nodeID");
-        int xcoord = indexOfColumnByName(dbColumns, "xcoord");
-        int ycoord = indexOfColumnByName(dbColumns, "ycoord");
-        int floor = indexOfColumnByName(dbColumns, "floor");
-        int building = indexOfColumnByName(dbColumns, "building");
-        int nodeType = indexOfColumnByName(dbColumns, "nodeType");
-        int longName = indexOfColumnByName(dbColumns, "longName");
-        int shortName = indexOfColumnByName(dbColumns, "shortName");
-
-        //create nodes
         List<Node> nodes = new ArrayList<>(nodeData.size());
-        for(int i = 1; i < nodeData.size(); i++) {
-            List<String> nodeString = nodeData.get(i);
 
-            Node node = new Node(
-                    nodeString.get(longName),
-                    nodeString.get(nodeID),
-                    Integer.parseInt(nodeString.get(xcoord)),
-                    Integer.parseInt(nodeString.get(ycoord)),
-                    nodeString.get(floor),
-                    nodeString.get(building),
-                    nodeString.get(nodeType),
-                    nodeString.get(shortName));
-            nodes.add(node);
+        for (List<String> row : nodeData) {
+            Node n = new Node();
+            for (int i = 0; i < row.size(); i++) {
+                String type = dbColumns.get(i).getType();
+                if (type.equals("INTEGER")) {
+                    n.addValue(dbColumns.get(i).getName(), Integer.parseInt(row.get(i)));
+                }
+                else {
+                    n.addValue(dbColumns.get(i).getName(), row.get(i));
+                }
+
+            }
+            nodes.add(n);
         }
+
+        System.out.println("returning nodes with id's: " + nodes.stream().map(n -> n.getId() + ", ").collect(Collectors.toList()));
 
         return nodes;
     }
@@ -243,12 +239,17 @@ public class DBTable {
     public List<Edge> getEdges() {
         List<List<String>> edgeData = this.getEdgeData();
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(edgeTable);
-        int edgeID = indexOfColumnByName(dbColumns, "edgeID");
-        int startNode = indexOfColumnByName(dbColumns, "startNode");
-        int endNode = indexOfColumnByName(dbColumns, "endNode");
-        return edgeData.stream()
-                .map(strings -> new Edge(strings.get(edgeID), strings.get(startNode), strings.get(endNode)))
-                .collect(Collectors.toList());
+        List<Edge> edges = new ArrayList<>(edgeData.size());
+
+        for (List<String> row : edgeData) {
+            Edge e = new Edge();
+            for (int i = 0; i < row.size(); i++) {
+                e.addValue(dbColumns.get(i).getName(), row.get(i));
+            }
+            edges.add(e);
+        }
+
+        return edges;
     }
 
 

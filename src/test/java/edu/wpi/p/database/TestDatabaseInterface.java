@@ -1,6 +1,6 @@
 package edu.wpi.p.database;
 
-import AStar.Node;
+import edu.wpi.p.AStar.Node;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,8 +34,8 @@ public class TestDatabaseInterface {
     @Test
     void testCSVDBInterface() {
         try {
-            CSVData nodeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Nodes.csv");
-            CSVData edgeData = CSVHandler.readCSVFile("src/main/java/AStar/L1Edges.csv");
+            CSVData nodeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Nodes.csv");
+            CSVData edgeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Edges.csv");
             DBTable table = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
             CSVData newNodes = CSVDBConverter.csvNodesFromTable(table);
             CSVData newEdges = CSVDBConverter.csvEdgesFromTable(table);

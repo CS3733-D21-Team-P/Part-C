@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.BorderPane?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.MedicineDeliverySR">
+   <children>
+      <GridPane alignment="CENTER" layoutY="14.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="63.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="491.0" minWidth="10.0" prefWidth="189.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="445.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="0.0" prefWidth="57.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="45.0" prefWidth="468.0" text="Medicine Delivery Service Request" textAlignment="RIGHT" textFill="WHITE" GridPane.columnIndex="2">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+            <Label text="Which of the following describes you?" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <JFXCheckBox fx:id="doc" checkedColor="WHITE" onAction="#doctorClick" prefHeight="37.0" prefWidth="90.0" text="Doctor" textFill="WHITE" unCheckedColor="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="nurse" checkedColor="WHITE" onAction="#nurseClick" prefHeight="37.0" prefWidth="90.0" text="Nurse" textFill="WHITE" unCheckedColor="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="pat" checkedColor="WHITE" onAction="#patientClick" prefHeight="37.0" prefWidth="90.0" text="Patient" textFill="WHITE" unCheckedColor="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
+               </children>
+            </HBox>
+            <Label text="Medicine Requested: " textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="medicineName" focusColor="WHITE" prefHeight="25.0" prefWidth="434.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label prefHeight="27.0" prefWidth="191.0" text="Amount Requested:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="medicineAmount" focusColor="WHITE" prefHeight="25.0" prefWidth="434.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label text="Location:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="locationArea" focusColor="WHITE" prefHeight="25.0" prefWidth="434.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label text="Reason:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextArea fx:id="medicineReason" focusColor="WHITE" prefHeight="0.0" prefWidth="471.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label prefHeight="27.0" prefWidth="172.0" text="Addidtional details:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <JFXTextArea fx:id="medicineInfo" focusColor="WHITE" prefHeight="61.0" prefWidth="471.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Label text="Doctor Signature:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="doctorSign" focusColor="WHITE" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="9">
+               <children>
+                  <JFXButton onAction="#homePageButton" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="442.0" AnchorPane.leftAnchor="0.0">
+         <image>
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
+         </image>
+      </ImageView>
+      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
+      </BorderPane>
+   </children>
+</AnchorPane>
