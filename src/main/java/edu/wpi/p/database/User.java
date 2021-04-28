@@ -4,14 +4,14 @@ public class User {
     private String Name;
     private String Username;
     private String Password;
-    private String Identity;
+    private String Status;
 
 
-    public User(String Name, String Username, String Password, String Identity) {
+    public User(String Name, String Username, String Password, String Status) {
         this.Name = Name;
         this.Username = Username;
         this.Password = Password;
-        this.Identity = Identity;
+        this.Status = Status;
     }
 
     public User(String username, String password) {
@@ -45,11 +45,11 @@ public class User {
     }
 
     public String getIdentity() {
-        return Identity;
+        return Status;
     }
 
-    public void setIdentity(String identity) {
-        Identity = identity;
+    public void setIdentity(String status) {
+        Status = status;
     }
 
 
