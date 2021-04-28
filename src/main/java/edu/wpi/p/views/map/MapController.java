@@ -250,8 +250,10 @@ public abstract class MapController {
         floorChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue ov, Number oldValue, Number newValue) {
-                currFloorVal = availableFloors[newValue.intValue()];
-                changeFloors(currFloorVal);
+                if(!(newValue.intValue() < 0)) {
+                    currFloorVal = availableFloors[newValue.intValue()];
+                    changeFloors(currFloorVal);
+                }
             }
         });
     }
