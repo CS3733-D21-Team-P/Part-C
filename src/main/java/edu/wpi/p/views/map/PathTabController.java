@@ -121,7 +121,7 @@ public class PathTabController {
             }
 
             for(EdgeLine el: pathLine){
-                pathfindingMap.linePane.getChildren().remove(el);
+                pathfindingMap.btnPane.getChildren().remove(el);
             }
             pathLine.clear();
 
