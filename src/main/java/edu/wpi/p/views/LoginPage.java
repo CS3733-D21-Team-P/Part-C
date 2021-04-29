@@ -2,6 +2,7 @@ package edu.wpi.p.views;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
@@ -12,15 +13,20 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import com.jfoenix.controls.JFXTreeTableView;
 import org.sqlite.core.DB;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -83,7 +89,17 @@ public class LoginPage {
             dbuser = new DBUser();
         }
 
+        usernameTXT.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode code = event.getCode();
 
+                if (code == KeyCode.TAB && !event.isShiftDown() && !event.isControlDown()) {
+                    event.consume();
+                    passwordTXT.requestFocus();
+                }
+            }
+        });
     }
 
     public void guestButtonAC(ActionEvent actionEvent) {
