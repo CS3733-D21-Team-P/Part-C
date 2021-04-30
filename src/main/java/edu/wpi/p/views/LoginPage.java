@@ -98,8 +98,22 @@ public class LoginPage {
                     event.consume();
                     passwordTXT.requestFocus();
                 }
+
             }
         });
+        passwordTXT.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                KeyCode code = event.getCode();
+
+                if (code == KeyCode.ENTER) {
+                    System.out.println("enter pressed");
+                    event.consume();
+                    loginButtonAC(null);
+                }
+            }
+        });
+
     }
 
     public void guestButtonAC(ActionEvent actionEvent) {
