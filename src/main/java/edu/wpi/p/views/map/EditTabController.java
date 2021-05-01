@@ -22,6 +22,7 @@ import javafx.stage.FileChooser;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class EditTabController{
 
@@ -127,6 +128,38 @@ public class EditTabController{
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void alignVertical(){
+        System.out.println("align vertical");
+        List<NodeButton> selected = editMapController.getSelected();
+        double averageX = 0;
+
+        for(NodeButton nb: selected){
+            averageX+=nb.getNode().getXcoord();
+        }
+        averageX= averageX/selected.size();
+
+        for(NodeButton nb: selected){
+            editMapController.EditNodeLocation(nb,averageX,nb.getNode().getYcoord());
+        }
+    }
+
+    @FXML
+    private void alignHorizontal(){
+        System.out.println("align horizontal");
+        List<NodeButton> selected = editMapController.getSelected();
+        double averageY = 0;
+
+        for(NodeButton nb: selected){
+            averageY+=nb.getNode().getYcoord();
+        }
+        averageY= averageY/selected.size();
+
+        for(NodeButton nb: selected){
+            editMapController.EditNodeLocation(nb,nb.getNode().getXcoord(),averageY);
         }
     }
 
