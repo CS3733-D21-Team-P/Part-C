@@ -7,26 +7,30 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.VBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.RequestLogPage">
    <children>
       <AnchorPane layoutX="479.0" layoutY="211.0" prefHeight="659.0" prefWidth="963.0" style="-fx-background-color: #2f3159; -fx-background-radius: 15;">
          <children>
-            <JFXTreeTableView fx:id="ReqLogView" layoutX="144.0" layoutY="130.0" prefHeight="400.0" prefWidth="675.0" />
-            <JFXButton fx:id="incompleteBtn" layoutX="144.0" layoutY="547.0" onAction="#incompleteBtnAc" prefHeight="55.0" prefWidth="187.0" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-border-width: 3; -fx-border-radius: 15; -fx-background-radius: 15;" text="Show Incomplete">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="markCompleteBtn" layoutX="632.0" layoutY="547.0" onAction="#markCompleteBtnAc" prefHeight="55.0" prefWidth="187.0" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 3;" text="Mark Complete">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXButton>
-            <JFXTextField fx:id="filterField" layoutX="144.0" layoutY="68.0" prefHeight="38.0" prefWidth="350.0" promptText="Filter by Employee" style="-fx-background-color: #b6d6f2;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </JFXTextField>
+            <VBox fx:id="requestLogVBox">
+
+            </VBox>
+<!--            <JFXTreeTableView fx:id="ReqLogView" layoutX="144.0" layoutY="130.0" prefHeight="400.0" prefWidth="800.0" />-->
+<!--            <JFXButton fx:id="incompleteBtn" layoutX="144.0" layoutY="547.0" onAction="#incompleteBtnAc" prefHeight="55.0" prefWidth="187.0" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-border-width: 3; -fx-border-radius: 15; -fx-background-radius: 15;" text="Show Incomplete">-->
+<!--               <font>-->
+<!--                  <Font name="System Bold" size="18.0" />-->
+<!--               </font>-->
+<!--            </JFXButton>-->
+<!--            <JFXButton fx:id="markCompleteBtn" layoutX="632.0" layoutY="547.0" onAction="#markCompleteBtnAc" prefHeight="55.0" prefWidth="187.0" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 3;" text="Mark Complete">-->
+<!--               <font>-->
+<!--                  <Font name="System Bold" size="18.0" />-->
+<!--               </font>-->
+<!--            </JFXButton>-->
+<!--            <JFXTextField fx:id="filterField" layoutX="144.0" layoutY="68.0" prefHeight="38.0" prefWidth="350.0" promptText="Filter by Employee" style="-fx-background-color: #b6d6f2;">-->
+<!--               <font>-->
+<!--                  <Font size="18.0" />-->
+<!--               </font>-->
+<!--            </JFXTextField>-->
          </children>
       </AnchorPane>
       <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

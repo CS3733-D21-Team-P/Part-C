@@ -89,6 +89,7 @@ public class LoginPage {
             dbuser = new DBUser();
         }
 
+        usernameTXT.requestFocus();
         usernameTXT.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {

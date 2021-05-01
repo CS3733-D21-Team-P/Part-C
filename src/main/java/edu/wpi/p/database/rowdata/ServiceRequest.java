@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javax.xml.ws.Service;
+import java.util.HashMap;
+import java.util.List;
 
 public class ServiceRequest extends DBRow {
     private String nameCol = "NAME";
@@ -13,13 +15,9 @@ public class ServiceRequest extends DBRow {
     private String IDCol = "ID";
     private String assignmentCol = "ASSIGNMENT";
     private String completeCol = "COMPLETE";
-//    private StringProperty name;
-//    private StringProperty location;
-//    private StringProperty ID;
-//    private StringProperty assignment;
-//    private boolean complete;
-
-
+    private String detailCol = "DETAILS";
+    private char lineSeperator = 0x1E;
+    private char keyValueSeperator = 0x1F;
     public ServiceRequest() {
 
     }
@@ -30,7 +28,9 @@ public class ServiceRequest extends DBRow {
         this.addValue(locationCol, location);
         this.addValue(assignmentCol, assignment);
         this.addValue(completeCol, false);
+        this.setDetails("");
     }
+
 
 //    public ServiceRequest (StringProperty name, StringProperty location, StringProperty ID, StringProperty assignment) {
 //        this.name = name;
@@ -80,5 +80,28 @@ public class ServiceRequest extends DBRow {
 
     public boolean getCompleted() {
         return (boolean) this.getValue(completeCol);
+    }
+
+    public String getDetails() { return (String) this.getValue(detailCol);}
+    public HashMap<String, String> getDetailsMap() {
+        String details = this.getDetails();
+        String[] entries = details.split("" + lineSeperator);
+        HashMap<String, String> result = new HashMap<>();
+        for (String line : entries) {
+            String[] values = line.split("" + keyValueSeperator);
+            if (values.length != 2) {
+                System.out.println("THERE WAS AN ISSUE PARSING DETAILS, FOUND " + values.length + " VALUES, WANTED 2\n the line is: " + line);
+            }
+            result.put(values[0], values[1]);
+        }
+
+        return result;
+
+    }
+    public void setDetails(String details) { this.changeValue(detailCol, details);}
+    public void addDetail(String name, String value) {
+        String currentDetails = this.getDetails();
+        currentDetails += name + keyValueSeperator + value + lineSeperator;
+        this.setDetails(currentDetails);
     }
 }

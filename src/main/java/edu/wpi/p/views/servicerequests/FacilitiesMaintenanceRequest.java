@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class FacilitiesMaintenanceRequest extends Toolbar {
+public class FacilitiesMaintenanceRequest extends GenericServiceRequest {
 
     public JFXTextField name;
     public JFXTextField loc;
@@ -24,16 +24,17 @@ public class FacilitiesMaintenanceRequest extends Toolbar {
     public JFXButton submit;
 
     @FXML
+    public void initialize() {
+        super.name = "Facilities Maintenance Request";
+        this.locationProperty = loc.textProperty();
+        this.values.put("Name", name.textProperty());
+        this.values.put("Facility", facility.textProperty());
+        this.values.put("Description", description.textProperty());
+    }
+
+    @FXML
     private void submitForm(ActionEvent e) {
-        final String doctor = name.getText();
-        final String location = loc.getText();
-
-
-        ServiceRequest sR = new ServiceRequest(doctor, location, "Name" + "_" + location, "Floral Delivery Request");
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
-        dbServiceRequest.addServiceRequest(sR);
-
-
+       super.submitPressed(e);
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
