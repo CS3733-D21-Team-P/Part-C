@@ -35,6 +35,8 @@ public class PathTabController {
     private Node endNode;
     private NodeButton startNodeButton;
     private NodeButton endNodeButton;
+    private NodeButton startNodeButtonHold;
+    private NodeButton endNodeButtonHold;
     private List<EdgeLine> pathLine= new ArrayList<>();
 
     @FXML public JFXTextField start;
@@ -90,10 +92,6 @@ public class PathTabController {
      * @param actionEvent
      */
     public void findPath(ActionEvent actionEvent){
-        if (startNodeButton != null)
-        {
-
-        }
         if (startNode==null || !start.getText().equals(startNode.getName())){
             System.out.println("set start");
             String startText = start.getText();
@@ -143,8 +141,24 @@ public class PathTabController {
                 }
             }
 
-            pathfindStyle(startNodeButton);
-            pathfindStyle(endNodeButton);
+            if (startNodeButtonHold != null) {
+                startNodeButtonHold.getNode().setIsPathfinding(false);
+                startNodeButtonHold.setButtonStyle();
+//                startNodeButtonHold.setTranslateX(-6);
+//                startNodeButtonHold.setTranslateY(-6);
+            }
+            if (endNodeButtonHold != null) {
+                endNodeButtonHold.getNode().setIsPathfinding(false);
+                endNodeButtonHold.setButtonStyle();
+//                endNodeButtonHold.setTranslateX(-6);
+//                endNodeButtonHold.setTranslateY(-6);
+            }
+            startNodeButton.getNode().setIsPathfinding(true);
+            endNodeButton.getNode().setIsPathfinding(true);
+            startNodeButton.setButtonStyle();
+            endNodeButton.setButtonStyle();
+            startNodeButtonHold = startNodeButton;
+            endNodeButtonHold = endNodeButton;
 
             pathfindingMap.graph.resetNodeGraph();
 
@@ -198,18 +212,14 @@ public class PathTabController {
             instructions.setText("press search to find a path");
         }
     }
-
-    private void pathfindStyle(NodeButton nb) {
-        nb.setTranslateX(-6);
-        nb.setTranslateY(-6);
-        nb.toFront();
-        nb.setStyle(
-                "-fx-background-radius: 10em; " +
-                        "-fx-min-width: 12px; " +
-                        "-fx-min-height: 12px; " +
-                        "-fx-max-width: 12px; " +
-                        "-fx-max-height: 12px;" +
-                        "-fx-background-color: red"
-        );
+/**
+    private void pathfindHold(NodeButton nb) {
+        if (nb != null) {
+            nb.getNode().setIsPathfinding(false);
+            nb.setButtonStyle();
+            nb.setTranslateX(-6);
+            nb.setTranslateY(-6);
+        }
     }
+ **/
 }

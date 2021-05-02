@@ -73,45 +73,60 @@ public class NodeButton extends JFXButton {
                 break;
         }
 
+        if (this.getNode().getIsPathfinding()) {
+            this.toFront();
+            nameOfFile = "/edu/wpi/p/fxml/image/icons/destination.png";
+            this.setStyle(
+                    "-fx-background-radius: 10em; " +
+                            "-fx-min-width: 12px; " +
+                            "-fx-min-height: 12px; " +
+//                            "-fx-max-width: 12px; " +
+//                            "-fx-max-height: 12px;" +
+                            "-fx-background-color: red"
+            );
+//            this.setTranslateX(-6);
+//            this.setTranslateY(-6);
+        }
+        else {
+            if (nameOfFile.isEmpty()) {
+                if (!getNode().getIsSelected()) {//no image and not selected
+                    this.setStyle(getStyle() +
+                            ";-fx-background-radius: 5em; " +
+                            "-fx-min-width: 6px; " +
+                            "-fx-min-height: 6px; " +
+                            "-fx-max-width: 6px; " +
+                            "-fx-max-height: 6px;" +
+                            "-fx-background-color: #2F3159"
+                    );
+                } else {//no image and is selected
+                    this.setStyle(
+                            "-fx-background-radius: 5em; " +
+                                    "-fx-background-color: red"
+                    );
+                }
+                if (connectsLevels) { //if connecting levels
+                    setStyle(getStyle() + ";-fx-border-color: #00d1b5; " +
+                            "-fx-border-width: 2px;" +
+                            "-fx-border-radius: 5em");
+                }
+            } else { //set image if there is an image specified
+                buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile), 25, 25, true, true);
+                BackgroundSize bgsize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+                BackgroundImage backgroundImage = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize);
+                Background background = new Background(backgroundImage);
+                setBackground(background);
+                if (!connectsLevels) {
+                    setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
+                } else {
+                    setStyle("-fx-border-color: #00d1b5; -fx-border-width: 2px;");
+                }
+                if (getNode().getIsSelected()) //if is image and is selected
+                {
+                    setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                }
 
-        if(nameOfFile.isEmpty()){
-            if(!getNode().getIsSelected()){//no image and not selected
-                this.setStyle(getStyle()+
-                        ";-fx-background-radius: 5em; " +
-                        "-fx-background-color: #2F3159"
-                );
-            }
-            else{//no image and is selected
-                this.setStyle(
-                        "-fx-background-radius: 5em; " +
-                                "-fx-background-color: red"
-                );
-            }
-            if(connectsLevels) { //if connecting levels
-                setStyle(getStyle()+";-fx-border-color: #00d1b5; " +
-                        "-fx-border-width: 2px;" +
-                        "-fx-border-radius: 5em");
             }
         }
-        else{ //set image if there is an image specified
-            buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),25,25,true, true);
-            BackgroundSize bgsize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true, false);
-            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize);
-            Background background = new Background(backgroundImage);
-            setBackground(background);
-            if(!connectsLevels) {
-                setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
-            }
-            else{
-                setStyle("-fx-border-color: #00d1b5; -fx-border-width: 2px;");
-            }
-            if (getNode().getIsSelected()) //if is image and is selected
-            {
-                setStyle("-fx-border-color: red; -fx-border-width: 2px;");
-            }
-
-        }
-
         updateSize();
 
     }
