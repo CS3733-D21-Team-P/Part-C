@@ -1,6 +1,6 @@
 package edu.wpi.p.database;
 
-public class User {
+public class UserFromDB {
     private String Name;
     private String Username;
     private String Password;
@@ -8,14 +8,14 @@ public class User {
     private String Blank;
 
 
-    public User(String Name, String Username, String Password, String Status) {
+    public UserFromDB(String Name, String Username, String Password, String Status) {
         this.Name = Name;
         this.Username = Username;
         this.Password = Password;
         this.Status = Status;
     }
 
-    public User(String Name, String Username, String Password, String Status,String Blank) {
+    public UserFromDB(String Name, String Username, String Password, String Status,String Blank) {
         this.Name = Name;
         this.Username = Username;
         this.Password = Password;
@@ -23,7 +23,7 @@ public class User {
         this.Blank = Blank;
     }
 
-    public User(String username, String password) {
+    public UserFromDB(String username, String password) {
         this.Username = username;
         this.Password = password;
     }

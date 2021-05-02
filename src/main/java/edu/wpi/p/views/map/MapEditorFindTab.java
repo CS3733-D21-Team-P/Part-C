@@ -83,13 +83,14 @@ public class MapEditorFindTab {
         filterField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                nodeTable.setPredicate(new Predicate<TreeItem<Node>>() {
+                nodeTable.setPredicate(new Predicate<TreeItem<NodeTableEntry>>() {
                     @Override
-                    public boolean test(TreeItem<Node> nodeTreeItem) {
-                        Boolean flag = nodeTreeItem.getValue().getShortName().contains(newValue);
+                    public boolean test(TreeItem<NodeTableEntry> nodeTreeItem) {
+                        return nodeTreeItem.getValue().getNode().getShortName().contains(newValue);
+                        //Boolean flag = nodeTreeItem.getValue().getShortName().contains(newValue);
                         //nodeTreeItem.getValue().setIsSelected(flag);
                         //nodeButton.setButtonStyle();
-                        return flag;
+//                        return flag;
                     }
                 });
             }

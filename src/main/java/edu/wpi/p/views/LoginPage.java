@@ -7,6 +7,7 @@ import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.*;
 import edu.wpi.p.App;
+import edu.wpi.p.userstate.LoginException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +24,7 @@ import org.sqlite.core.DB;
 
 import java.sql.SQLException;
 import java.util.List;
+import edu.wpi.p.userstate.User;
 
 
 import java.io.IOException;
@@ -39,17 +41,17 @@ public class LoginPage {
 
     private DBUser dbuser;
 
-    User admin = new User("Admin", "admin", "admin", "Admin");
-    User aemployee = new User("David", "David", "123456", "Employee");
-    User bemployee = new User("Alex", "Alex", "123456", "Employee");
-    User cemployee = new User("Andrew", "Andrew", "123456", "Employee");
-    User demployee = new User("Nina", "Nina", "123456", "Employee");
-    User eemployee = new User("Loren", "Loren", "123456", "Employee");
-    User femployee = new User("Yoko", "Yoko", "123456", "Employee");
-    User gemployee = new User("Yang", "Yang", "123456", "Employee");
-    User hemployee = new User("Rohan", "Rohan", "123456", "Employee");
-    User iemployee = new User("Nicolas", "Nicolas", "123456", "Employee");
-    User jemployee = new User("Ian", "Ian", "123456", "Employee");
+    UserFromDB admin = new UserFromDB("Admin", "admin", "admin", "Admin");
+    UserFromDB aemployee = new UserFromDB("David", "David", "123456", "Employee");
+    UserFromDB bemployee = new UserFromDB("Alex", "Alex", "123456", "Employee");
+    UserFromDB cemployee = new UserFromDB("Andrew", "Andrew", "123456", "Employee");
+    UserFromDB demployee = new UserFromDB("Nina", "Nina", "123456", "Employee");
+    UserFromDB eemployee = new UserFromDB("Loren", "Loren", "123456", "Employee");
+    UserFromDB femployee = new UserFromDB("Yoko", "Yoko", "123456", "Employee");
+    UserFromDB gemployee = new UserFromDB("Yang", "Yang", "123456", "Employee");
+    UserFromDB hemployee = new UserFromDB("Rohan", "Rohan", "123456", "Employee");
+    UserFromDB iemployee = new UserFromDB("Nicolas", "Nicolas", "123456", "Employee");
+    UserFromDB jemployee = new UserFromDB("Ian", "Ian", "123456", "Employee");
 
 
     @FXML
@@ -87,7 +89,7 @@ public class LoginPage {
     }
 
     public void guestButtonAC(ActionEvent actionEvent) {
-        HomePage.Isguest = true;
+        User.getInstance().beGuest();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
@@ -98,29 +100,16 @@ public class LoginPage {
 
 
     public void loginButtonAC(ActionEvent actionEvent) {
-        if(passwordTXT.getText().equals("")){
-            AlertBox.display("Wrong Information", "Please enter the Password");
-            return;
-        }
-
-        if ((dbuser.checkUsername(usernameTXT.getText())).equals(passwordTXT.getText())) {
-            if ((dbuser.checkIdentity(usernameTXT.getText())).equals("Employee")) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
-                    App.getPrimaryStage().getScene().setRoot(root);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            } else if ((dbuser.checkIdentity(usernameTXT.getText())).equals("Admin")) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
-                    App.getPrimaryStage().getScene().setRoot(root);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+        try {
+            User.getInstance().login(usernameTXT.getText(), passwordTXT.getText());
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+                App.getPrimaryStage().getScene().setRoot(root);
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-        }else {
-            AlertBox.display("Wrong Information", "Please enter the correct Username and Password");
+        } catch (LoginException loginException) {
+            AlertBox.display(loginException.getTitle(), loginException.getMessage());
         }
     }
 }

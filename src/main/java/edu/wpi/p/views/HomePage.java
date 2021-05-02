@@ -10,6 +10,7 @@ import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DatabaseInterface;
+import edu.wpi.p.userstate.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,8 +47,6 @@ public class HomePage {
   @FXML
   public JFXButton editButton;
 
-
-  public static boolean Isguest;
   public JFXButton requsetLog;
 
 //  public JFXButton languageInterpretersBtn;
@@ -75,7 +74,7 @@ public class HomePage {
       }
 
     }
-    if(Isguest){
+    if(User.getInstance().isGuest()){
       editButton.setVisible(false);
       SRoption.setVisible(false);
       requsetLog.setVisible(false);
