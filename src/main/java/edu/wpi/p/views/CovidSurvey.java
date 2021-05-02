@@ -36,13 +36,17 @@ public class CovidSurvey {
     public JFXButton submitButton;
     @FXML
     public JFXButton cancelButton;
+    public boolean approved = false;
 
     @FXML
     private void submitPressed(ActionEvent actionEvent)
     {
         if (firstCheckBox.isSelected() || secondCheckBox.isSelected() || thirdCheckBox.isSelected() || fourthCheckBox.isSelected())
         {
-            System.out.println("COVID RISK!");    // this is temporary
+            AlertBox.display("COVID Survey Results", "Potential COVID Risk. Please Use Emergency Entrance.");    // this is temporary
+        }
+        else{
+            AlertBox.display("COVID Survey Results", "No Potential COVID Risk. Please Use 75 Francis Street Entrance.");
         }
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));

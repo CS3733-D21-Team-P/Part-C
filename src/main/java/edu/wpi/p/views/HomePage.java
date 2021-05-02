@@ -45,6 +45,8 @@ public class HomePage {
   public JFXButton pathButton;
   @FXML
   public JFXButton editButton;
+  @FXML
+  public JFXButton CovidButton;
 
 
   public static boolean Isguest;
@@ -82,9 +84,9 @@ public class HomePage {
     }
   }
 
-  public void languageInterpretersBtn(ActionEvent actionEvent) {
+  public void entryButtonAc(ActionEvent actionEvent){
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/LanguageInterpreterServiceRequest.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/EntryRequest.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
