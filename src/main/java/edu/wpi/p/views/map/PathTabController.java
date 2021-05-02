@@ -90,6 +90,10 @@ public class PathTabController {
      * @param actionEvent
      */
     public void findPath(ActionEvent actionEvent){
+        if (startNodeButton != null)
+        {
+
+        }
         if (startNode==null || !start.getText().equals(startNode.getName())){
             System.out.println("set start");
             String startText = start.getText();
