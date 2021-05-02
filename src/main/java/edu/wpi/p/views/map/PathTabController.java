@@ -33,6 +33,8 @@ public class PathTabController {
     private AStar search = new AStar();
     private Node startNode;
     private Node endNode;
+    private NodeButton startNodeButton;
+    private NodeButton endNodeButton;
     private List<EdgeLine> pathLine= new ArrayList<>();
 
     @FXML public JFXTextField start;
@@ -133,8 +135,12 @@ public class PathTabController {
                     EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
                     pathLine.add(line);
+                    line.toFront();
                 }
             }
+
+            pathfindStyle(startNodeButton);
+            pathfindStyle(endNodeButton);
 
             pathfindingMap.graph.resetNodeGraph();
 
@@ -162,6 +168,7 @@ public class PathTabController {
             startNode= button.getNode();
             start.setText(button.getName()); //set text field text to be node name
             System.out.println("start: "+ button.getName());
+            startNodeButton = button;
             mapState = State.ENTEREND;
         }
         else if(mapState.equals(State.ENTEREND)){
@@ -169,6 +176,7 @@ public class PathTabController {
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
+            endNodeButton = button;
         }
 
         String text1= start.getText();
@@ -185,5 +193,19 @@ public class PathTabController {
         else{
             instructions.setText("press search to find a path");
         }
+    }
+
+    private void pathfindStyle(NodeButton nb) {
+        nb.setTranslateX(-6);
+        nb.setTranslateY(-6);
+        nb.toFront();
+        nb.setStyle(
+                "-fx-background-radius: 10em; " +
+                        "-fx-min-width: 12px; " +
+                        "-fx-min-height: 12px; " +
+                        "-fx-max-width: 12px; " +
+                        "-fx-max-height: 12px;" +
+                        "-fx-background-color: red"
+        );
     }
 }
