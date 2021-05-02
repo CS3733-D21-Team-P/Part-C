@@ -1,9 +1,5 @@
 package edu.wpi.p.database;
 
-import edu.wpi.p.AStar.Node;
-import edu.wpi.p.csv.Column;
-import org.sqlite.core.DB;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +45,7 @@ public class DBUser {
         return DatabaseInterface.checkColumnObjects(selectCommand, "Status");
     }
 
-    public void addUser(User e) {
+    public void addUser(UserFromDB e) {
         String insertValue = "'" + e.getName() + "', '" + e.getUsername() + "', '" + e.getPassword() + "', '" + e.getIdentity() + "'";
         DatabaseInterface.insertIntoTable(DBUser, insertValue);
     }
@@ -59,7 +55,7 @@ public class DBUser {
         DatabaseInterface.executeUpdate(removeCommand);
     }
 
-    public void updateUser(User e) {
+    public void updateUser(UserFromDB e) {
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE nodeID = '"+e.getUsername()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Position = '"+e.getPassword()+"' WHERE nodeID = '"+e.getUsername()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Position = '"+e.getIdentity()+"' WHERE nodeID = '"+e.getUsername()+"'");
@@ -87,7 +83,7 @@ public class DBUser {
      * The nodes do not have their edges set
      * @return
      */
-    public List<User> getUsers() {
+    public List<UserFromDB> getUsers() {
         List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);//new ArrayList<>();
 
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(DBUser);
@@ -98,19 +94,19 @@ public class DBUser {
         int Identity = indexOfColumnByName(dbColumns, "Identity");
 
         //create Users
-        List<User> users = new ArrayList<>(userData.size());
+        List<UserFromDB> userFromDBS = new ArrayList<>(userData.size());
         for(int i = 1; i < userData.size(); i++) {
             List<String> userString = userData.get(i);
 
-            User user = new User(
+            UserFromDB userFromDB = new UserFromDB(
                     userString.get(Name),
                     userString.get(Username),
                     userString.get(Password),
                     userString.get(Identity));
-            users.add(user);
+            userFromDBS.add(userFromDB);
         }
 
-        return users;
+        return userFromDBS;
     }
 
     public List<String> getUsernames() {
