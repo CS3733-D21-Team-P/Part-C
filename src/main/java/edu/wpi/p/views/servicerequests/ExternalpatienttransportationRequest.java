@@ -112,8 +112,6 @@ public class ExternalpatienttransportationRequest extends GenericServiceRequest 
         this.values.put("End Room Number", endRoomNumText.textProperty());
         this.values.put("Vehicle", vehicleProperty);
         this.values.put("Date", DatePicker.valueProperty());
-//        this.values.put("Hour", hourText.textProperty());
-//        this.values.put("Minute", minuteText.textProperty());
         this.values.put("Detail", detailText.textProperty());
         this.values.put("Doctor Signature", doctorSignature.textProperty());
     }

@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class GiftDelivery {
+public class GiftDelivery extends GenericServiceRequest{
     @FXML
     public JFXTextField name;
     @FXML
@@ -46,7 +46,16 @@ public class GiftDelivery {
 
 
 
+    public GiftDelivery() {
+        super();
+        super.name = "Gift Delivery";
+    }
 
+
+    @FXML
+    public void initialize() {
+
+    }
 
 
     public void advanceScene(ActionEvent actionEvent) {

@@ -2,11 +2,13 @@ package edu.wpi.p.views.servicerequests;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.Toolbar;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,33 +16,39 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class FoodDeliveryRequest extends Toolbar {
+public class FoodDeliveryRequest extends GenericServiceRequest {
     @FXML
     public JFXTextField name;
     @FXML
     public JFXTextField currRoom;
     @FXML
-    public JFXCheckBox regular;
+    public JFXRadioButton regular;
     @FXML
-    public JFXCheckBox vegetarian;
+    public JFXRadioButton vegetarian;
     @FXML
-    public JFXCheckBox vegan;
+    public JFXRadioButton vegan;
     @FXML
     public JFXButton back;
     @FXML
     public JFXButton submit;
 
+    public FoodDeliveryRequest() {
+        super();
+        super.name = "Food Delivery Request";
+    }
+
+    @FXML
+    public void initialize() {
+        this.locationProperty = currRoom.textProperty();
+        StringProperty foodType = createJFXRadioButtonStringProperty(regular, vegetarian, vegan);
+        this.values.put("Name", name.textProperty());
+        this.values.put("Room", currRoom.textProperty());
+        this.values.put("Food Type", foodType);
+    }
+
     @FXML
     private void submitForm(ActionEvent e) {
-        final String doctor = name.getText();
-        final String location = currRoom.getText();
-
-
-        ServiceRequest sR = new ServiceRequest(doctor, location, "Name" + "_" + location, "Floral Delivery Request");
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
-        dbServiceRequest.addServiceRequest(sR);
-
-
+        super.submitPressed(e);
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));

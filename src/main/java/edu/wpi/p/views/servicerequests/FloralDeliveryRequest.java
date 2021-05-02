@@ -58,15 +58,7 @@ public class FloralDeliveryRequest extends GenericServiceRequest {
 
     @FXML
     private void submitForm(ActionEvent e) {
-        final String doctor = name.getText();
-        final String location = currRoom.getText();
-
-
-        ServiceRequest sR = new ServiceRequest(doctor, location, "Name" + "_" + location, "Floral Delivery Request");
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
-        dbServiceRequest.addServiceRequest(sR);
-
-
+        super.submitPressed(e);
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
