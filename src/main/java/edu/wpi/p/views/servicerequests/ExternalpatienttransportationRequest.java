@@ -1,5 +1,6 @@
 package edu.wpi.p.views.servicerequests;
 
+import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.p.App;
 
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.time.LocalDate;
 
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -74,11 +76,11 @@ public class ExternalpatienttransportationRequest extends GenericServiceRequest 
     @FXML
     public ToggleGroup Vehicle;
     @FXML
-    public RadioButton AmbulanceBtn;
+    public JFXRadioButton AmbulanceBtn;
     @FXML
-    public RadioButton HelicopterBtn;
+    public JFXRadioButton HelicopterBtn;
     @FXML
-    public RadioButton PlaneBtn;
+    public JFXRadioButton PlaneBtn;
     @FXML
     public javafx.scene.control.DatePicker DatePicker;
     @FXML
@@ -102,12 +104,13 @@ public class ExternalpatienttransportationRequest extends GenericServiceRequest 
         endHospital.setValue("A hospital");
         endHospital.setItems(hospitalList);
 
+        StringProperty vehicleProperty = createJFXRadioButtonStringProperty(AmbulanceBtn, HelicopterBtn, PlaneBtn);
         this.locationProperty = currentRoomNumText.textProperty();
         this.values.put("First Name", firstNameText.textProperty());
         this.values.put("Last Name", lastNameText.textProperty());
         this.values.put("Room Number", currentRoomNumText.textProperty());
         this.values.put("End Room Number", endRoomNumText.textProperty());
-//    this.values.put("Vehicle", Vehicle.selectedToggleProperty());
+        this.values.put("Vehicle", vehicleProperty);
         this.values.put("Date", DatePicker.valueProperty());
 //        this.values.put("Hour", hourText.textProperty());
 //        this.values.put("Minute", minuteText.textProperty());

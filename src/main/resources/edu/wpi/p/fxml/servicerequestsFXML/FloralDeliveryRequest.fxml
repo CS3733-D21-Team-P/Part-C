@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.FloralDeliveryRequest">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
@@ -48,15 +49,15 @@
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrapping Color:" GridPane.rowIndex="5" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Message:" GridPane.rowIndex="6" />
             <JFXTextArea fx:id="message" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <JFXCheckBox fx:id="tulips" text="Tulips" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <JFXCheckBox fx:id="roses" text="Roses" textFill="WHITE" translateX="25.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <JFXCheckBox fx:id="painBush" text="Pain Bush" textFill="WHITE" translateX="225.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXRadioButton fx:id="tulips" text="Tulips" textFill="WHITE" translateX="125.0"  GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXRadioButton fx:id="roses" text="Roses" textFill="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXRadioButton fx:id="painBush" text="Pain Bush" textFill="WHITE" translateX="225.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="7" />
             <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             <JFXColorPicker fx:id="color" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <JFXCheckBox fx:id="small" text="Small" textFill="WHITE" translateX="25.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <JFXCheckBox fx:id="large" text="Large" textFill="WHITE" translateX="225.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <JFXCheckBox fx:id="medium" text="Medium" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXRadioButton fx:id="small" text="Small" textFill="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXRadioButton fx:id="large" text="Large" textFill="WHITE" translateX="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXRadioButton fx:id="medium" text="Medium" textFill="WHITE" translateX="125.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.rowIndex="1" />
             <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <JFXTextField fx:id="currRoom" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -89,10 +89,9 @@ public class ServiceRequest extends DBRow {
         HashMap<String, String> result = new HashMap<>();
         for (String line : entries) {
             String[] values = line.split("" + keyValueSeperator);
-            if (values.length != 2) {
-                System.out.println("THERE WAS AN ISSUE PARSING DETAILS, FOUND " + values.length + " VALUES, WANTED 2\n the line is: " + line);
+            if (values.length == 2) {
+                result.put(values[0], values[1]);
             }
-            result.put(values[0], values[1]);
         }
 
         return result;
