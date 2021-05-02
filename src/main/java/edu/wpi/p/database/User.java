@@ -5,6 +5,7 @@ public class User {
     private String Username;
     private String Password;
     private String Status;
+    private String Blank;
 
 
     public User(String Name, String Username, String Password, String Status) {
@@ -12,6 +13,14 @@ public class User {
         this.Username = Username;
         this.Password = Password;
         this.Status = Status;
+    }
+
+    public User(String Name, String Username, String Password, String Status,String Blank) {
+        this.Name = Name;
+        this.Username = Username;
+        this.Password = Password;
+        this.Status = Status;
+        this.Blank = Blank;
     }
 
     public User(String username, String password) {

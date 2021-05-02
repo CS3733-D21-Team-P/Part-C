@@ -13,7 +13,7 @@
       <Label layoutX="13.0" layoutY="15.0" prefHeight="18.0" prefWidth="71.0" text="AccountLog" />
       <Button fx:id="addPeopleBtn" layoutX="498.0" layoutY="397.0" mnemonicParsing="false" onAction="#addPeopleAc" text="Add People" />
       <Button fx:id="deletePeopleBtn" layoutX="492.0" layoutY="342.0" mnemonicParsing="false" onAction="#deletePeopleAc" prefHeight="35.0" prefWidth="92.0" text="Delete People" />
-      <TableView fx:id="nodeDataTableView" layoutX="10.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
+      <TableView fx:id="accountDataTableView" layoutX="10.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
          <columns>
             <TableColumn fx:id="NameCol" minWidth="20.0" onEditCommit="#EditName" prefWidth="119.2000150680542" text="Name" />
             <TableColumn fx:id="UsernameCol" onEditCommit="#EditUsername" prefWidth="129.6000213623047" text="Username" />
