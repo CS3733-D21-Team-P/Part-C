@@ -37,27 +37,27 @@ public class AccountLog {
     public TextField tfstatus;
     public TextField tfpassword;
     public TextField tfblank;
-    public TableView<User> accountDataTableView;
-    public TableColumn<User, String> NameCol;
-    public TableColumn<User, String> UsernameCol;
-    public TableColumn<User, String> PasswordCol;
-    public TableColumn<User, String> StatusCol;
-    public TableColumn<User, String> Blank;
+    public TableView<UserFromDB> accountDataTableView;
+    public TableColumn<UserFromDB, String> NameCol;
+    public TableColumn<UserFromDB, String> UsernameCol;
+    public TableColumn<UserFromDB, String> PasswordCol;
+    public TableColumn<UserFromDB, String> StatusCol;
+    public TableColumn<UserFromDB, String> Blank;
 
 
     private final DBUser dbuser = new DBUser();
-    private List<User> userDataList;
+    private List<UserFromDB> userDataList;
 
     @FXML
     private void initialize() throws Exception {
 
         userDataList = dbuser.getUsers();
 
-        NameCol.setCellValueFactory(new PropertyValueFactory<User, String>("Name"));
-        UsernameCol.setCellValueFactory(new PropertyValueFactory<User, String>("Username"));
-        PasswordCol.setCellValueFactory(new PropertyValueFactory<User, String>("Password"));
-        StatusCol.setCellValueFactory(new PropertyValueFactory<User, String>("Status"));
-        Blank.setCellValueFactory(new PropertyValueFactory<User, String>("Blank"));
+        NameCol.setCellValueFactory(new PropertyValueFactory<UserFromDB, String>("Name"));
+        UsernameCol.setCellValueFactory(new PropertyValueFactory<UserFromDB, String>("Username"));
+        PasswordCol.setCellValueFactory(new PropertyValueFactory<UserFromDB, String>("Password"));
+        StatusCol.setCellValueFactory(new PropertyValueFactory<UserFromDB, String>("Status"));
+        Blank.setCellValueFactory(new PropertyValueFactory<UserFromDB, String>("Blank"));
 
         //load in the edge data
         accountDataTableView.setItems(getUserData());
@@ -72,69 +72,69 @@ public class AccountLog {
 
     }
 
-    private ObservableList<User> getUserData(){
-        ObservableList<User> users = FXCollections.observableArrayList();
-        for (User n : userDataList){
+    private ObservableList<UserFromDB> getUserData(){
+        ObservableList<UserFromDB> users = FXCollections.observableArrayList();
+        for (UserFromDB n : userDataList){
             users.add(n);
         }
         return users;
     }
 
-    public void EditName(TableColumn.CellEditEvent<User, String> cellEditEvent) {
-        User user = accountDataTableView.getSelectionModel().getSelectedItem();
+    public void EditName(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
+        UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
         user.setName(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
-        User user1 = accountDataTableView.getItems().get(userRow);
+        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 
         DBUser dbUser = new DBUser();
         dbUser.updateUser(user1);
     }
 
-    public void EditUsername(TableColumn.CellEditEvent<User, String> cellEditEvent) {
-        User user = accountDataTableView.getSelectionModel().getSelectedItem();
+    public void EditUsername(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
+        UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
         user.setName(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
-        User user1 = accountDataTableView.getItems().get(userRow);
+        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 
         DBUser dbUser = new DBUser();
         dbUser.updateUser(user1);
     }
 
-    public void EditPassword(TableColumn.CellEditEvent<User, String> cellEditEvent) {
-        User user = accountDataTableView.getSelectionModel().getSelectedItem();
+    public void EditPassword(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
+        UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
         user.setName(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
-        User user1 = accountDataTableView.getItems().get(userRow);
+        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 
         DBUser dbUser = new DBUser();
         dbUser.updateUser(user1);
     }
 
-    public void EditStatus(TableColumn.CellEditEvent<User, String> cellEditEvent) {
-        User user = accountDataTableView.getSelectionModel().getSelectedItem();
+    public void EditStatus(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
+        UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
         user.setName(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
-        User user1 = accountDataTableView.getItems().get(userRow);
+        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 
         DBUser dbUser = new DBUser();
         dbUser.updateUser(user1);
     }
 
-    public void EditBlank(TableColumn.CellEditEvent<User, String> cellEditEvent) {
-        User user = accountDataTableView.getSelectionModel().getSelectedItem();
+    public void EditBlank(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
+        UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
         user.setName(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
-        User user1 = accountDataTableView.getItems().get(userRow);
+        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 
         DBUser dbUser = new DBUser();
         dbUser.updateUser(user1);
@@ -150,7 +150,7 @@ public class AccountLog {
     }
 
     public void addPeopleAc(ActionEvent actionEvent) {
-        User user = new User(tfname.getText(), tfusername.getText(),tfpassword.getText(),tfstatus.getText(),tfblank.getText());
+        UserFromDB user = new UserFromDB(tfname.getText(), tfusername.getText(),tfpassword.getText(),tfstatus.getText(),tfblank.getText());
         accountDataTableView.getItems().add(user);
 
         DBUser dbUser = new DBUser();
@@ -160,7 +160,7 @@ public class AccountLog {
     public void deletePeopleAc(ActionEvent actionEvent) {
         TablePosition userpos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userpos.getRow();
-        User user = accountDataTableView.getItems().get(userRow);
+        UserFromDB user = accountDataTableView.getItems().get(userRow);
         DBUser dbUser = new DBUser();
         dbUser.removeUser(user.getUsername());
         accountDataTableView.getItems().removeAll(accountDataTableView.getSelectionModel().getSelectedItem());
