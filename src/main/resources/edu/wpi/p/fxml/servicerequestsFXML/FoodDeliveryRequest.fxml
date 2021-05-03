@@ -4,30 +4,32 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.BorderPane?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.FoodDeliveryRequest">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.FoodDeliveryRequest">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
       </ImageView>
-      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
+      <BorderPane prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;">
+         <fx:include source="../Toolbar.fxml" />
       </BorderPane>
       <GridPane layoutX="1280.0" layoutY="353.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1110.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="324.4000244140625" minWidth="10.0" prefWidth="198.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="324.4000244140625" minWidth="10.0" prefWidth="47.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="324.4000244140625" minWidth="10.0" prefWidth="217.0" />
           <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="523.5999755859375" minWidth="10.0" prefWidth="462.0" />
         </columnConstraints>
         <rowConstraints>
@@ -39,24 +41,64 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.rowIndex="1" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" GridPane.rowIndex="2" />
-            <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="5" />
-            <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Special accommodations" GridPane.rowIndex="4" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Type:" GridPane.rowIndex="3" />
-            <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextArea fx:id="accommodations" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <JFXCheckBox fx:id="vegetarian" text="Vegetarian" textFill="WHITE" translateX="125.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <JFXCheckBox fx:id="regular" text="Regular" textFill="WHITE" translateX="25.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <JFXCheckBox fx:id="vegan" text="Vegan" textFill="WHITE" translateX="225.0" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <JFXTextField fx:id="currRoom" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Special accommodations:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal Type:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
+            <JFXTextField fx:id="name" focusColor="WHITE" labelFloat="true" prefWidth="300.0" promptText="Full Name" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextArea fx:id="accommodations" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="currRoom" focusColor="WHITE" labelFloat="true" prefWidth="300.0" promptText="AA St, AA, AA, 0000" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Delivery Request" GridPane.columnIndex="2">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" prefHeight="147.0" prefWidth="473.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <children>
+                  <JFXCheckBox fx:id="regular" text="Regular" textFill="WHITE" unCheckedColor="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="vegetarian" text="Vegetarian" textFill="WHITE" unCheckedColor="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="vegan" text="Vegan" textFill="WHITE" unCheckedColor="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </JFXCheckBox>
+               </children>
+            </HBox>
          </children>
       </GridPane>
-      <Text fill="WHITE" layoutX="1262.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food Delivery Request" translateY="100.0">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutY="1080.0">
+         <image>
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
    </children>
 </AnchorPane>

@@ -49,8 +49,8 @@
                </font></Text>
             <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <JFXButton fx:id="submit" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="loc" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="name" focusColor="WHITE" labelFloat="true" prefWidth="300.0" promptText="Full Name" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="loc" focusColor="WHITE" labelFloat="true" prefWidth="300.0" promptText="AAAA St, AAAA, AAAA, 0000-000" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Description of Problem:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                <font>
                   <Font size="16.0" />
@@ -60,7 +60,7 @@
                <font>
                   <Font size="16.0" />
                </font></Text>
-            <JFXTextField fx:id="facility" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="facility" focusColor="WHITE" labelFloat="true" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=" Maintenance Request" GridPane.columnIndex="2">
                <font>
                   <Font size="36.0" />
