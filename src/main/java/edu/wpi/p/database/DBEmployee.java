@@ -14,6 +14,7 @@ public class DBEmployee {
         columns.add(new DBColumn("Name", "varchar(256)", ""));
         columns.add(new DBColumn("Position", "varchar(256)", ""));
         columns.add(new DBColumn("Salary", "varchar(256)", ""));
+        columns.add(new DBColumn("AssignedSR", "varchar(256)", ""));
 
     }
 
@@ -34,7 +35,7 @@ public class DBEmployee {
     }
 
     public void addEmployee(Employee e) {
-        String insertValue = "'" + e.getEmployeeID() + "', '" + e.getName() + "', '" + e.getPosition() + "', '" + e.getSalary() + "'";
+        String insertValue = "'" + e.getEmployeeID() + "', '" + e.getName() + "', '" + e.getPosition() + "', '" + e.getSalary() + "', '" + e.getAssignedSR() + "'";
         DatabaseInterface.insertIntoTable(EmployeeTable, insertValue);
     }
 
@@ -47,6 +48,7 @@ public class DBEmployee {
         DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Name = "+e.getName()+" WHERE EmployeeID = '"+e.getEmployeeID()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Position = '"+e.getPosition()+"' WHERE EmployeeID = '"+e.getEmployeeID()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Salary = '"+e.getSalary()+"' WHERE EmployeeID = '"+e.getEmployeeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET AssignedSR = '"+e.getAssignedSR()+"' WHERE EmployeeID = '"+e.getEmployeeID()+"'");
     }
 
     /**
@@ -75,6 +77,8 @@ public class DBEmployee {
         int EmployeeID = indexOfColumnByName(dbColumns, "EmployeeID");
         int Position = indexOfColumnByName(dbColumns, "Position");
         int Salary = indexOfColumnByName(dbColumns, "Salary");
+        int AssignedSR = indexOfColumnByName(dbColumns, "AssignedSR");
+
 
         //create Users
         List<Employee> employeesFromDBS = new ArrayList<>(employeeData.size());
@@ -85,7 +89,8 @@ public class DBEmployee {
                     employeeString.get(Name),
                     employeeString.get(EmployeeID),
                     employeeString.get(Position),
-                    employeeString.get(Salary));
+                    employeeString.get(Salary),
+                    employeeString.get(AssignedSR));
             employeesFromDBS.add(employeeFromDB);
         }
 

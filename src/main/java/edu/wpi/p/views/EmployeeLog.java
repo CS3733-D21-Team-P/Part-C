@@ -31,6 +31,7 @@ public class EmployeeLog {
     public TextField tfemployeeid;
     public TextField tfsalary;
     public TextField tfposition;
+    public TextField tfassignedsr;
 
     private final DBEmployee dbemployee = new DBEmployee();
     private List<Employee> employeeDataList;
@@ -114,7 +115,7 @@ public class EmployeeLog {
     }
 
     public void addEmployeeAc(ActionEvent actionEvent) {
-        Employee employee = new Employee(tfname.getText(), tfemployeeid.getText(),tfposition.getText(),tfsalary.getText());
+        Employee employee = new Employee(tfname.getText(), tfemployeeid.getText(),tfposition.getText(),tfsalary.getText(),tfassignedsr.getText());
         employeeDataTableView.getItems().add(employee);
 
         DBEmployee dbemployee = new DBEmployee();
@@ -137,5 +138,17 @@ public class EmployeeLog {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void EditAssignedSR(TableColumn.CellEditEvent<Employee, String> cellEditEvent) {
+        Employee employee = employeeDataTableView.getSelectionModel().getSelectedItem();
+        employee.setAssignedSR(cellEditEvent.getNewValue());
+
+        TablePosition userPos = employeeDataTableView.getSelectionModel().getSelectedCells().get(0);
+        int userRow = userPos.getRow();
+        Employee employee1 = employeeDataTableView.getItems().get(userRow);
+
+        DBEmployee dbemployee = new DBEmployee();
+        dbemployee.updateEmployee(employee1);
     }
 }

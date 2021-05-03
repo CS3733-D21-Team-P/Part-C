@@ -15,15 +15,17 @@
       <Button fx:id="deleteEmployeeBtn" layoutX="507.0" layoutY="359.0" mnemonicParsing="false" onAction="#deleteEmployeeAc" prefHeight="35.0" prefWidth="112.0" text="Delete Employee" />
       <TableView fx:id="employeeDataTableView" layoutX="10.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
          <columns>
-            <TableColumn fx:id="NameCol" minWidth="20.0" onEditCommit="#EditName" prefWidth="130.40002727508545" text="Name" />
-            <TableColumn fx:id="EmployeeIDCol" onEditCommit="#EditEmployeeID" prefWidth="165.6000213623047" text="EmployeeID" />
-            <TableColumn fx:id="PositionCol" minWidth="0.0" onEditCommit="#EditPosition" prefWidth="180.7999267578125" text="Position" />
-            <TableColumn fx:id="SalaryCol" minWidth="0.0" onEditCommit="#EditSalary" prefWidth="168.0" text="Salary" />
+            <TableColumn fx:id="NameCol" minWidth="20.0" onEditCommit="#EditName" prefWidth="114.40002727508545" text="Name" />
+            <TableColumn fx:id="EmployeeIDCol" onEditCommit="#EditEmployeeID" prefWidth="129.5999755859375" text="EmployeeID" />
+            <TableColumn fx:id="PositionCol" minWidth="0.0" onEditCommit="#EditPosition" prefWidth="127.99998474121094" text="Position" />
+            <TableColumn fx:id="SalaryCol" minWidth="0.0" onEditCommit="#EditSalary" prefWidth="132.0" text="Salary" />
+            <TableColumn fx:id="assignedsrCol" onEditCommit="#EditAssignedSR" prefWidth="135.99993896484375" text="AssignedSR" />
          </columns>
       </TableView>
       <Button fx:id="homeButton" layoutX="563.0" layoutY="11.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
       <TextField fx:id="tfemployeeid" layoutX="191.0" layoutY="347.0" promptText="EmployeeID" />
       <TextField fx:id="tfsalary" layoutX="191.0" layoutY="384.0" promptText="Salary" />
       <TextField fx:id="tfposition" layoutX="14.0" layoutY="384.0" promptText="Position" />
+      <TextField fx:id="tfassignedsr" layoutX="104.0" layoutY="417.0" promptText="AssignedSR" />
    </children>
 </AnchorPane>
