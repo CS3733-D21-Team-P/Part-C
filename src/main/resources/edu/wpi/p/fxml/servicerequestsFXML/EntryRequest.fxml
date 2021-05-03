@@ -13,7 +13,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.EntryRequest">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0">
@@ -21,7 +20,7 @@
             <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
       </ImageView>
-      <GridPane layoutX="985.0" layoutY="323.0" prefHeight="880.0" prefWidth="660.0" style="-fx-background-color: #2F3159;" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
+      <GridPane layoutX="985.0" layoutY="323.0" style="-fx-background-color: #2F3159;" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="322.800048828125" minWidth="10.0" prefWidth="228.4000244140625" />
           <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="446.800048828125" minWidth="10.0" prefWidth="431.5999755859375" />
@@ -29,6 +28,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="169.60001220703126" minHeight="10.0" prefHeight="169.60001220703126" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="121.5999969482422" minHeight="10.0" prefHeight="83.19998779296876" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="121.5999969482422" minHeight="10.0" prefHeight="83.19998779296876" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="171.60001220703128" minHeight="10.0" prefHeight="101.99997558593753" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="249.80002441406248" minHeight="10.0" prefHeight="197.60001220703128" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="205.19998779296873" minHeight="10.0" prefHeight="205.19998779296873" vgrow="SOMETIMES" />
@@ -36,12 +36,14 @@
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.rowIndex="1" />
             <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: white;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXButton fx:id="surveyBtn" onAction="#covidButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Next" textFill="WHITE" translateX="155.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <JFXButton fx:id="back" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="4" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" GridPane.rowIndex="2" />
-            <JFXTimePicker fx:id="time" defaultColor="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason For Visit:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-            <JFXTextArea fx:id="reason" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: white;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXButton fx:id="next" onAction="#nextAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Next" textFill="WHITE" translateX="155.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <JFXButton fx:id="back" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="5" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" GridPane.rowIndex="3" />
+            <JFXTimePicker fx:id="time" defaultColor="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason For Visit:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <JFXTextArea fx:id="reason" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: white;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="loc" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: white;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <fx:include source="../Toolbar.fxml" />

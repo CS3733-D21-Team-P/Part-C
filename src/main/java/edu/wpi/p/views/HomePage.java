@@ -46,7 +46,7 @@ public class HomePage {
   @FXML
   public JFXButton editButton;
   @FXML
-  public JFXButton CovidButton;
+  public JFXButton entryButton;
 
 
   public static boolean Isguest;
@@ -92,7 +92,7 @@ public class HomePage {
       ex.printStackTrace();
     }
   }
-  public void requsetLogAc(ActionEvent actionEvent) {
+  public void requestLogAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/RequestLogPage.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
