@@ -42,6 +42,7 @@ public class CovidSurvey {
     public JFXButton submitButton;
     @FXML
     public JFXButton cancelButton;
+    public ServiceRequest request;
 
 
     @FXML
@@ -55,12 +56,14 @@ public class CovidSurvey {
             ServiceRequest sR = new ServiceRequest(n, "Emergency Entrance", "Name" + "_" + "Emergency Entrance", "COVID Survey");
             DBServiceRequest dbServiceRequest = new DBServiceRequest();
             dbServiceRequest.addServiceRequest(sR);
+            request = sR;
         }
         else{
             AlertBox.displayCOVID("COVID Survey Results", "No Potential COVID Risk. Please Use 75 Francis Street Entrance.");
             ServiceRequest sR = new ServiceRequest(n, "75 Francis", "Name" + "_" + "75 Francis", "COVID Survey");
             DBServiceRequest dbServiceRequest = new DBServiceRequest();
             dbServiceRequest.addServiceRequest(sR);
+            request = sR;
         }
 
         try {

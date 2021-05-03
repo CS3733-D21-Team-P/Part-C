@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTimePicker;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
+import edu.wpi.p.views.HomePage;
 import edu.wpi.p.views.Toolbar;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +22,7 @@ public class EntryRequest extends Toolbar {
     public JFXButton next;
     public JFXButton back;
     public boolean approved;
+    public static ServiceRequest request;
 
     public String getName() {
         return name.getText();
@@ -38,7 +40,7 @@ public class EntryRequest extends Toolbar {
         this.loc = loc;
     }
 
-    public EntryRequest nextAc(){
+    public void nextAc(){
         approved = false;
         final String n = name.getText();
         final String location = loc.getText();
@@ -47,6 +49,7 @@ public class EntryRequest extends Toolbar {
         ServiceRequest sR = new ServiceRequest(n, location, "Name" + "_" + location, "Entry Request");
         DBServiceRequest dbServiceRequest = new DBServiceRequest();
         dbServiceRequest.addServiceRequest(sR);
+        request = sR;
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/CovidPage.fxml"));
@@ -54,6 +57,13 @@ public class EntryRequest extends Toolbar {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return this;
+    }
+
+    public static void updateApproved(){
+        if(request != null){
+            if(request.getCompleted()){
+                HomePage.approved = true;
+            }
+        }
     }
 }

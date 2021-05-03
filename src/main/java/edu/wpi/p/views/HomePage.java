@@ -10,6 +10,7 @@ import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DatabaseInterface;
+import edu.wpi.p.views.servicerequests.EntryRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,7 +51,9 @@ public class HomePage {
 
 
   public static boolean Isguest;
+  public static boolean approved;
   public JFXButton requsetLog;
+
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -75,14 +78,19 @@ public class HomePage {
       } catch (Exception e) {
         e.printStackTrace();
       }
-
     }
+    EntryRequest.updateApproved();
     if(Isguest){
+      pathButton.setVisible(false);
       editButton.setVisible(false);
       SRoption.setVisible(false);
       requsetLog.setVisible(false);
     }
+    if (approved){
+      pathButton.setVisible(true);
+    }
   }
+
 
   public void entryButtonAc(ActionEvent actionEvent){
     try {
@@ -180,6 +188,10 @@ public class HomePage {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public void updateApproved(){
+
   }
 
 //  public void sanitationServiceBtn(ActionEvent actionEvent) {
