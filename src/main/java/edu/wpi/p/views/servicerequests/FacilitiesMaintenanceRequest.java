@@ -23,6 +23,8 @@ public class FacilitiesMaintenanceRequest extends GenericServiceRequest {
     public JFXButton back;
     public JFXButton submit;
 
+    public static final String[] fields = {"Name", "Facility", "Description"};
+
     @FXML
     public void initialize() {
         super.name = "Facilities Maintenance Request";

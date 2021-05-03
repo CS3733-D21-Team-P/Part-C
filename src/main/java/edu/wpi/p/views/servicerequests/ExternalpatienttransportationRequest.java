@@ -1,6 +1,7 @@
 package edu.wpi.p.views.servicerequests;
 
 import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTimePicker;
 import edu.wpi.p.App;
 
 import java.io.IOException;
@@ -83,6 +84,7 @@ public class ExternalpatienttransportationRequest extends GenericServiceRequest 
     public JFXRadioButton PlaneBtn;
     @FXML
     public javafx.scene.control.DatePicker DatePicker;
+    @FXML public JFXTimePicker TimePicker;
     @FXML
     public TextField doctorSignature;
 
@@ -90,10 +92,11 @@ public class ExternalpatienttransportationRequest extends GenericServiceRequest 
     ObservableList<String> hospitalList = FXCollections
             .observableArrayList("A hospital", "B hospital", "C  hospital");
 
+    public static String[] fields = {"First Name", "Last Name", "Room Number", "End Room Number", "Vehicle", "Date", "Time", "Detail", "Doctor Signature"};
 
     public ExternalpatienttransportationRequest() {
         super();
-        this.name = "External Patient Transport";
+        super.name = "External Patient Transport";
 
     }
 
@@ -112,6 +115,7 @@ public class ExternalpatienttransportationRequest extends GenericServiceRequest 
         this.values.put("End Room Number", endRoomNumText.textProperty());
         this.values.put("Vehicle", vehicleProperty);
         this.values.put("Date", DatePicker.valueProperty());
+        this.values.put("Time", TimePicker.valueProperty());
         this.values.put("Detail", detailText.textProperty());
         this.values.put("Doctor Signature", doctorSignature.textProperty());
     }

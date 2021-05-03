@@ -77,6 +77,7 @@ public class ServiceRequest extends DBRow {
     public void completed() {
         this.changeValue(completeCol, true);
     }
+    public void setCompleted(Boolean completed) {this.changeValue(completeCol, completed); }
 
     public boolean getCompleted() {
         return (boolean) this.getValue(completeCol);

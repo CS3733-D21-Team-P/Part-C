@@ -39,6 +39,8 @@ public class FloralDeliveryRequest extends GenericServiceRequest {
     @FXML
     public JFXButton submit;
 
+    public static final String[] fields = {"Name", "Room Number", "Flowers", "Size", "Message", "Color"};
+
     public FloralDeliveryRequest() {
         super();
         super.name = "Floral Delivery Request";

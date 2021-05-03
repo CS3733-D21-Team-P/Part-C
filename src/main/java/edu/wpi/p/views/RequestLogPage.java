@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -47,9 +48,15 @@ public class RequestLogPage {
     public void initialize() {
         requestList = dbServiceRequest.getServiceRequests();
         HashMap<String, List<ServiceRequest>> sortedRequests = sortServiceRequestsByType(requestList);
+        JFXTabPane tabPane = new JFXTabPane();
+        requestLogVBox.getChildren().add(tabPane);
+
         for (String type : sortedRequests.keySet().stream().sorted().collect(Collectors.toList())) {
             ServiceRequestLogSection section = new ServiceRequestLogSection(type, sortedRequests.get(type));
-            requestLogVBox.getChildren().add(section);
+            Tab tab = new Tab(type);
+            tab.setContent(section);
+            tabPane.getTabs().add(tab);
+//            requestLogVBox.getChildren().add(section);
 //            VBox sectionVbox = new VBox();
 //
 //            Label heading = new Label(type);
