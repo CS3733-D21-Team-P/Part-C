@@ -1,12 +1,13 @@
 package edu.wpi.p.AStar;
 
-import java.util.*;
+import java.util.List;
+import java.util.Stack;
 
-public class AStar extends SearchAlgorithm {
+public class Dijkstra extends SearchAlgorithm {
 
     private float pathLength;
 
-    public AStar() {
+    public Dijkstra() {
         this.stack = new Stack<>();
         this.pathLength = Float.POSITIVE_INFINITY;
     }
@@ -32,8 +33,6 @@ public class AStar extends SearchAlgorithm {
 
         //recursive search
         search(rootNode, targetNode);
-
-        System.out.println("END");
         System.out.println("DONE");
 
         return getPath(targetNode);
@@ -80,19 +79,6 @@ public class AStar extends SearchAlgorithm {
             System.out.println("Stack: ");
             for(Node n : stack) {
                 System.out.print(n.getName() + " ");
-            }
-            System.out.println();
-
-            if(stack.size() > 1) {
-                //sort by globalDist
-                sortDist(stack);
-
-                System.out.println("Sorted Stack: ");
-                for(Node n : stack) {
-                    System.out.print(n.getName() + "[" + n.getGlobalDist() + "] ");
-                }
-                System.out.println();
-
             }
 
             //down we go

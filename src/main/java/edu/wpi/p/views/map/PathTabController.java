@@ -30,7 +30,7 @@ public class PathTabController {
     }
     private State mapState = State.ENTERSTART;
 
-    private AStar search = new AStar();
+    private Pathfinder search;
     private Node startNode;
     private Node endNode;
     private List<EdgeLine> pathLine= new ArrayList<>();
@@ -44,6 +44,7 @@ public class PathTabController {
 
     public void injectPathfindingMap(PathfindingMap pathfindingMap){
         this.pathfindingMap = pathfindingMap;
+        search = new Pathfinder(pathfindingMap.graph);
     }
 
 
@@ -101,8 +102,8 @@ public class PathTabController {
 
         if(startNode!=null && endNode!=null) {
             //find path
-            List<Node> path = new ArrayList<>();
-            path = search.findShortestPath(startNode, endNode);
+            List<Node> path;
+            path = search.findPath(startNode, endNode);
 
             //Path To Text
             PathToText textPath = new PathToText();
@@ -135,9 +136,6 @@ public class PathTabController {
                     pathLine.add(line);
                 }
             }
-
-            pathfindingMap.graph.resetNodeGraph();
-
         }
         else{
             System.out.println("please enter a start AND and end location");
