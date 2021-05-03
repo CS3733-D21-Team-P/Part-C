@@ -5,7 +5,7 @@ public class UserFromDB {
     private String Username;
     private String Password;
     private String Status;
-    private String Blank;
+    private String ParkingNodeID;
 
 
     public UserFromDB(String Name, String Username, String Password, String Status) {
@@ -15,12 +15,12 @@ public class UserFromDB {
         this.Status = Status;
     }
 
-    public UserFromDB(String Name, String Username, String Password, String Status,String Blank) {
+    public UserFromDB(String Name, String Username, String Password, String Status,String ParkingNodeID) {
         this.Name = Name;
         this.Username = Username;
         this.Password = Password;
         this.Status = Status;
-        this.Blank = Blank;
+        this.ParkingNodeID = ParkingNodeID;
     }
 
     public UserFromDB(String username, String password) {
@@ -61,5 +61,11 @@ public class UserFromDB {
         Status = status;
     }
 
+    public String getParkingNodeID() {
+        return ParkingNodeID;
+    }
 
+    public void setParkingNodeID(String parkingNodeID) {
+        ParkingNodeID = parkingNodeID;
+    }
 }
