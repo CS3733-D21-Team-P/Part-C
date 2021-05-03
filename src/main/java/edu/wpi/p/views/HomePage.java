@@ -48,6 +48,8 @@ public class HomePage {
   public JFXButton editButton;
 
   public JFXButton requsetLog;
+  public JFXButton userAccount;
+  public JFXButton employeeButton;
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -78,6 +80,8 @@ public class HomePage {
       editButton.setVisible(false);
       SRoption.setVisible(false);
       requsetLog.setVisible(false);
+      userAccount.setVisible(false);
+      employeeButton.setVisible(false);
     }
   }
 

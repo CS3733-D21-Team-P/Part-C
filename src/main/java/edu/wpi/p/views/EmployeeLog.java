@@ -27,6 +27,7 @@ public class EmployeeLog {
     public TableColumn<Employee, String> EmployeeIDCol;
     public TableColumn<Employee, String> PositionCol;
     public TableColumn<Employee, String> SalaryCol;
+    public TableColumn<Employee, String> assignedsrCol;
     public Button homeButton;
     public TextField tfemployeeid;
     public TextField tfsalary;
@@ -45,6 +46,7 @@ public class EmployeeLog {
         EmployeeIDCol.setCellValueFactory(new PropertyValueFactory<Employee, String>("EmployeeID"));
         PositionCol.setCellValueFactory(new PropertyValueFactory<Employee, String>("Position"));
         SalaryCol.setCellValueFactory(new PropertyValueFactory<Employee, String>("Salary"));
+        assignedsrCol.setCellValueFactory(new PropertyValueFactory<Employee, String>("AssignedSR"));
 
         //load in the edge data
         employeeDataTableView.setItems(getEmployeeData());

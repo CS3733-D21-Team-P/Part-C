@@ -9,6 +9,11 @@ public class DBEmployee {
     String EmployeeTable = "EmployeeTable";
     private List<DBColumn> columns = new ArrayList<>();
 
+    public DBEmployee(){
+        init();
+        createEmployeeTable(columns);
+    }
+
     private void init(){
         columns.add(new DBColumn("EmployeeID", "varchar(256)", ""));
         columns.add(new DBColumn("Name", "varchar(256)", ""));
