@@ -11,14 +11,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.BorderPane?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.LaundryServiceRequest">
   <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="454.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
@@ -70,22 +69,22 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <children>
-                  <JFXCheckBox checkedColor="WHITE" text="Colors" textFill="WHITE" unCheckedColor="WHITE">
+                  <JFXCheckBox checkedColor="#2f3159" text="Colors" textFill="WHITE" unCheckedColor="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Darks" textFill="WHITE" unCheckedColor="WHITE">
+                  <JFXCheckBox checkedColor="#2f3159" text="Darks" textFill="WHITE" unCheckedColor="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Delicates" textFill="WHITE" unCheckedColor="WHITE">
+                  <JFXCheckBox checkedColor="#2f3159" text="Delicates" textFill="WHITE" unCheckedColor="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Bulky" textFill="WHITE" unCheckedColor="WHITE">
+                  <JFXCheckBox checkedColor="#2f3159" text="Bulky" textFill="WHITE" unCheckedColor="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -144,8 +143,8 @@
                   <JFXTimePicker fx:id="pickupTime" defaultColor="BLACK" prefHeight="28.0" prefWidth="140.0" style="-fx-background-color: #F2F2F2;" />
                </children>
             </HBox>
-            <JFXTextField fx:id="fullName" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="pickUpLocation" prefHeight="0.0" prefWidth="403.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="fullName" focusColor="WHITE" labelFloat="true" promptText="Full Name" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="pickUpLocation" focusColor="WHITE" labelFloat="true" prefHeight="0.0" prefWidth="403.0" promptText="AA-0000" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <JFXTextArea fx:id="specialInstructions" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <children>
@@ -171,8 +170,14 @@
             
                      </children>
       </GridPane>
-     <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+     <BorderPane prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;">
         <fx:include source="../Toolbar.fxml" />
      </BorderPane>
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutY="1080.0">
+         <image>
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
   </children>
 </AnchorPane>
