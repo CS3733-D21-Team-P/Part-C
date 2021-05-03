@@ -150,15 +150,4 @@ public class PathfindingMap extends MapController {
         nodeButtonHold.getNode().setIsSelected(true);
         nodeButtonHold.setButtonStyle();
     }
-
-    @Override
-    public void openEdgePopup(double sceneX, double sceneY)
-    {
-        saveNodePopup1.setVisible(true);
-        saveNodePopup.setVisible(false);
-        TranslateTransition transition = new TranslateTransition(Duration.millis(75), saveNodePopup1);
-        transition.setToX(sceneX - 430);
-        transition.setToY(sceneY - 215);
-        transition.playFromStart();
-    }
 }
