@@ -20,20 +20,7 @@
         </image>
     </ImageView>
     <AnchorPane fx:id="linePane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
-    <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
-      <children>
-         <VBox fx:id="saveNodePopup" layoutX="982.0" layoutY="508.0" prefHeight="75.0" prefWidth="127.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
-            <children>
-               <Text fx:id="nodeName" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="125.289306640625">
-                  <font>
-                     <Font name="System Bold" size="14.0" />
-                  </font>
-               </Text>
-               <JFXButton fx:id="saveBtn" onAction="#saveParkingAc" prefHeight="26.0" prefWidth="142.0" text="Save Location" />
-                <JFXButton fx:id="closeButton" onAction="#closePopup" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #edc5c5;" text="Close" />
-            </children>
-         </VBox>
-      </children></AnchorPane>
+    <AnchorPane fx:id="btnPane" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
     <JFXTabPane fx:id="tabPane" layoutX="1449.0" prefHeight="800.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
         <Tab text="Path">
             <fx:include fx:id="pathTab" source="PathTab.fxml" />
@@ -55,4 +42,15 @@
    <BorderPane prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
        <fx:include fx:id="toolBarID" source="../Toolbar.fxml" />
    </BorderPane>
+   <VBox fx:id="saveNodePopup" prefHeight="75.0" prefWidth="127.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
+      <children>
+         <Text fx:id="nodeName" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="125.289306640625">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <JFXButton fx:id="saveBtn" onAction="#saveParkingAc" prefHeight="26.0" prefWidth="142.0" text="Save Location" />
+          <JFXButton fx:id="closeButton" onAction="#closePopup" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #edc5c5;" text="Close" />
+      </children>
+   </VBox>
 </AnchorPane>

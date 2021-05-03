@@ -90,7 +90,6 @@ public class PathfindingMap extends MapController {
                 nodeClicked(nb);
                 nodeName.setText(nodeHold.getName());
                 saveNodePopup.setVisible(true);
-                saveNodePopup1.setVisible(false);
                 TranslateTransition transition = new TranslateTransition(Duration.millis(75), saveNodePopup);
                 transition.setToX(event.getSceneX() - saveNodePopup.getLayoutX() - saveNodePopup.getWidth() / 2 - event.getX() + 90);
                 transition.setToY(event.getSceneY() - saveNodePopup.getLayoutY() - saveNodePopup.getHeight() / 2 - event.getY() - 55);
