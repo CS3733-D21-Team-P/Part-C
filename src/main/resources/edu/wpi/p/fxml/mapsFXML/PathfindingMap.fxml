@@ -30,6 +30,9 @@
         <Tab text="Find">
             <fx:include fx:id="findTab" source="Map_Editor_Find_Tab.fxml" />
         </Tab>
+        <Tab text="Locate">
+            <fx:include fx:id="googleTab" source="Map_Google_Tab.fxml" />
+        </Tab>
     </JFXTabPane>
     <AnchorPane prefHeight="75.0" prefWidth="300.0" style="-fx-background-color: #2f3159;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>

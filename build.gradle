@@ -25,6 +25,7 @@ repositories {
     }
 }
 
+
 //This is where you declare your dependencies and their version.s
 //You will almost DEFINITELY add more here
 dependencies {
@@ -38,6 +39,10 @@ dependencies {
 
             'org.slf4j:slf4j-api:1.7.30',
             'org.slf4j:slf4j-simple:1.7.30',
+
+            'com.google.maps:google-maps-services:0.18.0',
+            'org.slf4j:slf4j-simple:1.7.25'
+
     )
 //These are test dependencies. These are only used for running verification tasks via Gradle.
     testCompile(
@@ -45,6 +50,8 @@ dependencies {
             'org.junit.jupiter:junit-jupiter:5.6.0',
             'org.testfx:testfx-junit5:4.0.16-alpha',
     )
+
+
 }
 
 //This tells your verification Tasks to use JUnit. You shouldn't need to change this
