@@ -13,6 +13,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,18 +21,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.BorderPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.ExternalpatienttransportationRequest">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.ExternalpatienttransportationRequest">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="1080.0" fitWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="1080.0" fitWidth="960.0">
                <image>
                   <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
                </image>
             </ImageView>
-         </children>
-      </AnchorPane>
+            <BorderPane prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;">
+               <fx:include source="../Toolbar.fxml" />
+            </BorderPane>
+         </children></AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
          <children>
             <GridPane alignment="CENTER" prefHeight="880.0" prefWidth="1290.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -125,8 +127,8 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                      <children>
-                        <JFXDatePicker fx:id="DatePicker" defaultColor="WHITE" style="-fx-background-color: #f2f2f2;" />
-                        <JFXTimePicker fx:id="TimePicker" defaultColor="WHITE" style="-fx-background-color: #f2f2f2;" />
+                        <JFXDatePicker fx:id="DatePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;" />
+                        <JFXTimePicker fx:id="TimePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;" />
                         <Label fx:id="colonLabel" text=":" />
                      </children>
                   </HBox>
@@ -137,7 +139,7 @@
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </JFXTextField>
-                        <JFXTextField fx:id="lastNameText" focusColor="WHITE" unFocusColor="WHITE">
+                        <JFXTextField fx:id="lastNameText" focusColor="WHITE" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -179,8 +181,11 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
-      </BorderPane>
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutY="1080.0">
+         <image>
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
+         </image>
+      </ImageView>
+      <VBox layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
    </children>
 </AnchorPane>
