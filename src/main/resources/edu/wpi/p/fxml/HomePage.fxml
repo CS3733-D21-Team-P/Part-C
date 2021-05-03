@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
@@ -26,7 +27,12 @@
             <JFXButton fx:id="pathButton" onAction="#pathButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Get Directions" textAlignment="CENTER" textFill="WHITE" />
             <JFXButton fx:id="editButton" onAction="#editButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Map Editor" textAlignment="CENTER" textFill="WHITE" />
             <JFXButton fx:id="requsetLog" onAction="#requsetLogAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Request Logs" textAlignment="CENTER" textFill="WHITE" />
-            <JFXButton fx:id="userAccount" onAction="#userAccountAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="User Accounts" textAlignment="CENTER" textFill="WHITE" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <JFXButton fx:id="userAccount" onAction="#userAccountAc" prefHeight="83.0" prefWidth="218.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Account" textAlignment="CENTER" textFill="WHITE" />
+                  <JFXButton fx:id="employeeButton" onAction="#employeeButtonAc" prefHeight="83.0" prefWidth="218.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Employee" textAlignment="CENTER" textFill="WHITE" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <JFXButton fx:id="backToLogin" layoutX="1312.0" layoutY="834.0" onAction="#backToLoginAc" prefHeight="75.0" prefWidth="250.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Back To Login" textAlignment="CENTER" textFill="WHITE" />

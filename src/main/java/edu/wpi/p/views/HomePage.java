@@ -168,6 +168,15 @@ public void backToLoginAc(ActionEvent actionEvent){
       ex.printStackTrace();
     }
   }
+  public void employeeButtonAc(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/Employee.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
 
   public void edgeButtonAc(ActionEvent actionEvent) {
     try {
