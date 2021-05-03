@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,16 +16,18 @@
          <children>
             <AnchorPane prefHeight="170.0" prefWidth="270.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 15px;">
                <children>
-                  <VBox alignment="CENTER" prefHeight="167.0" prefWidth="270.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <VBox fx:id="locateVBox" alignment="CENTER" prefHeight="167.0" prefWidth="270.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Label text="Locate" textAlignment="CENTER">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="start" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" prefWidth="150.0" promptText="Start Location" style="-fx-background-color: #b6d6f2;" />
-                        <JFXTextField fx:id="end" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" prefWidth="150.0" promptText="End Location" style="-fx-background-color: #b6d6f2;" />
-                        <JFXComboBox fx:id="chosenMode" prefHeight="26.0" prefWidth="234.0" />
+                        <Label alignment="TOP_LEFT" prefWidth="243.0" text="Start Location" />
+                        <Label alignment="TOP_LEFT" prefWidth="243.0" text="Parking Lot:" />
+                        <JFXComboBox fx:id="end" prefHeight="26.0" prefWidth="234.0" style="-fx-background-color: #b6d6f2;" />
+                        <Label alignment="TOP_LEFT" prefWidth="243.0" text="Transportation:" />
+                        <JFXComboBox fx:id="chosenMode" prefHeight="26.0" prefWidth="234.0" style="-fx-background-color: #b6d6f2;" />
                         <JFXButton fx:id="findGooglePath" maxHeight="50.0" onAction="#findDirections" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #5990D9; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #2F3159; -fx-border-width: 2;" text="Search Directions">
                            <font>
                               <Font name="System Bold" size="12.0" />

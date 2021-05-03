@@ -1,4 +1,4 @@
-package edu.wpi.p.views.map;
+package edu.wpi.p.views.map.GoogleDirections;
 
 
 import com.google.maps.DirectionsApiRequest;
@@ -53,19 +53,25 @@ public class GoogleMaps {
         directionsApiRequest.setCallback(new PendingResult.Callback<DirectionsResult>() {
             @Override
             public void onResult(DirectionsResult result) {
-                DirectionsStep[] steps = result.routes[0].legs[0].steps; //get steps of first route
-                List<String> directionsText = new ArrayList<>(); //list to store different steps
-                for (DirectionsStep step : steps) {
-                    String stepText =getHTMLText(step.htmlInstructions); //convert html instruction to readable string
-                    directionsText.add(stepText); //add to list
+                if(result.routes.length!=0) {
+                    DirectionsStep[] steps = result.routes[0].legs[0].steps; //get steps of first route
+                    List<String> directionsText = new ArrayList<>(); //list to store different steps
+                    for (DirectionsStep step : steps) {
+                        String stepText = getHTMLText(step.htmlInstructions); //convert html instruction to readable string
+                        directionsText.add(stepText); //add to list
+                    }
+
+                    updateText(textArea, directionsText); //update textview on page
+
+                    System.out.println("found directions");
                 }
-
-                updateText(textArea,directionsText); //update textview on page
-
-                System.out.println("found directions");
             }
             @Override
             public void onFailure(Throwable e) {
+                List<String> errorText = new ArrayList<>(); //list to store different steps
+                errorText.add("faliure");
+                errorText.add(e.getCause().getMessage());
+                updateText(textArea,errorText); //update textview on page
                 System.out.println("calculateDirections"+ "calculateDirections: Failed to get directions: " + e.getMessage());
             }
         });
