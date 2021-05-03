@@ -8,17 +8,21 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.VBox?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.RequestLogPage">
-   <children>
-      <AnchorPane layoutX="479.0" layoutY="211.0" prefHeight="659.0" prefWidth="963.0" style="-fx-background-color: #2f3159; -fx-background-radius: 15;">
-         <children>
-            <VBox fx:id="requestLogVBox">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
 
-            </VBox>
-         </children>
-      </AnchorPane>
-      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include source="Toolbar.fxml" />
-      </BorderPane>
-   </children>
-</AnchorPane>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0"
+            prefWidth="1920.0" style="-fx-background-color: #2F3159;" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.RequestLogPage" stylesheets="@../fxml/servicerequestlog.css">
+    <left>
+        <fx:include source="Toolbar.fxml" />
+    </left>
+
+    <center>
+        <VBox fx:id="requestLogVBox" style="-fx-background-color: #2f3159; -fx-background-radius: 15;" spacing="20" >
+
+        </VBox>
+    </center>
+
+</BorderPane>

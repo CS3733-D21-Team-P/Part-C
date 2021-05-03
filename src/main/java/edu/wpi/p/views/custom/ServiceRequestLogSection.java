@@ -8,30 +8,37 @@ import edu.wpi.p.views.ServiceRequestTableEntry;
 import edu.wpi.p.views.servicerequests.ExternalpatienttransportationRequest;
 import edu.wpi.p.views.servicerequests.FacilitiesMaintenanceRequest;
 import edu.wpi.p.views.servicerequests.FloralDeliveryRequest;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableCell;
-import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 public class ServiceRequestLogSection extends VBox {
 
+    ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();;
+
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
-        Label heading = new Label(name);
-        heading.setTextFill(Color.WHITE);
-        this.getChildren().add(heading);
+        super.widthProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("service request log section vbox change its width from " + oldValue + " to " + newValue);
+        });
         JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
         this.getChildren().add(requestSection);
 
@@ -68,24 +75,29 @@ public class ServiceRequestLogSection extends VBox {
         grid.setVgap(10);
 
         String[] detailColumns = getColumnFromType(type);
-        List<JFXTreeTableColumn<ServiceRequestTableEntry, String>> tableColumns = new ArrayList<>(detailColumns.length);
-        ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
+        List<JFXTreeTableColumn> tableColumns = new ArrayList<>(detailColumns.length);
         for (ServiceRequest request : requests) {
             observableRequests.add(new ServiceRequestTableEntry(request));
         }
+
         for (String detailName : detailColumns) {
-            JFXTreeTableColumn<ServiceRequestTableEntry, String> column = new JFXTreeTableColumn<>(detailName);
-            column.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
-                    new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getDetailsMap().get(detailName)));
+            JFXTreeTableColumn<ServiceRequestTableEntry, Label> column = new JFXTreeTableColumn<>(detailName);
+            column.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, Label> param) -> {
+                Label l = new Label(param.getValue().getValue().getServiceRequest().getDetailsMap().get(detailName));
+                l.setWrapText(true);
+                return new SimpleObjectProperty<Label>(l);
+            });
+
             tableColumns.add(column);
+            column.setResizable(true);
         }
 
         JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = new JFXTreeTableColumn<>("Assigned To");
-        assignedTo.setPrefWidth(100);
+//        assignedTo.setPrefWidth(100);
         assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
                 new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getAssignment()));
         JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
-        completeColumn.setPrefWidth(100);
+//        completeColumn.setPrefWidth(100);
         completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback());
 
         final TreeItem<ServiceRequestTableEntry> root = new RecursiveTreeItem<>(observableRequests, RecursiveTreeObject::getChildren);
@@ -94,10 +106,12 @@ public class ServiceRequestLogSection extends VBox {
             treeView.getColumns().add(c);
         }
 
+        treeView.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
         treeView.getColumns().add(assignedTo);
         treeView.getColumns().add(completeColumn);
         treeView.setRoot(root);
         treeView.setShowRoot(false);
+        treeView.maxWidthProperty().bind(super.widthProperty());
         return treeView;
     }
 
@@ -129,6 +143,7 @@ public class ServiceRequestLogSection extends VBox {
                                 dbServiceRequest.updateServiceRequest(request);
                             });
                             setGraphic(toggleButton);
+                            setAlignment(Pos.CENTER);
                             setText(null);
                         }
                     }
@@ -137,3 +152,4 @@ public class ServiceRequestLogSection extends VBox {
         };
     }
 }
+

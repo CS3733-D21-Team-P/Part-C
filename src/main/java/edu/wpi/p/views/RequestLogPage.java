@@ -14,12 +14,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -37,6 +39,7 @@ public class RequestLogPage {
 
     @FXML
     public VBox requestLogVBox;
+    @FXML public BorderPane borderPane;
     public JFXTreeTableView<ServiceRequestTableEntry> ReqLogView;
     public JFXButton markCompleteBtn;
     public JFXTextField filterField;
@@ -49,13 +52,28 @@ public class RequestLogPage {
         requestList = dbServiceRequest.getServiceRequests();
         HashMap<String, List<ServiceRequest>> sortedRequests = sortServiceRequestsByType(requestList);
         JFXTabPane tabPane = new JFXTabPane();
-        requestLogVBox.getChildren().add(tabPane);
+        tabPane.setMinWidth(0);
+        borderPane.setCenter(tabPane);
+        BorderPane.setAlignment(tabPane, Pos.TOP_LEFT);
+        borderPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            tabPane.setMaxWidth(newValue.doubleValue());
+            System.out.println("border pane width changed from " + oldValue + " to " + newValue);
+        });
+        tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("higher tab pane width changed from " + oldValue + " to " + newValue);
+        });
+//        requestLogVBox.getChildren().add(tabPane);
 
         for (String type : sortedRequests.keySet().stream().sorted().collect(Collectors.toList())) {
             ServiceRequestLogSection section = new ServiceRequestLogSection(type, sortedRequests.get(type));
             Tab tab = new Tab(type);
+
             tab.setContent(section);
             tabPane.getTabs().add(tab);
+            section.maxWidthProperty().bind(tab.getTabPane().widthProperty());
+            tab.getTabPane().widthProperty().addListener((observable, oldValue, newValue) -> {
+                System.out.println("tab pane width changed from " + oldValue + " to " + newValue);
+            });
 //            requestLogVBox.getChildren().add(section);
 //            VBox sectionVbox = new VBox();
 //
