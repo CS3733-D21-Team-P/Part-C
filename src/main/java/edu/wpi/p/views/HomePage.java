@@ -144,7 +144,14 @@ public class HomePage {
 //      ex.printStackTrace();
 //    }
 //  }
-
+public void backToLoginAc(ActionEvent actionEvent){
+  try {
+    Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LoginPage.fxml"));
+    App.getPrimaryStage().getScene().setRoot(root);
+  } catch (IOException ex) {
+    ex.printStackTrace();
+  }
+}
   public void pathButtonAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/PathfindingMap.fxml"));
