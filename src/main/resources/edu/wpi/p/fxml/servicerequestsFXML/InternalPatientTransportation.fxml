@@ -6,35 +6,34 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.BorderPane?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.InternalPatientTransportation">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.InternalPatientTransportation">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
-         </image>
-      </ImageView>
-      <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;">
+      <AnchorPane prefHeight="1080.0" prefWidth="952.0" style="-fx-background-color: #F2F2F2;">
          <children>
             <ImageView fitHeight="1080.0" fitWidth="960.0">
                <image>
                   <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
                </image>
             </ImageView>
-            <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <BorderPane prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;">
                <fx:include source="../Toolbar.fxml" />
             </BorderPane>
-            <GridPane alignment="CENTER" layoutX="1343.0" layoutY="280.0" prefHeight="700.0" prefWidth="660.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1110.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1099.0" layoutY="100.0" prefHeight="880.0" prefWidth="681.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <GridPane alignment="CENTER" prefHeight="880.0" prefWidth="680.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="321.199951171875" minWidth="10.0" prefWidth="220.0" />
-                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="489.2000732421875" minWidth="10.0" prefWidth="440.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="321.199951171875" minWidth="0.0" prefWidth="33.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="321.199951171875" minWidth="10.0" prefWidth="225.0" />
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="489.2000732421875" minWidth="10.0" prefWidth="412.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -46,26 +45,57 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="drName" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXTextField fx:id="currRoom" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXTextField fx:id="patientName" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <JFXTextField fx:id="destination" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Doctor Name:" translateX="-10.0" GridPane.rowIndex="1" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Room:" translateX="-10.0" GridPane.rowIndex="2" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name:" translateX="-10.0" GridPane.rowIndex="3" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Time:" translateX="-10.0" GridPane.rowIndex="4" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Location:" translateX="-10.0" GridPane.rowIndex="5" />
-                  <JFXTimePicker fx:id="time" defaultColor="BLACK" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="6" />
-                  <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <JFXTextField fx:id="drName" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="currRoom" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <JFXTextField fx:id="patientName" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <JFXTextField fx:id="destination" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Doctor Name:" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Room:" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name:" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Time:" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Desired Transport Location:" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <JFXTimePicker fx:id="time" defaultColor="BLACK" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <JFXButton fx:id="back" onAction="#serviceButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <JFXButton fx:id="submit" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#submitForm" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" translateX="25.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=" Transportation Request" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Internal Patient" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
                </children>
             </GridPane>
-            <Text fill="WHITE" layoutX="1129.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Internal Patient Transportation Request" AnchorPane.topAnchor="150.0">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="-443.0" layoutY="563.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1080.0">
+         <image>
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
    </children>
 </AnchorPane>
