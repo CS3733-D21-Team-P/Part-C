@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="clippoPane" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.ClippoController">
+   <children>
+      <VBox fx:id="clippoHome" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Hi there! &#10;&#10;I'm Clippo, the friendly clipboard assistant! &#10;&#10;What can I help you with?">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#closeClippo" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Close" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT">
+                     <children>
+                        <JFXButton fx:id="serviceRequestHelp1" onAction="#serviceRequestHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Service Requests" underline="true" />
+                        <JFXButton fx:id="covid19Help1" onAction="#covid19HelpBtn" prefHeight="25.0" prefWidth="200.0" text="COVID-19 Survey" underline="true" />
+                        <JFXButton fx:id="getToHospitalHelp1" onAction="#getToHospitalHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Getting to the Hospital" underline="true" />
+                        <JFXButton fx:id="pathfindingHelp1" onAction="#pathfindingHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Pathfinding in the Hospital" underline="true" />
+                        <JFXButton fx:id="editMapHelp1" onAction="#editMapHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Editing the Map" underline="true" />
+                        <JFXButton fx:id="requestLogsHelp1" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Request Logs" underline="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoServReq" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Service Requests! Ah yes, service requests are ways to ask for particular services. When you fill one out, it will be recorded in the Request Logs.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT">
+                     <children>
+                        <JFXButton fx:id="serviceRequestHelp" onAction="#serviceRequestHelpBtn" prefHeight="25.0" prefWidth="200.0" text="External Patient Transport" underline="true" />
+                        <JFXButton fx:id="covid19Help" onAction="#covid19HelpBtn" prefHeight="25.0" prefWidth="200.0" text="Facilities Maitenance" underline="true" />
+                        <JFXButton fx:id="getToHospitalHelp" onAction="#getToHospitalHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Floral Delivery" underline="true" />
+                        <JFXButton fx:id="pathfindingHelp" onAction="#pathfindingHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Food Delivery" underline="true" />
+                        <JFXButton fx:id="editMapHelp" onAction="#editMapHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Gift Delivery" underline="true" />
+                        <JFXButton fx:id="requestLogsHelp" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Internal Patient Transport" underline="true" />
+                        <JFXButton fx:id="requestLogsHelp6" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Language Interpreter" underline="true" />
+                        <JFXButton fx:id="requestLogsHelp7" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Laundry Service" underline="true" />
+                        <JFXButton fx:id="requestLogsHelp71" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Medicine Delivey" underline="true" />
+                        <JFXButton fx:id="requestLogsHelp72" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Sanitation Service" underline="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoCOVID19" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="I see you're wanting to fill out a COVID-19 survey! Please fill out the survey honestly, and hit submit. An administrator will review your submission and determine your access to the hospital.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoMapEdit" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="The map editor! This is where you can edit the map locations and pathways between them. The map built here can be used to find paths through the hospital on the pathfinding tab.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT">
+                     <children>
+                        <JFXButton onAction="#nodesHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Nodes" underline="true" />
+                        <JFXButton onAction="#edgesHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Edges" underline="true" />
+                        <JFXButton onAction="#CSVHelpBtn" prefHeight="25.0" prefWidth="200.0" text="CSV's" underline="true" />
+                        <JFXButton onAction="#findTabHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Find Tab" underline="true" />
+                        <JFXButton onAction="#pathfindingHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Pathfinding in the Hospital" underline="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoPathfind" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Pathfinding! This is where you can find the shortest path from one location in the hospital to another. Just click the text field of either start or end, then click the node on the map. Do the same for the other end of the path. Finally click &quot;search&quot;">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT">
+                     <children>
+                        <JFXButton onAction="#nodesHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Nodes" underline="true" />
+                        <JFXButton onAction="#edgesHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Edges" underline="true" />
+                        <JFXButton onAction="#findTabHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Find Tab" underline="true" />
+                        <JFXButton onAction="#textDirectionsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Textual Directions" underline="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoRequestLogs" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="The Request Logs are where employees can view all service requests and find the ones they are assigned to. They are also able to mark whether or not they have completed a request here.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoNodes" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Nodes are the locations in the hospital. They represent anything from hallways, vending machines, stairs, operation rooms, and any other distinct place in the hospital. Nodes can be connected by edges to link them on the pathfinder.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoCSV" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="7" text="CSV files, or comma separated variable files, are ways of importing and exporting nodes and edges. If you want to save a particular map layout, just hit export to save the list of nodes and edges as excel spreadsheets. Similarly use import to load either a node or edge spreadsheet onto the map.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoEdges" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Edges are the &quot;pathways&quot; between nodes. Connecting two nodes by an edge allows the pathfinder to see that those two locations can be reached by each other.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoFindTab" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="6" text="The find tab is on both the map editor as well as the pathfinder. The find tab is a way to find a location if you don't now its location on the map. Simply type the name of the location and it will filter the locations to what you type. Click the location and it will highlight on the map.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-radius: 15; -fx-background-color: #b6d6f2;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoTextDirections" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+         <children>
+            <HBox>
+               <children>
+                  <JFXTextArea editable="false" prefColumnCount="20" prefRowCount="5" text="The textual directions will tell you what actions to take to get from one location to another once you have searched a path. This may be easier than trying to follow the top down map.">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXTextArea>
+                  <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../Documents/Soft%20Eng/clippy.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="clippoButton">
+         <children>
+            <JFXButton onAction="#clippoButtonPressed" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #5990d9; -fx-background-radius: 5;" text="Help" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+   </children>
+</Pane>
