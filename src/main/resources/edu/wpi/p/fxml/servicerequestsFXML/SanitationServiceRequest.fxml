@@ -65,7 +65,7 @@
             <JFXTextField fx:id="additionalInfoText" focusColor="WHITE" labelFloat="true" promptText="Comments" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <children>
-                  <JFXButton fx:id="cancelButton" buttonType="RAISED" onAction="#cancelPressed" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #5990D9;" text="Cancel">
+                  <JFXButton fx:id="cancelButton" buttonType="RAISED" onAction="#cancelPressed" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #5990D9;" text="Back">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>

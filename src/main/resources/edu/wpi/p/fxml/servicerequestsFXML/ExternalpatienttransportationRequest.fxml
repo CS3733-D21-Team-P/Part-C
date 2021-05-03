@@ -127,7 +127,10 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                      <children>
-                        <JFXDatePicker fx:id="DatePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;" />
+                        <JFXDatePicker fx:id="DatePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin></JFXDatePicker>
                         <JFXTimePicker fx:id="TimePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;" />
                         <Label fx:id="colonLabel" text=":" />
                      </children>

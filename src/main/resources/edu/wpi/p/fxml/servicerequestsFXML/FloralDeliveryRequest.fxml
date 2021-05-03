@@ -77,8 +77,8 @@
                <font>
                   <Font size="18.0" />
                </font></Text>
-            <JFXTextField fx:id="name" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="currRoom" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="name" focusColor="WHITE" labelFloat="true" prefWidth="300.0" promptText="Full Name" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="currRoom" focusColor="WHITE" labelFloat="true" prefWidth="300.0" promptText="AA-0000" style="-fx-background-color: #f2f2f2;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floral Delivery Request" GridPane.columnIndex="2">
                <font>
                   <Font size="36.0" />

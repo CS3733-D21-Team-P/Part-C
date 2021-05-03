@@ -45,10 +45,10 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXTextField fx:id="drName" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <JFXTextField fx:id="currRoom" prefHeight="25.0" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <JFXTextField fx:id="patientName" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <JFXTextField fx:id="destination" prefWidth="300.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="drName" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="Full Name" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="currRoom" labelFloat="true" prefHeight="25.0" prefWidth="300.0" promptText="AA-0000" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <JFXTextField fx:id="patientName" labelFloat="true" prefWidth="300.0" promptText="Full Name" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <JFXTextField fx:id="destination" labelFloat="true" prefWidth="300.0" promptText="AA-0000" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Doctor Name:" translateX="-10.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
