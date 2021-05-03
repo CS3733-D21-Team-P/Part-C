@@ -56,9 +56,9 @@ public class DBUser {
     }
 
     public void updateUser(UserFromDB e) {
-        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE nodeID = '"+e.getUsername()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Position = '"+e.getPassword()+"' WHERE nodeID = '"+e.getUsername()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Position = '"+e.getIdentity()+"' WHERE nodeID = '"+e.getUsername()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE Username = '"+e.getUsername()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Password = '"+e.getPassword()+"' WHERE Username = '"+e.getUsername()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Status = '"+e.getIdentity()+"' WHERE Username = '"+e.getUsername()+"'");
     }
 
     /**
@@ -91,7 +91,7 @@ public class DBUser {
         int Name = indexOfColumnByName(dbColumns, "Name");
         int Username = indexOfColumnByName(dbColumns, "Username");
         int Password = indexOfColumnByName(dbColumns, "Password");
-        int Identity = indexOfColumnByName(dbColumns, "Identity");
+        int Identity = indexOfColumnByName(dbColumns, "Status");
 
         //create Users
         List<UserFromDB> userFromDBS = new ArrayList<>(userData.size());

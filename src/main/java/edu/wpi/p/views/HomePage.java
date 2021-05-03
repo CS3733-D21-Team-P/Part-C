@@ -146,7 +146,7 @@ public class HomePage {
 
   public void userAccountAc(ActionEvent actionEvent){
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LoginPage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/AccountLog.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
