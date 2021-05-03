@@ -13,6 +13,9 @@ public class DBEmployee {
         columns.add(new DBColumn("EmployeeID", "varchar(256)", ""));
         columns.add(new DBColumn("Name", "varchar(256)", ""));
         columns.add(new DBColumn("Position", "varchar(256)", ""));
+        columns.add(new DBColumn("Salary", "varchar(256)", ""));
+        columns.add(new DBColumn("AssignedSR", "varchar(256)", ""));
+
     }
 
     private void createTables(boolean doClear) {
@@ -32,7 +35,7 @@ public class DBEmployee {
     }
 
     public void addEmployee(Employee e) {
-        String insertValue = "'" + e.getEmployeeID() + "', '" + e.getName() + "', '" + e.getPosition() + "'";
+        String insertValue = "'" + e.getEmployeeID() + "', '" + e.getName() + "', '" + e.getPosition() + "', '" + e.getSalary() + "', '" + e.getAssignedSR() + "'";
         DatabaseInterface.insertIntoTable(EmployeeTable, insertValue);
     }
 
@@ -42,7 +45,55 @@ public class DBEmployee {
     }
 
     public void updateEmployee(Employee e) {
-        DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Name = "+e.getName()+" WHERE nodeID = '"+e.getEmployeeID()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Position = '"+e.getPosition()+"' WHERE nodeID = '"+e.getEmployeeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Name = "+e.getName()+" WHERE EmployeeID = '"+e.getEmployeeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Position = '"+e.getPosition()+"' WHERE EmployeeID = '"+e.getEmployeeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET Salary = '"+e.getSalary()+"' WHERE EmployeeID = '"+e.getEmployeeID()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + EmployeeTable + " SET AssignedSR = '"+e.getAssignedSR()+"' WHERE EmployeeID = '"+e.getEmployeeID()+"'");
+    }
+
+    /**
+     * A helper function to get the index in the list of the column with the given name
+     * @param columns List of column
+     * @param targetName Name of column to get the index of in the list
+     * @return Index of the column with name targetName in columns
+     */
+    private int indexOfColumnByName(List<DBColumn> columns, String targetName) {
+        int i = 0;
+        for(DBColumn c : columns) {
+            if(c.getName().equals(targetName.toUpperCase())) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    public List<Employee> getEmployees() {
+        List<List<String>> employeeData = DatabaseInterface.getAllFromTable(EmployeeTable);//new ArrayList<>();
+
+        List<DBColumn> dbColumns = DatabaseInterface.getColumns(EmployeeTable);
+
+        int Name = indexOfColumnByName(dbColumns, "Name");
+        int EmployeeID = indexOfColumnByName(dbColumns, "EmployeeID");
+        int Position = indexOfColumnByName(dbColumns, "Position");
+        int Salary = indexOfColumnByName(dbColumns, "Salary");
+        int AssignedSR = indexOfColumnByName(dbColumns, "AssignedSR");
+
+
+        //create Users
+        List<Employee> employeesFromDBS = new ArrayList<>(employeeData.size());
+        for(int i = 1; i < employeeData.size(); i++) {
+            List<String> employeeString = employeeData.get(i);
+
+            Employee employeeFromDB = new Employee(
+                    employeeString.get(Name),
+                    employeeString.get(EmployeeID),
+                    employeeString.get(Position),
+                    employeeString.get(Salary),
+                    employeeString.get(AssignedSR));
+            employeesFromDBS.add(employeeFromDB);
+        }
+
+        return employeesFromDBS;
     }
 }
