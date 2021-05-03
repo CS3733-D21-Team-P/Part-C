@@ -94,7 +94,7 @@ public class AccountLog {
 
     public void EditUsername(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
         UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
-        user.setName(cellEditEvent.getNewValue());
+        user.setUsername(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
@@ -106,7 +106,7 @@ public class AccountLog {
 
     public void EditPassword(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
         UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
-        user.setName(cellEditEvent.getNewValue());
+        user.setPassword(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
@@ -118,7 +118,7 @@ public class AccountLog {
 
     public void EditStatus(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
         UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
-        user.setName(cellEditEvent.getNewValue());
+        user.setStatus(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();
@@ -130,7 +130,7 @@ public class AccountLog {
 
     public void EditBlank(TableColumn.CellEditEvent<UserFromDB, String> cellEditEvent) {
         UserFromDB user = accountDataTableView.getSelectionModel().getSelectedItem();
-        user.setName(cellEditEvent.getNewValue());
+        user.setBlank(cellEditEvent.getNewValue());
 
         TablePosition userPos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
         int userRow = userPos.getRow();

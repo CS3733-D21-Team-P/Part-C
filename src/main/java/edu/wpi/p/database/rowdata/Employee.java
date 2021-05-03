@@ -4,6 +4,22 @@ public class Employee {
     private String Name;
     private String EmployeeID;
     private String Position;
+    private String Salary;
+
+    public Employee(String Name, String EmployeeID, String Position, String Salary) {
+        this.Name = Name;
+        this.EmployeeID = EmployeeID;
+        this.Position = Position;
+        this.Salary = Salary;
+    }
+
+    public String getSalary() {
+        return Salary;
+    }
+
+    public void setSalary(String salary) {
+        Salary = salary;
+    }
 
     public String getName() {
         return Name;

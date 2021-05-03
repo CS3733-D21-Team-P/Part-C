@@ -37,6 +37,22 @@ public class UserFromDB {
         Name = name;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public String getBlank() {
+        return Blank;
+    }
+
+    public void setBlank(String blank) {
+        Blank = blank;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
     public String getUsername() {
         return Username;
     }
