@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class HomePage {
@@ -50,6 +51,11 @@ public class HomePage {
   public JFXButton requsetLog;
   public JFXButton userAccount;
   public JFXButton employeeButton;
+  public ImageView covidIcon;
+  public ImageView editIcon;
+  public ImageView pathIcon;
+  public ImageView serviceIcon;
+
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -78,7 +84,9 @@ public class HomePage {
     }
     if(User.getInstance().isGuest()){
       editButton.setVisible(false);
+      editIcon.setVisible(false);
       SRoption.setVisible(false);
+      serviceIcon.setVisible(false);
       requsetLog.setVisible(false);
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
