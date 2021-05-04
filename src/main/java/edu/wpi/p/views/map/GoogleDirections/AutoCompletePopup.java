@@ -10,7 +10,9 @@ import java.awt.*;
 import java.util.List;
 
 public class AutoCompletePopup extends JFXAutoCompletePopup<String> {
+    private JFXTextField textField;
     public AutoCompletePopup(JFXTextField textField){
+        this.textField=textField;
 //        getSuggestions().addAll("option1", "option2", "...");
 //        getSuggestions().addAll(options);
         this.setSelectionHandler(event -> {
@@ -22,16 +24,28 @@ public class AutoCompletePopup extends JFXAutoCompletePopup<String> {
 
         // filtering options
         textField.textProperty().addListener(observable -> {
-            this.filter( string -> string.toLowerCase().contains(textField.getText().toLowerCase()));
-            if (getFilteredSuggestions().isEmpty() || textField.getText().isEmpty()) {
-                hide();
-                // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
-                // so you can choose
-            } else {
-                show(textField);
-            }
+            updateFilter();
+//            this.filter( string -> string.toLowerCase().contains(textField.getText().toLowerCase()));
+//            if (getFilteredSuggestions().isEmpty() || textField.getText().isEmpty()) {
+//                hide();
+//                // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
+//                // so you can choose
+//            } else {
+//                show(textField);
+//            }
         });
         
         
+    }
+
+    public void updateFilter(){
+        this.filter( string -> string.toLowerCase().contains(textField.getText().toLowerCase()));
+        if (getFilteredSuggestions().isEmpty() || textField.getText().isEmpty()) {
+            hide();
+            // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
+            // so you can choose
+        } else {
+            show(textField);
+        }
     }
 }

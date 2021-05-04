@@ -30,7 +30,7 @@ public class GoogleTabController {
     @FXML private VBox locateVBox;
     @FXML private JFXTextField autoStart;
 
-    AutoCompleteTextField field;
+//    AutoCompleteTextField field;
 
 
     @FXML
@@ -76,8 +76,7 @@ public class GoogleTabController {
         }
 
 
-        googleMaps.getDirections(field.getText(), chosenEnd, travelMode, textDirectionsField);
-//        googleMaps.testDirections(textDirectionsField);
+        googleMaps.getDirections(autoStart.getText(), chosenEnd, travelMode, textDirectionsField);
     }
 
     @FXML
@@ -95,35 +94,14 @@ public class GoogleTabController {
         end.setItems(FXCollections.observableArrayList(availableParking));
         end.getSelectionModel().selectFirst();
 
-        List<String> testList = new ArrayList<>();
-        testList.add("test");
-        testList.add("hi");
-
         AutoCompletePopup acp = new AutoCompletePopup(autoStart);
         System.out.println("made popup");
-        acp.getSuggestions().addAll("world", "please", "whyyyy");
 
-        autoStart.setOnKeyTyped(event -> {
+
+        autoStart.setOnKeyReleased(event -> {
+            System.out.println("key released");
             textChanged(acp);
         });
-//        autoStart.setOnInputMethodTextChanged(event -> {
-//            textChanged(acp);
-//        });
-//
-//        field = new AutoCompleteTextField();
-//        field.getEntries().add("Bruegger's Bagels, 375 Longwood Ave, Boston, MA 02215");
-//        field.getEntries().add("hospital");
-//        field.getEntries().add("hello");
-//        field.getEntries().add("Museum of Fine Arts, Boston");
-//        field.getEntries().add("home");
-//        field.getEntries().add("hi");
-//        field.getEntries().add("hotel parking");
-//        field.getEntries().add("hospital parking");
-//        field.getEntries().add("hello world");
-//        field.setPromptText("Start Location");
-//        field.setStyle("-fx-background-color: #b6d6f2;");
-//        field.setOnKeyTyped(event -> textChanged());
 
-//        locateVBox.getChildren().add(2,field);
     }
 }

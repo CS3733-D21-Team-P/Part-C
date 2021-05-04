@@ -5,6 +5,7 @@ import com.google.maps.*;
 import com.google.maps.GeoApiContext.Builder;
 import com.google.maps.model.*;
 import com.jfoenix.controls.JFXTextArea;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.List;
 public class GoogleMaps {
     private static final String API_Key = "AIzaSyBEQCTGuuspvUVs9IBOpof00I35HG3HMCM";
 //    private List<String> directionsText = new ArrayList<>();
-
+    private AutoCompletePopup autoCompletePopup;
 
     /**
      * makes a request for directions
@@ -111,32 +112,40 @@ public class GoogleMaps {
     }
 
     public void getOptions(String currentText, AutoCompletePopup autoCompletePopup){
+        this.autoCompletePopup = autoCompletePopup;
         System.out.println("options request");
         Builder builder = new GeoApiContext.Builder();
         builder.apiKey(API_Key);
         GeoApiContext context = builder.build();
         QueryAutocompleteRequest request = PlacesApi.queryAutocomplete(context,currentText);
-        //LatLng latLng = PlacesApi.findPlaceFromText(context,"Brigham and Women's Hospital, 221 Longwood Ave, Boston, MA 02115", FindPlaceFromTextRequest.InputType.TEXT_QUERY);
-        LatLng latLng = new LatLng(42.338208024320735, -71.10549945775972);
-//        request.location(latLng);
-//        42.338208024320735, -71.10549945775972
+        LatLng latLng = new LatLng(42.338208024320735, -71.10549945775972); //set to prefer locations near hospital
         request.location(latLng);
-//        request
+        request.radius(3); //set to search for locations close to location
 
         request.setCallback(new PendingResult.Callback<AutocompletePrediction[]>() {
             @Override
             public void onResult(AutocompletePrediction[] result) {
                 autoCompletePopup.getSuggestions().clear();
-                for(int i = 0; i<10 && i<result.length; i++){
-                    System.out.println(result[i].description);
-                    autoCompletePopup.getSuggestions().add(result[i].description);
+                for(int i = 0; i<5 && i<result.length; i++){
+                    if(!autoCompletePopup.getSuggestions().contains(result[i].description)) {
+                        System.out.println(result[i].description);
+                        autoCompletePopup.getSuggestions().add(result[i].description);
+                    }
                 }
+
+                //because the user interface cannot be directly updated from a non-application thread.
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        autoCompletePopup.updateFilter();
+                    }
+                });
             }
 
             @Override
             public void onFailure(Throwable e) {
+                System.out.println("request failed");
                 System.out.println(e.getMessage());
-                System.out.println("request faliure");
             }
         });
 
