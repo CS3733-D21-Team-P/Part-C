@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +22,8 @@ import java.util.List;
 public class PathTabController {
 
     @FXML private JFXTextArea textDirectionsField;
-
     private PathfindingMap pathfindingMap;
+
 
     enum State {
         ENTERSTART,
@@ -38,10 +40,22 @@ public class PathTabController {
     private NodeButton startNodeButtonHold;
     private NodeButton endNodeButtonHold;
     private List<EdgeLine> pathLine= new ArrayList<>();
+    public List<String> floorsInPath= new ArrayList<>();
+    public int currentFloorInList = 0;
+    public String nextFloor = null;
+    public String lastFloor = null;
 
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
     @FXML public Label instructions;
+
+    public int getCurrentFloorInList() {
+        return currentFloorInList;
+    }
+
+    public void setCurrentFloorInList(int currentFloorInList) {
+        this.currentFloorInList = currentFloorInList;
+    }
 
 
     private boolean enteringStart = false;
@@ -92,7 +106,7 @@ public class PathTabController {
      * @param actionEvent
      */
     public void findPath(ActionEvent actionEvent){
-
+        resetVariables();
         if (startNode==null || !start.getText().equals(startNode.getName())){
             System.out.println("set start");
             String startText = start.getText();
@@ -108,6 +122,17 @@ public class PathTabController {
             //find path
             List<Node> path = new ArrayList<>();
             path = search.findShortestPath(startNode, endNode);
+            floorsInPath = getFloorsInPath(path);
+            if (floorsInPath.size() > 1) {
+                pathfindingMap.nextFloorBox.setVisible(true);
+                pathfindingMap.multipleFloors = true;
+            }
+            for (int i = 0; i < floorsInPath.size(); i++) {
+                if (floorsInPath.get(i).equals(pathfindingMap.getCurrFloorVal())) {
+                    currentFloorInList = i;
+                }
+            }
+            colorButtons();
 
             //Path To Text
             PathToText textPath = new PathToText();
@@ -235,14 +260,44 @@ public class PathTabController {
             instructions.setText("press search to find a path");
         }
     }
-/**
-    private void pathfindHold(NodeButton nb) {
-        if (nb != null) {
-            nb.getNode().setIsPathfinding(false);
-            nb.setButtonStyle();
-            nb.setTranslateX(-6);
-            nb.setTranslateY(-6);
+
+    private ArrayList<String> getFloorsInPath(List<Node> path) {
+        ArrayList<String> floorList = new ArrayList<>();
+        floorList.add(path.get(0).getFloor());
+        for (int i = 0; i < path.size() - 1; i++) {
+            if (!path.get(i).getFloor().equals(path.get(i + 1).getFloor())) {
+                floorList.add(path.get(i + 1).getFloor());
+            }
+        }
+        System.out.print(floorList);
+        return floorList;
+    }
+
+    private void resetVariables() {
+        nextFloor = null;
+        lastFloor = null;
+        currentFloorInList = 0;
+        floorsInPath = new ArrayList<>();
+        pathfindingMap.nextFloorBox.setVisible(false);
+    }
+
+    public void colorButtons() {
+        //tests if there are future directions on another floor
+        if ((floorsInPath.size() - 1) > currentFloorInList) {
+            pathfindingMap.nextFloorButton.setStyle("-fx-background-color: #5990d9");
+            nextFloor = floorsInPath.get(currentFloorInList + 1);
+        } else {
+            pathfindingMap.nextFloorButton.setStyle("-fx-background-color: #9fbbc8");
+            nextFloor = null;
+        }
+        //tests if there are previous directions on another floor
+        if (currentFloorInList > 0) {
+            pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #5990d9");
+            lastFloor = floorsInPath.get(currentFloorInList - 1);
+        } else {
+            pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #9fbbc8");
+            nextFloor = null;
         }
     }
- **/
+
 }

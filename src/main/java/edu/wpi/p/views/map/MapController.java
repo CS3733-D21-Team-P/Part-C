@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -37,6 +38,7 @@ public abstract class MapController {
 
     @FXML private MapEditorFindTab findTabController;
 
+
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
     List<EdgeLine> edgeLines = new ArrayList<>();
@@ -46,6 +48,7 @@ public abstract class MapController {
     Node nodeHold;
     NodeButton nodeButtonHold;
     public boolean pathfindPage = false;
+    public boolean multipleFloors = false;
 
     HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
     HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
@@ -61,6 +64,9 @@ public abstract class MapController {
 
     public String getCurrFloorVal() {
         return currFloorVal;
+    }
+    public void setCurrFloorVal(String val) {
+        this.currFloorVal = val;
     }
 
     private String currFloorVal;
@@ -248,6 +254,9 @@ public abstract class MapController {
                 break;
         }
         imageView.setImage(mapImage);
+        if (multipleFloors) {
+            updateNextFloorBox();
+        }
     }
 
     public void floorInit(){
@@ -430,4 +439,6 @@ public abstract class MapController {
         Rectangle2D viewport = imageView.getViewport();
         return ((y*scaleY)+(viewport.getMinY()));
     }
+
+    public void updateNextFloorBox() {}
 }
