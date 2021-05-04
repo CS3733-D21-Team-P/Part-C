@@ -1,7 +1,6 @@
 package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
-import edu.wpi.p.AStar.Node;
 import edu.wpi.p.App;
 import edu.wpi.p.userstate.User;
 import javafx.event.ActionEvent;
