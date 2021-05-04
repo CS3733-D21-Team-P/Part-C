@@ -1,7 +1,11 @@
 package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.rowdata.ServiceRequest;
+import edu.wpi.p.views.servicerequests.EntryRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +27,8 @@ public class CovidSurvey {
     @FXML
     public Text fifthText;
     @FXML
+    public JFXTextField name;
+    @FXML
     public CheckBox firstCheckBox;
     @FXML
     public CheckBox secondCheckBox;
@@ -36,14 +42,30 @@ public class CovidSurvey {
     public JFXButton submitButton;
     @FXML
     public JFXButton cancelButton;
+    public ServiceRequest request;
+
 
     @FXML
-    private void submitPressed(ActionEvent actionEvent)
+    public void submitPressed(ActionEvent actionEvent)
     {
+        final String n = name.getText();
+
         if (firstCheckBox.isSelected() || secondCheckBox.isSelected() || thirdCheckBox.isSelected() || fourthCheckBox.isSelected())
         {
-            System.out.println("COVID RISK!");    // this is temporary
+            AlertBox.displayCOVID("COVID Survey Results", "Potential COVID Risk. Please Use Emergency Entrance.");
+            ServiceRequest sR = new ServiceRequest(n, "Emergency Entrance", "Name" + "_" + "Emergency Entrance", "COVID Survey");
+            DBServiceRequest dbServiceRequest = new DBServiceRequest();
+            dbServiceRequest.addServiceRequest(sR);
+            request = sR;
         }
+        else{
+            AlertBox.displayCOVID("COVID Survey Results", "No Potential COVID Risk. Please Use 75 Francis Street Entrance.");
+            ServiceRequest sR = new ServiceRequest(n, "75 Francis", "Name" + "_" + "75 Francis", "COVID Survey");
+            DBServiceRequest dbServiceRequest = new DBServiceRequest();
+            dbServiceRequest.addServiceRequest(sR);
+            request = sR;
+        }
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);

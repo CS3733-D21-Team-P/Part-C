@@ -11,6 +11,7 @@ import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DatabaseInterface;
 import edu.wpi.p.userstate.User;
+import edu.wpi.p.views.servicerequests.EntryRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +48,12 @@ public class HomePage {
   public JFXButton pathButton;
   @FXML
   public JFXButton editButton;
+  @FXML
+  public JFXButton entryButton;
 
+
+  public static boolean Isguest;
+  public static boolean approved;
   public JFXButton requsetLog;
   public JFXButton userAccount;
   public JFXButton employeeButton;
@@ -82,7 +88,9 @@ public class HomePage {
       }
 
     }
+    EntryRequest.updateApproved();
     if(User.getInstance().isGuest()){
+      pathButton.setVisible(false);
       editButton.setVisible(false);
       editIcon.setVisible(false);
       SRoption.setVisible(false);
@@ -91,17 +99,21 @@ public class HomePage {
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
     }
+    if (approved){
+      pathButton.setVisible(true);
+    }
   }
 
-  public void languageInterpretersBtn(ActionEvent actionEvent) {
+
+  public void entryButtonAc(ActionEvent actionEvent){
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/LanguageInterpreterServiceRequest.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/EntryRequest.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
     }
   }
-  public void requsetLogAc(ActionEvent actionEvent) {
+  public void requestLogAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/RequestLogPage.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
@@ -215,6 +227,10 @@ public void backToLoginAc(ActionEvent actionEvent){
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public void updateApproved(){
+
   }
 
 //  public void sanitationServiceBtn(ActionEvent actionEvent) {

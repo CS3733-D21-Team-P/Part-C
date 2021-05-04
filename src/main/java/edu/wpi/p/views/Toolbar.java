@@ -60,8 +60,13 @@ public class Toolbar {
     public void initialize() {
         if(User.getInstance().isGuest())
         {
-            serviceButton.setVisible(false);
-            editButton.setVisible(false);
+            if(serviceButton != null) {
+                serviceButton.setVisible(false);
+            }
+            if (editButton != null){
+                editButton.setVisible(false);
+            }
+
         }
     }
 }
