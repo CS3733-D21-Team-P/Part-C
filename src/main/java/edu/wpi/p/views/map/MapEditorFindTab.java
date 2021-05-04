@@ -5,9 +5,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.database.DBTable;
-import edu.wpi.p.views.map.Filter.Criteria;
-import edu.wpi.p.views.map.Filter.CriteriaMatchesFloor;
-import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
+import edu.wpi.p.views.map.Filter.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -29,6 +27,8 @@ public class MapEditorFindTab {
 
     public JFXTreeTableView nodeTable;
     public JFXTextField filterField;
+    public JFXTextField buildFilter;
+    public JFXTextField typeFilter;
     public JFXButton searchBtn;
     private List<Node> nodeList;
 
@@ -79,7 +79,7 @@ public class MapEditorFindTab {
 
         nodeList = dbTable.getNodes();
 
-        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, "1");
+        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, "All Floors");
 //        List<Node> filteredNodes = filterNodes(nodeList);
 //
 //        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
@@ -164,9 +164,19 @@ public class MapEditorFindTab {
     public List<Node> filterNodes(List<Node> nodesUnfiltered, String floor){
         Criteria noHalls = new CriteriaNoHallways();
         Criteria matchesFloor = new CriteriaMatchesFloor(floor);
+        Criteria matchesType = new CriteriaMatchesType(typeFilter.getText());
+        Criteria matchesBuilding = new CriteriaMatchesBuilding(buildFilter.getText());
 
         nodesUnfiltered = noHalls.meetCriteria(nodesUnfiltered);
-        nodesUnfiltered = matchesFloor.meetCriteria(nodesUnfiltered);
+        if (!floor.equals("All Floors")) {
+            nodesUnfiltered = matchesFloor.meetCriteria(nodesUnfiltered);
+        }
+        if(!buildFilter.getText().equals("")){
+            nodesUnfiltered = matchesBuilding.meetCriteria(nodesUnfiltered);
+        }
+        if(!typeFilter.getText().equals("")){
+            nodesUnfiltered = matchesType.meetCriteria(nodesUnfiltered);
+        }
 
         return nodesUnfiltered;
     }
