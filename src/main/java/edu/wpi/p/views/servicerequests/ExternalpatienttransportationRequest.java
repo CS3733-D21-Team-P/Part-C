@@ -3,7 +3,6 @@ package edu.wpi.p.views.servicerequests;
 import edu.wpi.p.App;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Observable;
 
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.views.Toolbar;

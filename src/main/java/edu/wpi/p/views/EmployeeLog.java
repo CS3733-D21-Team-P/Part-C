@@ -2,8 +2,6 @@ package edu.wpi.p.views;
 
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBEmployee;
-import edu.wpi.p.database.DBUser;
-import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.database.rowdata.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

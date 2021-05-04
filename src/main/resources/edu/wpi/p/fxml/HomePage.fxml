@@ -20,50 +20,14 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#2f3159" height="850.0" layoutX="1135.0" layoutY="77.0" stroke="#00caffcc" strokeMiterLimit="0.0" width="608.0" />
-      <VBox layoutX="1189.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="517.0" spacing="38.0">
+      <VBox layoutX="1206.0" layoutY="108.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="433.0" spacing="38.0">
          <children>
-            <HBox prefHeight="97.0" prefWidth="517.0" spacing="5.0">
-               <children>
-                  <ImageView id="serviceIcon" fx:id="serviceIcon" fitHeight="88.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/icons/request.png" />
-                     </image>
-                  </ImageView>
-                  <JFXButton fx:id="SRoption" onAction="#SRoptionAc" prefHeight="88.0" prefWidth="432.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" />
-               </children>
-            </HBox>
-            <HBox prefHeight="97.0" prefWidth="517.0" spacing="5.0">
-               <children>
-                  <ImageView fx:id="covidIcon" fitHeight="88.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/icons/covid.png" />
-                     </image>
-                  </ImageView>
-                  <JFXButton fx:id="CovidButton" onAction="#CovidButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="COVID-19 Survey" textAlignment="CENTER" textFill="WHITE" />
-               </children>
-            </HBox>
-            <HBox prefHeight="97.0" prefWidth="517.0" spacing="5.0">
-               <children>
-                  <ImageView fx:id="pathIcon" fitHeight="88.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/icons/path%20icon.png" />
-                     </image>
-                  </ImageView>
-                  <JFXButton fx:id="pathButton" onAction="#pathButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Get Directions" textAlignment="CENTER" textFill="WHITE" />
-               </children>
-            </HBox>
-            <HBox prefHeight="97.0" prefWidth="517.0" spacing="5.0">
-               <children>
-                  <ImageView id="editIcon" fx:id="editIcon" fitHeight="88.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/icons/edit.png" />
-                     </image>
-                  </ImageView>
-                  <JFXButton fx:id="editButton" onAction="#editButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Map Editor" textAlignment="CENTER" textFill="WHITE" />
-               </children>
-            </HBox>
-            <JFXButton fx:id="requsetLog" onAction="#requsetLogAc" prefHeight="66.0" prefWidth="523.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Request Logs" textAlignment="CENTER" textFill="WHITE" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+            <JFXButton fx:id="SRoption" onAction="#SRoptionAc" prefHeight="88.0" prefWidth="432.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="CovidButton" onAction="#CovidButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="COVID-19 Survey" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="pathButton" onAction="#pathButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Get Directions" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="editButton" onAction="#editButtonAc" prefHeight="89.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Map Editor" textAlignment="CENTER" textFill="WHITE" />
+            <JFXButton fx:id="requsetLog" onAction="#requsetLogAc" prefHeight="65.0" prefWidth="448.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Request Logs" textAlignment="CENTER" textFill="WHITE" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
                   <JFXButton fx:id="userAccount" onAction="#userAccountAc" prefHeight="83.0" prefWidth="218.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Account" textAlignment="CENTER" textFill="WHITE" />
                   <JFXButton fx:id="employeeButton" onAction="#employeeButtonAc" prefHeight="83.0" prefWidth="218.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Employee" textAlignment="CENTER" textFill="WHITE" />
@@ -71,6 +35,26 @@
             </HBox>
          </children>
       </VBox>
-      <JFXButton fx:id="backToLogin" layoutX="1310.0" layoutY="835.0" onAction="#backToLoginAc" prefHeight="75.0" prefWidth="250.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Back To Login" textAlignment="CENTER" textFill="WHITE" />
+      <JFXButton fx:id="backToLogin" layoutX="1306.0" layoutY="835.0" onAction="#backToLoginAc" prefHeight="75.0" prefWidth="250.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Back To Login" textAlignment="CENTER" textFill="WHITE" />
+      <ImageView id="serviceIcon" fx:id="serviceIcon" fitHeight="84.0" fitWidth="80.0" layoutX="1218.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/icons/request.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="covidIcon" fitHeight="88.0" fitWidth="103.0" layoutX="1208.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/icons/covid.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pathIcon" fitHeight="80.0" fitWidth="80.0" layoutX="1215.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/icons/path icon.png" />
+         </image>
+      </ImageView>
+      <ImageView id="editIcon" fx:id="editIcon" fitHeight="75.0" fitWidth="80.0" layoutX="1219.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/icons/edit.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
