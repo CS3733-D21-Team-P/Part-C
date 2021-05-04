@@ -66,6 +66,9 @@ public class Toolbar {
             if (editButton != null){
                 editButton.setVisible(false);
             }
+            if(!HomePage.approved && pathButton != null){
+                pathButton.setVisible(false);
+            }
 
         }
     }
