@@ -58,8 +58,13 @@ public class GoogleMaps {
                         String stepText = getHTMLText(step.htmlInstructions); //convert html instruction to readable string
                         directionsText.add(stepText); //add to list
                     }
+                    String aboutRoute = "About Route: \n";
+                    aboutRoute += "Start: " + result.routes[0].legs[0].startAddress +"\n";
+                    aboutRoute += "End: " + result.routes[0].legs[0].endAddress +"\n";
+                    aboutRoute += "Duration: " + result.routes[0].legs[0].duration.humanReadable +"\n";
+                    aboutRoute += "Distance: " + result.routes[0].legs[0].distance.humanReadable +"\n";
 
-                    updateText(textArea, directionsText); //update textview on page
+                    updateText(textArea, directionsText, aboutRoute); //update textview on page
 
                     System.out.println("found directions");
                 }
@@ -67,9 +72,8 @@ public class GoogleMaps {
             @Override
             public void onFailure(Throwable e) {
                 List<String> errorText = new ArrayList<>(); //list to store different steps
-                errorText.add("faliure");
                 errorText.add(e.getCause().getMessage());
-                updateText(textArea,errorText); //update textview on page
+                updateText(textArea,errorText, "ERROR"); //update textview on page
                 System.out.println("calculateDirections"+ "calculateDirections: Failed to get directions: " + e.getMessage());
             }
         });
@@ -81,11 +85,15 @@ public class GoogleMaps {
      * @param textArea
      * @param directionsText
      */
-    public void updateText(JFXTextArea textArea, List<String> directionsText){
+    public void updateText(JFXTextArea textArea, List<String> directionsText, String aboutRoute){
         textArea.clear(); //clear previous text
+        //create one string
+        String text = "";
+
+        text+=aboutRoute+"\n"+"Directions: \n";
+
         if(directionsText!=null && !directionsText.isEmpty()) {
-            //create one string
-            String text = "";
+
             int directionNum = 1;
             for (String s : directionsText) {
                 text += directionNum + ". " + s + "\n"; //add numbers to each line
@@ -108,6 +116,11 @@ public class GoogleMaps {
         plainTextBody = plainTextBody.replaceAll("<br ?/>", ""); //get rid of break tabs
         plainTextBody = plainTextBody.replaceAll("</b>", "");
         plainTextBody = plainTextBody.replaceAll("</div>", ""); //replace div tabs
+        if(plainTextBody.contains("Destination will be on the")){
+            String[] parts = plainTextBody.split("Destination");
+            plainTextBody = parts[0]+"\nDestination"+parts[1];
+//            plainTextBody.replaceFirst()
+        }
         return plainTextBody;
     }
 
@@ -126,7 +139,7 @@ public class GoogleMaps {
             @Override
             public void onResult(AutocompletePrediction[] result) {
                 autoCompletePopup.getSuggestions().clear();
-                for(int i = 0; i<5 && i<result.length; i++){
+                for(int i = 0; i<12 && i<result.length; i++){
                     if(!autoCompletePopup.getSuggestions().contains(result[i].description)) {
                         System.out.println(result[i].description);
                         autoCompletePopup.getSuggestions().add(result[i].description);
