@@ -5,12 +5,15 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.views.map.Filter.Criteria;
+import edu.wpi.p.views.map.Filter.CriteriaMatchesFloor;
+import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -32,6 +35,8 @@ public class MapEditorFindTab {
 //    private EditMap editMapController;
 //    private PathfindingMap pathfindingMapController;
     private DBTable dbTable = new DBTable();
+
+    @FXML JFXComboBox chosenType;
 
 
     public void initialize() {
@@ -68,15 +73,19 @@ public class MapEditorFindTab {
         });
 
         nodeList = dbTable.getNodes();
-        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
-        for (Node node : nodeList) {
-            nodes.add(new NodeTableEntry(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName())));
-        }
 
-        final TreeItem<NodeTableEntry> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
-        nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
-        nodeTable.setRoot(root);
-        nodeTable.setShowRoot(false);
+        updateList(nodeName, nodeType, nodeFloor, nodeBuilding);
+//        List<Node> filteredNodes = filterNodes(nodeList);
+//
+//        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
+//        for (Node node : filteredNodes) {
+//            nodes.add(new NodeTableEntry(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName())));
+//        }
+//
+//        final TreeItem<NodeTableEntry> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
+//        nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
+//        nodeTable.setRoot(root);
+//        nodeTable.setShowRoot(false);
 
 //        NodeButton nodeButton = new NodeButton(nodeList.get(0));
 
@@ -86,7 +95,7 @@ public class MapEditorFindTab {
                 nodeTable.setPredicate(new Predicate<TreeItem<NodeTableEntry>>() {
                     @Override
                     public boolean test(TreeItem<NodeTableEntry> nodeTreeItem) {
-                        return nodeTreeItem.getValue().getNode().getShortName().contains(newValue);
+                        return nodeTreeItem.getValue().getNode().getShortName().toLowerCase().contains(newValue.toLowerCase());
                         //Boolean flag = nodeTreeItem.getValue().getShortName().contains(newValue);
                         //nodeTreeItem.getValue().setIsSelected(flag);
                         //nodeButton.setButtonStyle();
@@ -135,34 +144,48 @@ public class MapEditorFindTab {
     }
 
     public void injectMapController(MapController mapController){
+
         this.mapController = mapController;
+        chosenType.setItems(FXCollections.observableArrayList(mapController.availableFloors));
+
     }
 
-    public void searchBtnAc(ActionEvent actionEvent) {
-//        TreeTableView.TreeTableViewSelectionModel<Node> sm = nodeTable.getSelectionModel();
-//        Node n = (Node) sm.getSelectedItem().getValue(); //selected node
-//        String floor = n.getFloor(); //current floor
-//
-//        //find nodeButton
-//        List<NodeButton> list = editMapController.buttonLists.get(floor);
-//        for(NodeButton nb: list){
-//            if(nb.getNode().getId().equals(n.getId())){
-//                //found node button
-//                System.out.println("found");
-//
-//                if(editMapController.nodeButtonHold!=null) { //check if there is a current selection
-//                    //deselect prev node
-//                    editMapController.nodeButtonHold.getNode().setIsSelected(false);
-//                    editMapController.nodeButtonHold.setButtonStyle();
-//                }
-//
-//                //select new node
-//                editMapController.nodeClicked(nb);
-//                continue;
-//            }
-//
-//        }
-//        System.out.println("no errors");
+    /**
+     * Filters out hallways and nodes not on given floor
+     * @param nodesUnfiltered all nodes
+     * @param floor String of floor to keep in list
+     * @return list of nodes matching filter
+     */
+    public List<Node> filterNodes(List<Node> nodesUnfiltered, String floor){
+        Criteria noHalls = new CriteriaNoHallways();
+        Criteria matchesFloor = new CriteriaMatchesFloor(floor);
 
+        nodesUnfiltered = noHalls.meetCriteria(nodesUnfiltered);
+        nodesUnfiltered = matchesFloor.meetCriteria(nodesUnfiltered);
+
+        return nodesUnfiltered;
+    }
+
+    /**
+     * filters list and updates treetable
+     * @param nodeName
+     * @param nodeType
+     * @param nodeFloor
+     * @param nodeBuilding
+     */
+    public void updateList(JFXTreeTableColumn<NodeTableEntry, String> nodeName, JFXTreeTableColumn<NodeTableEntry, String> nodeType,
+                           JFXTreeTableColumn<NodeTableEntry, String> nodeFloor, JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding){
+        List<Node> filteredNodes = filterNodes(nodeList, "2"); //get filtered list
+
+        //Add nodes to node table
+        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
+        for (Node node : filteredNodes) {
+            nodes.add(new NodeTableEntry(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName())));
+        }
+
+        final TreeItem<NodeTableEntry> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
+        nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
+        nodeTable.setRoot(root);
+        nodeTable.setShowRoot(false);
     }
 }
