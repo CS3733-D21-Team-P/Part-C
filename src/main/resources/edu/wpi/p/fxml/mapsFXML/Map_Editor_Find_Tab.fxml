@@ -25,6 +25,12 @@
                   <JFXButton fx:id="updateButton" buttonType="RAISED" onAction="#updateList" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: #b6d6f2;" text="Update" textFill="#464646" translateX="10.0" />
                </children>
             </HBox>
+            <HBox prefHeight="16.0" prefWidth="270.0">
+               <children>
+                  <JFXTextField fx:id="buildFilter" prefHeight="26.0" prefWidth="120.0" promptText="Building" style="-fx-background-color: #b6d6f2;" unFocusColor="WHITE" />
+                  <JFXTextField fx:id="typeFilter" prefHeight="26.0" prefWidth="120.0" promptText="Type" style="-fx-background-color: #b6d6f2;" translateX="30.0" unFocusColor="WHITE" />
+               </children>
+            </HBox>
             <JFXTreeTableView fx:id="nodeTable" prefHeight="760.0" prefWidth="288.0" style="-fx-background-color: #b6d6f2;" />
          </children>
          <padding>
