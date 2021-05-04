@@ -42,11 +42,11 @@ public class UserFromDB {
     }
 
     public String getBlank() {
-        return Blank;
+        return ParkingNodeID;
     }
 
     public void setBlank(String blank) {
-        Blank = blank;
+        ParkingNodeID = blank;
     }
 
     public void setStatus(String status) {
