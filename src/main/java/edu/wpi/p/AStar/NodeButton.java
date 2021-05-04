@@ -75,15 +75,8 @@ public class NodeButton extends JFXButton {
 
         if (this.getNode().getIsPathfinding()) {
             this.toFront();
-            //this.setStyle(
-//                    "-fx-background-radius: 10em; " +
-////                            "-fx-min-width: 12px; " +
-////                            "-fx-min-height: 12px; " +
-//////                            "-fx-max-width: 12px; " +
-//////                            "-fx-max-height: 12px;" +
-//                            "-fx-background-color: red"
-           // );
             buttonIcon = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/image/icons/destination.png"), 25, 25, true, true);
+            nameOfFile = "/edu/wpi/p/fxml/image/icons/destination.png";
             BackgroundSize bgsize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
             BackgroundImage backgroundImage = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize);
             Background background = new Background(backgroundImage);
@@ -97,21 +90,17 @@ public class NodeButton extends JFXButton {
             //}
 
         }
-        else if (!this.getNode().getWasPathfinding()){
+        else if (!this.getNode().getIsPathfinding()){
             if (nameOfFile.isEmpty()) {
                 if (!getNode().getIsSelected()) {//no image and not selected
                     this.setStyle(getStyle() +
                             ";-fx-background-radius: 5em; " +
-                            "-fx-min-width: 10px; " +
-                            "-fx-min-height: 10px; " +
                             "-fx-background-color: #2F3159"
                     );
                     setOpacity(0.7);
                 } else {//no image and is selected
                     this.setStyle(
                             "-fx-background-radius: 5em; " +
-                                    "-fx-min-width: 10px; " +
-                                    "-fx-min-height: 10px; " +
                                     "-fx-background-color: red"
                     );
                 }
@@ -223,6 +212,6 @@ public class NodeButton extends JFXButton {
         );
         this.setTranslateX(-5);
         this.setTranslateY(-5);
-        this.getNode().setWasPathfinding(false);
+//        this.getNode().setWasPathfinding(false);
     }
 }

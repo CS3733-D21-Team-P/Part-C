@@ -92,6 +92,7 @@ public class PathTabController {
      * @param actionEvent
      */
     public void findPath(ActionEvent actionEvent){
+
         if (startNode==null || !start.getText().equals(startNode.getName())){
             System.out.println("set start");
             String startText = start.getText();
@@ -157,6 +158,8 @@ public class PathTabController {
 //                }
 //            }
 
+            //TODO: set old node button nodes to be isPathfinding =false;
+            //TODO: set new old node button variable to be the current start and end node
 
             startNodeButton.getNode().setIsPathfinding(true);
             endNodeButton.getNode().setIsPathfinding(true);
@@ -172,10 +175,11 @@ public class PathTabController {
                     endNodeButtonHold.endPathfinding();
                 }
             }
-            startNodeButton.getNode().setIsPathfinding(false);
-            endNodeButton.getNode().setIsPathfinding(false);
-            startNodeButton.getNode().setWasPathfinding(true);
-            endNodeButton.getNode().setWasPathfinding(true);
+
+//            startNodeButton.getNode().setIsPathfinding(false);
+//            endNodeButton.getNode().setIsPathfinding(false);
+//            startNodeButton.getNode().setWasPathfinding(true);
+//            endNodeButton.getNode().setWasPathfinding(true);
             startNodeButtonHold = startNodeButton;
             endNodeButtonHold = endNodeButton;
 
