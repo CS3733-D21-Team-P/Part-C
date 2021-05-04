@@ -48,25 +48,6 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <children>
-                  <JFXCheckBox fx:id="doc" onAction="#doctorClick" prefHeight="37.0" prefWidth="90.0" text="Doctor" textFill="WHITE" unCheckedColor="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox fx:id="nurse" onAction="#nurseClick" prefHeight="37.0" prefWidth="90.0" text="Nurse" textFill="WHITE" unCheckedColor="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox fx:id="pat" onAction="#patientClick" prefHeight="37.0" prefWidth="90.0" text="Patient" textFill="WHITE" unCheckedColor="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </JFXCheckBox>
-               </children>
-            </HBox>
             <Label text="Medicine Requested: " textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <font>
                   <Font size="16.0" />
@@ -117,6 +98,33 @@
                   </JFXButton>
                </children>
             </HBox>
+            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXCheckBox fx:id="doc" onAction="#doctorClick" prefHeight="37.0" prefWidth="90.0" text="Doctor" textFill="WHITE" unCheckedColor="WHITE" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="nurse" onAction="#nurseClick" prefHeight="37.0" prefWidth="90.0" text="Nurse" textFill="WHITE" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
+                  <JFXCheckBox fx:id="pat" onAction="#patientClick" prefHeight="37.0" prefWidth="90.0" text="Patient" textFill="WHITE" unCheckedColor="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
+               </children>
+            </GridPane>
          </children>
       </GridPane>
       <ImageView fitHeight="1080.0" fitWidth="960.0" AnchorPane.leftAnchor="0.0">

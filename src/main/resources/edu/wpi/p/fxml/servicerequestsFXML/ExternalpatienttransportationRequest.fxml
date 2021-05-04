@@ -95,46 +95,11 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="81.0" prefWidth="152.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
-                     <children>
-                        <JFXRadioButton fx:id="AmbulanceBtn" text="Ambulance" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="HelicopterBtn" text="Helicopter" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="PlaneBtn" text="Plane" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </JFXRadioButton>
-                     </children>
-                  </HBox>
                   <Label fx:id="timeLabel" text="Time:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
-                     <children>
-                        <JFXDatePicker fx:id="DatePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin></JFXDatePicker>
-                        <JFXTimePicker fx:id="TimePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;" />
-                        <Label fx:id="colonLabel" text=":" />
-                     </children>
-                  </HBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
                         <JFXTextField fx:id="firstNameText" focusColor="WHITE" labelFloat="true" promptText="First Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE">
@@ -156,20 +121,6 @@
                      </font>
                   </Label>
                   <Button mnemonicParsing="false" onAction="#detailHelpPressed" text="?" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10">
-                     <children>
-                        <JFXButton fx:id="back" onAction="#cancelPressed" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="submit" onAction="#submitPressed" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                     </children>
-                  </HBox>
                   <Label alignment="CENTER" text="Doctor Signature:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="9">
                      <font>
                         <Font size="18.0" />
@@ -180,6 +131,59 @@
                   <JFXTextField fx:id="endRoomNumText" focusColor="WHITE" labelFloat="true" promptText="AA-0000" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                   <JFXComboBox fx:id="endHospital" focusColor="WHITE" prefHeight="23.0" prefWidth="150.0" promptText="Hospital B" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <JFXTextField fx:id="doctorSignature" focusColor="WHITE" labelFloat="true" promptText="Full Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <GridPane GridPane.columnIndex="2" GridPane.rowIndex="10">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXButton fx:id="back" onAction="#cancelPressed" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="submit" onAction="#submitPressed" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.columnIndex="2" GridPane.rowIndex="7">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXDatePicker fx:id="DatePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;" GridPane.halignment="CENTER" />
+                        <JFXTimePicker fx:id="TimePicker" defaultColor="BLACK" style="-fx-background-color: #f2f2f2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXRadioButton fx:id="AmbulanceBtn" text="Ambulance" textFill="WHITE" GridPane.halignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="HelicopterBtn" text="Helicopter" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="PlaneBtn" text="Plane" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </JFXRadioButton>
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
          </children>
@@ -190,5 +194,6 @@
          </image>
       </ImageView>
       <VBox layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
+      <HBox alignment="CENTER" layoutX="1078.0" layoutY="967.0" prefHeight="81.0" prefWidth="152.0" />
    </children>
 </AnchorPane>
