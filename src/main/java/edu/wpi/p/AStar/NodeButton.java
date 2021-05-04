@@ -75,32 +75,43 @@ public class NodeButton extends JFXButton {
 
         if (this.getNode().getIsPathfinding()) {
             this.toFront();
-            nameOfFile = "/edu/wpi/p/fxml/image/icons/destination.png";
-            this.setStyle(
-                    "-fx-background-radius: 10em; " +
-                            "-fx-min-width: 12px; " +
-                            "-fx-min-height: 12px; " +
-//                            "-fx-max-width: 12px; " +
-//                            "-fx-max-height: 12px;" +
-                            "-fx-background-color: red"
-            );
-//            this.setTranslateX(-6);
-//            this.setTranslateY(-6);
+            //this.setStyle(
+//                    "-fx-background-radius: 10em; " +
+////                            "-fx-min-width: 12px; " +
+////                            "-fx-min-height: 12px; " +
+//////                            "-fx-max-width: 12px; " +
+//////                            "-fx-max-height: 12px;" +
+//                            "-fx-background-color: red"
+           // );
+            buttonIcon = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/image/icons/destination.png"), 25, 25, true, true);
+            BackgroundSize bgsize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+            BackgroundImage backgroundImage = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize);
+            Background background = new Background(backgroundImage);
+            setBackground(background);
+            this.setOpacity(0.7);
+            //if (!this.getNode().getWasPathfinding()) {
+                currentSize = 20;
+                setButtonSize(currentSize); //set button size
+                this.setTranslateX(-currentSize/2);
+                this.setTranslateY(-(currentSize/2));
+            //}
+
         }
-        else {
+        else if (!this.getNode().getWasPathfinding()){
             if (nameOfFile.isEmpty()) {
                 if (!getNode().getIsSelected()) {//no image and not selected
                     this.setStyle(getStyle() +
                             ";-fx-background-radius: 5em; " +
-                            "-fx-min-width: 6px; " +
-                            "-fx-min-height: 6px; " +
-                            "-fx-max-width: 6px; " +
-                            "-fx-max-height: 6px;" +
+                            "-fx-min-width: 10px; " +
+                            "-fx-min-height: 10px; " +
                             "-fx-background-color: #2F3159"
                     );
+                    setOpacity(0.7);
                 } else {//no image and is selected
                     this.setStyle(
                             "-fx-background-radius: 5em; " +
+                                    "-fx-min-width: 10px; " +
+                                    "-fx-min-height: 10px; " +
                                     "-fx-background-color: red"
                     );
                 }
@@ -198,5 +209,20 @@ public class NodeButton extends JFXButton {
     {
         this.getNode().setIsSelected(false);
         this.setButtonStyle();
+    }
+
+    public void endPathfinding() {
+        currentSize = 10;
+        this.setStyle(getStyle() +
+                ";-fx-background-radius: 5em; " +
+                "-fx-min-width: 10px; " +
+                "-fx-min-height: 10px; " +
+                "-fx-max-width: 10px; " +
+                "-fx-max-height: 10px;" +
+                "-fx-background-color: #2F3159"
+        );
+        this.setTranslateX(-5);
+        this.setTranslateY(-5);
+        this.getNode().setWasPathfinding(false);
     }
 }

@@ -141,22 +141,41 @@ public class PathTabController {
                 }
             }
 
-            if (startNodeButtonHold != null) {
-                startNodeButtonHold.getNode().setIsPathfinding(false);
-                startNodeButtonHold.setButtonStyle();
-//                startNodeButtonHold.setTranslateX(-6);
-//                startNodeButtonHold.setTranslateY(-6);
-            }
-            if (endNodeButtonHold != null) {
-                endNodeButtonHold.getNode().setIsPathfinding(false);
-                endNodeButtonHold.setButtonStyle();
-//                endNodeButtonHold.setTranslateX(-6);
-//                endNodeButtonHold.setTranslateY(-6);
-            }
+//            for (int i = 0; i < path.size(); i++) {
+//                if (i > 0) {
+//                    EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
+//                    if (path.get(i).getFloor().equals(pathfindingMap.getCurrFloorVal())) {
+//                        line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+//                        pathLine.add(line);
+//                        line.toFront();
+//                    }
+//                    else {
+//                        line.setStyle("-fx-stroke: grey; -fx-stroke-width: 5px;");
+//                        pathLine.add(line);
+//                        line.toFront();
+//                    }
+//                }
+//            }
+
+
             startNodeButton.getNode().setIsPathfinding(true);
             endNodeButton.getNode().setIsPathfinding(true);
-            startNodeButton.setButtonStyle();
-            endNodeButton.setButtonStyle();
+            if (startNodeButton != startNodeButtonHold) {
+                startNodeButton.setButtonStyle();
+                if (startNodeButtonHold != null) {
+                    startNodeButtonHold.endPathfinding();
+                }
+            }
+            if (endNodeButton != endNodeButtonHold) {
+                endNodeButton.setButtonStyle();
+                if (endNodeButtonHold != null) {
+                    endNodeButtonHold.endPathfinding();
+                }
+            }
+            startNodeButton.getNode().setIsPathfinding(false);
+            endNodeButton.getNode().setIsPathfinding(false);
+            startNodeButton.getNode().setWasPathfinding(true);
+            endNodeButton.getNode().setWasPathfinding(true);
             startNodeButtonHold = startNodeButton;
             endNodeButtonHold = endNodeButton;
 

@@ -26,6 +26,7 @@ public class Node extends DBRow {
     private List<Node> neighbours;
     private boolean isSelected = false;
     private boolean isPathfinding = false;
+    private boolean wasPathfinding = false;
 
 
     public Node() {
@@ -204,4 +205,8 @@ public class Node extends DBRow {
     public void setIsPathfinding(Boolean isPathfinding){
         this.isPathfinding= isPathfinding;
     }
+
+    public boolean getWasPathfinding() { return wasPathfinding; }
+
+    public void setWasPathfinding(boolean wasPathfinding) { this.wasPathfinding = wasPathfinding; }
 }
