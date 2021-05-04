@@ -5,6 +5,9 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import edu.wpi.p.AStar.*;
+import edu.wpi.p.views.map.Filter.Criteria;
+import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
+import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,9 +46,25 @@ public class PathTabController {
     private boolean enteringStart = false;
 
     public void injectPathfindingMap(PathfindingMap pathfindingMap){
-        this.pathfindingMap = pathfindingMap;
-    }
 
+        this.pathfindingMap = pathfindingMap;
+
+        //add autocomplete to start and end text fields
+        AutoCompletePopup acpStart = new AutoCompletePopup(start);
+        AutoCompletePopup acpEnd = new AutoCompletePopup(end);
+
+        Criteria noHalls = new CriteriaNoHallways();
+        //filter out hallways from nodes
+        List<Node> filteredNodes = noHalls.meetCriteria(pathfindingMap.graph.getGraph());
+
+        //get names of nodes
+        List<String> nodeNames = new ArrayList<>();
+        for (Node n: filteredNodes){nodeNames.add(n.getName());}
+
+        //add names to list of possible autocomplete suggestions
+        acpStart.getSuggestions().addAll(nodeNames);
+        acpEnd.getSuggestions().addAll(nodeNames);
+    }
 
     /**
      * run when user clicks into start text field and changes state
