@@ -21,7 +21,7 @@ public class CriteriaMatchesType implements Criteria {
         List<Node> nodesOfType = new ArrayList<>();
 
         for (Node n : nodes) {
-            if(n.getType().equals(this.type)){
+            if(n.getType().toLowerCase().equals(this.type.toLowerCase())){
                 nodesOfType.add(n);
             }
         }

@@ -168,7 +168,7 @@ public class MapEditorFindTab {
         Criteria matchesBuilding = new CriteriaMatchesBuilding(buildFilter.getText());
 
         nodesUnfiltered = noHalls.meetCriteria(nodesUnfiltered);
-        if (!floor.equals("All Floors")) {
+        if (floor!=null&& !floor.equals("All Floors")) {
             nodesUnfiltered = matchesFloor.meetCriteria(nodesUnfiltered);
         }
         if(!buildFilter.getText().equals("")){

@@ -21,7 +21,7 @@ public class CriteriaMatchesBuilding implements Criteria {
         List<Node> nodesInBuilding = new ArrayList<>();
 
         for (Node n : nodes) {
-            if(n.getBuilding().equals(this.building)){
+            if(n.getBuilding().toLowerCase().equals(this.building.toLowerCase())){
                 nodesInBuilding.add(n);
             }
         }
