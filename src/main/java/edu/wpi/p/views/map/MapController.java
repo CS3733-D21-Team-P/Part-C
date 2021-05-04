@@ -45,6 +45,7 @@ public abstract class MapController {
     public EdgeLine edgeHold;
     Node nodeHold;
     NodeButton nodeButtonHold;
+    public boolean pathfindPage = false;
 
     HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
     HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
@@ -94,10 +95,12 @@ public abstract class MapController {
 
             //add edges
             List<Node> children = node.getNeighbours();
-            for (Node n : children) {
-                EdgeLine el = addEdgeLine(node, n);
-                nb.addLine(el);
+            if (!pathfindPage) {
+                for (Node n : children) {
+                    EdgeLine el = addEdgeLine(node, n);
+                    nb.addLine(el);
 //                edgeLines.add(el);
+                }
             }
             translateNodeButton(nb);
             buttonLists.get(node.getFloor()).add(nb);
@@ -211,6 +214,11 @@ public abstract class MapController {
         //make buttons for current floor visible
         for(NodeButton nb: buttons){
             nb.setVisible(true);
+            if (nb.getNode().getWasPathfinding()) {
+                nb.getNode().setIsPathfinding(true);
+                nb.setButtonStyle();
+                nb.getNode().setIsPathfinding(false);
+            }
         }
         for(EdgeLine el: edgeLines){
             if(!el.connectsLevels()) {

@@ -280,6 +280,7 @@ public class EditMap extends MapController {
     @Override
     public void initialize()  {
         super.initialize();
+        pathfindPage = false;
         editTabController.injectEditMap(this);
         rClickPopup.setVisible(false);
         rClickPopup1.setVisible(false);

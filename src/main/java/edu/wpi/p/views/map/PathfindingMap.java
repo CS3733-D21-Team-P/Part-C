@@ -46,6 +46,7 @@ public class PathfindingMap extends MapController {
     @Override
     public void initialize()  {
         super.initialize();
+        pathfindPage = true;
         pathTabController.injectPathfindingMap(this);
         System.out.println("PATHFINDING INIT");
         for (Node n: graph.getGraph()){

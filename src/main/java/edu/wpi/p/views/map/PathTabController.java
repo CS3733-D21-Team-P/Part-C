@@ -176,10 +176,10 @@ public class PathTabController {
                 }
             }
 
-//            startNodeButton.getNode().setIsPathfinding(false);
-//            endNodeButton.getNode().setIsPathfinding(false);
-//            startNodeButton.getNode().setWasPathfinding(true);
-//            endNodeButton.getNode().setWasPathfinding(true);
+            startNodeButton.getNode().setIsPathfinding(false);
+            endNodeButton.getNode().setIsPathfinding(false);
+            startNodeButton.getNode().setWasPathfinding(true);
+            endNodeButton.getNode().setWasPathfinding(true);
             startNodeButtonHold = startNodeButton;
             endNodeButtonHold = endNodeButton;
 
