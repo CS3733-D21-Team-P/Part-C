@@ -1,31 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="464.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.AccountLog">
+<AnchorPane prefHeight="464.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.AccountLog">
    <children>
-      <TextField fx:id="tfname" layoutX="14.0" layoutY="347.0" promptText="Name" />
       <Label layoutX="13.0" layoutY="15.0" prefHeight="18.0" prefWidth="71.0" text="AccountLog" />
-      <Button fx:id="addPeopleBtn" layoutX="498.0" layoutY="397.0" mnemonicParsing="false" onAction="#addPeopleAc" text="Add People" />
-      <Button fx:id="deletePeopleBtn" layoutX="492.0" layoutY="342.0" mnemonicParsing="false" onAction="#deletePeopleAc" prefHeight="35.0" prefWidth="92.0" text="Delete People" />
-      <TableView fx:id="accountDataTableView" layoutX="10.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
-         <columns>
-            <TableColumn fx:id="NameCol" minWidth="20.0" onEditCommit="#EditName" prefWidth="119.2000150680542" text="Name" />
-            <TableColumn fx:id="UsernameCol" onEditCommit="#EditUsername" prefWidth="129.6000213623047" text="Username" />
-            <TableColumn fx:id="PasswordCol" minWidth="0.0" onEditCommit="#EditPassword" prefWidth="151.20001220703125" text="Password" />
-            <TableColumn fx:id="StatusCol" minWidth="0.0" onEditCommit="#EditStatus" prefWidth="110.39996337890625" text="Status" />
-            <TableColumn fx:id="Blank" minWidth="0.0" onEditCommit="#EditBlank" prefWidth="128.79998779296875" text="Blank" />
-         </columns>
-      </TableView>
-      <Button fx:id="homeButton" layoutX="563.0" layoutY="11.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
-      <TextField fx:id="tfusername" layoutX="191.0" layoutY="347.0" promptText="Username" />
-      <TextField fx:id="tfstatus" layoutX="191.0" layoutY="384.0" promptText="Status" />
-      <TextField fx:id="tfpassword" layoutX="14.0" layoutY="384.0" promptText="Password" />
-      <TextField fx:id="tfblank" layoutX="103.0" layoutY="423.0" promptText="Blank" />
+      <JFXButton fx:id="homeButton" buttonType="RAISED" layoutX="564.0" layoutY="11.0" onAction="#homeButtonAc" text="Back" />
+      <JFXButton fx:id="deletePeopleBtn" buttonType="RAISED" layoutX="486.0" layoutY="352.0" onAction="#deletePeopleAc" prefHeight="42.0" prefWidth="98.0" text="Remove User" />
+      <JFXButton fx:id="addPeopleBtn" layoutX="503.0" layoutY="410.0" onAction="#addPeopleAc" text="Add User" />
+      <JFXTextField fx:id="tfname" layoutX="16.0" layoutY="347.0" prefHeight="26.0" prefWidth="149.0" promptText="Name" />
+      <JFXTextField fx:id="tfusername" layoutX="177.0" layoutY="347.0" prefHeight="26.0" prefWidth="149.0" promptText="Username" />
+      <JFXTextField fx:id="tfpassword" layoutX="16.0" layoutY="383.0" prefHeight="26.0" prefWidth="149.0" promptText="Password" />
+      <JFXTextField fx:id="tfstatus" layoutX="177.0" layoutY="384.0" prefHeight="26.0" prefWidth="149.0" promptText="Status" />
+      <JFXTextField fx:id="tfblank" layoutX="16.0" layoutY="423.0" prefHeight="26.0" prefWidth="149.0" promptText="Parking Location" />
+      <JFXTreeTableView fx:id="accountDataTableView" layoutX="16.0" layoutY="46.0" prefHeight="298.0" prefWidth="606.0" />
    </children>
 </AnchorPane>
