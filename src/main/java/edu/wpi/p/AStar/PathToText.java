@@ -1,24 +1,26 @@
 package edu.wpi.p.AStar;
 
+import edu.wpi.p.views.map.DirectionTableEntry;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PathToText {
     float turnAngle = 30;
-    List<String> directions = new ArrayList<>();
+    List<DirectionTableEntry> tableEntryDirections = new ArrayList<>();
 
     public void PrintPath() {
-        for(String s : directions) {
-            System.out.println(s);
+        for(DirectionTableEntry entry : tableEntryDirections) {
+            System.out.println(entry.getInstruction());
         }
     }
 
-    public List<String> getDirections() {
-        return directions;
-    }
+    public List<DirectionTableEntry> getTableDirections() { return tableEntryDirections;}
 
-    public List<String> makeDirections(List<Node> path) {
-        directions = new ArrayList<>();
+    public List<DirectionTableEntry> makeDirections(List<Node> path) {
+        tableEntryDirections = new ArrayList<>();
         for (int i = 0; i < path.size() - 1; i++) {
             if (i != path.size() - 1) {
                 Node currentNode = path.get(i);
@@ -53,10 +55,10 @@ public class PathToText {
                         angle *= -1;
                     }
                 }
-                directions.add(getInstruction(currentNode, nextNode, angle));
+                tableEntryDirections.add(getTableInstruction(currentNode, nextNode, angle));
             }
         }
-        return directions;
+        return tableEntryDirections;
     }
 
     private float[] leftPerpendicular(float[] v) {
@@ -85,9 +87,12 @@ public class PathToText {
     }
 
 
-    private String getInstruction(Node current, Node destination, Float angle) {
+    private DirectionTableEntry getTableInstruction(Node current, Node destination, Float angle) {
         boolean turning = false;
         String instruction = "";
+        ImageView imgView = new ImageView();
+        imgView.setFitWidth(50);
+        imgView.setFitHeight(50);
 
         if (Math.abs(angle) >= turnAngle) {
             turning = true;
@@ -95,9 +100,11 @@ public class PathToText {
             if (angle > 0) {
                 //right
                 instruction += "right";
+                imgView.setImage(new Image("edu/wpi/p/fxml/image/icons/arrow_turn_right.png"));
             } else {
                 //left
                 instruction += "left";
+                imgView.setImage(new Image("edu/wpi/p/fxml/image/icons/arrow_turn_left.png"));
             }
         }
 
@@ -108,11 +115,11 @@ public class PathToText {
                 break;
 
             case "STAI":
-                instruction += stairDirection(current.getFloor(), destination.getName(), destination.getFloor(), turning);
+                instruction += stairDirection(imgView, current.getFloor(), destination.getName(), destination.getFloor(), turning);
                 break;
 
             case "ELEV":
-                instruction += stairDirection(current.getFloor(), destination.getName(), destination.getFloor(), turning);
+                instruction += elevatorDirection(imgView, current.getFloor(), destination.getName(), destination.getFloor(), turning);
                 break;
 
             //case "DEPT":
@@ -134,8 +141,7 @@ public class PathToText {
                 instruction += " towards " + destination.getName();
                 break;
         }
-
-        return instruction;
+        return new DirectionTableEntry(imgView, instruction);
     }
 
     private String hallwayDirection(String name, boolean turning) {
@@ -147,12 +153,24 @@ public class PathToText {
         return direction;
     }
 
-    //TODO look ahead to traverse multiple floors at once
-    private String stairDirection(String currentFloor, String name, String nextFloor, Boolean turning) {
+    private String stairDirection(ImageView imgView, String currentFloor, String name, String nextFloor, Boolean turning) {
 
         String direction = "";
         if(!currentFloor.equals(nextFloor)) {
             direction +=  " take " + name + " to " + nextFloor;
+            imgView.setImage(new Image("edu/wpi/p/fxml/image/icons/stairs.png"));
+        } else {
+            direction += " towards " + name;
+        }
+        return direction;
+    }
+
+    private String elevatorDirection(ImageView imgView, String currentFloor, String name, String nextFloor, Boolean turning) {
+
+        String direction = "";
+        if(!currentFloor.equals(nextFloor)) {
+            direction +=  " take " + name + " to " + nextFloor;
+            imgView.setImage(new Image("edu/wpi/p/fxml/image/icons/elevator.png"));
         } else {
             direction += " towards " + name;
         }

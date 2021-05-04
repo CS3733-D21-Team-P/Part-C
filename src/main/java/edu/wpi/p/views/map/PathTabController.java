@@ -1,28 +1,33 @@
 package edu.wpi.p.views.map;
 
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.*;
 import edu.wpi.p.views.map.Filter.Criteria;
 import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
 import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PathTabController {
 
-    @FXML private JFXTextArea textDirectionsField;
+    @FXML private JFXTreeTableView textDirectionsTable;
+    private JFXTreeTableColumn<DirectionTableEntry, ImageView> directionImageView;
+    private JFXTreeTableColumn<DirectionTableEntry, String> directionText;
 
     private PathfindingMap pathfindingMap;
 
@@ -64,6 +69,23 @@ public class PathTabController {
         //add names to list of possible autocomplete suggestions
         acpStart.getSuggestions().addAll(nodeNames);
         acpEnd.getSuggestions().addAll(nodeNames);
+
+        //setup DirectionsTable
+        directionImageView = new JFXTreeTableColumn<>("icon");
+        directionImageView.setPrefWidth(50);
+        directionImageView.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView>, ObservableValue<ImageView>>() {
+            public ObservableValue<ImageView> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView> p) {
+                return new SimpleObjectProperty(p.getValue().getValue().getImageVew());
+            }
+        });
+
+        directionText = new JFXTreeTableColumn<>("instruction");
+        directionText.setPrefWidth(200);
+        directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, String> p) {
+                return new SimpleStringProperty(p.getValue().getValue().getInstruction());
+            }
+        });
     }
 
     /**
@@ -126,12 +148,7 @@ public class PathTabController {
             //Path To Text
             PathToText textPath = new PathToText();
             textPath.makeDirections(path);
-            textDirectionsField.clear();
-            for (String text : textPath.getDirections()){
-                textDirectionsField.appendText(text);
-                textDirectionsField.appendText("\n");
-            }
-
+            updateDirectionsTable(textPath.getTableDirections());
 
             //print path
             System.out.println("Path: ");
@@ -163,6 +180,22 @@ public class PathTabController {
         }
 
 
+    }
+
+    private void updateDirectionsTable(List<DirectionTableEntry> directions) {
+
+        //TODO word wrap
+
+        //Add instructions to DirectionsTable
+        ObservableList<DirectionTableEntry> tableDirections = FXCollections.observableArrayList();
+        for (DirectionTableEntry entry : directions) {
+            tableDirections.add(entry);
+        }
+
+        final TreeItem<DirectionTableEntry> root = new RecursiveTreeItem<>(tableDirections, RecursiveTreeObject::getChildren);
+        textDirectionsTable.getColumns().setAll(directionImageView, directionText);
+        textDirectionsTable.setRoot(root);
+        textDirectionsTable.setShowRoot(false);
     }
 
 
