@@ -19,7 +19,12 @@
                   <JFXTextField fx:id="filterField" blendMode="ADD" prefHeight="26.0" prefWidth="209.0" promptText="Location Name" style="-fx-background-color: #b6d6f2;" unFocusColor="WHITE" />
                </children>
             </HBox>
-            <JFXComboBox fx:id="chosenType" prefHeight="26.0" prefWidth="282.0" style="-fx-background-color: #b6d6f2;" />
+            <HBox prefHeight="27.0" prefWidth="248.0">
+               <children>
+                  <JFXComboBox fx:id="chosenType" prefHeight="26.0" prefWidth="171.0" style="-fx-background-color: #b6d6f2;" />
+                  <JFXButton fx:id="updateButton" buttonType="RAISED" onAction="#updateList" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: #b6d6f2;" text="Update" textFill="#464646" translateX="10.0" />
+               </children>
+            </HBox>
             <JFXTreeTableView fx:id="nodeTable" prefHeight="760.0" prefWidth="288.0" style="-fx-background-color: #b6d6f2;" />
          </children>
          <padding>

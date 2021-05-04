@@ -13,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -35,12 +36,16 @@ public class MapEditorFindTab {
 //    private EditMap editMapController;
 //    private PathfindingMap pathfindingMapController;
     private DBTable dbTable = new DBTable();
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeName;
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeType;
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeFloor;
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding;
 
     @FXML JFXComboBox chosenType;
 
 
     public void initialize() {
-        JFXTreeTableColumn<NodeTableEntry, String> nodeName = new JFXTreeTableColumn<>("Name");
+        nodeName = new JFXTreeTableColumn<>("Name");
         nodeName.setPrefWidth(70);
         nodeName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -48,7 +53,7 @@ public class MapEditorFindTab {
             }
         });
 
-        JFXTreeTableColumn<NodeTableEntry, String> nodeType = new JFXTreeTableColumn<>("Type");
+        nodeType = new JFXTreeTableColumn<>("Type");
         nodeType.setPrefWidth(70);
         nodeType.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -56,7 +61,7 @@ public class MapEditorFindTab {
             }
         });
 
-        JFXTreeTableColumn<NodeTableEntry, String> nodeFloor = new JFXTreeTableColumn<>("Floor");
+        nodeFloor = new JFXTreeTableColumn<>("Floor");
         nodeFloor.setPrefWidth(70);
         nodeFloor.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -64,7 +69,7 @@ public class MapEditorFindTab {
             }
         });
 
-        JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding = new JFXTreeTableColumn<>("Building");
+        nodeBuilding = new JFXTreeTableColumn<>("Building");
         nodeBuilding.setPrefWidth(70);
         nodeBuilding.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -74,7 +79,7 @@ public class MapEditorFindTab {
 
         nodeList = dbTable.getNodes();
 
-        updateList(nodeName, nodeType, nodeFloor, nodeBuilding);
+        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, "1");
 //        List<Node> filteredNodes = filterNodes(nodeList);
 //
 //        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
@@ -174,8 +179,8 @@ public class MapEditorFindTab {
      * @param nodeBuilding
      */
     public void updateList(JFXTreeTableColumn<NodeTableEntry, String> nodeName, JFXTreeTableColumn<NodeTableEntry, String> nodeType,
-                           JFXTreeTableColumn<NodeTableEntry, String> nodeFloor, JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding){
-        List<Node> filteredNodes = filterNodes(nodeList, "2"); //get filtered list
+                           JFXTreeTableColumn<NodeTableEntry, String> nodeFloor, JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding, String floor){
+        List<Node> filteredNodes = filterNodes(nodeList, floor); //get filtered list
 
         //Add nodes to node table
         ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
@@ -187,5 +192,9 @@ public class MapEditorFindTab {
         nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
         nodeTable.setRoot(root);
         nodeTable.setShowRoot(false);
+    }
+
+    public void updateList(ActionEvent actionEvent) {
+        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, (String) chosenType.getValue());
     }
 }
