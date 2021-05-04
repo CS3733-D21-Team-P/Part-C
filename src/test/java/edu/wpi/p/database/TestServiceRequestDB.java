@@ -91,6 +91,21 @@ public class TestServiceRequestDB {
     }
 
     @Test
+    void testGetDetails() {
+        ServiceRequest sR = new ServiceRequest("test", "lobby", "lobby_test_sr_1", "Alice");
+        sR.addDetail("1: a");
+        sR.addDetail("2: b");
+        sR.addDetail("3: c");
+        dbServiceRequest.addServiceRequest(sR);
+
+        List<ServiceRequest> serviceRequests = dbServiceRequest.getServiceRequests();
+        assertEquals(1, serviceRequests.size());
+
+        String details = "1: a\n2: b\n3: c\n";
+        assertEquals(details, serviceRequests.get(0).getDetails());
+    }
+
+    @Test
     void testUpdate() {
         ServiceRequest sR = new ServiceRequest("test", "lobby", "lobby_test_sr_1", "Alice");
         dbServiceRequest.addServiceRequest(sR);

@@ -2,29 +2,106 @@ package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.App;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
+import edu.wpi.p.views.custom.FlexiblePane;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+import javax.imageio.ImageIO;
 
 public class ServiceRequestHomePage {
 
-    public JFXButton languageInterpretersBtn;
-    public JFXButton medicineDeliveryServiceBtn;
-    public JFXButton laundryServicesBtn;
-    public JFXButton externalPatientTransportationBtn;
-    public JFXButton internalPatientTransportationBtn;
-    public JFXButton sanitationServiceBtn;
-    public JFXButton floralDeliveryBtn;
-    public JFXButton foodDeliveryBtn;
-    public JFXButton facilitiesMaintenanceBtn;
-    public JFXButton homeButton;
-    public JFXButton pathButton;
-    public JFXButton editButton;
-    public JFXButton serviceButton;
-    public JFXButton covidButton;
+    @FXML public GridPane gridPane;
+    @FXML public HBox hbox;
+    @FXML public StackPane imageStack;
+    @FXML public FlexiblePane flexiblePane;
+    @FXML public JFXButton languageInterpretersBtn;
+    @FXML public JFXButton medicineDeliveryServiceBtn;
+    @FXML public JFXButton laundryServicesBtn;
+    @FXML public JFXButton externalPatientTransportationBtn;
+    @FXML public JFXButton internalPatientTransportationBtn;
+    @FXML public JFXButton sanitationServiceBtn;
+    @FXML public JFXButton floralDeliveryBtn;
+    @FXML public JFXButton foodDeliveryBtn;
+    @FXML public JFXButton facilitiesMaintenanceBtn;
+    @FXML public JFXButton homeButton;
+    @FXML public JFXButton pathButton;
+    @FXML public JFXButton editButton;
+    @FXML public JFXButton serviceButton;
+    @FXML public JFXButton covidButton;
 
+    private static final double BLUR_AMOUNT = 40;
+    private static final Effect frostEffect =
+            new BoxBlur(BLUR_AMOUNT, BLUR_AMOUNT, 2);
+
+    @FXML
+    public void initialize() {
+        setupFrostedGlassBackground();
+    }
+
+    private void setupFrostedGlassBackground() {
+        ReadOnlyDoubleProperty y = hbox.heightProperty();
+        Node image = imageStack.getChildren().get(0);
+
+        ReadOnlyDoubleProperty w = imageStack.widthProperty();
+        ReadOnlyDoubleProperty h = imageStack.heightProperty();
+
+        StackPane frost = freeze(image, y, w, h);
+        frost.setVisible(true);
+        imageStack.getChildren().set(0, frost);
+    }
+
+
+    private StackPane freeze(Node background, ReadOnlyDoubleProperty y, ReadOnlyDoubleProperty width, ReadOnlyDoubleProperty height) {
+        Image frostImage = background.snapshot(
+                new SnapshotParameters(),
+                null
+        );
+
+        ImageView frost = new ImageView(frostImage);
+        frost.fitWidthProperty().bind(width);
+        frost.fitHeightProperty().bind(height);
+        Rectangle filler = new Rectangle(0, 0, width.doubleValue(), height.doubleValue());
+        filler.widthProperty().bind(width);
+        filler.heightProperty().bind(height);
+        filler.setFill(Color.AZURE);
+
+        Pane frostPane = new Pane(frost);
+        frostPane.setEffect(frostEffect);
+
+        StackPane frostView = new StackPane(
+                filler,
+                frostPane
+        );
+
+        Rectangle clipShape = new Rectangle(0, 0, width.doubleValue(), height.doubleValue());
+        clipShape.widthProperty().bind(width);
+        clipShape.heightProperty().bind(height);
+        frostView.setClip(clipShape);
+
+        return frostView;
+    }
 
     @FXML
     private void advanceScene(ActionEvent e) {
