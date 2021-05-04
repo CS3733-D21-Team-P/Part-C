@@ -29,7 +29,7 @@
                </image>
             </ImageView>
             <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
+               <fx:include source="../Toolbar.fxml" />
             </BorderPane>
             <GridPane alignment="CENTER" layoutX="1343.0" layoutY="280.0" prefHeight="700.0" prefWidth="660.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1110.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
               <columnConstraints>

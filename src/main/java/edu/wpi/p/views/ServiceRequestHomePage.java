@@ -185,9 +185,9 @@ public class ServiceRequestHomePage {
         }
     }
 
-    public void backButtonAc(ActionEvent actionEvent){
+    public void entryButtonAc(ActionEvent actionEvent){
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/EntryRequest.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
