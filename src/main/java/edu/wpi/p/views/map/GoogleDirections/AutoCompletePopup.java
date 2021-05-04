@@ -34,4 +34,8 @@ public class AutoCompletePopup extends JFXAutoCompletePopup<String> {
             show(textField);
         }
     }
+
+    public void clearSuggestions(){
+        this.getSuggestions().clear();
+    }
 }

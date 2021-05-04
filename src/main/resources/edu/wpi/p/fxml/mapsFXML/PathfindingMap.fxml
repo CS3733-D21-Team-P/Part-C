@@ -30,7 +30,7 @@
         <Tab text="Find">
             <fx:include fx:id="findTab" source="Map_Editor_Find_Tab.fxml" />
         </Tab>
-        <Tab text="Locate">
+        <Tab text="Locate Hospital">
             <fx:include fx:id="googleTab" source="Map_Google_Tab.fxml" />
         </Tab>
     </JFXTabPane>
