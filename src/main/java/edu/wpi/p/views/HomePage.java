@@ -62,7 +62,7 @@ public class HomePage {
   public ImageView pathIcon;
   public ImageView serviceIcon;
 
-
+  static boolean isEmployee;
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
 //  public JFXButton laundryServicesBtn;
@@ -89,6 +89,12 @@ public class HomePage {
 
     }
     EntryRequest.updateApproved();
+    if(isEmployee){
+      editButton.setVisible(false);
+      editIcon.setVisible(false);
+      userAccount.setVisible(false);
+      employeeButton.setVisible(false);
+    }
     if(User.getInstance().isGuest()){
       pathButton.setVisible(false);
       editButton.setVisible(false);
