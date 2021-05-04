@@ -79,7 +79,7 @@ public class MapEditorFindTab {
 
         nodeList = dbTable.getNodes();
 
-        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, "1");
+        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, "All Floors");
 //        List<Node> filteredNodes = filterNodes(nodeList);
 //
 //        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
@@ -166,7 +166,11 @@ public class MapEditorFindTab {
         Criteria matchesFloor = new CriteriaMatchesFloor(floor);
 
         nodesUnfiltered = noHalls.meetCriteria(nodesUnfiltered);
-        nodesUnfiltered = matchesFloor.meetCriteria(nodesUnfiltered);
+        if (floor.equals("All Floors")) {
+        }
+        else{
+            nodesUnfiltered = matchesFloor.meetCriteria(nodesUnfiltered);
+        }
 
         return nodesUnfiltered;
     }
