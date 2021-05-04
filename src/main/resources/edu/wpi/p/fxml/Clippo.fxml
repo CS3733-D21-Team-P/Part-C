@@ -63,7 +63,7 @@
                <children>
                   <HBox>
                      <children>
-                        <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Service Requests! Ah yes, service requests are ways to ask for particular services. When you fill one out, it will be recorded in the Request Logs.">
+                        <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="7" text="Service Requests! Ah yes, service requests are ways to ask for particular services. When you fill one out, it will be recorded in the Request Logs.&#10;Service requests have different fields to fill out. Complete the form of the type of request you want to make and then hit submit.&#10;Here is a list of all of the available service requests:">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

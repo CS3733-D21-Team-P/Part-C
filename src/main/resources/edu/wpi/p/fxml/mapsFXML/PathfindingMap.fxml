@@ -41,7 +41,10 @@
             </Label>
         </children>
     </AnchorPane>
-   <BorderPane prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-       <fx:include fx:id="toolBarID" source="/edu/wpi/p/fxml/Toolbar.fxml" />
-   </BorderPane>
+    <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <fx:include source="../../fxml/Toolbar.fxml" />
+    </BorderPane>
+    <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
+        <fx:include source="../../fxml/Clippo.fxml" />
+    </BorderPane>
 </AnchorPane>

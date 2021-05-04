@@ -78,8 +78,8 @@
             </Label>
          </children>
       </AnchorPane>
-        <BorderPane prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <fx:include fx:id="toolBarID" source="/edu/wpi/p/fxml/Toolbar.fxml" />
+        <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <fx:include source="../../fxml/Toolbar.fxml" />
         </BorderPane>
       <AnchorPane fx:id="deleteConfirmation1" layoutX="550.0" layoutY="250.0" prefHeight="285.0" prefWidth="565.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
          <children>
@@ -135,4 +135,7 @@
          </children>
       </VBox>
     </children>
+    <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
+        <fx:include source="../../fxml/Clippo.fxml" />
+    </BorderPane>
 </AnchorPane>

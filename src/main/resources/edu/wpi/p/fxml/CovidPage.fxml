@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.CovidSurvey">
    <children>
       <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
+         <fx:include source="../fxml/Toolbar.fxml" />
       </BorderPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3159" height="765.0" layoutX="1145.0" layoutY="154.0" stroke="#00caffcc" strokeMiterLimit="0.0" width="608.0" />
       <JFXButton fx:id="submitButton" layoutX="1541.0" layoutY="828.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-background-color: #5990D9; -fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Submit" textFill="WHITE" />
