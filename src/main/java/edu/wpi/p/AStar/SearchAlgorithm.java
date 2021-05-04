@@ -4,6 +4,8 @@ import java.util.*;
 
 public abstract class SearchAlgorithm {
     Stack<Node> stack = new Stack<>();
+    static int stairFloorCost = 400;
+    static int elevatorFloorCost = 400;
 
     //returns null if no path found
     abstract List<Node> findPath(Node start, Node end);
@@ -32,23 +34,26 @@ public abstract class SearchAlgorithm {
     }
 
     protected float dist(Node a, Node b) {
-        return (float) Math.hypot(
+        float cost = (float) Math.hypot(
                 Math.abs(a.getXcoord() - b.getXcoord()),
                 Math.abs(a.getYcoord() - b.getYcoord()));
-    }
 
-    protected void sortDist(Stack stack) {
-        Node[] stackArray = new Node[stack.size()];
-        stack.copyInto(stackArray);
-        quicksort(stackArray, 0, stackArray.length - 1);
-        stack.empty();
-        stack = new Stack<>();
-        for(int i = stackArray.length - 1; i >= 0; i--) {
-            stack.push(stackArray[i]);
+        if(!a.getFloor().equals(b.getFloor())) {
+            System.out.println("FLOOR CHANGE");
+            if(a.getType().equals("STAI") || b.getType().equals("STAI")) {
+                cost += stairFloorCost;
+                System.out.println("stai change");
+            }
+            if(a.getType().equals("ELEV") || b.getType().equals("ELEV")) {
+                cost += elevatorFloorCost;
+                System.out.println("elev change");
+            }
         }
+
+        return cost;
     }
 
-    private void quicksort(Node[] array, int low, int high) {
+    protected void quicksort(Node[] array, int low, int high) {
         //check for items left to sort
         if(low < high+1) {
             //get new pivot

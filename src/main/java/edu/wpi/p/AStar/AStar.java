@@ -65,13 +65,15 @@ public class AStar extends SearchAlgorithm {
                 n.setLocalDist(newLocalDist);
                 n.setGlobalDist(dist(n, targetNode) + n.getLocalDist());
 
-                if(!n.getVisited() && n.getGlobalDist() < this.pathLength) {
+                if(n.getGlobalDist() < this.pathLength) {
                     if(n == targetNode) {
                         this.pathLength = targetNode.getGlobalDist();
                         System.out.println("Path Found - Length:" + this.pathLength);
+                        printPath(getPath(targetNode));
+                    } else if (!n.getVisited()) {
+                        stack.push(n);
+                        System.out.println("Add: " + n.getName());
                     }
-                    stack.push(n);
-                    System.out.println("Add: " + n.getName());
                 }
             }
         }
@@ -85,7 +87,7 @@ public class AStar extends SearchAlgorithm {
 
             if(stack.size() > 1) {
                 //sort by globalDist
-                sortDist(stack);
+                sortDist();
 
                 System.out.println("Sorted Stack: ");
                 for(Node n : stack) {
@@ -97,6 +99,17 @@ public class AStar extends SearchAlgorithm {
 
             //down we go
             search(stack.pop(), targetNode);
+        }
+    }
+
+    private void sortDist() {
+        Node[] stackArray = new Node[stack.size()];
+        stack.copyInto(stackArray);
+        quicksort(stackArray, 0, stackArray.length - 1);
+        stack.empty();
+        stack = new Stack<>();
+        for(int i = stackArray.length - 1; i >= 0; i--) {
+            stack.push(stackArray[i]);
         }
     }
 }

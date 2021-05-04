@@ -44,12 +44,23 @@ public class Greedy extends SearchAlgorithm {
         while(!stack.isEmpty()) {
 
             //sort by globalDist
-            sortDist(stack);
+            sortDist();
 
             Node n = stack.firstElement();
             stack.remove(0);
 
             greedy(n, targetNode);
+        }
+    }
+
+    private void sortDist() {
+        Node[] stackArray = new Node[stack.size()];
+        stack.copyInto(stackArray);
+        quicksort(stackArray, 0, stackArray.length - 1);
+        stack.empty();
+        stack = new Stack<>();
+        for(int i = stackArray.length - 1; i >= 0; i--) {
+            stack.push(stackArray[i]);
         }
     }
 }
