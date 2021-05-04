@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,6 +25,7 @@
                            </font>
                         </Label>
                         <Label alignment="TOP_LEFT" prefWidth="243.0" text="Start Location" />
+                        <JFXTextField fx:id="autoStart" />
                         <Label alignment="TOP_LEFT" prefWidth="243.0" text="Parking Lot:" />
                         <JFXComboBox fx:id="end" prefHeight="26.0" prefWidth="234.0" style="-fx-background-color: #b6d6f2;" />
                         <Label alignment="TOP_LEFT" prefWidth="243.0" text="Transportation:" />

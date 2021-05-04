@@ -1,16 +1,13 @@
 package edu.wpi.p.views.map.GoogleDirections;
 
 
-import com.google.maps.DirectionsApiRequest;
-import com.google.maps.GeoApiContext;
+import com.google.maps.*;
 import com.google.maps.GeoApiContext.Builder;
-import com.google.maps.PendingResult;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsStep;
-import com.google.maps.model.TravelMode;
+import com.google.maps.model.*;
 import com.jfoenix.controls.JFXTextArea;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GoogleMaps {
@@ -111,6 +108,38 @@ public class GoogleMaps {
         plainTextBody = plainTextBody.replaceAll("</b>", "");
         plainTextBody = plainTextBody.replaceAll("</div>", ""); //replace div tabs
         return plainTextBody;
+    }
+
+    public void getOptions(String currentText, AutoCompletePopup autoCompletePopup){
+        System.out.println("options request");
+        Builder builder = new GeoApiContext.Builder();
+        builder.apiKey(API_Key);
+        GeoApiContext context = builder.build();
+        QueryAutocompleteRequest request = PlacesApi.queryAutocomplete(context,currentText);
+        //LatLng latLng = PlacesApi.findPlaceFromText(context,"Brigham and Women's Hospital, 221 Longwood Ave, Boston, MA 02115", FindPlaceFromTextRequest.InputType.TEXT_QUERY);
+        LatLng latLng = new LatLng(42.338208024320735, -71.10549945775972);
+//        request.location(latLng);
+//        42.338208024320735, -71.10549945775972
+        request.location(latLng);
+//        request
+
+        request.setCallback(new PendingResult.Callback<AutocompletePrediction[]>() {
+            @Override
+            public void onResult(AutocompletePrediction[] result) {
+                autoCompletePopup.getSuggestions().clear();
+                for(int i = 0; i<10 && i<result.length; i++){
+                    System.out.println(result[i].description);
+                    autoCompletePopup.getSuggestions().add(result[i].description);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                System.out.println(e.getMessage());
+                System.out.println("request faliure");
+            }
+        });
+
     }
 
 }

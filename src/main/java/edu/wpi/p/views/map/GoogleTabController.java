@@ -1,15 +1,18 @@
 package edu.wpi.p.views.map;
 
 import com.google.maps.model.TravelMode;
+import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
 import edu.wpi.p.views.map.GoogleDirections.AutoCompleteTextField;
 import edu.wpi.p.views.map.GoogleDirections.GoogleMaps;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +28,7 @@ public class GoogleTabController {
     @FXML private JFXComboBox<String> end;
     @FXML private JFXComboBox<String> chosenMode;
     @FXML private VBox locateVBox;
+    @FXML private JFXTextField autoStart;
 
     AutoCompleteTextField field;
 
@@ -77,7 +81,9 @@ public class GoogleTabController {
     }
 
     @FXML
-    public void textChanged(){
+    public void textChanged(AutoCompletePopup autoCompletePopup){
+        System.out.println("text changed");
+        googleMaps.getOptions(autoStart.getText(), autoCompletePopup);
         //TODO: make text field entries be google api autocomplete
     }
 
@@ -89,20 +95,35 @@ public class GoogleTabController {
         end.setItems(FXCollections.observableArrayList(availableParking));
         end.getSelectionModel().selectFirst();
 
-        field = new AutoCompleteTextField();
-        field.getEntries().add("Bruegger's Bagels, 375 Longwood Ave, Boston, MA 02215");
-        field.getEntries().add("hospital");
-        field.getEntries().add("hello");
-        field.getEntries().add("Museum of Fine Arts, Boston");
-        field.getEntries().add("home");
-        field.getEntries().add("hi");
-        field.getEntries().add("hotel parking");
-        field.getEntries().add("hospital parking");
-        field.getEntries().add("hello world");
-        field.setPromptText("Start Location");
-        field.setStyle("-fx-background-color: #b6d6f2;");
-        field.setOnKeyTyped(event -> textChanged());
+        List<String> testList = new ArrayList<>();
+        testList.add("test");
+        testList.add("hi");
 
-        locateVBox.getChildren().add(2,field);
+        AutoCompletePopup acp = new AutoCompletePopup(autoStart);
+        System.out.println("made popup");
+        acp.getSuggestions().addAll("world", "please", "whyyyy");
+
+        autoStart.setOnKeyTyped(event -> {
+            textChanged(acp);
+        });
+//        autoStart.setOnInputMethodTextChanged(event -> {
+//            textChanged(acp);
+//        });
+//
+//        field = new AutoCompleteTextField();
+//        field.getEntries().add("Bruegger's Bagels, 375 Longwood Ave, Boston, MA 02215");
+//        field.getEntries().add("hospital");
+//        field.getEntries().add("hello");
+//        field.getEntries().add("Museum of Fine Arts, Boston");
+//        field.getEntries().add("home");
+//        field.getEntries().add("hi");
+//        field.getEntries().add("hotel parking");
+//        field.getEntries().add("hospital parking");
+//        field.getEntries().add("hello world");
+//        field.setPromptText("Start Location");
+//        field.setStyle("-fx-background-color: #b6d6f2;");
+//        field.setOnKeyTyped(event -> textChanged());
+
+//        locateVBox.getChildren().add(2,field);
     }
 }
