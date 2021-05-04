@@ -1,9 +1,6 @@
 package edu.wpi.p.views.servicerequests;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
@@ -28,9 +25,13 @@ public class FoodDeliveryRequest extends GenericServiceRequest {
     @FXML
     public JFXRadioButton vegan;
     @FXML
+    public JFXTextArea accommodations;
+    @FXML
     public JFXButton back;
     @FXML
     public JFXButton submit;
+
+    public static final String[] fields = {"Name", "Room", "Food Type", "Accommodations"};
 
     public FoodDeliveryRequest() {
         super();
@@ -44,6 +45,7 @@ public class FoodDeliveryRequest extends GenericServiceRequest {
         this.values.put("Name", name.textProperty());
         this.values.put("Room", currRoom.textProperty());
         this.values.put("Food Type", foodType);
+        this.values.put("Accommodations", accommodations.textProperty());
     }
 
     @FXML

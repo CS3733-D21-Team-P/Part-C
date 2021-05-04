@@ -5,15 +5,9 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.ServiceRequestTableEntry;
-import edu.wpi.p.views.servicerequests.ExternalpatienttransportationRequest;
-import edu.wpi.p.views.servicerequests.FacilitiesMaintenanceRequest;
-import edu.wpi.p.views.servicerequests.FloralDeliveryRequest;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import edu.wpi.p.views.servicerequests.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -21,12 +15,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
-import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -52,6 +42,10 @@ public class ServiceRequestLogSection extends VBox {
                 return FacilitiesMaintenanceRequest.fields;
             case "Floral Delivery Request":
                 return FloralDeliveryRequest.fields;
+            case "Food Delivery Request":
+                return FoodDeliveryRequest.fields;
+            case "Gift Delivery":
+                return GiftDelivery.fields;
             default:
                 System.out.println("DON'T KNOW THE CLASS FOR TYPE OF " + type);
                 return new String[]{};
