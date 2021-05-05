@@ -1,6 +1,9 @@
 package edu.wpi.p.database;
 
-public class UserFromDB {
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.p.views.map.NodeTableEntry;
+
+public class UserFromDB extends RecursiveTreeObject<UserFromDB> {
     private String Name;
     private String Username;
     private String Password;
@@ -82,6 +85,6 @@ public class UserFromDB {
     }
 
     public void setParkingNodeID(String parkingNodeID) {
-        ParkingNodeID = parkingNodeID;
+        this.ParkingNodeID = parkingNodeID;
     }
 }
