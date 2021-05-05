@@ -49,7 +49,7 @@ public class EmployeeLog {
     private void initialize() {
 
         JFXTreeTableColumn<Employee, String> employeeid = new JFXTreeTableColumn<>("Employee ID");
-        employeeid.setPrefWidth(70);
+        employeeid.setPrefWidth(240);
         employeeid.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Employee, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Employee, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getEmployeeID());
@@ -57,7 +57,7 @@ public class EmployeeLog {
         });
 
         JFXTreeTableColumn<Employee, String> name = new JFXTreeTableColumn<>("Name");
-        name.setPrefWidth(70);
+        name.setPrefWidth(240);
         name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Employee, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Employee, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getName());
@@ -65,7 +65,7 @@ public class EmployeeLog {
         });
 
         JFXTreeTableColumn<Employee, String> position = new JFXTreeTableColumn<>("Position");
-        position.setPrefWidth(70);
+        position.setPrefWidth(240);
         position.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Employee, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Employee, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getPosition());
@@ -73,7 +73,7 @@ public class EmployeeLog {
         });
 
         JFXTreeTableColumn<Employee, String> salary = new JFXTreeTableColumn<>("Salary");
-        salary.setPrefWidth(70);
+        salary.setPrefWidth(240);
         salary.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Employee, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Employee, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getSalary());
@@ -81,7 +81,7 @@ public class EmployeeLog {
         });
 
         JFXTreeTableColumn<Employee, String> assignedsr = new JFXTreeTableColumn<>("Assigned SR");
-        assignedsr.setPrefWidth(70);
+        assignedsr.setPrefWidth(240);
         assignedsr.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Employee, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Employee, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getAssignedSR());
