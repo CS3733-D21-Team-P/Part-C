@@ -116,7 +116,7 @@ public class PathfindingMap extends MapController {
 //                            "-fx-min-height: 12px; " +
 ////                            "-fx-max-width: 12px; " +
 ////                            "-fx-max-height: 12px;" +
-                        "-fx-background-color: red"
+                        "-fx-background-color: #4a7ede"
         );
         pathTabController.endNodeButton.setStyle(
                 "-fx-background-radius: 5em; " +

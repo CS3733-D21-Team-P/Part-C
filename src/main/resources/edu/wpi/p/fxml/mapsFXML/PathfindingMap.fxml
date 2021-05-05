@@ -41,7 +41,7 @@
    <BorderPane prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
        <fx:include fx:id="toolBarID" source="../Toolbar.fxml" />
    </BorderPane>
-   <AnchorPane fx:id="nextFloorBox" layoutX="500.0" layoutY="10.0" prefHeight="128.0" prefWidth="300.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
+   <AnchorPane fx:id="nextFloorBox" layoutX="600.0" layoutY="20.0" prefHeight="53.0" prefWidth="336.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
       <children>
          <Text fx:id="nextFloorText" layoutX="23.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path is on multiple floors" wrappingWidth="287.8125">
             <font>

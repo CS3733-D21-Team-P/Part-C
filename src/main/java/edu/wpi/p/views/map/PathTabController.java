@@ -205,6 +205,7 @@ public class PathTabController {
             endNodeButton.getNode().setIsPathfinding(true);
             if (startNodeButton != startNodeButtonHold) {
                 startNodeButton.setButtonStyle();
+                startNodeButton.makeBlue();
                 if (startNodeButtonHold != null) {
                     startNodeButtonHold.endPathfinding();
                 }

@@ -242,4 +242,11 @@ public class NodeButton extends JFXButton {
         this.setTranslateY(-(currentSize / 2));
 //            }
     }
+
+    public void makeBlue() {
+        this.setStyle(
+                "-fx-background-radius: 5em; " +
+                        "-fx-background-color: #4a7ede"
+        );
+    }
 }
