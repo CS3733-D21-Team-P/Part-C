@@ -15,9 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 import java.util.*;
@@ -33,15 +32,38 @@ public class ServiceRequestLogSection extends VBox {
         super.widthProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("service request log section vbox change its width from " + oldValue + " to " + newValue);
         });
+        HBox assignmentSearch = new HBox();
+        Label assignmentLabel = new Label("Assigned to search:");
+        assignmentLabel.setStyle("-fx-font-size: 24");
+        assignmentLabel.setTextFill(Color.WHITE);
         JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
         JFXTextField filterField = new JFXTextField();
+        filterField.setFocusColor(Color.WHITE);
+        filterField.setUnFocusColor(Color.WHITE);
+        filterField.setStyle("-fx-background-color: #f2f2f2");
+        filterField.setMaxWidth(200);
+        assignmentSearch.getChildren().addAll(assignmentLabel, filterField);
+//        super.setFillWidth(false);
+
 
         filterField.textProperty().addListener((o,oldVal,newVal)->{
-            requestSection.setPredicate(serviceRequestTableEntryTreeItem -> serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment().contains(newVal));
+            requestSection.setPredicate(serviceRequestTableEntryTreeItem -> {
+                String assignment = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment();
+                System.out.println("assignment is " + assignment);
+                if (newVal.length() == 0) {
+                    return true;
+                }
+                if (assignment != null) {
+                    System.out.println("newVal: " + newVal);
+                    System.out.println("assignment isn't null, does assignment contain? " + assignment.contains(newVal));
+                    return assignment.contains(newVal);
+                }
+                return false;
+            });
         });
 //        requestSection.prefHeightProperty().bind(super.heightProperty());
-//        super.setVgrow(requestSection, Priority.ALWAYS);
-        this.getChildren().add(filterField);
+        super.setVgrow(requestSection, Priority.ALWAYS);
+        this.getChildren().add(assignmentSearch);
         this.getChildren().add(requestSection);
 
     }
