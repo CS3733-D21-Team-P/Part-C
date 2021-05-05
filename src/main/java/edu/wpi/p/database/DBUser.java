@@ -94,6 +94,7 @@ public class DBUser {
         int Username = indexOfColumnByName(dbColumns, "Username");
         int Password = indexOfColumnByName(dbColumns, "Password");
         int Identity = indexOfColumnByName(dbColumns, "Status");
+        int ParkingNodeID = indexOfColumnByName(dbColumns, "ParkingNodeId");
 
         //create Users
         List<UserFromDB> userFromDBS = new ArrayList<>(userData.size());
@@ -105,6 +106,7 @@ public class DBUser {
                     userString.get(Username),
                     userString.get(Password),
                     userString.get(Identity));
+            userFromDB.setParkingNodeID(userString.get(ParkingNodeID));
             userFromDBS.add(userFromDB);
         }
 
