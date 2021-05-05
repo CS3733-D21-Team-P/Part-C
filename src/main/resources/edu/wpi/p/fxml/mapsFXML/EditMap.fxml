@@ -8,21 +8,21 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.BorderPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.EditMap">
     <children>
-        <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1520.0" layoutX="281.0" layoutY="14.0" pickOnBounds="true" preserveRatio="false" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="2160.0" prefWidth="3840.0" style="-fx-background-color: #2F3159;" />
+        <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1520.0" layoutX="281.0" layoutY="14.0" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
             <image>
                 <Image fx:id="mapImage" url="@Maps/00_thelowerlevel1.png" />
             </image>
         </ImageView>
         <AnchorPane fx:id="linePane" layoutX="275.0" layoutY="14.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
-        <AnchorPane fx:id="btnPane" layoutX="275.0" layoutY="14.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
+        <AnchorPane fx:id="btnPane" layoutX="275.0" layoutY="14.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0" />
         <VBox fx:id="rClickPopup" layoutX="435.0" layoutY="100.0" prefHeight="76.0" prefWidth="147.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
             <children>
                 <Text fx:id="nodeName" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="144.13671875">
@@ -78,8 +78,8 @@
             </Label>
          </children>
       </AnchorPane>
-        <BorderPane prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <fx:include fx:id="toolBarID" source="/edu/wpi/p/fxml/Toolbar.fxml" />
+        <BorderPane prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;">
+            <fx:include fx:id="toolBarID" source="../Toolbar.fxml" />
         </BorderPane>
       <AnchorPane fx:id="deleteConfirmation1" layoutX="550.0" layoutY="250.0" prefHeight="285.0" prefWidth="565.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
          <children>

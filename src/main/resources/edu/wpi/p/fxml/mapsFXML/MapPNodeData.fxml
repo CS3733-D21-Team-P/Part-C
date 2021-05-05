@@ -7,11 +7,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="464.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapPNodeData">
+<AnchorPane prefHeight="464.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapPNodeData">
     <children>
         <Label layoutX="13.0" layoutY="15.0" text="Node Data" />
-        <Button fx:id="addNodeBtn" layoutX="492.0" layoutY="385.0" mnemonicParsing="false" onAction="#addNodeAc" text="Add Node" />
-        <Button fx:id="deleteNodeBtn" layoutX="492.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteNodeAc" prefHeight="35.0" prefWidth="83.0" text="Delete Node" />
+        <Button fx:id="addNodeBtn" layoutX="492.0" layoutY="385.0" mnemonicParsing="false" onAction="#addNodeAc" prefHeight="35.0" prefWidth="91.0" text="Add Node" />
+        <Button fx:id="deleteNodeBtn" layoutX="492.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteNodeAc" prefHeight="35.0" prefWidth="91.0" text="Delete Node" />
       <TableView fx:id="nodeDataTableView" layoutX="10.0" layoutY="68.0" prefHeight="263.0" prefWidth="640.0">
         <columns>
           <TableColumn fx:id="nodeIDCol" text="nodeID" />
@@ -33,9 +33,9 @@
       <TextField fx:id="tfycoord" layoutX="22.0" layoutY="412.0" promptText="ycoord" />
       <TextField fx:id="tffloor" layoutX="276.0" layoutY="333.0" promptText="floor" />
       <TextField fx:id="tfshortName" layoutX="276.0" layoutY="412.0" promptText="shortName" />
-      <Label layoutX="49.0" layoutY="41.0" text="Insert NodeData CSV Filepath:" />
-      <TextField fx:id="nodeFilepathField" layoutX="215.0" layoutY="37.0" />
-      <Button fx:id="importNodeCSV" layoutX="364.0" layoutY="37.0" mnemonicParsing="false" onAction="#importNodeCSVBtn" text="Import" />
+      <Label layoutX="32.0" layoutY="41.0" prefHeight="15.0" prefWidth="179.0" text="Insert NodeData CSV Filepath:" />
+      <TextField fx:id="nodeFilepathField" layoutX="210.0" layoutY="37.0" prefHeight="23.0" prefWidth="152.0" />
+      <Button fx:id="importNodeCSV" layoutX="369.0" layoutY="37.0" mnemonicParsing="false" onAction="#importNodeCSVBtn" text="Import" />
       <Button fx:id="saveNodeCSV" layoutX="438.0" layoutY="37.0" mnemonicParsing="false" onAction="#exportNodeCSVBtn" text="Export Node CSV" />
     </children>
 </AnchorPane>

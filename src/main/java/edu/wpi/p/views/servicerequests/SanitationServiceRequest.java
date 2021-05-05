@@ -2,35 +2,28 @@ package edu.wpi.p.views.servicerequests;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
 import edu.wpi.p.App;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.Toolbar;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
-public class SanitationServiceRequest extends Toolbar implements Initializable {
+public class SanitationServiceRequest extends GenericServiceRequest implements Initializable {
 
     @FXML
     public Label title;
@@ -56,6 +49,14 @@ public class SanitationServiceRequest extends Toolbar implements Initializable {
     public JFXTextField additionalInfoText;
     @FXML
     public JFXComboBox<Label> typeOfSanitationBox;
+
+    public static String[] fields = {"Full Name", "Room Number", "Type of Sanitation", "Additional Information"};
+
+  public SanitationServiceRequest() {
+    super();
+    super.name = "Sanitation Request";
+  }
+
     public void initialize(URL url, ResourceBundle rb)
     {
         typeOfSanitationBox.getItems().add(new Label("Standard Room Clean"));
@@ -88,6 +89,17 @@ public class SanitationServiceRequest extends Toolbar implements Initializable {
                 }
             }
         });
+
+        super.locationProperty = roomNumberText.textProperty();
+        StringProperty typeString = new SimpleStringProperty("");
+        typeOfSanitationBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            typeString.setValue(newValue.getText());
+        });
+        this.values.put("Full Name", fullNameText.textProperty());
+        this.values.put("Room Number", roomNumberText.textProperty());
+        this.values.put("Type of Sanitation", typeString);
+        this.values.put("Additional Information", additionalInfoText.textProperty());
+
     }
 
     public void cancelPressed(ActionEvent actionEvent) {
@@ -100,13 +112,14 @@ public class SanitationServiceRequest extends Toolbar implements Initializable {
     }
 
     public void submitPressed(ActionEvent actionEvent) {
-        final String fullNameValue = fullNameText.getText();
-        final String roomNumberValue = roomNumberText.getText();
-        final String descriptionValue = description.getText();
-        final String typeOfSanitation = typeOfSanitationBox.getTypeSelector();
-        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, fullNameValue + "_" + roomNumberValue, "Sanitation");
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
-        dbServiceRequest.addServiceRequest(sR);
+//        final String fullNameValue = fullNameText.getText();
+//        final String roomNumberValue = roomNumberText.getText();
+//        final String descriptionValue = description.getText();
+//        final String typeOfSanitation = typeOfSanitationBox.getTypeSelector();
+//        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, fullNameValue + "_" + roomNumberValue, "Sanitation");
+//        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//        dbServiceRequest.addServiceRequest(sR);
+        super.submitPressed(actionEvent);
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);

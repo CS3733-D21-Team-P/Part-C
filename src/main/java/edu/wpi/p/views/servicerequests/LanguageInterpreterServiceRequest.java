@@ -12,9 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 
-public class LanguageInterpreterServiceRequest extends Toolbar {
+public class LanguageInterpreterServiceRequest extends GenericServiceRequest {
   @FXML
   public JFXTextField doctorSignature;
   @FXML
@@ -28,7 +27,21 @@ public class LanguageInterpreterServiceRequest extends Toolbar {
   @FXML
   private JFXButton back;
 
+  public static String[] fields = {"Language", "Location", "Extra Details", "Signature"};
 
+  public LanguageInterpreterServiceRequest() {
+    super();
+    super.name = "Language Interpreter Request";
+  }
+  @FXML
+  public void initialize() {
+    super.locationProperty = interpLoc.textProperty();
+
+    this.values.put("Language", interpLanguage.textProperty());
+    this.values.put("Location", interpLoc.textProperty());
+    this.values.put("Extra Details", interpDetails.textProperty());
+    this.values.put("Signature", doctorSignature.textProperty());
+  }
   @FXML
   private void advanceScene(ActionEvent e) {
     try {
@@ -41,18 +54,18 @@ public class LanguageInterpreterServiceRequest extends Toolbar {
 
   @FXML
   private void submitForm(ActionEvent e) {
-    final String lang = interpLanguage.getText();
-    final String loc = interpLoc.getText();
-    final String details = interpDetails.getText();
-    final String doctorSig = doctorSignature.getText();
-
-    ServiceRequest sR = new ServiceRequest(doctorSig, loc, "Name" + "_" + loc, "Language Interpreter");
-    DBServiceRequest dbServiceRequest = new DBServiceRequest();
-    dbServiceRequest.addServiceRequest(sR);
-
-    System.out.println("submitting form for interpreter services");
-    System.out.println("language = " + lang + "\nloc = " + loc + "\ndetails = " + details);
-
+//    final String lang = interpLanguage.getText();
+//    final String loc = interpLoc.getText();
+//    final String details = interpDetails.getText();
+//    final String doctorSig = doctorSignature.getText();
+//
+//    ServiceRequest sR = new ServiceRequest(doctorSig, loc, "Name" + "_" + loc, "Language Interpreter");
+//    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//    dbServiceRequest.addServiceRequest(sR);
+//
+//    System.out.println("submitting form for interpreter services");
+//    System.out.println("language = " + lang + "\nloc = " + loc + "\ndetails = " + details);
+    super.submitPressed(e);
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);

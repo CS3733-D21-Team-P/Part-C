@@ -15,10 +15,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.LaundryServiceRequest">
   <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="454.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
@@ -26,7 +26,7 @@
             <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
       </ImageView>
-      <GridPane alignment="CENTER" layoutX="1149.0" layoutY="252.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="533.0" prefWidth="522.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
+      <GridPane alignment="CENTER" layoutX="1100.0" layoutY="100.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="880.0" prefWidth="720.0" style="-fx-background-color: #2F3159;" AnchorPane.rightAnchor="100.0">
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="279.20001220703125" minWidth="10.0" prefWidth="37.0" />
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="279.20001220703125" minWidth="10.0" prefWidth="185.0" />
@@ -68,30 +68,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-               <children>
-                  <JFXCheckBox checkedColor="WHITE" text="Colors" textFill="WHITE" unCheckedColor="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Darks" textFill="WHITE" unCheckedColor="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Delicates" textFill="WHITE" unCheckedColor="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Bulky" textFill="WHITE" unCheckedColor="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXCheckBox>
-               </children>
-            </HBox>
             <Label text="Pickup Location:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
@@ -116,45 +92,17 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <children>
-                  <JFXDatePicker fx:id="dropOffDate" defaultColor="BLACK" style="-fx-background-color: #F2F2F2;" />
-                  <Label text="Time: " textFill="WHITE">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXTimePicker fx:id="dropoffTime" defaultColor="BLACK" prefHeight="28.0" prefWidth="140.0" style="-fx-background-color: #F2F2F2;" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="501.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <children>
-                  <JFXDatePicker fx:id="pickUpDate" defaultColor="BLACK" style="-fx-background-color: #F2F2F2;" />
-                  <Label text="Time: " textFill="WHITE">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXTimePicker fx:id="pickupTime" defaultColor="BLACK" prefHeight="28.0" prefWidth="140.0" style="-fx-background-color: #F2F2F2;" />
-               </children>
-            </HBox>
-            <JFXTextField fx:id="fullName" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="pickUpLocation" prefHeight="0.0" prefWidth="403.0" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="fullName" focusColor="WHITE" labelFloat="true" promptText="Full Name" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="pickUpLocation" focusColor="WHITE" labelFloat="true" prefHeight="0.0" prefWidth="403.0" promptText="AA-0000" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <JFXTextArea fx:id="specialInstructions" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <children>
-                  <JFXButton fx:id="submit" onAction="#submitPress" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE">
+                  <JFXButton fx:id="back" onAction="#advanceScene" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="back" onAction="#advanceScene" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE">
+                  <JFXButton fx:id="submit" onAction="#submitPress" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Submit" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="50.0" />
                      </HBox.margin>
@@ -167,12 +115,75 @@
             </font>
           </Label>
             <JFXTextField fx:id="fullName1" style="-fx-background-color: #F2F2F2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="3">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXDatePicker fx:id="pickUpDate" defaultColor="BLACK" prefHeight="23.0" prefWidth="185.0" style="-fx-background-color: #F2F2F2;" GridPane.halignment="CENTER" />
+                  <JFXTimePicker fx:id="pickupTime" defaultColor="BLACK" prefHeight="28.0" prefWidth="185.0" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXDatePicker fx:id="dropOffDate" defaultColor="BLACK" prefHeight="23.0" prefWidth="185.0" style="-fx-background-color: #F2F2F2;" GridPane.halignment="CENTER" />
+                  <JFXTimePicker fx:id="dropoffTime" defaultColor="BLACK" prefHeight="28.0" prefWidth="185.0" style="-fx-background-color: #F2F2F2;" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="5">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXRadioButton fx:id="colorsBtn" text="Colors" textFill="WHITE" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="darksBtn" text="Darks" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="delicatesBtn" text="Delicates" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="bulkyBtn" text="Bulky" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXRadioButton>
+               </children>
+            </GridPane>
 
             
                      </children>
       </GridPane>
-     <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
-     </BorderPane>
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutY="1080.0">
+         <image>
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
+      <fx:include source="../Toolbar.fxml" />
   </children>
 </AnchorPane>

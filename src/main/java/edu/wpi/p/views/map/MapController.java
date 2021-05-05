@@ -6,7 +6,9 @@ import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.AStar.NodeGraph;
 import edu.wpi.p.App;
-import javafx.animation.TranslateTransition;
+import edu.wpi.p.database.DBUser;
+import edu.wpi.p.database.UserFromDB;
+import edu.wpi.p.userstate.User;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -20,18 +22,15 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class MapController {
 
@@ -77,6 +76,9 @@ public abstract class MapController {
 
     @FXML private Image mapImage;
     @FXML public AnchorPane inputPane;
+    private DBUser dbuser = new DBUser();
+    private List<UserFromDB> users = new ArrayList<UserFromDB>();
+    private NodeGraph nodeGraph = new NodeGraph();
 
     /**
      * creates a button associated  with a node
@@ -86,9 +88,22 @@ public abstract class MapController {
      */
     public NodeButton addNodeButton(Node node){
         NodeButton nb = new NodeButton(node); //create button
+        users = dbuser.getUsers();
         if (!node.getFloor().equals(getCurrFloorVal())) {
             nb.setVisible(false);
         }
+        for (UserFromDB user : users) {
+            if (user.getParkingNodeID() != null) {
+                for (NodeButton nodeButton : nodeButtons) {
+                    if (nodeButton.getNode().getId().equals(user.getParkingNodeID())) {
+                        node = nodeButton.getNode();
+                        node.setIsSelected(true);
+                        nodeButton.setButtonStyle();
+                    }
+                }
+            }
+        }
+
             btnPane.getChildren().add(nb); //add to page
             nodeButtons.add(nb);
 

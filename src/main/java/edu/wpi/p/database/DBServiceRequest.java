@@ -29,6 +29,7 @@ public class DBServiceRequest {
      */
     public DBServiceRequest(String tableName) {
         serviceRequestTable = tableName;
+        boolean doClear = false;
         createTable(false);
     }
 
@@ -44,7 +45,7 @@ public class DBServiceRequest {
         serviceRequestColumn.add(new DBColumn("location", "varchar(256)", ""));
         serviceRequestColumn.add(new DBColumn("assignment", "varchar(256)", ""));
         serviceRequestColumn.add(new DBColumn("complete", "BOOLEAN", ""));
-//        serviceRequestColumn.add(new DBColumn("data", "varchar(2048)", ""));
+        serviceRequestColumn.add(new DBColumn("details", "varchar(2048)", ""));
     }
 
     /**
@@ -64,6 +65,11 @@ public class DBServiceRequest {
             clearServiceRequest();
         }
         init();
+        // if the service request table exists, but the number of columns are different, clear it first
+        if (DatabaseInterface.getTableNames().contains(serviceRequestTable) &&
+                (DatabaseInterface.getColumns(serviceRequestTable).size() != serviceRequestColumn.size())) {
+            clearServiceRequest();
+        }
         DatabaseInterface.createTableIfNotExists(serviceRequestTable, this.serviceRequestColumn);
 
     }

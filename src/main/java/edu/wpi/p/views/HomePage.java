@@ -10,11 +10,14 @@ import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DatabaseInterface;
+import edu.wpi.p.userstate.User;
+import edu.wpi.p.views.servicerequests.EntryRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class HomePage {
@@ -45,10 +48,19 @@ public class HomePage {
   public JFXButton pathButton;
   @FXML
   public JFXButton editButton;
+  @FXML
+  public JFXButton entryButton;
 
 
   public static boolean Isguest;
+  public static boolean approved;
   public JFXButton requsetLog;
+  public JFXButton userAccount;
+  public JFXButton employeeButton;
+  public ImageView covidIcon;
+  public ImageView editIcon;
+  public ImageView pathIcon;
+  public ImageView serviceIcon;
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -75,22 +87,40 @@ public class HomePage {
       }
 
     }
-    if(Isguest){
+    EntryRequest.updateApproved();
+    if(User.getInstance().getPermissions().equals("Employee")){
       editButton.setVisible(false);
+      editIcon.setVisible(false);
+      userAccount.setVisible(false);
+      employeeButton.setVisible(false);
+    }
+    if(User.getInstance().isGuest()){
+      pathButton.setVisible(false);
+      editButton.setVisible(false);
+      editIcon.setVisible(false);
       SRoption.setVisible(false);
+      serviceIcon.setVisible(false);
       requsetLog.setVisible(false);
+      userAccount.setVisible(false);
+      employeeButton.setVisible(false);
+      pathIcon.setVisible(false);
+    }
+    if (approved){
+      pathButton.setVisible(true);
+      pathIcon.setVisible(true);
     }
   }
 
-  public void languageInterpretersBtn(ActionEvent actionEvent) {
+
+  public void entryButtonAc(ActionEvent actionEvent){
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/LanguageInterpreterServiceRequest.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/servicerequestsFXML/EntryRequest.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
     } catch (IOException ex) {
       ex.printStackTrace();
     }
   }
-  public void requsetLogAc(ActionEvent actionEvent) {
+  public void requestLogAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/RequestLogPage.fxml"));
       App.getPrimaryStage().getScene().setRoot(root);
@@ -145,6 +175,23 @@ public class HomePage {
 //    }
 //  }
 
+  public void userAccountAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/AccountLog.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+public void backToLoginAc(ActionEvent actionEvent){
+  try {
+    Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/LoginPage.fxml"));
+    App.getPrimaryStage().getScene().setRoot(root);
+    User.getInstance().logout();
+  } catch (IOException ex) {
+    ex.printStackTrace();
+  }
+}
   public void pathButtonAc(ActionEvent actionEvent) {
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/mapsFXML/PathfindingMap.fxml"));
@@ -153,6 +200,15 @@ public class HomePage {
       ex.printStackTrace();
     }
   }
+  public void employeeButtonAc(ActionEvent actionEvent) {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/Employee.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+
 
   public void edgeButtonAc(ActionEvent actionEvent) {
     try {
@@ -178,6 +234,10 @@ public class HomePage {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
+  }
+
+  public void updateApproved(){
+
   }
 
 //  public void sanitationServiceBtn(ActionEvent actionEvent) {
