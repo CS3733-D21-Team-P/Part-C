@@ -20,7 +20,6 @@ import java.util.List;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.awt.event.ActionEvent;
 
 public class PathfindingMap extends MapController {
 

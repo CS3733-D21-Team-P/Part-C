@@ -2,8 +2,8 @@ package edu.wpi.p.userstate;
 
 public class User {
     private static User instance;
-    private String name;
-    private String permissions;
+    private String name = "";
+    private String permissions = "";
     private UserState state;
 
     public static User getInstance() {
