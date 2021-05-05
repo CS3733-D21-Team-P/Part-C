@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.BorderPane?>
 <AnchorPane prefHeight="488.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapPEdgeData">
    <children>
       <Button fx:id="addEdgeBtn" layoutX="462.0" layoutY="406.0" mnemonicParsing="false" onAction="#addEdgeAc" prefHeight="23.0" prefWidth="87.0" text="Add Edge" />
@@ -26,5 +26,8 @@
       <TextField fx:id="textFieldEdgeID" layoutX="14.0" layoutY="406.0" prefHeight="23.0" prefWidth="148.0" promptText="Edge ID" />
       <TextField fx:id="textFieldStartNode" layoutX="163.0" layoutY="407.0" prefHeight="23.0" prefWidth="148.0" promptText="Start Node" />
       <TextField fx:id="textFieldEndNode" layoutX="312.0" layoutY="407.0" prefHeight="23.0" prefWidth="148.0" promptText="End Node" />
+       <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
+           <fx:include source="../../fxml/Clippo.fxml" />
+       </BorderPane>
    </children>
 </AnchorPane>

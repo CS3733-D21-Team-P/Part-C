@@ -148,5 +148,8 @@
                 </VBox>
             </children>
         </StackPane>
+        <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
+            <fx:include source="../fxml/Clippo.fxml" />
+        </BorderPane>
     </children>
 </GridPane>
