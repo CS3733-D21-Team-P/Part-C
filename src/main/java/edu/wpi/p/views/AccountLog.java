@@ -149,6 +149,7 @@ public class AccountLog {
         int userRow = userpos.getRow();
         UserFromDB user = accountDataTableView.getItems().get(userRow);
         DBUser dbUser = new DBUser();
+        System.out.println("user username is " + user.getUsername());
         dbUser.removeUser(user.getUsername());
         accountDataTableView.getItems().removeAll(accountDataTableView.getSelectionModel().getSelectedItem());
     }

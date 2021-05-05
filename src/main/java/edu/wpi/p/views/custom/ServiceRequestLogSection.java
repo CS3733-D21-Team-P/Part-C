@@ -1,6 +1,8 @@
 package edu.wpi.p.views.custom;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
+import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
@@ -14,6 +16,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
@@ -22,7 +25,8 @@ import java.util.List;
 
 public class ServiceRequestLogSection extends VBox {
 
-    ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();;
+    ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
+    ;
 
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
@@ -30,6 +34,14 @@ public class ServiceRequestLogSection extends VBox {
             System.out.println("service request log section vbox change its width from " + oldValue + " to " + newValue);
         });
         JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
+        JFXTextField filterField = new JFXTextField();
+
+        filterField.textProperty().addListener((o,oldVal,newVal)->{
+            requestSection.setPredicate(serviceRequestTableEntryTreeItem -> serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment().contains(newVal));
+        });
+//        requestSection.prefHeightProperty().bind(super.heightProperty());
+//        super.setVgrow(requestSection, Priority.ALWAYS);
+        this.getChildren().add(filterField);
         this.getChildren().add(requestSection);
 
     }
@@ -100,8 +112,14 @@ public class ServiceRequestLogSection extends VBox {
 
         assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
                 new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getAssignment()));
-        assignedTo.setOnEditCommit((TreeTableColumn.CellEditEvent<ServiceRequestTableEntry, String> t)->{
-            ((ServiceRequestTableEntry) t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue()).getServiceRequest().setAssignment(t.getNewValue());
+        assignedTo.setCellFactory((TreeTableColumn<ServiceRequestTableEntry, String> param) ->
+                new GenericEditableTreeTableCell<ServiceRequestTableEntry, String>(new TextFieldEditorBuilder()));
+        assignedTo.setOnEditCommit((TreeTableColumn.CellEditEvent<ServiceRequestTableEntry, String> t) -> {
+            ServiceRequest request = t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue().getServiceRequest();
+            request.setAssignment(t.getNewValue());
+            DBServiceRequest dbServiceRequest = new DBServiceRequest();
+            dbServiceRequest.updateServiceRequest(request);
+
         });
         JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
         completeColumn.setPrefWidth(100);
@@ -150,8 +168,7 @@ public class ServiceRequestLogSection extends VBox {
                                     request.setCompleted(newValue);
                                     DBServiceRequest dbServiceRequest = new DBServiceRequest();
                                     dbServiceRequest.updateServiceRequest(request);
-                                }
-                                else {
+                                } else {
                                     toggleButton.setSelected(true);
                                 }
 
