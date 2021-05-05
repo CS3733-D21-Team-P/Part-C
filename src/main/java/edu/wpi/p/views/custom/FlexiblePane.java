@@ -97,7 +97,7 @@ public class FlexiblePane extends Pane {
         for (Node child: children) {
             double x = columnPadding + col * (columnWidth + columnPadding);
             double y = rowPadding + row * (rowHeight + rowPadding);
-//            System.out.println("setting child x: " + x + " y: " + y);
+            System.out.println("setting child x: " + x + " y: " + y);
             child.resizeRelocate(x, y, columnWidth, rowHeight);
             col += 1;
             if (col == numColumns) {

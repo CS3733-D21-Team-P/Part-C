@@ -128,9 +128,9 @@
                                                    text="Request Log" textFill="WHITE"/>
                                         <JFXButton fx:id="entryButton" maxHeight="-Infinity" maxWidth="-Infinity"
                                                    minHeight="-Infinity" minWidth="-Infinity" onAction="#entryButtonAc"
-                                                   prefHeight="50.0" prefWidth="200.0"
-                                                   style="-fx-background-color: #5990D9;" text="Hospital Entry Request"
-                                                   textFill="WHITE" translateY="110.0"/>
+                                                   prefHeight="100.0" prefWidth="350.0"
+                                                   style="-fx-background-color: #5990D9; -fx-font-size: 24px;" text="Hospital Entry Request"
+                                                   textFill="WHITE"/>
                                     </children>
                                     <opaqueInsets>
                                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
