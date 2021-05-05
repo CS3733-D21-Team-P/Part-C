@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 
 <AnchorPane prefHeight="930.0" prefWidth="300.0" style="-fx-background-color: #2f3159;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.PathTabController">
         <children>
@@ -25,8 +26,8 @@
                                 <Font size="11.0" />
                             </font>
                         </Label>
-                  <JFXTextField fx:id="start" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterStart" prefHeight="23.0" prefWidth="175.0" promptText=" Start Node" style="-fx-background-color: #b6d6f2;" />
-                  <JFXTextField fx:id="end" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterEnd" prefWidth="150.0" promptText=" End Node" style="-fx-background-color: #b6d6f2;" />
+                  <JFXTextField fx:id="start" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterStart" prefHeight="23.0" prefWidth="175.0" promptText=" Start Node" style="-fx-background-color: #7f9edb;" />
+                  <JFXTextField fx:id="end" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterEnd" prefWidth="150.0" promptText=" End Node" style="-fx-background-color: #e39292;" />
                         <JFXButton mnemonicParsing="false" onAction="#findPath" style="-fx-background-color: #5990d9; -fx-background-radius: 5px; -fx-border-color: #2f3159; -fx-border-image-width: 2px; -fx-border-radius: 5px;" text="Search">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -41,7 +42,7 @@
       </AnchorPane>
       <AnchorPane layoutX="16.0" layoutY="348.0" prefHeight="550.0" prefWidth="270.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 15px;" AnchorPane.leftAnchor="15.0">
          <children>
-            <JFXTextArea fx:id="textDirectionsField" layoutY="35.0" prefHeight="500.0" prefWidth="270.0" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+             <JFXTreeTableView fx:id="textDirectionsTable" layoutY="35.0" prefHeight="500.0" prefWidth="270.0" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                   <Label alignment="CENTER" layoutX="41.0" layoutY="2.0" prefHeight="18.0" prefWidth="189.0" text="Directions" AnchorPane.topAnchor="5.0">
                <font>
                   <Font name="System Bold" size="24.0" />

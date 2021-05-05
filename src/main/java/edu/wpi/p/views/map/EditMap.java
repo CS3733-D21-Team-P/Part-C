@@ -1,35 +1,21 @@
 package edu.wpi.p.views.map;
 
-import com.jfoenix.controls.JFXTabPane;
-import com.jfoenix.controls.JFXToggleButton;
 import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import edu.wpi.p.App;
-import edu.wpi.p.csv.CSVData;
-import edu.wpi.p.csv.CSVHandler;
-import edu.wpi.p.database.CSVDBConverter;
 import edu.wpi.p.database.DBTable;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditMap extends MapController {
@@ -41,6 +27,12 @@ public class EditMap extends MapController {
 
     private String currFloorVal;
     @FXML private Image mapImage;
+
+    public List<NodeButton> getSelected() {
+        return selected;
+    }
+
+    private List<NodeButton> selected = new ArrayList<>();
 
     @FXML public VBox rClickPopup;
     @FXML public VBox rClickPopup1;
@@ -92,25 +84,19 @@ public class EditMap extends MapController {
             });
 
             nb.setOnMouseClicked(event -> {
-                for(EdgeLine el: nb.getLines()){
-                    System.out.println(el.getEndNode().getFloor());
-                }
+//                for(EdgeLine el: nb.getLines()){
+//                    System.out.println(el.getEndNode().getFloor());
+//                }
+
 
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if (nodeButtonHold != null)
-                    {
-                        nodeButtonHold.deselect();
-                        nodeButtonHold = null;
+                    if (event.isShiftDown()){
+                        shiftClick(nb);
+                        System.out.println("shift click");
                     }
-                    if (edgeHold != null)
-                    {
-                        edgeHold.setSelected(false);
-                        edgeHold.updateStyle();
+                    else {
+                        deselectAllNodes();
                     }
-                    nodeButtonHold = nb;
-                    editTabController.updateProperties();
-                    System.out.println(nb.getNode().getXcoord());
-                    System.out.println(nb.getLayoutX());
 
                     nodeClicked(nb);
 
@@ -134,16 +120,8 @@ public class EditMap extends MapController {
                         }
                     }
                 } else if (event.getButton() == MouseButton.SECONDARY) {
-                    if (nodeButtonHold != null)
-                    {
-                        nodeButtonHold.deselect();
-                        nodeButtonHold = null;
-                    }
-                    if (edgeHold != null)
-                    {
-                        edgeHold.setSelected(false);
-                        edgeHold.updateStyle();
-                    }
+                    deselectAllNodes();
+
                     nodeClicked(nb);
                     nodeName.setText(nodeHold.getName());
                     rClickPopup.setVisible(true);
@@ -167,6 +145,36 @@ public class EditMap extends MapController {
         nodeButtonHold = nb;
         nodeButtonHold.getNode().setIsSelected(true);
         nodeButtonHold.setButtonStyle();
+
+        selected.add(nb);
+        editTabController.updateProperties();
+        System.out.println(nb.getNode().getXcoord());
+        System.out.println(nb.getLayoutX());
+    }
+
+    public void shiftClick(NodeButton nb){
+        if(nodeButtonHold==null){
+            nodeButtonHold = nb;
+        }
+        nb.toggleIsSelected(true);
+        selected.add(nb);
+    }
+
+    public void deselectAllNodes(){
+        if (nodeButtonHold != null)
+        {
+            nodeButtonHold.deselect();
+            nodeButtonHold = null;
+        }
+        if (edgeHold != null)
+        {
+            edgeHold.setSelected(false);
+            edgeHold.updateStyle();
+        }
+        for(NodeButton nb: selected){
+            nb.deselect();
+        }
+        selected.clear();
     }
 
     /**
@@ -247,6 +255,7 @@ public class EditMap extends MapController {
         return id;
     }
 
+
     /**
      * Add a new Node Button to given map location
      * @param x map location
@@ -271,6 +280,7 @@ public class EditMap extends MapController {
     @Override
     public void initialize()  {
         super.initialize();
+        pathfindPage = false;
         editTabController.injectEditMap(this);
         rClickPopup.setVisible(false);
         rClickPopup1.setVisible(false);
@@ -286,16 +296,18 @@ public class EditMap extends MapController {
 
         //Add Node when screen is clicked
         btnPane.setOnMouseClicked(event -> {
-            if (nodeButtonHold != null)
-            {
-                nodeButtonHold.deselect();
-                nodeButtonHold = null;
-            }
+            deselectAllNodes();
+//            if (nodeButtonHold != null)
+//            {
+//                nodeButtonHold.deselect();
+//                nodeButtonHold = null;
+//            }
             if(editTabController.getAddingNodes() ==true){ //if adding nodes
                 //set x and y to be position of mouse
                 int x = (int) (unScaleX(event.getSceneX()-100));
                 int y = (int) (unScaleY(event.getSceneY()));
-                addNodeButtonAtLoc(x,y);
+                NodeButton nb = addNodeButtonAtLoc(x,y);
+                nodeClicked(nb);
             }
         });
     }
