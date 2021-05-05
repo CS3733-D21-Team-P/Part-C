@@ -17,9 +17,9 @@
       <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <fx:include source="Toolbar.fxml" />
       </BorderPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3159" height="920.0" layoutX="1145.0" layoutY="154.0" stroke="#00caffcc" strokeMiterLimit="0.0" width="609.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="100.0" />
-      <JFXButton fx:id="submitButton" layoutX="1541.0" layoutY="892.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-background-color: #5990D9; -fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Submit" textFill="WHITE" />
-      <JFXButton fx:id="cancelButton" layoutX="1195.0" layoutY="892.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancelPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-font-size: 30; -fx-font-family: &quot;open sans&quot;; -fx-background-color: #5990D9; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Cancel" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f3159" height="867.0" layoutX="1145.0" layoutY="154.0" stroke="#00caffcc" strokeMiterLimit="0.0" width="610.0" AnchorPane.bottomAnchor="113.0" AnchorPane.topAnchor="100.0" />
+      <JFXButton fx:id="submitButton" layoutX="1541.0" layoutY="851.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submitPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-background-color: #5990D9; -fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Submit" textFill="WHITE" />
+      <JFXButton fx:id="cancelButton" layoutX="1195.0" layoutY="851.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancelPressed" prefHeight="62.0" prefWidth="158.0" style="-fx-font-size: 30; -fx-font-family: &quot;open sans&quot;; -fx-background-color: #5990D9; -fx-font-weight: bold; -fx-background-radius: 15px;" text="Cancel" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font></JFXButton>
