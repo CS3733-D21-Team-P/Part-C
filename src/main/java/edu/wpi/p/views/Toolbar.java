@@ -1,8 +1,8 @@
 package edu.wpi.p.views;
 
 import com.jfoenix.controls.JFXButton;
-import edu.wpi.p.AStar.Node;
 import edu.wpi.p.App;
+import edu.wpi.p.userstate.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,10 +58,25 @@ public class Toolbar {
     }
 
     public void initialize() {
-        if(HomePage.Isguest)
+        if(User.getInstance().isGuest())
         {
-            serviceButton.setVisible(false);
-            editButton.setVisible(false);
+            if(serviceButton != null) {
+                serviceButton.setVisible(false);
+            }
+            if (editButton != null){
+                editButton.setVisible(false);
+            }
+            if(!HomePage.approved && pathButton != null){
+                pathButton.setVisible(false);
+            }
+
+        }
+        if(User.getInstance().getPermissions().equals("Employee"))
+        {
+            if (editButton != null){
+                editButton.setVisible(false);
+            }
+
         }
     }
 }

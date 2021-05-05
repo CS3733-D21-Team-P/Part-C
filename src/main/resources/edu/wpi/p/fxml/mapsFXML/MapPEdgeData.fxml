@@ -6,11 +6,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="488.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapPEdgeData">
+<?import javafx.scene.layout.BorderPane?>
+<AnchorPane prefHeight="488.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.MapPEdgeData">
    <children>
-      <Button fx:id="addEdgeBtn" layoutX="462.0" layoutY="406.0" mnemonicParsing="false" onAction="#addEdgeAc" text="Add Edge" />
-      <Button fx:id="deleteEdgeBtn" layoutX="456.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteEdgeAc" text="Delete Edge" />
+      <Button fx:id="addEdgeBtn" layoutX="462.0" layoutY="406.0" mnemonicParsing="false" onAction="#addEdgeAc" prefHeight="23.0" prefWidth="87.0" text="Add Edge" />
+      <Button fx:id="deleteEdgeBtn" layoutX="462.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteEdgeAc" prefHeight="23.0" prefWidth="87.0" text="Delete Edge" />
       <TableView fx:id="edgeDataTableView" layoutX="60.0" layoutY="76.0" prefHeight="275.0" prefWidth="480.0">
         <columns>
           <TableColumn fx:id="edgeIDCol" prefWidth="160.0" text="EdgeID" />
@@ -20,11 +20,14 @@
       </TableView>
       <Button fx:id="homeButton" layoutX="540.0" layoutY="8.0" mnemonicParsing="false" onAction="#homeButtonAc" text="Home" />
       <Button fx:id="saveEdgeCSV" layoutX="410.0" layoutY="39.0" mnemonicParsing="false" onAction="#exportEdgeCSVBtn" text="Export EdgeData CSV" />
-      <TextField fx:id="edgeFilepathField" layoutX="221.0" layoutY="39.0" prefHeight="26.0" prefWidth="96.0" />
-      <Label layoutX="60.0" layoutY="43.0" text="Enter EdgeData CSV Filepath:" />
-      <Button fx:id="importEdgeCSV" layoutX="317.0" layoutY="39.0" mnemonicParsing="false" onAction="#importEdgeCSVBtn" text="Import" />
-      <TextField fx:id="textFieldEdgeID" layoutX="14.0" layoutY="406.0" promptText="Edge ID" />
-      <TextField fx:id="textFieldStartNode" layoutX="163.0" layoutY="407.0" promptText="Start Node" />
-      <TextField fx:id="textFieldEndNode" layoutX="312.0" layoutY="407.0" promptText="End Node" />
+      <TextField fx:id="edgeFilepathField" layoutX="232.0" layoutY="39.0" prefHeight="26.0" prefWidth="107.0" />
+      <Label layoutX="60.0" layoutY="43.0" prefHeight="15.0" prefWidth="177.0" text="Enter EdgeData CSV Filepath:" />
+      <Button fx:id="importEdgeCSV" layoutX="344.0" layoutY="39.0" mnemonicParsing="false" onAction="#importEdgeCSVBtn" text="Import" />
+      <TextField fx:id="textFieldEdgeID" layoutX="14.0" layoutY="406.0" prefHeight="23.0" prefWidth="148.0" promptText="Edge ID" />
+      <TextField fx:id="textFieldStartNode" layoutX="163.0" layoutY="407.0" prefHeight="23.0" prefWidth="148.0" promptText="Start Node" />
+      <TextField fx:id="textFieldEndNode" layoutX="312.0" layoutY="407.0" prefHeight="23.0" prefWidth="148.0" promptText="End Node" />
+       <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
+           <fx:include source="../../fxml/Clippo.fxml" />
+       </BorderPane>
    </children>
 </AnchorPane>

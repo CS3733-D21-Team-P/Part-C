@@ -1,25 +1,37 @@
 package edu.wpi.p.views.map;
 
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.*;
+import edu.wpi.p.views.map.Filter.Criteria;
+import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
+import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PathTabController {
 
-    @FXML private JFXTextArea textDirectionsField;
+    @FXML private JFXTreeTableView textDirectionsTable;
+    private JFXTreeTableColumn<DirectionTableEntry, ImageView> directionImageView;
+    private JFXTreeTableColumn<DirectionTableEntry, Label> directionText;
 
     private PathfindingMap pathfindingMap;
 
@@ -30,20 +42,76 @@ public class PathTabController {
     }
     private State mapState = State.ENTERSTART;
 
-    private AStar search = new AStar();
+    private Pathfinder search;
     private Node startNode;
     private Node endNode;
+    public NodeButton startNodeButton;
+    public NodeButton endNodeButton;
+    private NodeButton startNodeButtonHold;
+    private NodeButton endNodeButtonHold;
     private List<EdgeLine> pathLine= new ArrayList<>();
+    private List<Arrow> arrowLine= new ArrayList<>();
+
+    public List<String> floorsInPath= new ArrayList<>();
+    public int currentFloorInList = 0;
+    public String nextFloor = null;
+    public String lastFloor = null;
 
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
     @FXML public Label instructions;
 
+    public int getCurrentFloorInList() {
+        return currentFloorInList;
+    }
+
+    public void setCurrentFloorInList(int currentFloorInList) {
+        this.currentFloorInList = currentFloorInList;
+    }
+
 
     private boolean enteringStart = false;
 
     public void injectPathfindingMap(PathfindingMap pathfindingMap){
+
         this.pathfindingMap = pathfindingMap;
+        search = new Pathfinder(pathfindingMap.graph);
+
+
+        //add autocomplete to start and end text fields
+        AutoCompletePopup acpStart = new AutoCompletePopup(start);
+        AutoCompletePopup acpEnd = new AutoCompletePopup(end);
+
+        Criteria noHalls = new CriteriaNoHallways();
+        //filter out hallways from nodes
+        List<Node> filteredNodes = noHalls.meetCriteria(pathfindingMap.graph.getGraph());
+
+        //get names of nodes
+        List<String> nodeNames = new ArrayList<>();
+        for (Node n: filteredNodes){nodeNames.add(n.getName());}
+
+        //add names to list of possible autocomplete suggestions
+        acpStart.getSuggestions().addAll(nodeNames);
+        acpEnd.getSuggestions().addAll(nodeNames);
+
+        //setup DirectionsTable
+        directionImageView = new JFXTreeTableColumn<>("icon");
+        directionImageView.setPrefWidth(50);
+        directionImageView.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView>, ObservableValue<ImageView>>() {
+            public ObservableValue<ImageView> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView> p) {
+                return new SimpleObjectProperty(p.getValue().getValue().getImageVew());
+            }
+        });
+
+        directionText = new JFXTreeTableColumn<>("instruction");
+        directionText.setPrefWidth(200);
+        directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label>, ObservableValue<Label>>() {
+            public ObservableValue<Label> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label> p) {
+                Label l = new Label(p.getValue().getValue().getInstruction());
+                l.setWrapText(true);
+                return new SimpleObjectProperty(l);
+            }
+        });
     }
 
 
@@ -88,6 +156,7 @@ public class PathTabController {
      * @param actionEvent
      */
     public void findPath(ActionEvent actionEvent){
+        resetVariables();
         if (startNode==null || !start.getText().equals(startNode.getName())){
             System.out.println("set start");
             String startText = start.getText();
@@ -101,18 +170,24 @@ public class PathTabController {
 
         if(startNode!=null && endNode!=null) {
             //find path
-            List<Node> path = new ArrayList<>();
-            path = search.findShortestPath(startNode, endNode);
+            List<Node> path;
+            path = search.findPath(startNode, endNode);
+            floorsInPath = getFloorsInPath(path);
+            if (floorsInPath.size() > 1) {
+                pathfindingMap.nextFloorBox.setVisible(true);
+                pathfindingMap.multipleFloors = true;
+            }
+            for (int i = 0; i < floorsInPath.size(); i++) {
+                if (floorsInPath.get(i).equals(pathfindingMap.getCurrFloorVal())) {
+                    currentFloorInList = i;
+                }
+            }
+            colorButtons();
 
             //Path To Text
             PathToText textPath = new PathToText();
             textPath.makeDirections(path);
-            textDirectionsField.clear();
-            for (String text : textPath.getDirections()){
-                textDirectionsField.appendText(text);
-                textDirectionsField.appendText("\n");
-            }
-
+            updateDirectionsTable(textPath.getTableDirections());
 
             //print path
             System.out.println("Path: ");
@@ -125,18 +200,71 @@ public class PathTabController {
             }
             pathLine.clear();
 
+            for(Arrow el: arrowLine){
+                pathfindingMap.btnPane.getChildren().remove(el);
+            }
+            arrowLine.clear();
+
+
 
             //Make path red
             for (int i = 0; i < path.size(); i++) {
                 System.out.print(path.get(i).getName() + " ");
                 if(i>0) {
+                    //TRYING TO MAKE ARROWS
+                    Arrow arrow = new Arrow(path.get(i), path.get(i-1));
+                    arrow.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+                    arrowLine.add(arrow);
+                    arrow.toFront();
+
                     EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
                     pathLine.add(line);
+                    line.toFront();
                 }
             }
 
-            pathfindingMap.graph.resetNodeGraph();
+//            for (int i = 0; i < path.size(); i++) {
+//                if (i > 0) {
+//                    EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
+//                    if (path.get(i).getFloor().equals(pathfindingMap.getCurrFloorVal())) {
+//                        line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+//                        pathLine.add(line);
+//                        line.toFront();
+//                    }
+//                    else {
+//                        line.setStyle("-fx-stroke: grey; -fx-stroke-width: 5px;");
+//                        pathLine.add(line);
+//                        line.toFront();
+//                    }
+//                }
+//            }
+
+            //TODO: set old node button nodes to be isPathfinding =false;
+            //TODO: set new old node button variable to be the current start and end node
+
+            startNodeButton.getNode().setIsPathfinding(true);
+            endNodeButton.getNode().setIsPathfinding(true);
+            if (startNodeButton != startNodeButtonHold) {
+                startNodeButton.setButtonStyle();
+                startNodeButton.makeBlue();
+                if (startNodeButtonHold != null) {
+                    startNodeButtonHold.endPathfinding();
+                }
+            }
+            if (endNodeButton != endNodeButtonHold) {
+                endNodeButton.setButtonStyle();
+                if (endNodeButtonHold != null) {
+                    endNodeButtonHold.endPathfinding();
+                }
+            }
+
+            startNodeButton.getNode().setIsPathfinding(false);
+            endNodeButton.getNode().setIsPathfinding(false);
+            startNodeButton.getNode().setWasPathfinding(true);
+            endNodeButton.getNode().setWasPathfinding(true);
+            startNodeButtonHold = startNodeButton;
+            endNodeButtonHold = endNodeButton;
 
         }
         else{
@@ -144,6 +272,19 @@ public class PathTabController {
         }
 
 
+    }
+
+    private void updateDirectionsTable(List<DirectionTableEntry> directions) {
+        //Add instructions to DirectionsTable
+        ObservableList<DirectionTableEntry> tableDirections = FXCollections.observableArrayList();
+        for (DirectionTableEntry entry : directions) {
+            tableDirections.add(entry);
+        }
+
+        final TreeItem<DirectionTableEntry> root = new RecursiveTreeItem<>(tableDirections, RecursiveTreeObject::getChildren);
+        textDirectionsTable.getColumns().setAll(directionImageView, directionText);
+        textDirectionsTable.setRoot(root);
+        textDirectionsTable.setShowRoot(false);
     }
 
 
@@ -162,6 +303,7 @@ public class PathTabController {
             startNode= button.getNode();
             start.setText(button.getName()); //set text field text to be node name
             System.out.println("start: "+ button.getName());
+            startNodeButton = button;
             mapState = State.ENTEREND;
         }
         else if(mapState.equals(State.ENTEREND)){
@@ -169,6 +311,7 @@ public class PathTabController {
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
+            endNodeButton = button;
         }
 
         String text1= start.getText();
@@ -186,4 +329,44 @@ public class PathTabController {
             instructions.setText("press search to find a path");
         }
     }
+
+    private ArrayList<String> getFloorsInPath(List<Node> path) {
+        ArrayList<String> floorList = new ArrayList<>();
+        floorList.add(path.get(0).getFloor());
+        for (int i = 0; i < path.size() - 1; i++) {
+            if (!path.get(i).getFloor().equals(path.get(i + 1).getFloor())) {
+                floorList.add(path.get(i + 1).getFloor());
+            }
+        }
+        System.out.print(floorList);
+        return floorList;
+    }
+
+    private void resetVariables() {
+        nextFloor = null;
+        lastFloor = null;
+        currentFloorInList = 0;
+        floorsInPath = new ArrayList<>();
+        pathfindingMap.nextFloorBox.setVisible(false);
+    }
+
+    public void colorButtons() {
+        //tests if there are future directions on another floor
+        if ((floorsInPath.size() - 1) > currentFloorInList) {
+            pathfindingMap.nextFloorButton.setStyle("-fx-background-color: #5990d9");
+            nextFloor = floorsInPath.get(currentFloorInList + 1);
+        } else {
+            pathfindingMap.nextFloorButton.setStyle("-fx-background-color: #9fbbc8");
+            nextFloor = null;
+        }
+        //tests if there are previous directions on another floor
+        if (currentFloorInList > 0) {
+            pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #5990d9");
+            lastFloor = floorsInPath.get(currentFloorInList - 1);
+        } else {
+            pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #9fbbc8");
+            nextFloor = null;
+        }
+    }
+
 }

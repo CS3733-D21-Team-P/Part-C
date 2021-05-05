@@ -5,12 +5,14 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.views.map.Filter.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -25,6 +27,8 @@ public class MapEditorFindTab {
 
     public JFXTreeTableView nodeTable;
     public JFXTextField filterField;
+    public JFXTextField buildFilter;
+    public JFXTextField typeFilter;
     public JFXButton searchBtn;
     private List<Node> nodeList;
 
@@ -32,10 +36,19 @@ public class MapEditorFindTab {
 //    private EditMap editMapController;
 //    private PathfindingMap pathfindingMapController;
     private DBTable dbTable = new DBTable();
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeName;
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeType;
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeFloor;
+    private JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding;
+
+    @FXML JFXComboBox chosenType;
+
+    final String[] availableFloors = new String[]{ "All Floors", "Ground", "L1", "L2", "1", "2", "3"};
+
 
 
     public void initialize() {
-        JFXTreeTableColumn<NodeTableEntry, String> nodeName = new JFXTreeTableColumn<>("Name");
+        nodeName = new JFXTreeTableColumn<>("Name");
         nodeName.setPrefWidth(70);
         nodeName.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -43,7 +56,7 @@ public class MapEditorFindTab {
             }
         });
 
-        JFXTreeTableColumn<NodeTableEntry, String> nodeType = new JFXTreeTableColumn<>("Type");
+        nodeType = new JFXTreeTableColumn<>("Type");
         nodeType.setPrefWidth(70);
         nodeType.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -51,7 +64,7 @@ public class MapEditorFindTab {
             }
         });
 
-        JFXTreeTableColumn<NodeTableEntry, String> nodeFloor = new JFXTreeTableColumn<>("Floor");
+        nodeFloor = new JFXTreeTableColumn<>("Floor");
         nodeFloor.setPrefWidth(70);
         nodeFloor.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -59,7 +72,7 @@ public class MapEditorFindTab {
             }
         });
 
-        JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding = new JFXTreeTableColumn<>("Building");
+        nodeBuilding = new JFXTreeTableColumn<>("Building");
         nodeBuilding.setPrefWidth(70);
         nodeBuilding.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<NodeTableEntry, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<NodeTableEntry, String> p) {
@@ -68,28 +81,33 @@ public class MapEditorFindTab {
         });
 
         nodeList = dbTable.getNodes();
-        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
-        for (Node node : nodeList) {
-            nodes.add(new NodeTableEntry(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName())));
-        }
 
-        final TreeItem<NodeTableEntry> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
-        nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
-        nodeTable.setRoot(root);
-        nodeTable.setShowRoot(false);
+        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, "All Floors");
+//        List<Node> filteredNodes = filterNodes(nodeList);
+//
+//        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
+//        for (Node node : filteredNodes) {
+//            nodes.add(new NodeTableEntry(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName())));
+//        }
+//
+//        final TreeItem<NodeTableEntry> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
+//        nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
+//        nodeTable.setRoot(root);
+//        nodeTable.setShowRoot(false);
 
 //        NodeButton nodeButton = new NodeButton(nodeList.get(0));
 
         filterField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                nodeTable.setPredicate(new Predicate<TreeItem<Node>>() {
+                nodeTable.setPredicate(new Predicate<TreeItem<NodeTableEntry>>() {
                     @Override
-                    public boolean test(TreeItem<Node> nodeTreeItem) {
-                        Boolean flag = nodeTreeItem.getValue().getShortName().contains(newValue);
+                    public boolean test(TreeItem<NodeTableEntry> nodeTreeItem) {
+                        return nodeTreeItem.getValue().getNode().getShortName().toLowerCase().contains(newValue.toLowerCase());
+                        //Boolean flag = nodeTreeItem.getValue().getShortName().contains(newValue);
                         //nodeTreeItem.getValue().setIsSelected(flag);
                         //nodeButton.setButtonStyle();
-                        return flag;
+//                        return flag;
                     }
                 });
             }
@@ -134,34 +152,62 @@ public class MapEditorFindTab {
     }
 
     public void injectMapController(MapController mapController){
+
         this.mapController = mapController;
+        chosenType.setItems(FXCollections.observableArrayList(availableFloors));
+
     }
 
-    public void searchBtnAc(ActionEvent actionEvent) {
-//        TreeTableView.TreeTableViewSelectionModel<Node> sm = nodeTable.getSelectionModel();
-//        Node n = (Node) sm.getSelectedItem().getValue(); //selected node
-//        String floor = n.getFloor(); //current floor
-//
-//        //find nodeButton
-//        List<NodeButton> list = editMapController.buttonLists.get(floor);
-//        for(NodeButton nb: list){
-//            if(nb.getNode().getId().equals(n.getId())){
-//                //found node button
-//                System.out.println("found");
-//
-//                if(editMapController.nodeButtonHold!=null) { //check if there is a current selection
-//                    //deselect prev node
-//                    editMapController.nodeButtonHold.getNode().setIsSelected(false);
-//                    editMapController.nodeButtonHold.setButtonStyle();
-//                }
-//
-//                //select new node
-//                editMapController.nodeClicked(nb);
-//                continue;
-//            }
-//
-//        }
-//        System.out.println("no errors");
+    /**
+     * Filters out hallways and nodes not on given floor
+     * @param nodesUnfiltered all nodes
+     * @param floor String of floor to keep in list
+     * @return list of nodes matching filter
+     */
+    public List<Node> filterNodes(List<Node> nodesUnfiltered, String floor){
+        Criteria noHalls = new CriteriaNoHallways();
+        Criteria matchesFloor = new CriteriaMatchesFloor(floor);
+        Criteria matchesType = new CriteriaMatchesType(typeFilter.getText());
+        Criteria matchesBuilding = new CriteriaMatchesBuilding(buildFilter.getText());
 
+        nodesUnfiltered = noHalls.meetCriteria(nodesUnfiltered);
+        if (floor!=null&& !floor.equals("All Floors")) {
+            nodesUnfiltered = matchesFloor.meetCriteria(nodesUnfiltered);
+        }
+        if(!buildFilter.getText().equals("")){
+            nodesUnfiltered = matchesBuilding.meetCriteria(nodesUnfiltered);
+        }
+        if(!typeFilter.getText().equals("")){
+            nodesUnfiltered = matchesType.meetCriteria(nodesUnfiltered);
+        }
+
+        return nodesUnfiltered;
+    }
+
+    /**
+     * filters list and updates treetable
+     * @param nodeName
+     * @param nodeType
+     * @param nodeFloor
+     * @param nodeBuilding
+     */
+    public void updateList(JFXTreeTableColumn<NodeTableEntry, String> nodeName, JFXTreeTableColumn<NodeTableEntry, String> nodeType,
+                           JFXTreeTableColumn<NodeTableEntry, String> nodeFloor, JFXTreeTableColumn<NodeTableEntry, String> nodeBuilding, String floor){
+        List<Node> filteredNodes = filterNodes(nodeList, floor); //get filtered list
+
+        //Add nodes to node table
+        ObservableList<NodeTableEntry> nodes = FXCollections.observableArrayList();
+        for (Node node : filteredNodes) {
+            nodes.add(new NodeTableEntry(new Node(node.getName(), node.getId(), node.getXcoord(), node.getYcoord(),  node.getFloor(), node.getBuilding(), node.getType(), node.getShortName())));
+        }
+
+        final TreeItem<NodeTableEntry> root = new RecursiveTreeItem<>(nodes, RecursiveTreeObject::getChildren);
+        nodeTable.getColumns().setAll(nodeName, nodeType, nodeFloor, nodeBuilding);
+        nodeTable.setRoot(root);
+        nodeTable.setShowRoot(false);
+    }
+
+    public void updateList(ActionEvent actionEvent) {
+        updateList(nodeName, nodeType, nodeFloor, nodeBuilding, (String) chosenType.getValue());
     }
 }

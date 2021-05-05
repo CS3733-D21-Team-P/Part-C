@@ -11,12 +11,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.PathfindingMap">
-    <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1520.0" layoutX="6.0" pickOnBounds="true" preserveRatio="false" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="0.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.map.PathfindingMap">
+   <AnchorPane layoutY="1080.0" prefHeight="2160.0" prefWidth="3840.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <ImageView fx:id="imageView" fitHeight="1080.0" fitWidth="1520.0" layoutX="6.0" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="0.0">
         <image>
             <Image fx:id="mapImage" url="@Maps/00_thelowerlevel1.png" />
         </image>
@@ -30,6 +31,9 @@
         <Tab text="Find">
             <fx:include fx:id="findTab" source="Map_Editor_Find_Tab.fxml" />
         </Tab>
+        <Tab text="Locate Hospital">
+            <fx:include fx:id="googleTab" source="Map_Google_Tab.fxml" />
+        </Tab>
     </JFXTabPane>
     <AnchorPane prefHeight="75.0" prefWidth="300.0" style="-fx-background-color: #2f3159;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
@@ -41,7 +45,40 @@
             </Label>
         </children>
     </AnchorPane>
-   <BorderPane prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-       <fx:include fx:id="toolBarID" source="/edu/wpi/p/fxml/Toolbar.fxml" />
+   <BorderPane prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;">
+       <fx:include fx:id="toolBarID" source="../Toolbar.fxml" />
    </BorderPane>
+    <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
+        <fx:include source="../../fxml/Clippo.fxml" />
+    </BorderPane>
+   <AnchorPane fx:id="nextFloorBox" layoutX="600.0" layoutY="20.0" prefHeight="53.0" prefWidth="336.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
+      <children>
+         <Text fx:id="nextFloorText" layoutX="23.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path is on multiple floors" wrappingWidth="287.8125">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Text>
+         <JFXButton fx:id="nextFloorButton" alignment="CENTER" contentDisplay="CENTER" layoutX="167.0" layoutY="74.0" onAction="#nextFloorAc" prefHeight="59.0" prefWidth="167.0" style="-fx-background-color: #5990d9; -fx-border-style: solid;" text="Next Floor" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </JFXButton>
+         <JFXButton fx:id="lastFloorButton" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="74.0" onAction="#lastFloorAc" prefHeight="59.0" prefWidth="167.0" style="-fx-background-color: #5990d9; -fx-border-style: solid;" text="Previous Floor" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </JFXButton>
+      </children>
+   </AnchorPane>
+   <VBox fx:id="saveNodePopup" prefHeight="75.0" prefWidth="127.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
+      <children>
+         <Text fx:id="nodeName" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Node" textAlignment="CENTER" wrappingWidth="125.289306640625">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Text>
+         <JFXButton fx:id="saveBtn" onAction="#saveParkingAc" prefHeight="26.0" prefWidth="142.0" text="Save Location" />
+          <JFXButton fx:id="closeButton" onAction="#closePopup" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #edc5c5;" text="Close" />
+      </children>
+   </VBox>
 </AnchorPane>

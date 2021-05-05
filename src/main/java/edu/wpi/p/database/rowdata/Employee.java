@@ -1,9 +1,38 @@
 package edu.wpi.p.database.rowdata;
 
-public class Employee {
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.p.database.UserFromDB;
+
+public class Employee extends RecursiveTreeObject<Employee> {
     private String Name;
     private String EmployeeID;
     private String Position;
+    private String Salary;
+    private String AssignedSR;
+
+    public Employee(String Name, String EmployeeID, String Position, String Salary, String AssignedSR) {
+        this.Name = Name;
+        this.EmployeeID = EmployeeID;
+        this.Position = Position;
+        this.Salary = Salary;
+        this.AssignedSR = AssignedSR;
+    }
+
+    public String getAssignedSR() {
+        return AssignedSR;
+    }
+
+    public void setAssignedSR(String assignedSR) {
+        AssignedSR = assignedSR;
+    }
+
+    public String getSalary() {
+        return Salary;
+    }
+
+    public void setSalary(String salary) {
+        Salary = salary;
+    }
 
     public String getName() {
         return Name;

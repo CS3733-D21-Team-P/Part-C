@@ -1,9 +1,5 @@
 package edu.wpi.p.database;
 
-import edu.wpi.p.AStar.Node;
-import edu.wpi.p.csv.Column;
-import org.sqlite.core.DB;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +17,7 @@ public class DBUser {
         columns.add(new DBColumn("Username", "varchar(256)", ""));
         columns.add(new DBColumn("Password", "varchar(256)", ""));
         columns.add(new DBColumn("Status", "varchar(256)", ""));
+        columns.add(new DBColumn("ParkingNodeId", "varchar(256)", ""));
     }
 
     private void createTables(boolean doClear) {
@@ -49,20 +46,21 @@ public class DBUser {
         return DatabaseInterface.checkColumnObjects(selectCommand, "Status");
     }
 
-    public void addUser(User e) {
-        String insertValue = "'" + e.getName() + "', '" + e.getUsername() + "', '" + e.getPassword() + "', '" + e.getIdentity() + "'";
+    public void addUser(UserFromDB e) {
+        String insertValue = "'" + e.getName() + "', '" + e.getUsername() + "', '" + e.getPassword() + "', '" + e.getIdentity() + "', '" + e.getParkingNodeID() + "'";
         DatabaseInterface.insertIntoTable(DBUser, insertValue);
     }
 
     public void removeUser(String Username) {
-        String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "";
+        String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "'";
         DatabaseInterface.executeUpdate(removeCommand);
     }
 
-    public void updateUser(User e) {
-        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE nodeID = '"+e.getUsername()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Position = '"+e.getPassword()+"' WHERE nodeID = '"+e.getUsername()+"'");
-        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Position = '"+e.getIdentity()+"' WHERE nodeID = '"+e.getUsername()+"'");
+    public void updateUser(UserFromDB e) {
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE Username = '"+e.getUsername()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Password = '"+e.getPassword()+"' WHERE Username = '"+e.getUsername()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Status = '"+e.getIdentity()+"' WHERE Username = '"+e.getUsername()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET ParkingNodeId = '"+e.getParkingNodeID()+"' WHERE Username = '"+e.getUsername()+"'");
     }
 
     /**
@@ -87,7 +85,7 @@ public class DBUser {
      * The nodes do not have their edges set
      * @return
      */
-    public List<User> getUsers() {
+    public List<UserFromDB> getUsers() {
         List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);//new ArrayList<>();
 
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(DBUser);
@@ -95,22 +93,24 @@ public class DBUser {
         int Name = indexOfColumnByName(dbColumns, "Name");
         int Username = indexOfColumnByName(dbColumns, "Username");
         int Password = indexOfColumnByName(dbColumns, "Password");
-        int Identity = indexOfColumnByName(dbColumns, "Identity");
+        int Identity = indexOfColumnByName(dbColumns, "Status");
+        int ParkingNodeID = indexOfColumnByName(dbColumns, "ParkingNodeId");
 
         //create Users
-        List<User> users = new ArrayList<>(userData.size());
+        List<UserFromDB> userFromDBS = new ArrayList<>(userData.size());
         for(int i = 1; i < userData.size(); i++) {
             List<String> userString = userData.get(i);
 
-            User user = new User(
+            UserFromDB userFromDB = new UserFromDB(
                     userString.get(Name),
                     userString.get(Username),
                     userString.get(Password),
                     userString.get(Identity));
-            users.add(user);
+            userFromDB.setParkingNodeID(userString.get(ParkingNodeID));
+            userFromDBS.add(userFromDB);
         }
 
-        return users;
+        return userFromDBS;
     }
 
     public List<String> getUsernames() {
