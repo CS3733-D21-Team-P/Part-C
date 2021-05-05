@@ -185,9 +185,6 @@ public class PathTabController {
     }
 
     private void updateDirectionsTable(List<DirectionTableEntry> directions) {
-
-        //TODO word wrap
-
         //Add instructions to DirectionsTable
         ObservableList<DirectionTableEntry> tableDirections = FXCollections.observableArrayList();
         for (DirectionTableEntry entry : directions) {
