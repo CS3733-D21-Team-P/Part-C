@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class PathTabController {
     private NodeButton endNodeButton;
     private NodeButton startNodeButtonHold;
     private NodeButton endNodeButtonHold;
-    private List<EdgeLine> pathLine= new ArrayList<>();
+    private List<Arrow> pathLine= new ArrayList<>();
     public List<String> floorsInPath= new ArrayList<>();
     public int currentFloorInList = 0;
     public String nextFloor = null;
@@ -150,7 +151,7 @@ public class PathTabController {
                 System.out.print(n.getName() + " ");
             }
 
-            for(EdgeLine el: pathLine){
+            for(Arrow el: pathLine){
                 pathfindingMap.btnPane.getChildren().remove(el);
             }
             pathLine.clear();
@@ -160,9 +161,25 @@ public class PathTabController {
             for (int i = 0; i < path.size(); i++) {
                 System.out.print(path.get(i).getName() + " ");
                 if(i>0) {
+                    Arrow arrow = new Arrow(path.get(i), path.get(i-1));
+//                    PathfindingMap.add
+//                    PathfindingMap.btnPane.getChildren().add(arrow); //add line to screen
+
+//                    double startX = pathfindingMap.unScaleX(path.get(i-1).getXcoord());
+//                    double startY = pathfindingMap.unScaleY(path.get(i-1).getYcoord());
+//
+//                    arrow.setEndX(500);
+//                    arrow.setEndY(500);
+//                    arrow.setStartX(0);
+//                    arrow.setStartY(0);
+
+                    arrow.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+                    pathLine.add(arrow);
+                    arrow.toFront();
+
                     EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
-                    pathLine.add(line);
+//                    pathLine.add(line);
                     line.toFront();
                 }
             }
