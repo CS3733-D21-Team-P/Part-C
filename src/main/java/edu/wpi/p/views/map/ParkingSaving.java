@@ -17,6 +17,7 @@ public class ParkingSaving {
 
     public void saveParkingAc(NodeButton nb) {
         Node node = nb.getNode();
+        dbuser.removeUser("tempUser'");
         UserFromDB user = new UserFromDB("tempUser","tempUser", "tempUser", "tempUser", node.getId());
         user.setParkingNodeID(node.getId());
         dbuser.addUser(user);
