@@ -62,7 +62,6 @@ public class HomePage {
   public ImageView pathIcon;
   public ImageView serviceIcon;
 
-  static boolean isEmployee;
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
 //  public JFXButton laundryServicesBtn;
@@ -89,7 +88,7 @@ public class HomePage {
 
     }
     EntryRequest.updateApproved();
-    if(isEmployee){
+    if(User.getInstance().getPermissions().equals("Employee")){
       editButton.setVisible(false);
       editIcon.setVisible(false);
       userAccount.setVisible(false);

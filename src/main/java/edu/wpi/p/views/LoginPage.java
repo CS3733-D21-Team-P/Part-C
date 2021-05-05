@@ -135,11 +135,6 @@ public class LoginPage {
     public void loginButtonAC(ActionEvent actionEvent) {
         try {
             User.getInstance().login(usernameTXT.getText(), passwordTXT.getText());
-           if(dbuser.checkIdentity(usernameTXT.getText()).equals("Employee")){
-               HomePage.isEmployee = true;
-           }else{
-               HomePage.isEmployee = false;
-           }
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
                 App.getPrimaryStage().getScene().setRoot(root);
