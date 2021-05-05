@@ -51,7 +51,7 @@ public class DBUser {
     }
 
     public void removeUser(String Username) {
-        String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "";
+        String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "'";
         DatabaseInterface.executeUpdate(removeCommand);
     }
 

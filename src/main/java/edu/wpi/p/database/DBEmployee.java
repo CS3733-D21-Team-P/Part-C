@@ -45,7 +45,7 @@ public class DBEmployee {
     }
 
     public void removeEmployee(String employeeID) {
-        String removeCommand = "DELETE FROM " + EmployeeTable +" WHERE EmployeeID='" + employeeID + "";
+        String removeCommand = "DELETE FROM " + EmployeeTable +" WHERE EmployeeID='" + employeeID + "'";
         DatabaseInterface.executeUpdate(removeCommand);
     }
 
