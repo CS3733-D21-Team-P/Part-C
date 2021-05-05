@@ -21,8 +21,8 @@ public class NodeButton extends JFXButton {
 
     private Node node;
 
-    private double baseSize = 7;
-    private double currentSize;
+    private double baseSize = 10;
+    public double currentSize;
     private double scaleFactor = 5;
 
     private String nameOfFile = "";
@@ -49,6 +49,9 @@ public class NodeButton extends JFXButton {
         this.setLayoutY(node.getYcoord());
 
         setButtonStyle();
+        currentSize = 10;
+        this.setTranslateX(-currentSize/2);
+        this.setTranslateY(-(currentSize/2));
     }
 
     public void setButtonStyle(){
@@ -73,45 +76,66 @@ public class NodeButton extends JFXButton {
                 break;
         }
 
-
-        if(nameOfFile.isEmpty()){
-            if(!getNode().getIsSelected()){//no image and not selected
-                this.setStyle(getStyle()+
-                        ";-fx-background-radius: 5em; " +
-                        "-fx-background-color: #2F3159"
-                );
-            }
-            else{//no image and is selected
-                this.setStyle(
-                        "-fx-background-radius: 5em; " +
-                                "-fx-background-color: red"
-                );
-            }
-            if(connectsLevels) { //if connecting levels
-                setStyle(getStyle()+";-fx-border-color: #00d1b5; " +
-                        "-fx-border-width: 2px;" +
-                        "-fx-border-radius: 5em");
-            }
-        }
-        else{ //set image if there is an image specified
-            buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),25,25,true, true);
-            BackgroundSize bgsize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true, false);
-            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize);
-            Background background = new Background(backgroundImage);
-            setBackground(background);
-            if(!connectsLevels) {
-                setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
-            }
-            else{
-                setStyle("-fx-border-color: #00d1b5; -fx-border-width: 2px;");
-            }
-            if (getNode().getIsSelected()) //if is image and is selected
-            {
-                setStyle("-fx-border-color: red; -fx-border-width: 2px;");
-            }
-
+        if (this.getNode().getIsPathfinding()) {
+            this.toFront();
+            this.setStyle(
+                    "-fx-background-radius: 5em; " +
+//                            "-fx-min-width: 12px; " +
+//                            "-fx-min-height: 12px; " +
+////                            "-fx-max-width: 12px; " +
+////                            "-fx-max-height: 12px;" +
+                            "-fx-background-color: red"
+            );
+            this.setOpacity(0.7);
+//            if (!this.getNode().getWasPathfinding()) {
+            currentSize = 20;
+            setButtonSize(currentSize); //set button size
+            this.setTranslateX(-currentSize / 2);
+            this.setTranslateY(-(currentSize / 2));
+//            }
         }
 
+        else if (!this.getNode().getWasPathfinding()){
+            if (nameOfFile.isEmpty()) {
+                if (!getNode().getIsSelected()) {//no image and not selected
+                    this.setStyle(getStyle() +
+                            ";-fx-background-radius: 5em; " +
+                            "-fx-min-width: 10px; " +
+                            "-fx-min-height: 10px; " +
+                            "-fx-background-color: #2F3159"
+                    );
+                    setOpacity(0.7);
+                } else {//no image and is selected
+                    this.setStyle(
+                            "-fx-background-radius: 5em; " +
+                                    "-fx-min-width: 10px; " +
+                                    "-fx-min-height: 10px; " +
+                                    "-fx-background-color: red"
+                    );
+                }
+                if (connectsLevels) { //if connecting levels
+                    setStyle(getStyle() + ";-fx-border-color: #00d1b5; " +
+                            "-fx-border-width: 2px;" +
+                            "-fx-border-radius: 5em");
+                }
+            } else { //set image if there is an image specified
+                buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile), 25, 25, true, true);
+                BackgroundSize bgsize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+                BackgroundImage backgroundImage = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize);
+                Background background = new Background(backgroundImage);
+                setBackground(background);
+                if (!connectsLevels) {
+                    setStyle("-fx-border-color: #2F3159; -fx-border-width: 2px;");
+                } else {
+                    setStyle("-fx-border-color: #00d1b5; -fx-border-width: 2px;");
+                }
+                if (getNode().getIsSelected()) //if is image and is selected
+                {
+                    setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                }
+
+            }
+        }
         updateSize();
 
     }
@@ -164,7 +188,7 @@ public class NodeButton extends JFXButton {
 
         double addedSize = 0;
         if(!nameOfFile.isEmpty()){
-            addedSize=6;
+            addedSize=10;
         }
         currentSize = scale+addedSize;
 
@@ -183,5 +207,46 @@ public class NodeButton extends JFXButton {
     {
         this.getNode().setIsSelected(false);
         this.setButtonStyle();
+    }
+
+    public void endPathfinding() {
+        currentSize = 10;
+        this.setStyle(getStyle() +
+                ";-fx-background-radius: 10em; " +
+                "-fx-min-width: 10px; " +
+                "-fx-min-height: 10px; " +
+                "-fx-max-width: 10px; " +
+                "-fx-max-height: 10px;" +
+                "-fx-background-color: #2F3159"
+        );
+        this.setTranslateX(-5);
+        this.setTranslateY(-5);
+        this.getNode().setWasPathfinding(false);
+    }
+
+    public void makeBigNode() {
+        this.toFront();
+        this.setStyle(
+                "-fx-background-radius: 5em; " +
+//                            "-fx-min-width: 12px; " +
+//                            "-fx-min-height: 12px; " +
+////                            "-fx-max-width: 12px; " +
+////                            "-fx-max-height: 12px;" +
+                        "-fx-background-color: red"
+        );
+        this.setOpacity(0.7);
+//            if (!this.getNode().getWasPathfinding()) {
+        currentSize *= 2;
+        setButtonSize(currentSize); //set button size
+        this.setTranslateX(-currentSize / 2);
+        this.setTranslateY(-(currentSize / 2));
+//            }
+    }
+
+    public void makeBlue() {
+        this.setStyle(
+                "-fx-background-radius: 5em; " +
+                        "-fx-background-color: #4a7ede"
+        );
     }
 }

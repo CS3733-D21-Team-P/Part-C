@@ -26,8 +26,8 @@
                                 <Font size="11.0" />
                             </font>
                         </Label>
-                  <JFXTextField fx:id="start" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterStart" prefWidth="150.0" promptText="Start Node" style="-fx-background-color: #b6d6f2;" />
-                  <JFXTextField fx:id="end" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterEnd" prefWidth="150.0" promptText="End Node" style="-fx-background-color: #b6d6f2;" />
+                  <JFXTextField fx:id="start" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterStart" prefWidth="150.0" promptText="Start Node" style="-fx-background-color: #7f9edb;" />
+                  <JFXTextField fx:id="end" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterEnd" prefWidth="150.0" promptText="End Node" style="-fx-background-color: #e39292;" />
                         <JFXButton mnemonicParsing="false" onAction="#findPath" style="-fx-background-color: #5990d9; -fx-background-radius: 5px; -fx-border-color: #2f3159; -fx-border-image-width: 2px; -fx-border-radius: 5px;" text="Search">
                      <font>
                         <Font name="System Bold" size="12.0" />

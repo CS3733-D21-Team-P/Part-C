@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -37,6 +38,7 @@ public abstract class MapController {
 
     @FXML private MapEditorFindTab findTabController;
 
+
     NodeGraph graph = new NodeGraph();
     List<NodeButton> buttons = new ArrayList<>();
     List<EdgeLine> edgeLines = new ArrayList<>();
@@ -45,6 +47,8 @@ public abstract class MapController {
     public EdgeLine edgeHold;
     Node nodeHold;
     NodeButton nodeButtonHold;
+    public boolean pathfindPage = false;
+    public boolean multipleFloors = false;
 
     HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
     HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
@@ -60,6 +64,9 @@ public abstract class MapController {
 
     public String getCurrFloorVal() {
         return currFloorVal;
+    }
+    public void setCurrFloorVal(String val) {
+        this.currFloorVal = val;
     }
 
     private String currFloorVal;
@@ -94,10 +101,12 @@ public abstract class MapController {
 
             //add edges
             List<Node> children = node.getNeighbours();
-            for (Node n : children) {
-                EdgeLine el = addEdgeLine(node, n);
-                nb.addLine(el);
+            if (!pathfindPage) {
+                for (Node n : children) {
+                    EdgeLine el = addEdgeLine(node, n);
+                    nb.addLine(el);
 //                edgeLines.add(el);
+                }
             }
             translateNodeButton(nb);
             buttonLists.get(node.getFloor()).add(nb);
@@ -211,6 +220,12 @@ public abstract class MapController {
         //make buttons for current floor visible
         for(NodeButton nb: buttons){
             nb.setVisible(true);
+            if (nb.getNode().getWasPathfinding()) {
+                System.out.print("\nThis should print each time there is a start/end node on the new floor\n");
+                nb.getNode().setIsPathfinding(true);
+                nb.setButtonStyle();
+                nb.getNode().setIsPathfinding(false);
+            }
         }
         for(EdgeLine el: edgeLines){
             if(!el.connectsLevels()) {
@@ -240,6 +255,13 @@ public abstract class MapController {
                 break;
         }
         imageView.setImage(mapImage);
+        if (multipleFloors) {
+            updateNextFloorBox();
+        }
+        if (pathfindPage) {
+            System.out.println("HELLO");
+            makeBigAndRed();
+        }
     }
 
     public void floorInit(){
@@ -422,4 +444,7 @@ public abstract class MapController {
         Rectangle2D viewport = imageView.getViewport();
         return ((y*scaleY)+(viewport.getMinY()));
     }
+
+    public void updateNextFloorBox() {}
+    public void makeBigAndRed() {}
 }

@@ -14,12 +14,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +45,29 @@ public class PathTabController {
     private AStar search = new AStar();
     private Node startNode;
     private Node endNode;
+    public NodeButton startNodeButton;
+    public NodeButton endNodeButton;
+    private NodeButton startNodeButtonHold;
+    private NodeButton endNodeButtonHold;
     private List<EdgeLine> pathLine= new ArrayList<>();
+    private List<Arrow> arrowLine= new ArrayList<>();
+
+    public List<String> floorsInPath= new ArrayList<>();
+    public int currentFloorInList = 0;
+    public String nextFloor = null;
+    public String lastFloor = null;
 
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
     @FXML public Label instructions;
+
+    public int getCurrentFloorInList() {
+        return currentFloorInList;
+    }
+
+    public void setCurrentFloorInList(int currentFloorInList) {
+        this.currentFloorInList = currentFloorInList;
+    }
 
 
     private boolean enteringStart = false;
@@ -131,6 +153,7 @@ public class PathTabController {
      * @param actionEvent
      */
     public void findPath(ActionEvent actionEvent){
+        resetVariables();
         if (startNode==null || !start.getText().equals(startNode.getName())){
             System.out.println("set start");
             String startText = start.getText();
@@ -146,6 +169,17 @@ public class PathTabController {
             //find path
             List<Node> path = new ArrayList<>();
             path = search.findShortestPath(startNode, endNode);
+            floorsInPath = getFloorsInPath(path);
+            if (floorsInPath.size() > 1) {
+                pathfindingMap.nextFloorBox.setVisible(true);
+                pathfindingMap.multipleFloors = true;
+            }
+            for (int i = 0; i < floorsInPath.size(); i++) {
+                if (floorsInPath.get(i).equals(pathfindingMap.getCurrFloorVal())) {
+                    currentFloorInList = i;
+                }
+            }
+            colorButtons();
 
             //Path To Text
             PathToText textPath = new PathToText();
@@ -163,16 +197,71 @@ public class PathTabController {
             }
             pathLine.clear();
 
+            for(Arrow el: arrowLine){
+                pathfindingMap.btnPane.getChildren().remove(el);
+            }
+            arrowLine.clear();
+
+
 
             //Make path red
             for (int i = 0; i < path.size(); i++) {
                 System.out.print(path.get(i).getName() + " ");
                 if(i>0) {
+                    //TRYING TO MAKE ARROWS
+                    Arrow arrow = new Arrow(path.get(i), path.get(i-1));
+                    arrow.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+                    arrowLine.add(arrow);
+                    arrow.toFront();
+
                     EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
                     pathLine.add(line);
+                    line.toFront();
                 }
             }
+
+//            for (int i = 0; i < path.size(); i++) {
+//                if (i > 0) {
+//                    EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
+//                    if (path.get(i).getFloor().equals(pathfindingMap.getCurrFloorVal())) {
+//                        line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+//                        pathLine.add(line);
+//                        line.toFront();
+//                    }
+//                    else {
+//                        line.setStyle("-fx-stroke: grey; -fx-stroke-width: 5px;");
+//                        pathLine.add(line);
+//                        line.toFront();
+//                    }
+//                }
+//            }
+
+            //TODO: set old node button nodes to be isPathfinding =false;
+            //TODO: set new old node button variable to be the current start and end node
+
+            startNodeButton.getNode().setIsPathfinding(true);
+            endNodeButton.getNode().setIsPathfinding(true);
+            if (startNodeButton != startNodeButtonHold) {
+                startNodeButton.setButtonStyle();
+                startNodeButton.makeBlue();
+                if (startNodeButtonHold != null) {
+                    startNodeButtonHold.endPathfinding();
+                }
+            }
+            if (endNodeButton != endNodeButtonHold) {
+                endNodeButton.setButtonStyle();
+                if (endNodeButtonHold != null) {
+                    endNodeButtonHold.endPathfinding();
+                }
+            }
+
+            startNodeButton.getNode().setIsPathfinding(false);
+            endNodeButton.getNode().setIsPathfinding(false);
+            startNodeButton.getNode().setWasPathfinding(true);
+            endNodeButton.getNode().setWasPathfinding(true);
+            startNodeButtonHold = startNodeButton;
+            endNodeButtonHold = endNodeButton;
 
             pathfindingMap.graph.resetNodeGraph();
 
@@ -213,6 +302,7 @@ public class PathTabController {
             startNode= button.getNode();
             start.setText(button.getName()); //set text field text to be node name
             System.out.println("start: "+ button.getName());
+            startNodeButton = button;
             mapState = State.ENTEREND;
         }
         else if(mapState.equals(State.ENTEREND)){
@@ -220,6 +310,7 @@ public class PathTabController {
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
+            endNodeButton = button;
         }
 
         String text1= start.getText();
@@ -237,4 +328,44 @@ public class PathTabController {
             instructions.setText("press search to find a path");
         }
     }
+
+    private ArrayList<String> getFloorsInPath(List<Node> path) {
+        ArrayList<String> floorList = new ArrayList<>();
+        floorList.add(path.get(0).getFloor());
+        for (int i = 0; i < path.size() - 1; i++) {
+            if (!path.get(i).getFloor().equals(path.get(i + 1).getFloor())) {
+                floorList.add(path.get(i + 1).getFloor());
+            }
+        }
+        System.out.print(floorList);
+        return floorList;
+    }
+
+    private void resetVariables() {
+        nextFloor = null;
+        lastFloor = null;
+        currentFloorInList = 0;
+        floorsInPath = new ArrayList<>();
+        pathfindingMap.nextFloorBox.setVisible(false);
+    }
+
+    public void colorButtons() {
+        //tests if there are future directions on another floor
+        if ((floorsInPath.size() - 1) > currentFloorInList) {
+            pathfindingMap.nextFloorButton.setStyle("-fx-background-color: #5990d9");
+            nextFloor = floorsInPath.get(currentFloorInList + 1);
+        } else {
+            pathfindingMap.nextFloorButton.setStyle("-fx-background-color: #9fbbc8");
+            nextFloor = null;
+        }
+        //tests if there are previous directions on another floor
+        if (currentFloorInList > 0) {
+            pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #5990d9");
+            lastFloor = floorsInPath.get(currentFloorInList - 1);
+        } else {
+            pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #9fbbc8");
+            nextFloor = null;
+        }
+    }
+
 }
