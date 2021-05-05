@@ -46,6 +46,16 @@ public class ServiceRequestLogSection extends VBox {
                 return FoodDeliveryRequest.fields;
             case "Gift Delivery":
                 return GiftDelivery.fields;
+            case "Internal Patient Transportation":
+                return InternalPatientTransportation.fields;
+            case "Language Interpreter Request":
+                return LanguageInterpreterServiceRequest.fields;
+            case "Laundry Service Request":
+                return LaundryServiceRequest.fields;
+            case "Medicine Delivery Request":
+                return MedicineDeliverySR.fields;
+            case "Sanitation Request":
+                return SanitationServiceRequest.fields;
             default:
                 System.out.println("DON'T KNOW THE CLASS FOR TYPE OF " + type);
                 return new String[]{};
@@ -87,11 +97,14 @@ public class ServiceRequestLogSection extends VBox {
         }
 
         JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = new JFXTreeTableColumn<>("Assigned To");
-//        assignedTo.setPrefWidth(100);
+
         assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
                 new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getAssignment()));
+        assignedTo.setOnEditCommit((TreeTableColumn.CellEditEvent<ServiceRequestTableEntry, String> t)->{
+            ((ServiceRequestTableEntry) t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue()).getServiceRequest().setAssignment(t.getNewValue());
+        });
         JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
-//        completeColumn.setPrefWidth(100);
+        completeColumn.setPrefWidth(100);
         completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback());
 
         final TreeItem<ServiceRequestTableEntry> root = new RecursiveTreeItem<>(observableRequests, RecursiveTreeObject::getChildren);
@@ -106,6 +119,7 @@ public class ServiceRequestLogSection extends VBox {
         treeView.setRoot(root);
         treeView.setShowRoot(false);
         treeView.maxWidthProperty().bind(super.widthProperty());
+        treeView.setEditable(true);
         return treeView;
     }
 
@@ -130,11 +144,17 @@ public class ServiceRequestLogSection extends VBox {
                             setText(null);
                         } else {
                             ServiceRequest request = getTreeTableView().getTreeItem(getIndex()).getValue().getServiceRequest();
-                            toggleButton.selectedProperty().set(request.getCompleted());
+                            toggleButton.setSelected(request.getCompleted());
                             toggleButton.armedProperty().addListener((observable, oldValue, newValue) -> {
-                                request.setCompleted(newValue);
-                                DBServiceRequest dbServiceRequest = new DBServiceRequest();
-                                dbServiceRequest.updateServiceRequest(request);
+                                if (newValue) {
+                                    request.setCompleted(newValue);
+                                    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                                    dbServiceRequest.updateServiceRequest(request);
+                                }
+                                else {
+                                    toggleButton.setSelected(true);
+                                }
+
                             });
                             setGraphic(toggleButton);
                             setAlignment(Pos.CENTER);
@@ -145,5 +165,6 @@ public class ServiceRequestLogSection extends VBox {
             }
         };
     }
+
 }
 

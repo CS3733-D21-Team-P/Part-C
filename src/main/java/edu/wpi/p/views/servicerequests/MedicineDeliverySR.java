@@ -1,12 +1,14 @@
 package edu.wpi.p.views.servicerequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.views.Toolbar;
 import edu.wpi.p.database.rowdata.ServiceRequest;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +16,7 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class MedicineDeliverySR extends Toolbar {
+public class MedicineDeliverySR extends GenericServiceRequest {
     @FXML
     private JFXTextField medicineName;
     @FXML
@@ -28,12 +30,33 @@ public class MedicineDeliverySR extends Toolbar {
     @FXML
     private JFXTextField doctorSign;
     @FXML
-    private JFXCheckBox pat;
+    private JFXRadioButton pat;
     @FXML
-    private JFXCheckBox doc;
+    private JFXRadioButton doc;
     @FXML
-    private JFXCheckBox nurse;
+    private JFXRadioButton nurse;
 
+    public static String[] fields = {"Prescriber", "Medicine", "Amount", "Location", "Reason", "Additional Details", "Doctor Signature"};
+
+    public MedicineDeliverySR() {
+        super();
+        super.name = "Medicine Delivery Request";
+    }
+
+    @FXML
+    public void initialize() {
+        super.locationProperty = locationArea.textProperty();
+        StringProperty prescriberString = createJFXRadioButtonStringProperty(pat, doc, nurse);
+        this.values.put("Prescriber", prescriberString);
+        this.values.put("Medicine", medicineName.textProperty());
+        this.values.put("Amount", medicineAmount.textProperty());
+        this.values.put("Location", locationArea.textProperty());
+        this.values.put("Reason", medicineReason.textProperty());
+        this.values.put("Additional Details", medicineInfo.textProperty());
+        this.values.put("Doctor Signature", doctorSign.textProperty());
+
+
+    }
     @FXML
     private void homePageButton(ActionEvent e) {
         try {
@@ -43,37 +66,10 @@ public class MedicineDeliverySR extends Toolbar {
             ex.printStackTrace();
         }
     }
-    @FXML
-    public void doctorClick(ActionEvent e){
-        //doc is the one writing the form
 
-    }
-    @FXML
-    public void nurseClick(ActionEvent e){
-        //nurse is the one writing the form
-
-    }
-    @FXML
-    public void patientClick(ActionEvent e){
-        //patient is the one writing the form
-
-    }
     @FXML
     private void submitForm(ActionEvent e) {
-        final String medName = medicineName.getText();
-        final String medAmt = medicineAmount.getText();
-        final String location = locationArea.getText();
-        final String medReason = medicineReason.getText();
-        final String medInfo = medicineInfo.getText();
-        final String docSign = doctorSign.getText();
-
-
-
-        ServiceRequest sR = new ServiceRequest(docSign, location, "Name" + "_" + location, "Medicine Delivery");
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
-        dbServiceRequest.addServiceRequest(sR);
-
-
+        super.submitPressed(e);
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));
