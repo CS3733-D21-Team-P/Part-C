@@ -22,7 +22,7 @@ public class NodeButton extends JFXButton {
     private Node node;
 
     private double baseSize = 10;
-    private double currentSize;
+    public double currentSize;
     private double scaleFactor = 5;
 
     private String nameOfFile = "";
@@ -87,12 +87,12 @@ public class NodeButton extends JFXButton {
                             "-fx-background-color: red"
             );
             this.setOpacity(0.7);
-            if (!this.getNode().getWasPathfinding()) {
-            currentSize *= 2;
+//            if (!this.getNode().getWasPathfinding()) {
+            currentSize = 20;
             setButtonSize(currentSize); //set button size
             this.setTranslateX(-currentSize / 2);
             this.setTranslateY(-(currentSize / 2));
-            }
+//            }
         }
 
         else if (!this.getNode().getWasPathfinding()){
@@ -222,5 +222,24 @@ public class NodeButton extends JFXButton {
         this.setTranslateX(-5);
         this.setTranslateY(-5);
         this.getNode().setWasPathfinding(false);
+    }
+
+    public void makeBigNode() {
+        this.toFront();
+        this.setStyle(
+                "-fx-background-radius: 5em; " +
+//                            "-fx-min-width: 12px; " +
+//                            "-fx-min-height: 12px; " +
+////                            "-fx-max-width: 12px; " +
+////                            "-fx-max-height: 12px;" +
+                        "-fx-background-color: red"
+        );
+        this.setOpacity(0.7);
+//            if (!this.getNode().getWasPathfinding()) {
+        currentSize *= 2;
+        setButtonSize(currentSize); //set button size
+        this.setTranslateX(-currentSize / 2);
+        this.setTranslateY(-(currentSize / 2));
+//            }
     }
 }

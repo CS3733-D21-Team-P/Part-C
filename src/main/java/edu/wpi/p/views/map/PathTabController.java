@@ -36,8 +36,8 @@ public class PathTabController {
     private AStar search = new AStar();
     private Node startNode;
     private Node endNode;
-    private NodeButton startNodeButton;
-    private NodeButton endNodeButton;
+    public NodeButton startNodeButton;
+    public NodeButton endNodeButton;
     private NodeButton startNodeButtonHold;
     private NodeButton endNodeButtonHold;
     private List<EdgeLine> pathLine= new ArrayList<>();

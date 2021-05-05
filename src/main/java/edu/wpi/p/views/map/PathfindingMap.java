@@ -80,8 +80,8 @@ public class PathfindingMap extends MapController {
 //
 //            pathTabController.nextFloor = pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList());
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() - 1);
-            setCurrFloorVal(pathTabController.lastFloor);
-            changeFloors(pathTabController.lastFloor);
+//            setCurrFloorVal(pathTabController.lastFloor);
+            changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
         }
     }
     @FXML
@@ -95,12 +95,48 @@ public class PathfindingMap extends MapController {
 //            }
 //            pathTabController.lastFloor = pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList());
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() + 1);
-            setCurrFloorVal(pathTabController.nextFloor);
-            changeFloors(pathTabController.nextFloor);
+//            setCurrFloorVal(pathTabController.nextFloor);
+            changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
         }
     }
     @Override
     public void updateNextFloorBox() {
         pathTabController.colorButtons();
+    }
+
+    @Override
+    public void makeBigAndRed() {
+        pathTabController.startNodeButton.getNode().setIsPathfinding(true);
+        pathTabController.endNodeButton.getNode().setIsPathfinding(true);
+        pathTabController.startNodeButton.toFront();
+        pathTabController.endNodeButton.toFront();
+        pathTabController.startNodeButton.setStyle(
+                "-fx-background-radius: 5em; " +
+//                            "-fx-min-width: 12px; " +
+//                            "-fx-min-height: 12px; " +
+////                            "-fx-max-width: 12px; " +
+////                            "-fx-max-height: 12px;" +
+                        "-fx-background-color: red"
+        );
+        pathTabController.endNodeButton.setStyle(
+                "-fx-background-radius: 5em; " +
+//                            "-fx-min-width: 12px; " +
+//                            "-fx-min-height: 12px; " +
+////                            "-fx-max-width: 12px; " +
+////                            "-fx-max-height: 12px;" +
+                        "-fx-background-color: red"
+        );
+        pathTabController.startNodeButton.setOpacity(0.7);
+        pathTabController.endNodeButton.setOpacity(0.7);
+//            if (!this.getNode().getWasPathfinding()) {
+        pathTabController.startNodeButton.currentSize = 20;
+        pathTabController.startNodeButton.setButtonSize(pathTabController.startNodeButton.currentSize); //set button size
+        pathTabController.startNodeButton.setTranslateX(-(pathTabController.startNodeButton.currentSize / 2));
+        pathTabController.startNodeButton.setTranslateY(-(pathTabController.startNodeButton.currentSize / 2));
+
+        pathTabController.endNodeButton.currentSize *= 2;
+        pathTabController.endNodeButton.setButtonSize(pathTabController.startNodeButton.currentSize); //set button size
+        pathTabController.endNodeButton.setTranslateX(-(pathTabController.startNodeButton.currentSize / 2));
+        pathTabController.endNodeButton.setTranslateY(-(pathTabController.startNodeButton.currentSize / 2));
     }
 }

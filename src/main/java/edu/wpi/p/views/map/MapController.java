@@ -221,6 +221,7 @@ public abstract class MapController {
         for(NodeButton nb: buttons){
             nb.setVisible(true);
             if (nb.getNode().getWasPathfinding()) {
+                System.out.print("\nThis should print each time there is a start/end node on the new floor\n");
                 nb.getNode().setIsPathfinding(true);
                 nb.setButtonStyle();
                 nb.getNode().setIsPathfinding(false);
@@ -256,6 +257,10 @@ public abstract class MapController {
         imageView.setImage(mapImage);
         if (multipleFloors) {
             updateNextFloorBox();
+        }
+        if (pathfindPage) {
+            System.out.println("HELLO");
+            makeBigAndRed();
         }
     }
 
@@ -441,4 +446,5 @@ public abstract class MapController {
     }
 
     public void updateNextFloorBox() {}
+    public void makeBigAndRed() {}
 }
