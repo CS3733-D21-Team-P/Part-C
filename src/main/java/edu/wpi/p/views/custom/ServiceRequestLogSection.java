@@ -1,6 +1,8 @@
 package edu.wpi.p.views.custom;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
+import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
@@ -13,8 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 import java.util.*;
@@ -22,14 +24,46 @@ import java.util.List;
 
 public class ServiceRequestLogSection extends VBox {
 
-    ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();;
+    ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
+    ;
 
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
         super.widthProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("service request log section vbox change its width from " + oldValue + " to " + newValue);
         });
+        HBox assignmentSearch = new HBox();
+        Label assignmentLabel = new Label("Assigned to search:");
+        assignmentLabel.setStyle("-fx-font-size: 24");
+        assignmentLabel.setTextFill(Color.WHITE);
         JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
+        JFXTextField filterField = new JFXTextField();
+        filterField.setFocusColor(Color.WHITE);
+        filterField.setUnFocusColor(Color.WHITE);
+        filterField.setStyle("-fx-background-color: #f2f2f2");
+        filterField.setMaxWidth(200);
+        assignmentSearch.getChildren().addAll(assignmentLabel, filterField);
+//        super.setFillWidth(false);
+
+
+        filterField.textProperty().addListener((o,oldVal,newVal)->{
+            requestSection.setPredicate(serviceRequestTableEntryTreeItem -> {
+                String assignment = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment();
+                System.out.println("assignment is " + assignment);
+                if (newVal.length() == 0) {
+                    return true;
+                }
+                if (assignment != null) {
+                    System.out.println("newVal: " + newVal);
+                    System.out.println("assignment isn't null, does assignment contain? " + assignment.contains(newVal));
+                    return assignment.contains(newVal);
+                }
+                return false;
+            });
+        });
+//        requestSection.prefHeightProperty().bind(super.heightProperty());
+        super.setVgrow(requestSection, Priority.ALWAYS);
+        this.getChildren().add(assignmentSearch);
         this.getChildren().add(requestSection);
 
     }
@@ -46,6 +80,16 @@ public class ServiceRequestLogSection extends VBox {
                 return FoodDeliveryRequest.fields;
             case "Gift Delivery":
                 return GiftDelivery.fields;
+            case "Internal Patient Transportation":
+                return InternalPatientTransportation.fields;
+            case "Language Interpreter Request":
+                return LanguageInterpreterServiceRequest.fields;
+            case "Laundry Service Request":
+                return LaundryServiceRequest.fields;
+            case "Medicine Delivery Request":
+                return MedicineDeliverySR.fields;
+            case "Sanitation Request":
+                return SanitationServiceRequest.fields;
             default:
                 System.out.println("DON'T KNOW THE CLASS FOR TYPE OF " + type);
                 return new String[]{};
@@ -87,11 +131,20 @@ public class ServiceRequestLogSection extends VBox {
         }
 
         JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = new JFXTreeTableColumn<>("Assigned To");
-//        assignedTo.setPrefWidth(100);
+
         assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
                 new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getAssignment()));
+        assignedTo.setCellFactory((TreeTableColumn<ServiceRequestTableEntry, String> param) ->
+                new GenericEditableTreeTableCell<ServiceRequestTableEntry, String>(new TextFieldEditorBuilder()));
+        assignedTo.setOnEditCommit((TreeTableColumn.CellEditEvent<ServiceRequestTableEntry, String> t) -> {
+            ServiceRequest request = t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue().getServiceRequest();
+            request.setAssignment(t.getNewValue());
+            DBServiceRequest dbServiceRequest = new DBServiceRequest();
+            dbServiceRequest.updateServiceRequest(request);
+
+        });
         JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
-//        completeColumn.setPrefWidth(100);
+        completeColumn.setPrefWidth(100);
         completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback());
 
         final TreeItem<ServiceRequestTableEntry> root = new RecursiveTreeItem<>(observableRequests, RecursiveTreeObject::getChildren);
@@ -106,6 +159,7 @@ public class ServiceRequestLogSection extends VBox {
         treeView.setRoot(root);
         treeView.setShowRoot(false);
         treeView.maxWidthProperty().bind(super.widthProperty());
+        treeView.setEditable(true);
         return treeView;
     }
 
@@ -130,11 +184,16 @@ public class ServiceRequestLogSection extends VBox {
                             setText(null);
                         } else {
                             ServiceRequest request = getTreeTableView().getTreeItem(getIndex()).getValue().getServiceRequest();
-                            toggleButton.selectedProperty().set(request.getCompleted());
+                            toggleButton.setSelected(request.getCompleted());
                             toggleButton.armedProperty().addListener((observable, oldValue, newValue) -> {
-                                request.setCompleted(newValue);
-                                DBServiceRequest dbServiceRequest = new DBServiceRequest();
-                                dbServiceRequest.updateServiceRequest(request);
+                                if (newValue) {
+                                    request.setCompleted(newValue);
+                                    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                                    dbServiceRequest.updateServiceRequest(request);
+                                } else {
+                                    toggleButton.setSelected(true);
+                                }
+
                             });
                             setGraphic(toggleButton);
                             setAlignment(Pos.CENTER);
@@ -145,5 +204,6 @@ public class ServiceRequestLogSection extends VBox {
             }
         };
     }
+
 }
 
