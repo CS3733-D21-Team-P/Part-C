@@ -85,6 +85,6 @@ public class UserFromDB extends RecursiveTreeObject<UserFromDB> {
     }
 
     public void setParkingNodeID(String parkingNodeID) {
-        ParkingNodeID = parkingNodeID;
+        this.ParkingNodeID = parkingNodeID;
     }
 }

@@ -88,10 +88,7 @@ public class AccountLog {
         parking.setPrefWidth(70);
         parking.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<UserFromDB, String> p) {
-                if (p.getValue().getValue().getParkingNodeID() == null) {
-                    return null;
-                }
-                else return new SimpleStringProperty(p.getValue().getValue().getParkingNodeID());
+                return new SimpleStringProperty(p.getValue().getValue().getParkingNodeID());
             }
         });
 
@@ -108,7 +105,7 @@ public class AccountLog {
             public void handle(TreeTableColumn.CellEditEvent<UserFromDB, String> event) {
                 TreeItem<UserFromDB> currentEditingUser = accountDataTableView.getTreeItem(event.getTreeTablePosition().getRow());
                 currentEditingUser.getValue().setName(event.getNewValue());
-                dbuser.removeUser(currentEditingUser.getValue().getUsername());
+                dbuser.removeUser(currentEditingUser.getValue().getUsername() + "'");
                 dbuser.addUser(currentEditingUser.getValue());            }
         });
         password.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
@@ -116,7 +113,7 @@ public class AccountLog {
             @Override
             public void handle(TreeTableColumn.CellEditEvent<UserFromDB, String> event) {
                 TreeItem<UserFromDB> currentEditingUser = accountDataTableView.getTreeItem(event.getTreeTablePosition().getRow());
-                currentEditingUser.getValue().setPassword(event.getNewValue());
+                currentEditingUser.getValue().setPassword(event.getNewValue() + "'");
                 dbuser.removeUser(currentEditingUser.getValue().getUsername());
                 dbuser.addUser(currentEditingUser.getValue());            }
         });
@@ -126,7 +123,7 @@ public class AccountLog {
             public void handle(TreeTableColumn.CellEditEvent<UserFromDB, String> event) {
                 TreeItem<UserFromDB> currentEditingUser = accountDataTableView.getTreeItem(event.getTreeTablePosition().getRow());
                 currentEditingUser.getValue().setIdentity(event.getNewValue());
-                dbuser.removeUser(currentEditingUser.getValue().getUsername());
+                dbuser.removeUser(currentEditingUser.getValue().getUsername() + "'");
                 dbuser.addUser(currentEditingUser.getValue());
             }
         });
@@ -261,7 +258,7 @@ public class AccountLog {
     }
 
     public void deletePeopleAc(ActionEvent actionEvent) {
-        dbuser.removeUser(removableList.get(0).getUsername());
+        dbuser.removeUser(removableList.get(0).getUsername() + "'");
         initialize();
 
 //        TablePosition userpos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);

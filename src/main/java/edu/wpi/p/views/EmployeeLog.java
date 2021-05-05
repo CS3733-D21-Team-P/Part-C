@@ -101,7 +101,7 @@ public class EmployeeLog {
             public void handle(TreeTableColumn.CellEditEvent<Employee, String> event) {
                 TreeItem<Employee> currentEditingUser = employeeDataTableView.getTreeItem(event.getTreeTablePosition().getRow());
                 currentEditingUser.getValue().setName(event.getNewValue());
-                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID());
+                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID() + "'");
                 dbemployee.addEmployee(currentEditingUser.getValue());
             }
         });
@@ -112,7 +112,7 @@ public class EmployeeLog {
             public void handle(TreeTableColumn.CellEditEvent<Employee, String> event) {
                 TreeItem<Employee> currentEditingUser = employeeDataTableView.getTreeItem(event.getTreeTablePosition().getRow());
                 currentEditingUser.getValue().setPosition(event.getNewValue());
-                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID());
+                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID() + "'");
                 dbemployee.addEmployee(currentEditingUser.getValue());
             }
         });
@@ -123,7 +123,7 @@ public class EmployeeLog {
             public void handle(TreeTableColumn.CellEditEvent<Employee, String> event) {
                 TreeItem<Employee> currentEditingUser = employeeDataTableView.getTreeItem(event.getTreeTablePosition().getRow());
                 currentEditingUser.getValue().setSalary(event.getNewValue());
-                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID());
+                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID() + "'");
                 dbemployee.addEmployee(currentEditingUser.getValue());
             }
         });
@@ -134,7 +134,7 @@ public class EmployeeLog {
             public void handle(TreeTableColumn.CellEditEvent<Employee, String> event) {
                 TreeItem<Employee> currentEditingUser = employeeDataTableView.getTreeItem(event.getTreeTablePosition().getRow());
                 currentEditingUser.getValue().setAssignedSR(event.getNewValue());
-                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID());
+                dbemployee.removeEmployee(currentEditingUser.getValue().getEmployeeID() + "'");
                 dbemployee.addEmployee(currentEditingUser.getValue());
             }
         });
@@ -246,7 +246,7 @@ public class EmployeeLog {
     }
 
     public void deleteEmployeeAc(ActionEvent actionEvent) {
-        dbemployee.removeEmployee(removableList.get(0).getEmployeeID());
+        dbemployee.removeEmployee(removableList.get(0).getEmployeeID() + "'");
         initialize();
 //        TablePosition userpos = employeeDataTableView.getSelectionModel().getSelectedCells().get(0);
 //        int userRow = userpos.getRow();

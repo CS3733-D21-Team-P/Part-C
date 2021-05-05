@@ -16,8 +16,8 @@ public class ParkingSaving {
 
 
     public void saveParkingAc(NodeButton nb) {
-        UserFromDB user = new UserFromDB("tempUser", "tempUser");
         Node node = nb.getNode();
+        UserFromDB user = new UserFromDB("tempUser","tempUser", "tempUser", "tempUser", node.getId());
         user.setParkingNodeID(node.getId());
         dbuser.addUser(user);
         nb.toggleIsSelected(true);
