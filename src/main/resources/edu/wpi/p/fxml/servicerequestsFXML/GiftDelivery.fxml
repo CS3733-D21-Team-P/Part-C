@@ -13,18 +13,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.BorderPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.GiftDelivery">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.GiftDelivery">
   <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="444.0" layoutY="-11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
       </ImageView>
-      <GridPane layoutX="1111.0" layoutY="84.0" prefHeight="178.0" prefWidth="571.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="1111.0" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="84.0">
+      <GridPane layoutX="1100.0" layoutY="100.0" prefHeight="880.0" prefWidth="720.0" style="-fx-background-color: #2F3159;" AnchorPane.rightAnchor="100.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.4285888671875" minWidth="10.0" prefWidth="41.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.4285888671875" minWidth="10.0" prefWidth="153.0" />
@@ -62,9 +60,9 @@
                      <Font size="18.0" />
                  </font>
              </Label>
-            <JFXTextField fx:id="name" focusColor="WHITE" promptText="Full Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="phoneNumber" focusColor="WHITE" promptText="000-000-0000" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <JFXTextField fx:id="address" focusColor="WHITE" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="name" focusColor="WHITE" labelFloat="true" promptText="Full Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="phoneNumber" focusColor="WHITE" labelFloat="true" promptText="000-000-0000" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="address" focusColor="WHITE" labelFloat="true" promptText="AAAA St, AAA, AAA, 0000-000" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3" />
           <Label alignment="CENTER" prefHeight="70.0" prefWidth="434.0" text="Gift Delivery" textFill="WHITE" GridPane.columnIndex="2">
             <font>
               <Font size="30.0" />
@@ -88,33 +86,34 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="98.0" prefWidth="441.0">
                      <children>
-                        <JFXTextField fx:id="recipient" focusColor="WHITE" prefHeight="23.0" prefWidth="539.0" promptText="Full Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" />
+                        <JFXTextField fx:id="recipient" focusColor="WHITE" labelFloat="true" prefHeight="23.0" prefWidth="539.0" promptText="Full Name" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" />
                      </children>
                   </HBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <children>
-                  <HBox alignment="CENTER" prefHeight="98.0" prefWidth="457.0">
+                  <GridPane prefHeight="110.0" prefWidth="500.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <JFXCheckBox fx:id="giftBox" checkedColor="WHITE" text="Gift box" textFill="WHITE" unCheckedColor="WHITE">
+                        <JFXCheckBox fx:id="giftBox" text="Gift box" textFill="WHITE" unCheckedColor="WHITE" GridPane.halignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
                         </JFXCheckBox>
-                        <JFXCheckBox fx:id="giftRibbon" checkedColor="WHITE" text="Gift ribbon" textFill="WHITE" unCheckedColor="WHITE">
+                        <JFXCheckBox fx:id="giftRibbon" text="Gift ribbon" textFill="WHITE" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
                         </JFXCheckBox>
                      </children>
-                  </HBox>
+                  </GridPane>
                </children>
             </HBox>
             <JFXTextArea fx:id="detailText" focusColor="WHITE" style="-fx-background-color: #f2f2f2;" unFocusColor="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="6" />
@@ -125,8 +124,12 @@
             </Label>
          </children>
       </GridPane>
-      <BorderPane layoutX="180.0" layoutY="149.0" prefHeight="1080.0" prefWidth="110.0" style="-fx-background-color: #2F3159;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <fx:include source="/edu/wpi/p/fxml/Toolbar.fxml" />
-      </BorderPane>
+      <ImageView fitHeight="1080.0" fitWidth="960.0" layoutY="1080.0">
+         <image>
+            <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
+      <fx:include source="../Toolbar.fxml" />
   </children>
 </AnchorPane>
