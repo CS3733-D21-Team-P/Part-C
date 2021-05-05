@@ -43,8 +43,6 @@ public class ServiceRequestLogSection extends VBox {
         filterField.setStyle("-fx-background-color: #f2f2f2");
         filterField.setMaxWidth(200);
         assignmentSearch.getChildren().addAll(assignmentLabel, filterField);
-//        super.setFillWidth(false);
-
 
         filterField.textProperty().addListener((o,oldVal,newVal)->{
             requestSection.setPredicate(serviceRequestTableEntryTreeItem -> {
@@ -131,18 +129,19 @@ public class ServiceRequestLogSection extends VBox {
         }
 
         JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = new JFXTreeTableColumn<>("Assigned To");
-
-        assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
-                new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getAssignment()));
-        assignedTo.setCellFactory((TreeTableColumn<ServiceRequestTableEntry, String> param) ->
-                new GenericEditableTreeTableCell<ServiceRequestTableEntry, String>(new TextFieldEditorBuilder()));
-        assignedTo.setOnEditCommit((TreeTableColumn.CellEditEvent<ServiceRequestTableEntry, String> t) -> {
-            ServiceRequest request = t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue().getServiceRequest();
-            request.setAssignment(t.getNewValue());
-            DBServiceRequest dbServiceRequest = new DBServiceRequest();
-            dbServiceRequest.updateServiceRequest(request);
-
-        });
+        assignedTo.setCellFactory(getAssignmentColumnCallback());
+//        assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
+//                new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getAssignment()));
+//        assignedTo.setCellFactory((TreeTableColumn<ServiceRequestTableEntry, String> param) ->
+//                new GenericEditableTreeTableCell<ServiceRequestTableEntry, String>(new TextFieldEditorBuilder()));
+//
+//        assignedTo.setOnEditCommit((TreeTableColumn.CellEditEvent<ServiceRequestTableEntry, String> t) -> {
+//            ServiceRequest request = t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue().getServiceRequest();
+//            request.setAssignment(t.getNewValue());
+//            DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//            dbServiceRequest.updateServiceRequest(request);
+//
+//        });
         JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
         completeColumn.setPrefWidth(100);
         completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback());
@@ -205,5 +204,41 @@ public class ServiceRequestLogSection extends VBox {
         };
     }
 
+    private Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>> getAssignmentColumnCallback() {
+        return new Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>>() {
+            @Override
+            public TreeTableCell<ServiceRequestTableEntry, String> call(final TreeTableColumn<ServiceRequestTableEntry, String> param) {
+                return new TreeTableCell<ServiceRequestTableEntry, String>() {
+
+                    final JFXTextField assignmentField = new JFXTextField();
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            ServiceRequest request = getTreeTableView().getTreeItem(getIndex()).getValue().getServiceRequest();
+                            System.out.println("request assignment is: " + request.getAssignment());
+                            assignmentField.setText(request.getAssignment());
+                            assignmentField.textProperty().addListener((observable, oldValue, newValue) -> {
+                                if (newValue != null) {
+                                    System.out.println("assignment field changed from: " + oldValue + " to: " + newValue);
+                                    request.setAssignment(newValue);
+                                    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                                    dbServiceRequest.updateServiceRequest(request);
+                                }
+
+                            });
+                            setGraphic(assignmentField);
+                            setAlignment(Pos.CENTER);
+                            setText(null);
+                        }
+                    }
+                };
+            }
+        };
+    }
 }
 
