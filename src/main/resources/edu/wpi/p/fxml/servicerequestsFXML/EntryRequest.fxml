@@ -39,7 +39,7 @@
             <JFXButton fx:id="next" onAction="#nextAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Next" textFill="WHITE" translateX="155.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <JFXButton fx:id="back" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Back" textFill="WHITE" GridPane.rowIndex="5" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" GridPane.rowIndex="3" />
-            <JFXTimePicker fx:id="time" defaultColor="WHITE" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTimePicker fx:id="time" defaultColor="#05119a" style="-fx-background-color: white;" translateX="25.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reason For Visit:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="TOP" />
             <JFXTextArea fx:id="reason" focusColor="WHITE" prefWidth="300.0" style="-fx-background-color: white;" translateX="25.0" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" GridPane.rowIndex="2" />
