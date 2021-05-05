@@ -27,7 +27,7 @@ public class PathTabController {
 
     @FXML private JFXTreeTableView textDirectionsTable;
     private JFXTreeTableColumn<DirectionTableEntry, ImageView> directionImageView;
-    private JFXTreeTableColumn<DirectionTableEntry, String> directionText;
+    private JFXTreeTableColumn<DirectionTableEntry, Label> directionText;
 
     private PathfindingMap pathfindingMap;
 
@@ -81,9 +81,11 @@ public class PathTabController {
 
         directionText = new JFXTreeTableColumn<>("instruction");
         directionText.setPrefWidth(200);
-        directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, String>, ObservableValue<String>>() {
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, String> p) {
-                return new SimpleStringProperty(p.getValue().getValue().getInstruction());
+        directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label>, ObservableValue<Label>>() {
+            public ObservableValue<Label> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label> p) {
+                Label l = new Label(p.getValue().getValue().getInstruction());
+                l.setWrapText(true);
+                return new SimpleObjectProperty(l);
             }
         });
     }
