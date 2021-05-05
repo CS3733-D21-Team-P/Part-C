@@ -63,7 +63,7 @@
             <Image url="@../../../../image/LoginScreen2.jpg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="1308.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 35;" text="COVID-19 Survery" textAlignment="CENTER" wrappingWidth="282.900390625" />
+      <Text fill="WHITE" layoutX="1257.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 35;" text="COVID-19 Survery" textAlignment="CENTER" wrappingWidth="385.478515625" />
       <Text fill="WHITE" layoutX="1181.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
          <font>
             <Font size="20.0" />
