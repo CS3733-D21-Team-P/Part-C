@@ -5,18 +5,23 @@
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="464.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EmployeeLog">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #2F3159;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EmployeeLog">
    <children>
-      <Label layoutX="13.0" layoutY="15.0" prefHeight="18.0" prefWidth="71.0" text="Employee" />
-      <JFXTreeTableView fx:id="employeeDataTableView" layoutX="16.0" layoutY="48.0" prefHeight="298.0" prefWidth="598.0" />
-      <JFXButton fx:id="homeButton" layoutX="563.0" layoutY="11.0" onAction="#homeButtonAc" text="Back" />
-      <JFXButton fx:id="deleteEmployeeBtn" layoutX="510.0" layoutY="360.0" onAction="#deleteEmployeeAc" text="Delete Employee" />
-      <JFXButton fx:id="addEmployeeBtn" layoutX="510.0" layoutY="397.0" onAction="#addEmployeeAc" text="Add Employee" />
-      <JFXTextField fx:id="tfname" layoutX="17.0" layoutY="348.0" prefHeight="26.0" prefWidth="149.0" promptText="Name" />
-      <JFXTextField fx:id="tfposition" layoutX="17.0" layoutY="383.0" prefHeight="26.0" prefWidth="149.0" promptText="Position" />
-      <JFXTextField fx:id="tfassignedsr" layoutX="17.0" layoutY="422.0" prefHeight="26.0" prefWidth="149.0" promptText="Assigned SR" />
-      <JFXTextField fx:id="tfemployeeid" layoutX="180.0" layoutY="359.0" prefHeight="26.0" prefWidth="149.0" promptText="Employee ID" />
-      <JFXTextField fx:id="tfsalary" layoutX="180.0" layoutY="396.0" prefHeight="26.0" prefWidth="149.0" promptText="Salary" />
+      <Label layoutX="852.0" layoutY="41.0" prefHeight="54.0" prefWidth="259.0" text="Employee Table" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
+      <JFXTreeTableView fx:id="employeeDataTableView" layoutX="382.0" layoutY="99.0" prefHeight="457.0" prefWidth="1200.0" AnchorPane.bottomAnchor="524.0" AnchorPane.leftAnchor="382.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="99.0" />
+      <JFXButton fx:id="homeButton" layoutX="1219.0" layoutY="68.0" onAction="#homeButtonAc" text="Back" />
+      <JFXButton fx:id="deleteEmployeeBtn" layoutX="1318.0" layoutY="580.0" onAction="#deleteEmployeeAc" prefHeight="20.0" prefWidth="125.0" style="-fx-background-color: #5990D9;" text="Delete Employee" />
+      <JFXButton fx:id="addEmployeeBtn" layoutX="1462.0" layoutY="580.0" onAction="#addEmployeeAc" prefHeight="20.0" prefWidth="120.0" style="-fx-background-color: #5990D9;" text="Add Employee" />
+      <JFXTextField fx:id="tfname" focusColor="WHITE" layoutX="382.0" layoutY="580.0" prefHeight="26.0" prefWidth="149.0" promptText="Name" style="-fx-background-color: white;" unFocusColor="WHITE" />
+      <JFXTextField fx:id="tfposition" layoutX="574.0" layoutY="580.0" prefHeight="26.0" prefWidth="149.0" promptText="Position" style="-fx-background-color: white;" />
+      <JFXTextField fx:id="tfassignedsr" layoutX="1134.0" layoutY="580.0" prefHeight="26.0" prefWidth="149.0" promptText="Assigned SR" style="-fx-background-color: white;" />
+      <JFXTextField fx:id="tfemployeeid" layoutX="947.0" layoutY="580.0" prefHeight="26.0" prefWidth="149.0" promptText="Employee ID" style="-fx-background-color: white;" />
+      <JFXTextField fx:id="tfsalary" layoutX="756.0" layoutY="580.0" prefHeight="26.0" prefWidth="149.0" promptText="Salary" style="-fx-background-color: white;" />
+      <fx:include source="Toolbar.fxml" />
    </children>
 </AnchorPane>
