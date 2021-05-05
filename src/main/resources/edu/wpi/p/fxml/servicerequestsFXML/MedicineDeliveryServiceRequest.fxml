@@ -17,6 +17,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.MedicineDeliverySR">
    <children>
       <GridPane alignment="CENTER" layoutY="14.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="1100.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
@@ -51,21 +52,21 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <JFXCheckBox fx:id="doc" checkedColor="WHITE" onAction="#doctorClick" prefHeight="37.0" prefWidth="90.0" text="Doctor" textFill="WHITE" unCheckedColor="WHITE">
+                  <JFXRadioButton fx:id="doc" onAction="#doctorClick" prefHeight="37.0" prefWidth="90.0" text="Doctor" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox fx:id="nurse" checkedColor="WHITE" onAction="#nurseClick" prefHeight="37.0" prefWidth="90.0" text="Nurse" textFill="WHITE" unCheckedColor="WHITE">
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="nurse" onAction="#nurseClick" prefHeight="37.0" prefWidth="90.0" text="Nurse" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox fx:id="pat" checkedColor="WHITE" onAction="#patientClick" prefHeight="37.0" prefWidth="90.0" text="Patient" textFill="WHITE" unCheckedColor="WHITE">
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="pat"  onAction="#patientClick" prefHeight="37.0" prefWidth="90.0" text="Patient" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
-                  </JFXCheckBox>
+                  </JFXRadioButton>
                </children>
             </HBox>
             <Label text="Medicine Requested: " textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">

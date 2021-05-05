@@ -19,6 +19,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.servicerequests.LaundryServiceRequest">
   <children>
       <ImageView fitHeight="1080.0" fitWidth="960.0" layoutX="454.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="960.0" AnchorPane.topAnchor="0.0">
@@ -70,26 +71,26 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <children>
-                  <JFXCheckBox checkedColor="WHITE" text="Colors" textFill="WHITE" unCheckedColor="WHITE">
+                  <JFXRadioButton fx:id="colorsBtn"  text="Colors" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Darks" textFill="WHITE" unCheckedColor="WHITE">
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="darksBtn" text="Darks" textFill="WHITE" >
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Delicates" textFill="WHITE" unCheckedColor="WHITE">
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="delicatesBtn" text="Delicates" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </JFXCheckBox>
-                  <JFXCheckBox checkedColor="WHITE" text="Bulky" textFill="WHITE" unCheckedColor="WHITE">
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="bulkyBtn" text="Bulky" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </JFXCheckBox>
+                  </JFXRadioButton>
                </children>
             </HBox>
             <Label text="Pickup Location:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">

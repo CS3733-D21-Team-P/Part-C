@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class InternalPatientTransportation extends Toolbar {
+public class InternalPatientTransportation extends GenericServiceRequest {
     @FXML
     public JFXTextField drName;
     @FXML
@@ -30,19 +30,37 @@ public class InternalPatientTransportation extends Toolbar {
     @FXML
     public JFXButton submit;
 
+    public static String[] fields = {"Doctor Name", "Current Room", "Patient Name", "Desired Transport Time", "Desired Transport Location"};
+
+    public InternalPatientTransportation() {
+        super();
+        super.name = "Internal Patient Transportation";
+    }
+
+    @FXML
+    public void initialize() {
+        this.locationProperty = currRoom.textProperty();
+
+        this.values.put("Doctor Name", drName.textProperty());
+        this.values.put("Current Room", currRoom.textProperty());
+        this.values.put("Patient Name", patientName.textProperty());
+        this.values.put("Desired Transport Time", time.valueProperty());
+        this.values.put("Desired Transport Location", destination.textProperty());
+    }
     @FXML
     private void submitForm(ActionEvent e) {
-        final String doctor = drName.getText();
-        final String location = currRoom.getText();
-        final String patient = patientName.getText();
-        final String destinationText = destination.getText();
-        final String pickUpTime = time.toString();
-
-
-
-        ServiceRequest sR = new ServiceRequest(doctor, location, "Name" + "_" + location, "Internal Patient Transportation");
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
-        dbServiceRequest.addServiceRequest(sR);
+        super.submitPressed(e);
+//        final String doctor = drName.getText();
+//        final String location = currRoom.getText();
+//        final String patient = patientName.getText();
+//        final String destinationText = destination.getText();
+//        final String pickUpTime = time.toString();
+//
+//
+//
+//        ServiceRequest sR = new ServiceRequest(doctor, location, "Name" + "_" + location, "Internal Patient Transportation");
+//        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//        dbServiceRequest.addServiceRequest(sR);
 
 
 
