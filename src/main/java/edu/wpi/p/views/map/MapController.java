@@ -89,6 +89,9 @@ public abstract class MapController {
     public NodeButton addNodeButton(Node node){
         NodeButton nb = new NodeButton(node); //create button
         users = dbuser.getUsers();
+        if (!node.getFloor().equals(getCurrFloorVal())) {
+            nb.setVisible(false);
+        }
         for (UserFromDB user : users) {
             if (user.getParkingNodeID() != null) {
                 for (NodeButton nodeButton : nodeButtons) {
@@ -100,9 +103,7 @@ public abstract class MapController {
                 }
             }
         }
-        if (!node.getFloor().equals(getCurrFloorVal())) {
-            nb.setVisible(false);
-        }
+
             btnPane.getChildren().add(nb); //add to page
             nodeButtons.add(nb);
 
