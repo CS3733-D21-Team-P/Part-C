@@ -66,6 +66,8 @@ public class CovidSurvey {
             request = sR;
         }
 
+        HomePage.approved = true;
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             App.getPrimaryStage().getScene().setRoot(root);

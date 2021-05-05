@@ -103,9 +103,11 @@ public class HomePage {
       requsetLog.setVisible(false);
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
+      pathIcon.setVisible(false);
     }
     if (approved){
       pathButton.setVisible(true);
+      pathIcon.setVisible(true);
     }
   }
 
