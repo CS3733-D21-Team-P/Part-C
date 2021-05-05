@@ -53,7 +53,7 @@ public abstract class MapController {
     HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
     HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
 
-    final String[] availableFloors = new String[]{"All Floors", "Ground", "L1", "L2", "1", "2", "3"};
+    final String[] availableFloors = new String[]{ "Ground", "L1", "L2", "1", "2", "3"};
 
 
     private double zoomSpeed = 1.005;

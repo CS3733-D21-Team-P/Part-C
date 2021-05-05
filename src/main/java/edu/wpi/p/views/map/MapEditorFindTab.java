@@ -43,6 +43,9 @@ public class MapEditorFindTab {
 
     @FXML JFXComboBox chosenType;
 
+    final String[] availableFloors = new String[]{ "All Floors", "Ground", "L1", "L2", "1", "2", "3"};
+
+
 
     public void initialize() {
         nodeName = new JFXTreeTableColumn<>("Name");
@@ -151,7 +154,7 @@ public class MapEditorFindTab {
     public void injectMapController(MapController mapController){
 
         this.mapController = mapController;
-        chosenType.setItems(FXCollections.observableArrayList(mapController.availableFloors));
+        chosenType.setItems(FXCollections.observableArrayList(availableFloors));
 
     }
 
