@@ -68,5 +68,12 @@ public class Toolbar {
             }
 
         }
+        if(User.getInstance().getPermissions().equals("Employee"))
+        {
+            if (editButton != null){
+                editButton.setVisible(false);
+            }
+
+        }
     }
 }
