@@ -17,6 +17,7 @@ public class DBUser {
         columns.add(new DBColumn("Username", "varchar(256)", ""));
         columns.add(new DBColumn("Password", "varchar(256)", ""));
         columns.add(new DBColumn("Status", "varchar(256)", ""));
+        columns.add(new DBColumn("ParkingNodeId", "varchar(256)", ""));
     }
 
     private void createTables(boolean doClear) {
@@ -46,7 +47,7 @@ public class DBUser {
     }
 
     public void addUser(UserFromDB e) {
-        String insertValue = "'" + e.getName() + "', '" + e.getUsername() + "', '" + e.getPassword() + "', '" + e.getIdentity() + "'";
+        String insertValue = "'" + e.getName() + "', '" + e.getUsername() + "', '" + e.getPassword() + "', '" + e.getIdentity() + "', '" + e.getParkingNodeID() + "'";
         DatabaseInterface.insertIntoTable(DBUser, insertValue);
     }
 
@@ -59,6 +60,7 @@ public class DBUser {
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE Username = '"+e.getUsername()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Password = '"+e.getPassword()+"' WHERE Username = '"+e.getUsername()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Status = '"+e.getIdentity()+"' WHERE Username = '"+e.getUsername()+"'");
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET ParkingNodeId = '"+e.getParkingNodeID()+"' WHERE Username = '"+e.getUsername()+"'");
     }
 
     /**
