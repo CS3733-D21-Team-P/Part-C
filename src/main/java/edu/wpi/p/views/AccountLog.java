@@ -57,35 +57,35 @@ public class AccountLog {
     @FXML
     private void initialize(){
         JFXTreeTableColumn<UserFromDB, String> username = new JFXTreeTableColumn<>("Username");
-        username.setPrefWidth(70);
+        username.setPrefWidth(240);
         username.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<UserFromDB, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getUsername());
             }
         });
         JFXTreeTableColumn<UserFromDB, String> name = new JFXTreeTableColumn<>("Name");
-        name.setPrefWidth(70);
+        name.setPrefWidth(240);
         name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<UserFromDB, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getName());
             }
         });
         JFXTreeTableColumn<UserFromDB, String> password = new JFXTreeTableColumn<>("Password");
-        password.setPrefWidth(70);
+        password.setPrefWidth(240);
         password.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<UserFromDB, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getPassword());
             }
         });
         JFXTreeTableColumn<UserFromDB, String> status = new JFXTreeTableColumn<>("Status");
-        status.setPrefWidth(70);
+        status.setPrefWidth(240);
         status.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<UserFromDB, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getStatus());
             }
         });
         JFXTreeTableColumn<UserFromDB, String> parking = new JFXTreeTableColumn<>("Parking Spot");
-        parking.setPrefWidth(70);
+        parking.setPrefWidth(240);
         parking.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<UserFromDB, String> p) {
                 return new SimpleStringProperty(p.getValue().getValue().getParkingNodeID());
