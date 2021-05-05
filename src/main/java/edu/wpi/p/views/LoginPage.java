@@ -48,16 +48,17 @@ public class LoginPage {
     private DBUser dbuser;
 
     UserFromDB admin = new UserFromDB("Admin", "admin", "admin", "Admin");
-    UserFromDB aemployee = new UserFromDB("David", "David", "123456", "Employee");
-    UserFromDB bemployee = new UserFromDB("Alex", "Alex", "123456", "Employee");
-    UserFromDB cemployee = new UserFromDB("Andrew", "Andrew", "123456", "Employee");
-    UserFromDB demployee = new UserFromDB("Nina", "Nina", "123456", "Employee");
-    UserFromDB eemployee = new UserFromDB("Loren", "Loren", "123456", "Employee");
-    UserFromDB femployee = new UserFromDB("Yoko", "Yoko", "123456", "Employee");
-    UserFromDB gemployee = new UserFromDB("Yang", "Yang", "123456", "Employee");
-    UserFromDB hemployee = new UserFromDB("Rohan", "Rohan", "123456", "Employee");
-    UserFromDB iemployee = new UserFromDB("Nicolas", "Nicolas", "123456", "Employee");
-    UserFromDB jemployee = new UserFromDB("Ian", "Ian", "123456", "Employee");
+    UserFromDB aemployee = new UserFromDB("David", "David", "123456", "Admin");
+    UserFromDB bemployee = new UserFromDB("Alex", "Alex", "123456", "Admin");
+    UserFromDB cemployee = new UserFromDB("Andrew", "Andrew", "123456", "Admin");
+    UserFromDB demployee = new UserFromDB("Nina", "Nina", "123456", "Admin");
+    UserFromDB eemployee = new UserFromDB("Loren", "Loren", "123456", "Admin");
+    UserFromDB femployee = new UserFromDB("Yoko", "Yoko", "123456", "Admin");
+    UserFromDB gemployee = new UserFromDB("Yang", "Yang", "123456", "Admin");
+    UserFromDB hemployee = new UserFromDB("Rohan", "Rohan", "123456", "Admin");
+    UserFromDB iemployee = new UserFromDB("Nicolas", "Nicolas", "123456", "Admin");
+    UserFromDB jemployee = new UserFromDB("Ian", "Ian", "123456", "Admin");
+    UserFromDB kemployee = new UserFromDB("Staff", "staff", "staff", "Employee");
 
 
     @FXML
@@ -87,6 +88,7 @@ public class LoginPage {
             dbuser.addUser(hemployee);
             dbuser.addUser(iemployee);
             dbuser.addUser(jemployee);
+            dbuser.addUser(kemployee);
         } else {
             dbuser = new DBUser();
         }
@@ -133,6 +135,11 @@ public class LoginPage {
     public void loginButtonAC(ActionEvent actionEvent) {
         try {
             User.getInstance().login(usernameTXT.getText(), passwordTXT.getText());
+           if(dbuser.checkIdentity(usernameTXT.getText()).equals("Employee")){
+               HomePage.isEmployee = true;
+           }else{
+               HomePage.isEmployee = false;
+           }
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
                 App.getPrimaryStage().getScene().setRoot(root);

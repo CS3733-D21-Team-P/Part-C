@@ -1,6 +1,9 @@
 package edu.wpi.p.database.rowdata;
 
-public class Employee {
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.p.database.UserFromDB;
+
+public class Employee extends RecursiveTreeObject<Employee> {
     private String Name;
     private String EmployeeID;
     private String Position;
