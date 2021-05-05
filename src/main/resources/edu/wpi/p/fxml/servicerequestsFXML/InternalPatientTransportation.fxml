@@ -27,7 +27,7 @@
             </BorderPane>
          </children>
       </AnchorPane>
-      <GridPane alignment="CENTER" layoutX="1100.0" layoutY="100.0" prefHeight="880.0" prefWidth="720.0" style="-fx-background-color: #2F3159;">
+      <GridPane alignment="CENTER" layoutX="1100.0" layoutY="100.0" prefHeight="880.0" prefWidth="720.0" style="-fx-background-color: #2F3159;" AnchorPane.rightAnchor="100.0">
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="321.199951171875" minWidth="0.0" prefWidth="33.0" />
           <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="321.199951171875" minWidth="10.0" prefWidth="225.0" />
