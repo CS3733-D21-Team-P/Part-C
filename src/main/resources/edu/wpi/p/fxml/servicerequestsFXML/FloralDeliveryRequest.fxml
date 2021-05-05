@@ -8,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -22,9 +21,6 @@
             <Image url="@../image/brigham-womens-hospital-building-websized.jpg" />
          </image>
       </ImageView>
-      <BorderPane prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;">
-         <fx:include source="../Toolbar.fxml" />
-      </BorderPane>
       <GridPane layoutX="1100.0" layoutY="100.0" prefHeight="880.0" prefWidth="720.0" style="-fx-background-color: #2F3159;" AnchorPane.rightAnchor="100.0">
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="325.199951171875" minWidth="10.0" prefWidth="52.0" />
@@ -140,5 +136,6 @@
          </image>
       </ImageView>
       <AnchorPane layoutY="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: #2F3159;" />
+      <fx:include source="../Toolbar.fxml" />
    </children>
 </AnchorPane>
