@@ -21,9 +21,9 @@ public class NodeButton extends JFXButton {
 
     private Node node;
 
-    private double baseSize = 10;
-    public double currentSize;
-    private double scaleFactor = 5;
+    private double baseSize = 10; //base size for scaling
+    public double currentSize; //size of button
+    private double scaleFactor = 5; //scale amount for zoom and pan
 
     private String nameOfFile = "";
     private Image buttonIcon;
@@ -49,9 +49,9 @@ public class NodeButton extends JFXButton {
         this.setLayoutY(node.getYcoord());
 
         setButtonStyle();
-        currentSize = 10;
-        this.setTranslateX(-currentSize/2);
-        this.setTranslateY(-(currentSize/2));
+//        currentSize = 10;
+//        this.setTranslateX(-currentSize/2);
+//        this.setTranslateY(-(currentSize/2));
     }
 
     public void setButtonStyle(){
@@ -76,40 +76,33 @@ public class NodeButton extends JFXButton {
                 break;
         }
 
-        if (this.getNode().getIsPathfinding()) {
+        if (this.getNode().getIsPathfinding()) { //end node
             this.toFront();
             this.setStyle(
                     "-fx-background-radius: 5em; " +
-//                            "-fx-min-width: 12px; " +
-//                            "-fx-min-height: 12px; " +
-////                            "-fx-max-width: 12px; " +
-////                            "-fx-max-height: 12px;" +
                             "-fx-background-color: red"
             );
             this.setOpacity(0.7);
-//            if (!this.getNode().getWasPathfinding()) {
+            baseSize = 20;
             currentSize = 20;
-            setButtonSize(currentSize); //set button size
-            this.setTranslateX(-currentSize / 2);
-            this.setTranslateY(-(currentSize / 2));
-//            }
+            updateSize();
+//            setButtonSize(currentSize); //set button size
+//            this.setTranslateX(-currentSize / 2);
+//            this.setTranslateY(-(currentSize / 2));
+
         }
 
-        else if (!this.getNode().getWasPathfinding()){
+        else if (!this.getNode().getWasPathfinding()){ //not a pathfinding node
             if (nameOfFile.isEmpty()) {
                 if (!getNode().getIsSelected()) {//no image and not selected
                     this.setStyle(getStyle() +
                             ";-fx-background-radius: 5em; " +
-                            "-fx-min-width: 10px; " +
-                            "-fx-min-height: 10px; " +
                             "-fx-background-color: #2F3159"
                     );
                     setOpacity(0.7);
                 } else {//no image and is selected
                     this.setStyle(
                             "-fx-background-radius: 5em; " +
-                                    "-fx-min-width: 10px; " +
-                                    "-fx-min-height: 10px; " +
                                     "-fx-background-color: red"
                     );
                 }
@@ -140,20 +133,26 @@ public class NodeButton extends JFXButton {
 
     }
 
+    /**
+     * updates size of button based on current set size and centers button
+     */
     private void updateSize(){
-//        if(!nameOfFile.isEmpty()){ //update image
-//            Image buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile),currentSize,currentSize,true, true);
-//            BackgroundSize bgsize = new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,true, false);
-//            BackgroundImage backgroundImage = new BackgroundImage( buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize);
-//            Background background = new Background(backgroundImage);
-//            setBackground(background);
-//        }
-//        this.resize(currentSize,currentSize);
-
         setButtonSize(currentSize); //set button size
+        //center
         this.setTranslateX(-currentSize/2);
         this.setTranslateY(-(currentSize/2));
 
+    }
+
+    /**
+     * sets min and max of button size
+     * @param buttonSize
+     */
+    public void setButtonSize(double buttonSize) {
+        this.setMinWidth(buttonSize);
+        this.setMinHeight(buttonSize);
+        this.setMaxWidth(buttonSize);
+        this.setMaxHeight(buttonSize);
     }
 
     public void update(ImageView imageView){
@@ -161,6 +160,10 @@ public class NodeButton extends JFXButton {
         pan(imageView);
     }
 
+    /**
+     * adds line to list of lines and checks in connects between levels
+     * @param el
+     */
     public void addLine(EdgeLine el){
         lines.add(el);
         if(el.connectsLevels()){
@@ -188,19 +191,12 @@ public class NodeButton extends JFXButton {
 
         double addedSize = 0;
         if(!nameOfFile.isEmpty()){
-            addedSize=10;
+            addedSize=10; //make images bigger
         }
         currentSize = scale+addedSize;
 
-        updateSize();
+        updateSize(); //update size based on new set size
 
-    }
-
-    public void setButtonSize(double buttonSize) {
-        this.setMinWidth(buttonSize);
-        this.setMinHeight(buttonSize);
-        this.setMaxWidth(buttonSize);
-        this.setMaxHeight(buttonSize);
     }
 
     public void deselect()
