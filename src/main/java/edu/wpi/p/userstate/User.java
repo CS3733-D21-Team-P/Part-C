@@ -11,6 +11,9 @@ public class User {
      * Allows you to track people between guest logins
      */
     private String id = "";
+    // whether or not they are approved to enter the hospital, when we become a guest this is set to false by default
+    private boolean approvedForEntry = true;
+    private UserEntryLocation entryLocation = UserEntryLocation.EITHER_ENTRANCE;
     private UserState state;
 
     public static User getInstance() {
@@ -23,6 +26,8 @@ public class User {
     void reset() {
         this.name = "";
         this.permissions = "";
+        this.approvedForEntry = true;
+        this.entryLocation = UserEntryLocation.EITHER_ENTRANCE;
     }
 
     public User() {
@@ -56,6 +61,22 @@ public class User {
 
     void setPermissions(String permissions) {
         this.permissions = permissions;
+    }
+
+    public boolean isApprovedForEntry() {
+        return approvedForEntry;
+    }
+
+    void setApprovedForEntry(boolean approvedForEntry) {
+        this.approvedForEntry = approvedForEntry;
+    }
+
+    public UserEntryLocation getEntryLocation() {
+        return entryLocation;
+    }
+
+    void setEntryLocation(UserEntryLocation entryLocation) {
+        this.entryLocation = entryLocation;
     }
 
     public boolean isLoggedIn() {

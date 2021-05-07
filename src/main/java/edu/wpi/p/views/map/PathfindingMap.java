@@ -105,6 +105,9 @@ public class PathfindingMap extends MapController {
         pathTabController.injectPathfindingMap(this);
         nextFloorBox.setVisible(false);
         System.out.println("PATHFINDING INIT");
+
+        // EXAMPLE OF CHECKING THE ENTRY LOCATION
+        System.out.println("User entry location is: " + User.getInstance().getEntryLocation());
         for (Node n : graph.getGraph()) {
             addNodeButton(n);
 

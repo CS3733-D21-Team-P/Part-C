@@ -73,10 +73,10 @@ public class EntryRequest extends GenericServiceRequest {
     }
 
     public static void updateApproved(){
-        if(request != null){
-            if(request.getCompleted()){
-                HomePage.approved = true;
-            }
-        }
+//        if(request != null){
+//            if(request.getCompleted()){
+//                HomePage.approved = true;
+//            }
+//        }
     }
 }

@@ -87,14 +87,18 @@ public class HomePage {
       }
 
     }
-    EntryRequest.updateApproved();
-    if(User.getInstance().getPermissions().equals("Employee")){
+//    EntryRequest.updateApproved();
+    // by default everything is visible for the admin
+    // if they are an employee, hide the things an employee can't see
+    User user = User.getInstance();
+    if(user.getPermissions().equals("Employee")){
       editButton.setVisible(false);
       editIcon.setVisible(false);
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
     }
-    if(User.getInstance().isGuest()){
+    // if they are a guest, hide everything but the request entry button by default
+    if(user.isGuest()){
       pathButton.setVisible(false);
       editButton.setVisible(false);
       editIcon.setVisible(false);
@@ -104,11 +108,13 @@ public class HomePage {
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
       pathIcon.setVisible(false);
+      // if they are an approved user, they can see the pathfinding button and icon
+      if (user.isApprovedForEntry()){
+        pathButton.setVisible(true);
+        pathIcon.setVisible(true);
+      }
     }
-    if (approved){
-      pathButton.setVisible(true);
-      pathIcon.setVisible(true);
-    }
+
   }
 
 
