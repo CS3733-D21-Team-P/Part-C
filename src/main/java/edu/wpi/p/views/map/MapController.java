@@ -40,8 +40,8 @@ public abstract class MapController {
 
 
     NodeGraph graph = new NodeGraph();
-    List<NodeButton> buttons = new ArrayList<>();
-    List<EdgeLine> edgeLines = new ArrayList<>();
+    List<NodeButton> buttons = new ArrayList<>(); //the current list of buttons on current floor
+    List<EdgeLine> edgeLines = new ArrayList<>(); //the current list of edges on current floor
 
     Boolean isEditingMap = false;
     public EdgeLine edgeHold;
@@ -50,11 +50,10 @@ public abstract class MapController {
     public boolean pathfindPage = false;
     public boolean multipleFloors = false;
 
-    HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
-    HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
+    HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>(); //list of buttons by floor
+    HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>(); //list of edges by floor
 
     final String[] availableFloors = new String[]{ "Ground", "L1", "L2", "1", "2", "3"};
-
 
     private double zoomSpeed = 1.005;
     private double minZoomPixels = 800;
@@ -71,9 +70,6 @@ public abstract class MapController {
     }
 
     private String currFloorVal;
-
-    public ArrayList<EdgeLine> edges = new ArrayList<>();
-    public ArrayList<NodeButton> nodeButtons = new ArrayList<>();
 
     @FXML
     public AnchorPane btnPane;
@@ -93,7 +89,7 @@ public abstract class MapController {
     @FXML
     public AnchorPane inputPane;
     private DBUser dbuser = new DBUser();
-    private List<UserFromDB> users = new ArrayList<UserFromDB>();
+//    private List<UserFromDB> users = new ArrayList<UserFromDB>();
     private NodeGraph nodeGraph = new NodeGraph();
 
     /**
@@ -105,28 +101,16 @@ public abstract class MapController {
      */
     public NodeButton addNodeButton(Node node) {
         NodeButton nb = new NodeButton(node); //create button
-        users = dbuser.getUsers();
-        if (!node.getFloor().equals(getCurrFloorVal())) {
+
+        if (!node.getFloor().equals(getCurrFloorVal())) { //make node invisible if not on floor
             nb.setVisible(false);
-        }
-        for (UserFromDB user : users) {
-            if (user.getParkingNodeID() != null) {
-                for (NodeButton nodeButton : nodeButtons) {
-                    if (nodeButton.getNode().getId().equals(user.getParkingNodeID())) {
-                        node = nodeButton.getNode();
-                        node.setIsSelected(true);
-                        nodeButton.setButtonStyle();
-                    }
-                }
-            }
         }
 
         btnPane.getChildren().add(nb); //add to page
-        nodeButtons.add(nb);
 
-        //add edges
+        //add edges COULD MOVE THIS TO EDIT MAP
         List<Node> children = node.getNeighbours();
-        if (!pathfindPage) {
+        if (!pathfindPage) { //DONT add if on pathfinding page
             for (Node n : children) {
                 EdgeLine el = addEdgeLine(node, n);
                 nb.addLine(el);
@@ -150,7 +134,7 @@ public abstract class MapController {
     public EdgeLine addEdgeLine(Node node1, Node node2) {
         EdgeLine el = new EdgeLine(node1, node2); //create line
         btnPane.getChildren().add(el); //add line to screen
-        edges.add(el);
+//        edges.add(el); //not used?
         el.toBack();
         el.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && isEditingMap) {
@@ -281,13 +265,13 @@ public abstract class MapController {
                 break;
         }
         imageView.setImage(mapImage);
-        if (multipleFloors) {
-            updateNextFloorBox();
-        }
-        if (pathfindPage) {
-            System.out.println("HELLO");
-            makeBigAndRed();
-        }
+//        if (multipleFloors) {
+//            updateNextFloorBox();
+//        }
+//        if (pathfindPage) {
+//            System.out.println("HELLO");
+//            makeBigAndRed();
+//        }
     }
 
     public void floorInit() {
@@ -471,9 +455,9 @@ public abstract class MapController {
         return ((y * scaleY) + (viewport.getMinY()));
     }
 
-    public void updateNextFloorBox() {
-    }
-
-    public void makeBigAndRed() {
-    }
+//    public void updateNextFloorBox() {
+//    }
+//
+//    public void makeBigAndRed() {
+//    }
 }

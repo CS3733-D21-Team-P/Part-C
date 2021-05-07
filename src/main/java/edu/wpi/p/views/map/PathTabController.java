@@ -126,18 +126,21 @@ public class PathTabController {
     }
 
 
+    /**
+     * run when text in start or end location is changed to update instructions for entering locations
+     */
     public void textChanged(){
         System.out.println("text changed");
-        if(start.getText()==null || start.getText().equals("")){
+        if(start.getText()==null || start.getText().equals("")){ //nothing has been entered in start location
             instructions.setText("click a point to enter a location");
         }
-        else if(end.getText()==null || end.getText().equals("")){
+        else if(end.getText()==null || end.getText().equals("")){ //nothing in end location
             instructions.setText("enter and end location");
         }
-        else if(end.getText().equals(start.getText())){
+        else if(end.getText().equals(start.getText())){ //both locations are the same
             instructions.setText("choose two different locations");
         }
-        else{
+        else{ //both have been filled
             instructions.setText("press search to find a path");
         }
     }
@@ -195,6 +198,8 @@ public class PathTabController {
                 System.out.print(n.getName() + " ");
             }
 
+
+            //clearing path
             for(EdgeLine el: pathLine){
                 pathfindingMap.btnPane.getChildren().remove(el);
             }
@@ -245,19 +250,23 @@ public class PathTabController {
 
             startNodeButton.getNode().setIsPathfinding(true);
             endNodeButton.getNode().setIsPathfinding(true);
-            if (startNodeButton != startNodeButtonHold) {
-                startNodeButton.setButtonStyle();
-                startNodeButton.makeBlue();
-                if (startNodeButtonHold != null) {
-                    startNodeButtonHold.endPathfinding();
-                }
-            }
-            if (endNodeButton != endNodeButtonHold) {
-                endNodeButton.setButtonStyle();
-                if (endNodeButtonHold != null) {
-                    endNodeButtonHold.endPathfinding();
-                }
-            }
+            startNodeButton.setButtonStyle();
+            startNodeButton.makeBlue();
+            endNodeButton.setButtonStyle();
+
+//            if (startNodeButton != startNodeButtonHold) {
+//                startNodeButton.setButtonStyle();
+//                startNodeButton.makeBlue();
+//                if (startNodeButtonHold != null) {
+//                    startNodeButtonHold.endPathfinding();
+//                }
+//            }
+//            if (endNodeButton != endNodeButtonHold) {
+//                endNodeButton.setButtonStyle();
+//                if (endNodeButtonHold != null) {
+//                    endNodeButtonHold.endPathfinding();
+//                }
+//            }
 
             startNodeButton.getNode().setIsPathfinding(false);
             endNodeButton.getNode().setIsPathfinding(false);

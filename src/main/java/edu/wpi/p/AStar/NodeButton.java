@@ -29,16 +29,40 @@ public class NodeButton extends JFXButton {
     private Image buttonIcon;
 
 
+    private boolean isSaved = false;
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
+    }
+
     public List<EdgeLine> getLines() {
         return lines;
     }
 
     private List<EdgeLine> lines = new ArrayList<EdgeLine>();
 
+    /**
+     * sets button to be selected if true or deselected if false
+     * @param isSelected
+     * @return
+     */
     public boolean toggleIsSelected(boolean isSelected){
         node.setIsSelected(isSelected);
         setButtonStyle();
         return node.getIsSelected();
+    }
+
+    /**
+     * sets node is selected to false
+     */
+    public void deselect()
+    {
+        this.getNode().setIsSelected(false);
+        this.setButtonStyle();
     }
 
 
@@ -76,6 +100,8 @@ public class NodeButton extends JFXButton {
                 break;
         }
 
+
+
         if (this.getNode().getIsPathfinding()) { //end node
             this.toFront();
             this.setStyle(
@@ -83,17 +109,17 @@ public class NodeButton extends JFXButton {
                             "-fx-background-color: red"
             );
             this.setOpacity(0.7);
-            baseSize = 20;
-            currentSize = 20;
-            updateSize();
-//            setButtonSize(currentSize); //set button size
+//            baseSize = 20;
+//            currentSize = 20;
+//            updateSize();
+////            setButtonSize(currentSize); //set button size
 //            this.setTranslateX(-currentSize / 2);
 //            this.setTranslateY(-(currentSize / 2));
 
         }
 
         else if (!this.getNode().getWasPathfinding()){ //not a pathfinding node
-            if (nameOfFile.isEmpty()) {
+            if (nameOfFile.isEmpty()) { //NO IMAGE
                 if (!getNode().getIsSelected()) {//no image and not selected
                     this.setStyle(getStyle() +
                             ";-fx-background-radius: 5em; " +
@@ -110,6 +136,12 @@ public class NodeButton extends JFXButton {
                     setStyle(getStyle() + ";-fx-border-color: #00d1b5; " +
                             "-fx-border-width: 2px;" +
                             "-fx-border-radius: 5em");
+                }
+                if(isSaved){
+                    this.setStyle(getStyle()+
+                            "-fx-background-radius: 5em; " +
+                                    "-fx-background-color: #e0ef06"
+                    );
                 }
             } else { //set image if there is an image specified
                 buttonIcon = new Image(getClass().getResourceAsStream(nameOfFile), 25, 25, true, true);
@@ -199,24 +231,20 @@ public class NodeButton extends JFXButton {
 
     }
 
-    public void deselect()
-    {
-        this.getNode().setIsSelected(false);
-        this.setButtonStyle();
-    }
+
 
     public void endPathfinding() {
-        currentSize = 10;
+//        currentSize = 10;
         this.setStyle(getStyle() +
                 ";-fx-background-radius: 10em; " +
-                "-fx-min-width: 10px; " +
-                "-fx-min-height: 10px; " +
-                "-fx-max-width: 10px; " +
-                "-fx-max-height: 10px;" +
+//                "-fx-min-width: 10px; " +
+//                "-fx-min-height: 10px; " +
+//                "-fx-max-width: 10px; " +
+//                "-fx-max-height: 10px;" +
                 "-fx-background-color: #2F3159"
         );
-        this.setTranslateX(-5);
-        this.setTranslateY(-5);
+//        this.setTranslateX(-5);
+//        this.setTranslateY(-5);
         this.getNode().setWasPathfinding(false);
     }
 

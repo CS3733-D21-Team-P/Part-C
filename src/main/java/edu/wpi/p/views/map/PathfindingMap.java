@@ -3,6 +3,9 @@ package edu.wpi.p.views.map;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.AStar.*;
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBUser;
+import edu.wpi.p.database.UserFromDB;
+import edu.wpi.p.userstate.User;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +19,7 @@ import javafx.util.Duration;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -48,7 +52,25 @@ public class PathfindingMap extends MapController {
     @Override
     public NodeButton addNodeButton(Node node){
         //MAKE BUTTON IF ON CURRENT FLOOR
-            NodeButton nb = super.addNodeButton(node);
+        NodeButton nb = super.addNodeButton(node);
+
+        List<UserFromDB> users = new ArrayList<UserFromDB>();
+        DBUser dbuser = new DBUser();
+        users = dbuser.getUsers();
+
+        for (UserFromDB user : users) { //This highlights the parking spots from all users
+            if (user.getParkingNodeID() != null) {
+                if (nb.getNode().getId().equals(user.getParkingNodeID())) {
+//                    node = nb.getNode();
+//                    node.setIsSelected(true);
+                    nb.setSaved(true);
+                    nb.setButtonStyle();
+                }
+            }
+        }
+
+//        User user =
+        User.getInstance().getPermissions();
 
             //set on click method
             nb.setOnAction(event -> {
@@ -64,9 +86,9 @@ public class PathfindingMap extends MapController {
             });
 
         nb.setOnMouseClicked(event -> {
-            for(EdgeLine el: nb.getLines()){
-                System.out.println(el.getEndNode().getFloor());
-            }
+//            for(EdgeLine el: nb.getLines()){
+//                System.out.println(el.getEndNode().getFloor());
+//            }
 
             if (event.getButton() == MouseButton.PRIMARY) {
                 if (nodeButtonHold != null)
@@ -131,15 +153,15 @@ public class PathfindingMap extends MapController {
         isEditingMap = false;
         saveNodePopup.setVisible(false);
 
-        btnPane.setOnMouseClicked(event -> {
+        btnPane.setOnMouseClicked(event -> { //deselect when clicked off node
             if (nodeButtonHold != null)
             {
                 nodeButtonHold.deselect();
                 nodeButtonHold = null;
             }
-                //set x and y to be position of mouse
-                int x = (int) (unScaleX(event.getSceneX()-100));
-                int y = (int) (unScaleY(event.getSceneY()));
+//                //set x and y to be position of mouse
+//                int x = (int) (unScaleX(event.getSceneX()-100));
+//                int y = (int) (unScaleY(event.getSceneY()));
 
         });
     }
@@ -184,12 +206,12 @@ public class PathfindingMap extends MapController {
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
         }
     }
-    @Override
+//    @Override
     public void updateNextFloorBox() {
         pathTabController.colorButtons();
     }
 
-    @Override
+//    @Override
     public void makeBigAndRed() {
         pathTabController.startNodeButton.getNode().setIsPathfinding(true);
         pathTabController.endNodeButton.getNode().setIsPathfinding(true);
