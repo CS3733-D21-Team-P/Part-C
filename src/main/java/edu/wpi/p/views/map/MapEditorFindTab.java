@@ -141,7 +141,7 @@ public class MapEditorFindTab {
                             }
 
                             //select new node
-                            mapController.nodeClicked(nb);
+                            mapController.selectNode(nb);
                             continue;
                         }
 

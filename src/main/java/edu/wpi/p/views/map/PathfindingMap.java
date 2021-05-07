@@ -1,7 +1,6 @@
 package edu.wpi.p.views.map;
 
 import com.jfoenix.controls.JFXButton;
-import edu.wpi.p.AStar.*;
 import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
@@ -9,9 +8,7 @@ import edu.wpi.p.userstate.User;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -21,8 +18,6 @@ import edu.wpi.p.AStar.NodeButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 
 public class PathfindingMap extends MapController {
@@ -61,64 +56,29 @@ public class PathfindingMap extends MapController {
         for (UserFromDB user : users) { //This highlights the parking spots from all users
             if (user.getParkingNodeID() != null) {
                 if (nb.getNode().getId().equals(user.getParkingNodeID())) {
-//                    node = nb.getNode();
-//                    node.setIsSelected(true);
                     nb.setSaved(true);
                     nb.setButtonStyle();
                 }
             }
         }
 
-//        User user =
         User.getInstance().getPermissions();
 
             //set on click method
-            nb.setOnAction(event -> {
-                pathTabController.addNodeToSearch(event);
+        nb.setOnAction(event -> {
+            pathTabController.addNodeToSearch(event);
 
-                //select button
-                if (nodeButtonHold != null)
-                {
-                    nodeButtonHold.deselect();
-                }
-                nodeButtonHold = nb;
-                nodeClicked(nb);
-            });
+            selectNode(nb);
+        });
 
         nb.setOnMouseClicked(event -> {
-//            for(EdgeLine el: nb.getLines()){
-//                System.out.println(el.getEndNode().getFloor());
-//            }
 
             if (event.getButton() == MouseButton.PRIMARY) {
-                if (nodeButtonHold != null)
-                {
-                    nodeButtonHold.deselect();
-                    nodeButtonHold = null;
-                }
-                if (edgeHold != null)
-                {
-                    edgeHold.setSelected(false);
-                    edgeHold.updateStyle();
-                }
-                nodeButtonHold = nb;
-                System.out.println(nb.getNode().getXcoord());
-                System.out.println(nb.getLayoutX());
-
-                nodeClicked(nb);
+                selectNode(nb);
 
             } else if (event.getButton() == MouseButton.SECONDARY) {
-                if (nodeButtonHold != null)
-                {
-                    nodeButtonHold.deselect();
-                    nodeButtonHold = null;
-                }
-                if (edgeHold != null)
-                {
-                    edgeHold.setSelected(false);
-                    edgeHold.updateStyle();
-                }
-                nodeClicked(nb);
+                selectNode(nb);//select node
+
                 nodeName.setText(nodeHold.getName());
                 saveNodePopup.setVisible(true);
                 TranslateTransition transition = new TranslateTransition(Duration.millis(75), saveNodePopup);
@@ -159,9 +119,7 @@ public class PathfindingMap extends MapController {
                 nodeButtonHold.deselect();
                 nodeButtonHold = null;
             }
-//                //set x and y to be position of mouse
-//                int x = (int) (unScaleX(event.getSceneX()-100));
-//                int y = (int) (unScaleY(event.getSceneY()));
+
 
         });
     }
@@ -246,11 +204,5 @@ public class PathfindingMap extends MapController {
         pathTabController.endNodeButton.setTranslateX(-(pathTabController.startNodeButton.currentSize / 2));
         pathTabController.endNodeButton.setTranslateY(-(pathTabController.startNodeButton.currentSize / 2));
     }
-    public void nodeClicked(NodeButton nb)
-    {
-        nodeHold = nb.getNode();
-        nodeButtonHold = nb;
-        nodeButtonHold.getNode().setIsSelected(true);
-        nodeButtonHold.setButtonStyle();
-    }
+
 }

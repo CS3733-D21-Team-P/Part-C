@@ -108,15 +108,6 @@ public abstract class MapController {
 
         btnPane.getChildren().add(nb); //add to page
 
-        //add edges COULD MOVE THIS TO EDIT MAP
-        List<Node> children = node.getNeighbours();
-        if (!pathfindPage) { //DONT add if on pathfinding page
-            for (Node n : children) {
-                EdgeLine el = addEdgeLine(node, n);
-                nb.addLine(el);
-//                edgeLines.add(el);
-            }
-        }
         translateNodeButton(nb);
         buttonLists.get(node.getFloor()).add(nb);
         //buttons.add(nb);
@@ -136,28 +127,9 @@ public abstract class MapController {
         btnPane.getChildren().add(el); //add line to screen
 //        edges.add(el); //not used?
         el.toBack();
-        el.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && isEditingMap) {
-                if (edgeHold != null) {
-                    edgeHold.setSelected(false);
-                    edgeHold.updateStyle();
-                }
-                el.setSelected(true);
-                el.updateStyle();
-                edgeHold = el;
-            } else if (event.getButton() == MouseButton.SECONDARY && isEditingMap) {
-                if (edgeHold != null) {
-                    edgeHold.setSelected(false);
-                    edgeHold.updateStyle();
-                }
-                el.setSelected(true);
-                el.updateStyle();
-                edgeHold = el;
-                openEdgePopup(event.getSceneX(), event.getSceneY());
-            }
-        });
 
-        translateEdgeLine(el);
+        translateEdgeLine(el);//scale edge
+
         //if not on current floor make invisible/hidden
         if (!node1.getFloor().equals(getCurrFloorVal()) || el.connectsLevels()) {
             el.setVisible(false);
@@ -205,11 +177,32 @@ public abstract class MapController {
         }
     }
 
-    public void nodeClicked(NodeButton nb) {
+    /**
+     * selects the given node and deselects previous node
+     * @param nb
+     */
+    public void selectNode(NodeButton nb) {
+        if(nodeButtonHold!=null) {
+            nodeButtonHold.deselect();
+        }
         nodeHold = nb.getNode();
         nodeButtonHold = nb;
         nodeButtonHold.getNode().setIsSelected(true);
         nodeButtonHold.setButtonStyle();
+    }
+
+    /**
+     * selects given edge and deselects previous edge
+     * @param el
+     */
+    public void selectEdge(EdgeLine el){
+        if (edgeHold != null) {
+            edgeHold.setSelected(false);
+            edgeHold.updateStyle();
+        }
+        el.setSelected(true);
+        el.updateStyle();
+        edgeHold = el;
     }
 
 
@@ -219,6 +212,7 @@ public abstract class MapController {
         for (NodeButton nb : buttons) {
             nb.setVisible(false);
         }
+        //make previous floor edgelines hidden
         for (EdgeLine el : edgeLines) {
             el.setVisible(false);
         }
@@ -237,7 +231,7 @@ public abstract class MapController {
                 nb.getNode().setIsPathfinding(false);
             }
         }
-        for (EdgeLine el : edgeLines) {
+        for (EdgeLine el : edgeLines) { //set edgelines for new floor visible
             if (!el.connectsLevels()) {
                 el.setVisible(true);
             }
@@ -265,13 +259,7 @@ public abstract class MapController {
                 break;
         }
         imageView.setImage(mapImage);
-//        if (multipleFloors) {
-//            updateNextFloorBox();
-//        }
-//        if (pathfindPage) {
-//            System.out.println("HELLO");
-//            makeBigAndRed();
-//        }
+
     }
 
     public void floorInit() {
@@ -455,9 +443,4 @@ public abstract class MapController {
         return ((y * scaleY) + (viewport.getMinY()));
     }
 
-//    public void updateNextFloorBox() {
-//    }
-//
-//    public void makeBigAndRed() {
-//    }
 }

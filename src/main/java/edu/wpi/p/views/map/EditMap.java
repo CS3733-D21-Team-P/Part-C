@@ -67,6 +67,14 @@ public class EditMap extends MapController {
 //        if (node.getFloor().equals(getCurrFloorVal())) {
             //System.out.println("adding button edit");
             NodeButton nb = super.addNodeButton(node);
+
+            //add edges
+            List<Node> children = node.getNeighbours();
+            for (Node n : children) {
+                EdgeLine el = addEdgeLine(node, n);
+                nb.addLine(el);
+            }
+
             //set on click methods
             //drag button
             nb.setOnMouseDragged(e -> {
@@ -84,10 +92,6 @@ public class EditMap extends MapController {
             });
 
             nb.setOnMouseClicked(event -> {
-//                for(EdgeLine el: nb.getLines()){
-//                    System.out.println(el.getEndNode().getFloor());
-//                }
-
 
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (event.isShiftDown()){
@@ -98,7 +102,7 @@ public class EditMap extends MapController {
                         deselectAllNodes();
                     }
 
-                    nodeClicked(nb);
+                    selectNode(nb);
 
                     if (editTabController.getEditingEdges()) { //if in mode adding edges
                         if (editTabController.getEdgeNodeStart() == null) {
@@ -122,7 +126,7 @@ public class EditMap extends MapController {
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     deselectAllNodes();
 
-                    nodeClicked(nb);
+                    selectNode(nb);
                     nodeName.setText(nodeHold.getName());
                     rClickPopup.setVisible(true);
                     rClickPopup1.setVisible(false);
@@ -135,11 +139,27 @@ public class EditMap extends MapController {
                 }
             });
             return nb;
-//        }
-//        return null;
     }
 
-    public void nodeClicked(NodeButton nb)
+    @Override
+    public EdgeLine addEdgeLine(Node node1, Node node2) {
+        EdgeLine el = super.addEdgeLine(node1,node2);
+
+        //set events for selecting edge
+        el.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                selectEdge(el);
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                selectEdge(el);
+                openEdgePopup(event.getSceneX(), event.getSceneY());
+            }
+        });
+        return el;
+    }
+
+
+    @Override
+    public void selectNode(NodeButton nb)
     {
         nodeHold = nb.getNode();
         nodeButtonHold = nb;
@@ -307,7 +327,7 @@ public class EditMap extends MapController {
                 int x = (int) (unScaleX(event.getSceneX()-100));
                 int y = (int) (unScaleY(event.getSceneY()));
                 NodeButton nb = addNodeButtonAtLoc(x,y);
-                nodeClicked(nb);
+                selectNode(nb);
             }
         });
     }
