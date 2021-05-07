@@ -30,6 +30,7 @@ public class LoggedOutState extends UserState {
         if ((dbUser.checkUsername(username)).equals(password)) {
             user.setPermissions(dbUser.checkIdentity(username));
             user.changeState(new LoggedInState());
+
         }else {
             throw new LoginException("Wrong Information", "Please enter the correct Username and Password");
         }

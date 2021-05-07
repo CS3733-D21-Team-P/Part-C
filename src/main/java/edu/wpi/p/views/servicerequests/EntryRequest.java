@@ -7,14 +7,17 @@ import com.jfoenix.controls.JFXTimePicker;
 import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
+import edu.wpi.p.userstate.User;
 import edu.wpi.p.views.HomePage;
 import edu.wpi.p.views.Toolbar;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class EntryRequest extends Toolbar {
+public class EntryRequest extends GenericServiceRequest {
     public JFXTextField name;
     public JFXTextField loc;
     public JFXTimePicker time;
@@ -40,16 +43,26 @@ public class EntryRequest extends Toolbar {
         this.loc = loc;
     }
 
+    public static String[] fields = {"Name", "Location", "Time", "Reason For Visit"};
+    public EntryRequest() {
+        super();
+        super.name = "Covid Entry Request";
+    }
+
+    @FXML
+    public void initialize() {
+        super.locationProperty = loc.textProperty();
+
+        this.values.put("Name", name.textProperty());
+        this.values.put("Location", loc.textProperty());
+        this.values.put("Time", time.valueProperty());
+        this.values.put("Reason For Visit", reason.textProperty());
+        this.values.put("UserID", new SimpleStringProperty(User.getInstance().getId()));
+    }
+
     public void nextAc(){
         approved = false;
-        final String n = name.getText();
-        final String location = loc.getText();
-        final String r = reason.getText();
-
-        ServiceRequest sR = new ServiceRequest(n, location, "Name" + "_" + location, "Entry Request");
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
-        dbServiceRequest.addServiceRequest(sR);
-        request = sR;
+        super.submitPressed(null);
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/CovidPage.fxml"));

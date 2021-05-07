@@ -25,13 +25,10 @@ import java.util.List;
 public class ServiceRequestLogSection extends VBox {
 
     ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
-    ;
+
 
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
-        super.widthProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("service request log section vbox change its width from " + oldValue + " to " + newValue);
-        });
         HBox assignmentSearch = new HBox();
         Label assignmentLabel = new Label("Assigned to search:");
         assignmentLabel.setStyle("-fx-font-size: 24");
@@ -96,23 +93,33 @@ public class ServiceRequestLogSection extends VBox {
         }
     }
 
-    private Set<String> getAllDetailColumns(List<ServiceRequest> requests) {
-        Set<String> detailNames = new HashSet<>();
+    private List<String> getAllDetailColumns(List<ServiceRequest> requests) {
+        List<String> detailNames = new ArrayList<>();
         for (ServiceRequest request : requests) {
-            for (String key : request.getDetailsMap().keySet()) {
-                detailNames.add(key);
+            for (String key : request.getDetailNames()) {
+                if (!detailNames.contains(key)) {
+                    detailNames.add(key);
+                }
             }
         }
-
         return detailNames;
+    }
+
+    private String[] getCovidEntryDetailColumn(List<ServiceRequest> requests) {
+        List<String> detailColumn = getAllDetailColumns(requests);
+        detailColumn.remove("UserID");
+        return detailColumn.toArray(new String[0]);
     }
 
     private JFXTreeTableView<ServiceRequestTableEntry> makeGridSection(String type, List<ServiceRequest> requests) {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-
         String[] detailColumns = getColumnFromType(type);
+        if (type.equals("Covid Entry Request")) {
+            detailColumns = getCovidEntryDetailColumn(requests);
+        }
+
         List<JFXTreeTableColumn> tableColumns = new ArrayList<>(detailColumns.length);
         for (ServiceRequest request : requests) {
             observableRequests.add(new ServiceRequestTableEntry(request));

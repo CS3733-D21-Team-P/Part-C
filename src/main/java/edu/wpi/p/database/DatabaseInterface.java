@@ -180,7 +180,7 @@ public class DatabaseInterface {
                 ret =  result.getString(columnName);
             }
             statement.close();
-            System.out.println("ret is: " + ret);
+//            System.out.println("ret is: " + ret);
             return ret;
         } catch (Exception e) {
             SQLExceptionPrint((SQLException) e);

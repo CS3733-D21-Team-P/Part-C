@@ -4,6 +4,7 @@ public class GuestState extends UserState {
 
     public GuestState() {
         super();
+        // TODO: 5/7/2021 check db for user covid approval
     }
 
     @Override
@@ -17,10 +18,15 @@ public class GuestState extends UserState {
     }
 
     @Override
-    void login(String username, String password) throws LoginException {
-        LoggedInState loggedIn = new LoggedInState();
-        User.getInstance().changeState(loggedIn);
-        loggedIn.login(username, password);
+    void login(String username, String password){
+        // can't log in while a guest, must log out first
+    }
+
+    @Override
+    void logout() {
+        User u = User.getInstance();
+        u.reset();
+        u.changeState(new LoggedOutState());
     }
 
 
