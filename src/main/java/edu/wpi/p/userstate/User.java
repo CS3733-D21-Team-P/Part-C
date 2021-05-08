@@ -47,6 +47,7 @@ public class User {
         this.name = "";
         this.permissions = "";
         this.approvedForEntry = true;
+        this.parkingNodeID = "";
         this.entryLocation = UserEntryLocation.EITHER_ENTRANCE;
     }
 
