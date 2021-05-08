@@ -55,7 +55,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="patienNameLabel" text="Patien Name:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <Label fx:id="patienNameLabel" text="Patient Name:" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>

@@ -18,6 +18,8 @@ public class LoggedInState extends UserState {
 
     @Override
     void logout() {
-        User.getInstance().changeState(new LoggedOutState());
+        User u = User.getInstance();
+        u.reset();
+        u.changeState(new LoggedOutState());
     }
 }

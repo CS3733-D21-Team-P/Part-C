@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javax.xml.ws.Service;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,6 +85,19 @@ public class ServiceRequest extends DBRow {
     }
 
     public String getDetails() { return (String) this.getValue(detailCol);}
+    public List<String> getDetailNames() {
+        String details = this.getDetails();
+        String[] entries = details.split("" + lineSeperator);
+        List<String> result = new ArrayList<>();
+        for (String line : entries) {
+            String[] values = line.split("" + keyValueSeperator);
+            if (values.length > 0) {
+                result.add(values[0]);
+            }
+        }
+
+        return result;
+    }
     public HashMap<String, String> getDetailsMap() {
         String details = this.getDetails();
         String[] entries = details.split("" + lineSeperator);
@@ -96,7 +110,6 @@ public class ServiceRequest extends DBRow {
         }
 
         return result;
-
     }
     public void setDetails(String details) { this.changeValue(detailCol, details);}
     public void addDetail(String name, String value) {

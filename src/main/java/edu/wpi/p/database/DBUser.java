@@ -41,6 +41,16 @@ public class DBUser {
         return DatabaseInterface.checkColumnObjects(selectCommand, "Password");
     }
 
+    public void setParkingNodeID(String Username, String ParkingID){
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET ParkingNodeId = '"+ParkingID+"' WHERE Username = '"+Username+"'");
+    }
+
+    public String checkParkingNodeID(String Username){
+        String selectCommand ="SELECT ParkingNodeId FROM " + DBUser + " WHERE Username='" + Username + "'";
+        return DatabaseInterface.checkColumnObjects(selectCommand, "ParkingNodeId");
+    }
+
+
     public String checkIdentity(String Username) {
         String selectCommand ="SELECT Status FROM " + DBUser + " WHERE Username='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand, "Status");

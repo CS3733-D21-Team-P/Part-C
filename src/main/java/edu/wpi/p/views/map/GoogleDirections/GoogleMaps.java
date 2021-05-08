@@ -8,16 +8,28 @@ import com.google.maps.model.*;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class GoogleMaps {
-    private static final String API_Key = "AIzaSyBEQCTGuuspvUVs9IBOpof00I35HG3HMCM";
+    private static String API_Key ;
 //    private List<String> directionsText = new ArrayList<>();
     private AutoCompletePopup autoCompletePopup;
     private String latestDirectionsText;
     private boolean currentValidStartLocation= false;
+
+    public GoogleMaps(){
+        //get API key
+        try {
+            API_Key= Files.lines(Paths.get("gmapsapi.txt")).findFirst().get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * makes a request for directions

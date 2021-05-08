@@ -218,6 +218,7 @@ public class PathTabController {
 
             //Make path red
             for (int i = 0; i < path.size(); i++) {
+                System.out.println("MAKING PATH");
                 System.out.print(path.get(i).getName() + " ");
                 if(i>0) {
                     //TRYING TO MAKE ARROWS

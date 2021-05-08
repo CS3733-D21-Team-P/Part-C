@@ -66,7 +66,7 @@ public class Toolbar {
             if (editButton != null){
                 editButton.setVisible(false);
             }
-            if(!HomePage.approved && pathButton != null){
+            if(!User.getInstance().isApprovedForEntry() && pathButton != null){
                 pathButton.setVisible(false);
             }
 

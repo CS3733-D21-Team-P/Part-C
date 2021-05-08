@@ -1,9 +1,52 @@
 package edu.wpi.p.userstate;
 
+import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.rowdata.ServiceRequest;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class GuestState extends UserState {
 
     public GuestState() {
         super();
+
+        // sets the users approved for entry state based on the database
+        ServiceRequest userCovidEntry = getCurrentUserCovidEntryRequest();
+        if (userCovidEntry != null) {
+            User user = User.getInstance();
+            user.setApprovedForEntry(userCovidEntry.getCompleted());
+            if (userCovidEntry.getCompleted()) {
+                if (userCovidEntry.getDetailNames().contains("Is Covid Risk")) {
+                    user.setEntryLocation(UserEntryLocation.EMERGENCY_ENTRANCE);
+                }
+                else {
+                    user.setEntryLocation(UserEntryLocation.MAIN_ENTRANCE);
+                }
+            }
+        }
+        else {
+            User.getInstance().setApprovedForEntry(false);
+        }
+
+    }
+
+    private ServiceRequest getCurrentUserCovidEntryRequest() {
+        List<ServiceRequest> covidEntryRequests = getCovidEntryServiceRequests();
+        for(ServiceRequest covidRequest : covidEntryRequests) {
+            String id = covidRequest.getDetailsMap().get("UserID");
+            if (id != null && id.equals(User.getInstance().getId())) {
+                return covidRequest;
+            }
+        }
+        return null;
+    }
+
+    private List<ServiceRequest> getCovidEntryServiceRequests() {
+        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        List<ServiceRequest> requestList = dbServiceRequest.getServiceRequests();
+        String entryRequestName = "Covid Entry Request";
+        return requestList.stream().filter(serviceRequest -> serviceRequest.getName().equals(entryRequestName)).collect(Collectors.toList());
     }
 
     @Override
@@ -17,10 +60,15 @@ public class GuestState extends UserState {
     }
 
     @Override
-    void login(String username, String password) throws LoginException {
-        LoggedInState loggedIn = new LoggedInState();
-        User.getInstance().changeState(loggedIn);
-        loggedIn.login(username, password);
+    void login(String username, String password){
+        // can't log in while a guest, must log out first
+    }
+
+    @Override
+    void logout() {
+        User u = User.getInstance();
+        u.reset();
+        u.changeState(new LoggedOutState());
     }
 
 
