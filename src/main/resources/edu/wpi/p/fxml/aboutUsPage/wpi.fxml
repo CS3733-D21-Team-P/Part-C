@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.06307977736549165" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="1918.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="1918.0">
+               <children>
+                  <Label style="-fx-background-color: #5990D9;" text="  UberTikTokZelda  " textFill="WHITE">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="1918.0">
+         <children>
+            <AnchorPane prefHeight="201.0" prefWidth="1918.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="449.0" layoutY="71.0" prefHeight="201.0" prefWidth="1918.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <JFXButton ripplerFill="WHITE" text="PURPLE PEGASUS" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton text="APPLICATION" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton text="WPI" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton ripplerFill="WHITE" text="JOIN US" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="566.0" fitWidth="919.0" layoutX="75.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/aboutUsImage/wpi.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="1033.0" layoutY="387.0" prefHeight="413.0" prefWidth="624.0" text="Worcester Polytechnic Institute (WPI) is a private research university in Worcester, Massachusetts, focusing on the instruction and research of technical arts and applied sciences. Founded in 1865 in Worcester, WPI was one of the United States' first engineering and technology universities and now has 14 academic departments with over 50 undergraduate and graduate degree programs in science, engineering, technology, management, the social sciences, and the humanities and arts, leading to bachelor's, master's and PhD degrees. WPI's faculty works with students in a number of research areas, including biotechnology, fuel cells, information security, surface metrology, materials processing, and nanotechnology. " textFill="#1b2e4b" wrapText="true">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="1091.0" layoutY="288.0" text="Worcester Polytechnic Institute" textFill="#1b2e4b">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <Label layoutX="1071.0" layoutY="978.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." />
+            <AnchorPane prefHeight="1080.0" prefWidth="100.0">
+               <children>
+                  <VBox layoutX="124.0" layoutY="130.0" prefHeight="1080.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <JFXButton fx:id="homeButton" maxHeight="50.0" maxWidth="50.0" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #5990D9;" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/home.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="pathButton" onAction="#pathButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="25.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/path icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="editButton" onAction="#editButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="50.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="serviceButton" onAction="#serviceButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="75.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/request.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="covidButton" onAction="#covidButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="100.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/covid.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </items>
+</SplitPane>

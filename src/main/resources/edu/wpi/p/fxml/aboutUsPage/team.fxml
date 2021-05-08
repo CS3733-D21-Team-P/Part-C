@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.06307977736549165" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="1918.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="50.0" layoutY="-12.0" prefHeight="65.0" prefWidth="1918.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label style="-fx-background-color: #5990D9;" text="  UberTikTokZelda  " textFill="WHITE">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="1918.0">
+         <children>
+            <AnchorPane prefHeight="201.0" prefWidth="1918.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="449.0" layoutY="71.0" prefHeight="201.0" prefWidth="1918.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <JFXButton ripplerFill="WHITE" text="PURPLE PEGASUS" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton text="APPLICATION" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton text="WPI" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton ripplerFill="WHITE" text="JOIN US" textFill="WHITE" underline="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="960.0" fitWidth="2021.0" layoutX="-174.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/aboutUsImage/team.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_LEFT" layoutX="1365.0" layoutY="384.0" prefHeight="450.0" prefWidth="438.0" text="The Purple Pegasus group is the first group to implement the map zoom function in the CS3733 course. Also, our group members participated in almost every class. Although UI design was not so ideal in the initial stage, as time changes, our UI has evolved from a donkey to a pegasus. As a team, we help each other. As a team, we work hard together. Purple pegasus, the group that realizes dreams." textFill="#1b2e4b" wrapText="true">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <Label layoutX="1516.0" layoutY="309.0" text="The Team" textFill="#1b2e4b">
+               <font>
+                  <Font name="Calibri" size="34.0" />
+               </font>
+            </Label>
+            <Label layoutX="1081.0" layoutY="988.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." />
+            <AnchorPane prefHeight="1080.0" prefWidth="100.0">
+               <children>
+                  <VBox layoutX="124.0" layoutY="130.0" prefHeight="1080.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <JFXButton fx:id="homeButton" maxHeight="50.0" maxWidth="50.0" onAction="#homeButtonAc" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #5990D9;" text=" ">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/home.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="pathButton" onAction="#pathButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="25.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/path icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="editButton" onAction="#editButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="50.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="serviceButton" onAction="#serviceButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="75.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/request.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="covidButton" onAction="#covidButtonAc" style="-fx-background-color: #5990D9;" text=" " translateY="100.0">
+                           <graphic>
+                              <ImageView fitHeight="75.0" fitWidth="75.0">
+                                 <image>
+                                    <Image url="@image/icons/covid.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
