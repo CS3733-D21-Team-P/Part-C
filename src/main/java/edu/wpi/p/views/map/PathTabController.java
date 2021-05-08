@@ -114,6 +114,8 @@ public class PathTabController {
                 return new SimpleObjectProperty(l);
             }
         });
+
+        textDirectionsTable.setPlaceholder(new Label(""));
     }
 
 
