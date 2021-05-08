@@ -15,6 +15,26 @@ public class User {
     private boolean approvedForEntry = true;
     private UserEntryLocation entryLocation = UserEntryLocation.EITHER_ENTRANCE;
     private UserState state;
+    private String username = "";
+    private String parkingNodeID = ""; //id of the saved parking spot node
+
+    public String getParkingNodeID() {
+        return parkingNodeID;
+    }
+
+    public void setParkingNodeID(String parkingNodeID) {
+        this.parkingNodeID = parkingNodeID;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     public static User getInstance() {
         if (instance == null) {
