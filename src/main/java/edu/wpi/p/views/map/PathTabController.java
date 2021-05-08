@@ -154,6 +154,18 @@ public class PathTabController {
         System.out.println("enter end!");
     }
 
+    public void enterParkingSpot(ActionEvent actionEvent){
+        NodeButton parkingSpot =pathfindingMap.getParkingSaving().oldSpot;
+        if (parkingSpot !=null){
+            end.setText(parkingSpot.getName());
+            textChanged();
+
+            if(!start.getText().equals("")){
+                findPath(actionEvent);
+            }
+        }
+    }
+
     /**
      * Finds a path between the two nodes entered and makes it red
      * @param actionEvent

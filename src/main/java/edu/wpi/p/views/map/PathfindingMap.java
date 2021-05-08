@@ -39,6 +39,11 @@ public class PathfindingMap extends MapController {
     private ParkingSaving parkingSaving = new ParkingSaving();
 
 
+    public ParkingSaving getParkingSaving() {
+        return parkingSaving;
+    }
+
+
 
     /**
      * creates a button associated  with a node

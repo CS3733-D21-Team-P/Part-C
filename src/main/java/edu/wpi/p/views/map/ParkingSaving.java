@@ -16,6 +16,10 @@ public class ParkingSaving {
     private final DBUser dbuser = new DBUser();
     NodeButton oldSpot;
 
+    /**
+     * saves given nodebutton and unsaves previous. Updates the user database if user is not a guest
+     * @param nb
+     */
     public void saveParkingAc(NodeButton nb) {
         Node node = nb.getNode();
         String oldParkingID = User.getInstance().getParkingNodeID();
@@ -35,14 +39,20 @@ public class ParkingSaving {
         nb.setButtonStyle();
     }
 
+    /**
+     * unsaves given nodebutton and updates the user database if user is not a guest
+     * @param nb
+     */
     public void unsaveParkingAc(NodeButton nb) {
-        Node node = nb.getNode();
         oldSpot = null;
         String username = User.getInstance().getUsername();
+        //update database
         if(username!="") {
-            dbuser.setParkingNodeID(username, node.getId());
+            dbuser.setParkingNodeID(username, null);
         }
-        User.getInstance().setParkingNodeID(null);
+        User.getInstance().setParkingNodeID(null); //set users parking spot
+
+        //change button style
         nb.setSaved(false);
         nb.setButtonStyle();
     }
