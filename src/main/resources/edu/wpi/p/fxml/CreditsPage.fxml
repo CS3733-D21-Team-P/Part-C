@@ -71,7 +71,7 @@
       </VBox>
       <ImageView fitHeight="363.0" fitWidth="341.0" layoutX="1478.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../Pictures/purple_pegasi_1.png" />
+            <Image url="@../../../../image/purple_pegasi.png" />
          </image>
       </ImageView>
       <JFXButton layoutX="57.0" layoutY="102.0" onAction="#backButtonAc" prefHeight="64.0" prefWidth="131.0" style="-fx-background-color: #5990D9; -fx-background-radius: 15px;" text="`" textAlignment="CENTER">
