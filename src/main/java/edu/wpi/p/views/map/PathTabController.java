@@ -97,6 +97,7 @@ public class PathTabController {
         //setup DirectionsTable
         directionImageView = new JFXTreeTableColumn<>("icon");
         directionImageView.setPrefWidth(50);
+        directionImageView.setSortable(false);
         directionImageView.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView>, ObservableValue<ImageView>>() {
             public ObservableValue<ImageView> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView> p) {
                 return new SimpleObjectProperty(p.getValue().getValue().getImageVew());
@@ -105,6 +106,7 @@ public class PathTabController {
 
         directionText = new JFXTreeTableColumn<>("instruction");
         directionText.setPrefWidth(200);
+        directionText.setSortable(false);
         directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label>, ObservableValue<Label>>() {
             public ObservableValue<Label> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label> p) {
                 Label l = new Label(p.getValue().getValue().getInstruction());
