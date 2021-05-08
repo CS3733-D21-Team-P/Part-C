@@ -10,12 +10,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class CovidSurvey {
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
     @FXML
     public Text firstText;
     @FXML
@@ -44,6 +47,7 @@ public class CovidSurvey {
     public JFXButton cancelButton;
     public ServiceRequest request;
 
+    @FXML public void initialize(){clippoIDController.setPage("covidSurvey"); }
 
     @FXML
     public void submitPressed(ActionEvent actionEvent)

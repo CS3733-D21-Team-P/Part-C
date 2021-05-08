@@ -23,6 +23,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
@@ -37,6 +38,9 @@ import java.util.stream.Collectors;
 
 public class RequestLogPage {
 
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
+
     @FXML
     public VBox requestLogVBox;
     @FXML public BorderPane borderPane;
@@ -49,6 +53,7 @@ public class RequestLogPage {
     private DBServiceRequest dbServiceRequest = new DBServiceRequest();
 
     public void initialize() {
+        clippoIDController.setPage("requestLogs");
         requestList = dbServiceRequest.getServiceRequests();
         HashMap<String, List<ServiceRequest>> sortedRequests = sortServiceRequestsByType(requestList);
         JFXTabPane tabPane = new JFXTabPane();

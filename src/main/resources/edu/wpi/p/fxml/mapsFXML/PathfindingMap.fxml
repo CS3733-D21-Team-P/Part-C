@@ -49,7 +49,7 @@
        <fx:include fx:id="toolBarID" source="../Toolbar.fxml" />
    </BorderPane>
     <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
-        <fx:include source="../../fxml/Clippo.fxml" />
+        <fx:include fx:id="clippoID" source="../../fxml/Clippo.fxml" />
     </BorderPane>
    <AnchorPane fx:id="nextFloorBox" layoutX="600.0" layoutY="20.0" prefHeight="53.0" prefWidth="336.0" style="-fx-background-color: #b6d6f2; -fx-border-style: solid; -fx-border-color: #5990d9;">
       <children>
