@@ -28,7 +28,7 @@ public class DFS extends SearchAlgorithm {
         //Search other nodes
         if(!rootNode.getNeighbours().isEmpty()) {
             for (Node n : rootNode.getNeighbours()) {
-                if(!n.getVisited()) {
+                if(!n.getVisited() && !n.getBlockade()) {
                     //add to stack
                     n.setVisited(true);
                     n.setParent(rootNode);

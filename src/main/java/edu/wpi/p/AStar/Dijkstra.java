@@ -54,23 +54,24 @@ public class Dijkstra extends SearchAlgorithm {
 
         //search all neighbours
         for(Node n : rootNode.getNeighbours()) {
+            if(!n.getBlockade()) {
+                float newLocalDist = rootNode.getLocalDist() + dist(rootNode, n);
+                System.out.println(rootNode.getName() + " - " + n.getName() + ": " + newLocalDist);
 
-            float newLocalDist = rootNode.getLocalDist() + dist(rootNode, n);
-            System.out.println(rootNode.getName() + " - " + n.getName() + ": " + newLocalDist);
+                if (newLocalDist < n.getLocalDist()) {
+                    //found shorter route to node
+                    n.setParent(rootNode);
+                    n.setLocalDist(newLocalDist);
+                    n.setGlobalDist(dist(n, targetNode) + n.getLocalDist());
 
-            if(newLocalDist < n.getLocalDist()) {
-                //found shorter route to node
-                n.setParent(rootNode);
-                n.setLocalDist(newLocalDist);
-                n.setGlobalDist(dist(n, targetNode) + n.getLocalDist());
-
-                if(!n.getVisited() && n.getGlobalDist() < this.pathLength) {
-                    if(n == targetNode) {
-                        this.pathLength = targetNode.getGlobalDist();
-                        System.out.println("Path Found - Length:" + this.pathLength);
+                    if (!n.getVisited() && n.getGlobalDist() < this.pathLength) {
+                        if (n == targetNode) {
+                            this.pathLength = targetNode.getGlobalDist();
+                            System.out.println("Path Found - Length:" + this.pathLength);
+                        }
+                        stack.push(n);
+                        System.out.println("Add: " + n.getName());
                     }
-                    stack.push(n);
-                    System.out.println("Add: " + n.getName());
                 }
             }
         }

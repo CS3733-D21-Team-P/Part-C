@@ -48,6 +48,20 @@ public class NodeGraph {
         }
     }
 
+    public void setTypeBlockade(String type, boolean active) {
+        for(Node n : graph) {
+            if(n.getType().equals(type)) {
+                n.setBlockade(active);
+            }
+        }
+    }
+
+    public void clearBlockades() {
+        for(Node n : graph) {
+            n.setBlockade(false);
+        }
+    }
+
     public Node getNodeByName(String name) {
         if(!graph.isEmpty()) {
             for(Node n : graph) {

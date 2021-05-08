@@ -3,8 +3,9 @@ package edu.wpi.p.AStar;
 import java.util.List;
 
 public class Pathfinder {
-    NodeGraph nodeGraph;
-    SearchAlgorithm searchAlgorithm;
+    private NodeGraph nodeGraph;
+    private SearchAlgorithm searchAlgorithm;
+    private boolean handicapPath = false;
 
     public Pathfinder(NodeGraph graph) {
         this.nodeGraph = graph;
@@ -15,6 +16,11 @@ public class Pathfinder {
         List<Node> path = searchAlgorithm.findPath(start, end);
         nodeGraph.resetNodeGraph();
         return path;
+    }
+
+    public void setHandicapPath(boolean active) {
+        handicapPath = active;
+        nodeGraph.setTypeBlockade("STAI", active);
     }
 
     public void setSearchDFS() {
