@@ -23,7 +23,7 @@ public class App extends Application {
   public void start(Stage primaryStage) {
     App.primaryStage = primaryStage;
     try {
-      Parent root = FXMLLoader.load(getClass().getResource("fxml/CreditsPage.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("fxml/LoginPage.fxml"));
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("/edu/wpi/p/fontstyle.css").toExternalForm());
       primaryStage.setScene(scene);
