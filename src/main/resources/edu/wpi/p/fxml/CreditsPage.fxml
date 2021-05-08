@@ -20,16 +20,6 @@
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cfcccc" height="758.0" layoutX="136.0" layoutY="251.0" stroke="#1acfcc" strokeType="INSIDE" strokeWidth="3.0" width="1629.0" />
-      <JFXButton layoutX="57.0" layoutY="102.0" onAction="#backButtonAc" prefHeight="64.0" prefWidth="131.0" style="-fx-background-color: #5990D9; -fx-background-radius: 15px;" text="Back" textAlignment="CENTER">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </JFXButton>
-      <JFXButton layoutX="1623.0" layoutY="102.0" onAction="#learnMoreButtonAc" style="-fx-background-color: #5990D9; -fx-background-radius: 15px;" text="Learn More" textAlignment="CENTER">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </JFXButton>
       <Label layoutX="531.0" layoutY="268.0" text="API's &amp; Tools Used For This Application " textAlignment="CENTER" underline="true">
          <font>
             <Font size="48.0" />
@@ -82,6 +72,16 @@
       <ImageView fitHeight="363.0" fitWidth="341.0" layoutX="1478.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../Pictures/purple_pegasi_1.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="57.0" layoutY="102.0" onAction="#backButtonAc" prefHeight="64.0" prefWidth="131.0" style="-fx-background-color: #5990D9; -fx-background-radius: 15px;" text="`" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="88.0" fitWidth="87.0" layoutX="80.0" layoutY="96.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/icons/home.png" />
          </image>
       </ImageView>
    </children>
