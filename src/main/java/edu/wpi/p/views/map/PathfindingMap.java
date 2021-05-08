@@ -7,6 +7,7 @@ import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.userstate.User;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -31,9 +32,11 @@ public class PathfindingMap extends MapController {
     @FXML private Text nodeName;
     @FXML public VBox saveNodePopup1;
     @FXML public AnchorPane btnPane;
+    @FXML public JFXButton saveBtn;
 
     private DBTable dbTable = new DBTable();
     private int btnIncrement = 1;
+    private ParkingSaving parkingSaving = new ParkingSaving();
 
 
 
@@ -53,15 +56,12 @@ public class PathfindingMap extends MapController {
         DBUser dbuser = new DBUser();
         users = dbuser.getUsers();
 
-        //Does node ID match current users parking spot?????????
-        //Set current users parking spot???
-            //what happens if they are a guest
-
-        String username = User.getInstance().getUsername();
-        String parkingID = dbuser.checkParkingNodeID(username);
+        //check if parking spot button
+        String parkingID = User.getInstance().getParkingNodeID();
         if(node.getId().equals(parkingID)){
             nb.setSaved(true);
             nb.setButtonStyle();
+            parkingSaving.oldSpot=nb;
         }
 
             //set on click method
@@ -80,6 +80,12 @@ public class PathfindingMap extends MapController {
                 selectNode(nb);//select node
 
                 nodeName.setText(nodeHold.getName());
+                if(nodeButtonHold.isSaved()){
+                    saveBtn.setText("Unsave");
+                }
+                else{
+                    saveBtn.setText("Save Location");
+                }
                 saveNodePopup.setVisible(true);
                 TranslateTransition transition = new TranslateTransition(Duration.millis(75), saveNodePopup);
                 transition.setToX(event.getSceneX() - saveNodePopup.getLayoutX() - saveNodePopup.getWidth() / 2 - event.getX() + 90);
@@ -90,6 +96,7 @@ public class PathfindingMap extends MapController {
 
             return nb;
     }
+
 
 
 
@@ -125,8 +132,13 @@ public class PathfindingMap extends MapController {
     }
 
     public void saveParkingAc(ActionEvent actionEvent) {
-        ParkingSaving parkingSaving = new ParkingSaving();
-        parkingSaving.saveParkingAc(nodeButtonHold);
+        if(!nodeButtonHold.isSaved()) {
+            parkingSaving.saveParkingAc(nodeButtonHold);
+        }
+        else{
+            parkingSaving.unsaveParkingAc(nodeButtonHold);
+        }
+        saveNodePopup.setVisible(false);
     }
 
     public void closePopup(ActionEvent actionEvent) {

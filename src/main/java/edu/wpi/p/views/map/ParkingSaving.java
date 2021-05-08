@@ -14,15 +14,36 @@ import java.util.List;
 
 public class ParkingSaving {
     private final DBUser dbuser = new DBUser();
-
+    NodeButton oldSpot;
 
     public void saveParkingAc(NodeButton nb) {
         Node node = nb.getNode();
-//        dbuser.removeUser("tempUser'");
-//        UserFromDB user = new UserFromDB("tempUser","tempUser", "tempUser", "tempUser", node.getId());
+        String oldParkingID = User.getInstance().getParkingNodeID();
+        if(oldSpot!=null){ //already exists
+            //unhighlight
+            oldSpot.setSaved(false);
+            oldSpot.setButtonStyle();
+        }
+        oldSpot = nb;
+
         String username = User.getInstance().getUsername();
-        dbuser.setParkingNodeID(username, node.getId());
+        if(username!="") {
+            dbuser.setParkingNodeID(username, node.getId());
+        }
+        User.getInstance().setParkingNodeID(node.getId());
         nb.setSaved(true);
+        nb.setButtonStyle();
+    }
+
+    public void unsaveParkingAc(NodeButton nb) {
+        Node node = nb.getNode();
+        oldSpot = null;
+        String username = User.getInstance().getUsername();
+        if(username!="") {
+            dbuser.setParkingNodeID(username, node.getId());
+        }
+        User.getInstance().setParkingNodeID(null);
+        nb.setSaved(false);
         nb.setButtonStyle();
     }
 }

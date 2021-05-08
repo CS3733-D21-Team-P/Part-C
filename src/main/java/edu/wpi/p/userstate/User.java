@@ -6,6 +6,15 @@ public class User {
     private String permissions = "";
     private UserState state;
     private String username = "";
+    private String parkingNodeID = ""; //id of the saved parking spot node
+
+    public String getParkingNodeID() {
+        return parkingNodeID;
+    }
+
+    public void setParkingNodeID(String parkingNodeID) {
+        this.parkingNodeID = parkingNodeID;
+    }
 
 
     public String getUsername() {

@@ -31,6 +31,9 @@ public class LoggedOutState extends UserState {
             user.setPermissions(dbUser.checkIdentity(username));
             user.changeState(new LoggedInState());
             user.setUsername(username);
+            DBUser dbuser = new DBUser();
+            String parkingID = dbuser.checkParkingNodeID(username);
+            user.setParkingNodeID(parkingID);
         }else {
             throw new LoginException("Wrong Information", "Please enter the correct Username and Password");
         }
