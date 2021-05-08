@@ -53,16 +53,16 @@ public class PathfindingMap extends MapController {
         DBUser dbuser = new DBUser();
         users = dbuser.getUsers();
 
-        for (UserFromDB user : users) { //This highlights the parking spots from all users
-            if (user.getParkingNodeID() != null) {
-                if (nb.getNode().getId().equals(user.getParkingNodeID())) {
-                    nb.setSaved(true);
-                    nb.setButtonStyle();
-                }
-            }
-        }
+        //Does node ID match current users parking spot?????????
+        //Set current users parking spot???
+            //what happens if they are a guest
 
-        User.getInstance().getPermissions();
+        String username = User.getInstance().getUsername();
+        String parkingID = dbuser.checkParkingNodeID(username);
+        if(node.getId().equals(parkingID)){
+            nb.setSaved(true);
+            nb.setButtonStyle();
+        }
 
             //set on click method
         nb.setOnAction(event -> {
@@ -107,8 +107,8 @@ public class PathfindingMap extends MapController {
         System.out.println("PATHFINDING INIT");
         for (Node n : graph.getGraph()) {
             addNodeButton(n);
-
         }
+
         translateGraph(imageView);
         isEditingMap = false;
         saveNodePopup.setVisible(false);

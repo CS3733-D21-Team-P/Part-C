@@ -6,6 +6,7 @@ import edu.wpi.p.AStar.NodeButton;
 import edu.wpi.p.AStar.NodeGraph;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
+import edu.wpi.p.userstate.User;
 import org.sqlite.core.DB;
 
 import java.util.ArrayList;
@@ -17,11 +18,11 @@ public class ParkingSaving {
 
     public void saveParkingAc(NodeButton nb) {
         Node node = nb.getNode();
-        dbuser.removeUser("tempUser'");
-        UserFromDB user = new UserFromDB("tempUser","tempUser", "tempUser", "tempUser", node.getId());
-        user.setParkingNodeID(node.getId());
-        dbuser.addUser(user);
-        nb.toggleIsSelected(true);
+//        dbuser.removeUser("tempUser'");
+//        UserFromDB user = new UserFromDB("tempUser","tempUser", "tempUser", "tempUser", node.getId());
+        String username = User.getInstance().getUsername();
+        dbuser.setParkingNodeID(username, node.getId());
+        nb.setSaved(true);
         nb.setButtonStyle();
     }
 }

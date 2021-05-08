@@ -5,6 +5,17 @@ public class User {
     private String name = "";
     private String permissions = "";
     private UserState state;
+    private String username = "";
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     public static User getInstance() {
         if (instance == null) {
