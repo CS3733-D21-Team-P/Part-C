@@ -1,6 +1,8 @@
 package edu.wpi.p.AStar;
 
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.userstate.User;
+import edu.wpi.p.userstate.UserEntryLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +81,9 @@ public class NodeGraph {
         List<Node> nodeData = dbTable.getNodes();
 
         for(Node n : nodeData) {
-            this.graph.add(n);
+            if(User.getInstance().getEntryLocation() == UserEntryLocation.EMERGENCY_ENTRANCE && n.getShortName().equals("75 Francis")){}
+            else if (User.getInstance().getEntryLocation() == UserEntryLocation.MAIN_ENTRANCE && n.getShortName().equals("Emergency")){}
+            else{this.graph.add(n);}
         }
     }
 

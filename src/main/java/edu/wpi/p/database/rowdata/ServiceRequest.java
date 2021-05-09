@@ -98,6 +98,9 @@ public class ServiceRequest extends DBRow {
 
         return result;
     }
+    public void removeAllDetails() {
+        this.changeValue(detailCol, "");
+    }
     public HashMap<String, String> getDetailsMap() {
         String details = this.getDetails();
         String[] entries = details.split("" + lineSeperator);

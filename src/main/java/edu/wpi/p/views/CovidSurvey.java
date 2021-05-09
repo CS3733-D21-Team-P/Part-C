@@ -6,6 +6,7 @@ import edu.wpi.p.App;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.userstate.User;
+import edu.wpi.p.userstate.UserEntryLocation;
 import edu.wpi.p.views.servicerequests.EntryRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,6 +75,7 @@ public class CovidSurvey {
         if (firstCheckBox.isSelected() || secondCheckBox.isSelected() || thirdCheckBox.isSelected() || fourthCheckBox.isSelected())
         {
             AlertBox.displayCOVID("COVID Survey Results", "Potential COVID Risk. Please Use Emergency Entrance.");
+            User.getInstance().setEntryLocation(UserEntryLocation.EMERGENCY_ENTRANCE);
 //            ServiceRequest sR = new ServiceRequest(n, "Emergency Entrance", "Name" + "_" + "Emergency Entrance", "COVID Survey");
 //            DBServiceRequest dbServiceRequest = new DBServiceRequest();
 //            dbServiceRequest.addServiceRequest(sR);
@@ -81,6 +83,7 @@ public class CovidSurvey {
         }
         else{
             AlertBox.displayCOVID("COVID Survey Results", "No Potential COVID Risk. Please Use 75 Francis Street Entrance.");
+            User.getInstance().setEntryLocation(UserEntryLocation.MAIN_ENTRANCE);
 //            ServiceRequest sR = new ServiceRequest(n, "75 Francis", "Name" + "_" + "75 Francis", "COVID Survey");
 //            DBServiceRequest dbServiceRequest = new DBServiceRequest();
 //            dbServiceRequest.addServiceRequest(sR);

@@ -6,6 +6,7 @@ import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.userstate.User;
 import edu.wpi.p.views.ClippoController;
+import edu.wpi.p.userstate.UserEntryLocation;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -124,7 +125,6 @@ public class PathfindingMap extends MapController {
         for (Node n : graph.getGraph()) {
             addNodeButton(n);
         }
-
         translateGraph(imageView);
         isEditingMap = false;
         saveNodePopup.setVisible(false);
