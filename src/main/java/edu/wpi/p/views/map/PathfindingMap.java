@@ -5,6 +5,7 @@ import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.userstate.User;
+import edu.wpi.p.userstate.UserEntryLocation;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

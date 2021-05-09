@@ -106,7 +106,7 @@ public class DBUser {
                     userString.get(Username),
                     userString.get(Password),
                     userString.get(Identity));
-            userFromDB.setParkingNodeID(userString.get(ParkingNodeID));
+      //      userFromDB.setParkingNodeID(userString.get(ParkingNodeID));
             userFromDBS.add(userFromDB);
         }
 

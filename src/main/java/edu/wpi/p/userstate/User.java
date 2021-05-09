@@ -75,7 +75,7 @@ public class User {
         return entryLocation;
     }
 
-    void setEntryLocation(UserEntryLocation entryLocation) {
+    public void setEntryLocation(UserEntryLocation entryLocation) {
         this.entryLocation = entryLocation;
     }
 
