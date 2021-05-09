@@ -66,7 +66,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="960.0" fitWidth="2021.0" layoutX="-164.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="960.0" fitWidth="2021.0" layoutX="-139.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/aboutUsImage/team.png" />
          </image>
