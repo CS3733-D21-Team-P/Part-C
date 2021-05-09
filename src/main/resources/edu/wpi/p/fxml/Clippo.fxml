@@ -231,7 +231,7 @@
                <children>
                   <HBox>
                      <children>
-                        <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Nodes are the locations in the hospital. They represent anything from hallways, vending machines, stairs, operation rooms, and any other distinct place in the hospital. Nodes can be connected by edges to link them on the pathfinder.">
+                        <JFXTextArea editable="false" prefColumnCount="25" prefHeight="150.0" prefRowCount="5" prefWidth="318.0" text="Nodes are the locations in the hospital. They represent anything from hallways, vending machines, stairs, operation rooms, and any other distinct place in the hospital. Nodes can be connected by edges to link them on the pathfinder. If you would like to save a location, right click a node on the map of that location and select &quot;Save Location&quot;.">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
