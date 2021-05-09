@@ -44,7 +44,16 @@ public class ServiceRequestLogSection extends VBox {
         assignmentAutocompletePopup.getSuggestions().addAll(getAllUserNames());
 
         assignmentSearch.getChildren().addAll(assignmentLabel, filterField);
-
+        filterField.textProperty().addListener(observable -> {
+            assignmentAutocompletePopup.filter(string -> string.toLowerCase().contains(filterField.getText().toLowerCase()));
+            if (assignmentAutocompletePopup.getFilteredSuggestions().isEmpty() || filterField.getText().isEmpty()) {
+                assignmentAutocompletePopup.hide();
+                // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
+                // so you can choose
+            } else {
+                assignmentAutocompletePopup.show(filterField);
+            }
+        });
         filterField.textProperty().addListener((o,oldVal,newVal)->{
             requestSection.setPredicate(serviceRequestTableEntryTreeItem -> {
                 String assignment = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment();
