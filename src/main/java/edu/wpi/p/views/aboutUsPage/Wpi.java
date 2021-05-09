@@ -10,7 +10,7 @@ public class Wpi {
 
     public void home(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("edu/wpi/p/fxml/HomePage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/HomePage.fxml"));
             edu.wpi.p.App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -19,7 +19,7 @@ public class Wpi {
 
     public void team(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("edu/wpi/p/fxml/aboutUsPage/team.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/aboutUsPage/team.fxml"));
             edu.wpi.p.App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -28,7 +28,7 @@ public class Wpi {
 
     public void app(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("edu/wpi/p/fxml/aboutUsPage/app.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/aboutUsPage/app.fxml"));
             edu.wpi.p.App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -37,7 +37,7 @@ public class Wpi {
 
     public void wpi(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("edu/wpi/p/fxml/aboutUsPage/wpi.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/aboutUsPage/wpi.fxml"));
             edu.wpi.p.App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -46,7 +46,7 @@ public class Wpi {
 
     public void join(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("edu/wpi/p/fxml/aboutUsPage/join.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/aboutUsPage/join.fxml"));
             edu.wpi.p.App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
