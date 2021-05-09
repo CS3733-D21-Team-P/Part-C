@@ -1,8 +1,6 @@
 package edu.wpi.p.views.custom;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
-import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.DBUser;
@@ -11,37 +9,40 @@ import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.ServiceRequestTableEntry;
 import edu.wpi.p.views.servicerequests.*;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
-import javax.swing.event.ChangeListener;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class ServiceRequestLogSection extends VBox {
 
-    ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
-
+    private ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
+    private JFXTreeTableView<ServiceRequestTableEntry> requestSection;
+    private JFXTextField filterField;
+    private JFXToggleButton showCompleteToggle;
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
         HBox assignmentSearch = new HBox();
-
-        JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
+        HBox showComplete = new HBox();
+        requestSection = makeGridSection(name, requests);
 
         Label assignmentLabel = makeStyledLabel("Assigned to search:");
-        JFXTextField filterField = makeAssignmentSearchField();
+        filterField = makeAssignmentSearchField();
         Label showCompleteLabel = makeStyledLabel("Show Completed:");
-        JFXToggleButton showComplete = new JFXToggleButton();
-
+        showCompleteToggle = new JFXToggleButton();
 
         // making the autocompete for assignment search
         JFXAutoCompletePopup<String> assignmentAutocompletePopup = new JFXAutoCompletePopup<>();
@@ -63,24 +64,67 @@ public class ServiceRequestLogSection extends VBox {
             }
         });
         filterField.textProperty().addListener((o,oldVal,newVal)->{
-            requestSection.setPredicate(serviceRequestTableEntryTreeItem -> {
-                String assignment = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment();
-                if (newVal.length() == 0) {
-                    return true;
-                }
-                if (assignment != null) {
-                    return assignment.contains(newVal);
-                }
-                return false;
-            });
+            requestSection.setPredicate(assignmentPredicate().call(newVal).and(completePredicate().call(showCompleteToggle.isSelected())));
         });
+
+        showCompleteToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            requestSection.setPredicate(assignmentPredicate().call(filterField.getText()).and(completePredicate().call(newValue)));
+        });
+        requestSection.setPredicate(assignmentPredicate().call(filterField.getText()).and(completePredicate().call(showCompleteToggle.isSelected())));
+        showComplete.getChildren().addAll(showCompleteLabel, showCompleteToggle);
+
 //        requestSection.prefHeightProperty().bind(super.heightProperty());
         super.setVgrow(requestSection, Priority.ALWAYS);
         this.getChildren().add(assignmentSearch);
+        this.getChildren().add(showComplete);
         this.getChildren().add(requestSection);
 
     }
 
+    private Callback<String, Predicate<TreeItem<ServiceRequestTableEntry>>> assignmentPredicate() {
+        Callback<String, Predicate<TreeItem<ServiceRequestTableEntry>>> callback = new Callback<String, Predicate<TreeItem<ServiceRequestTableEntry>>>() {
+            @Override
+            public Predicate<TreeItem<ServiceRequestTableEntry>> call(String param) {
+                Predicate<TreeItem<ServiceRequestTableEntry>> predicate = new Predicate<TreeItem<ServiceRequestTableEntry>>() {
+                    @Override
+                    public boolean test(TreeItem<ServiceRequestTableEntry> serviceRequestTableEntryTreeItem) {
+                        String assignment = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment();
+                        if (param.length() == 0) {
+                            return true;
+                        }
+                        if (assignment != null) {
+                            return assignment.contains(param);
+                        }
+                        return false;
+                    }
+                };
+                return predicate;
+            }
+        };
+        return callback;
+    }
+    private Callback<Boolean, Predicate<TreeItem<ServiceRequestTableEntry>>> completePredicate() {
+        Callback<Boolean, Predicate<TreeItem<ServiceRequestTableEntry>>> callback = new Callback<Boolean, Predicate<TreeItem<ServiceRequestTableEntry>>>() {
+            @Override
+            public Predicate<TreeItem<ServiceRequestTableEntry>> call(Boolean param) {
+                Predicate<TreeItem<ServiceRequestTableEntry>> predicate = new Predicate<TreeItem<ServiceRequestTableEntry>>() {
+                    @Override
+                    public boolean test(TreeItem<ServiceRequestTableEntry> serviceRequestTableEntryTreeItem) {
+                        Boolean complete = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getCompleted();
+                        if (param) {
+                            return true;
+                        }
+                        else {
+                            return !complete;
+                        }
+
+                    }
+                };
+                return predicate;
+            }
+        };
+        return callback;
+    }
     private List<String> getAllUserNames() {
         DBUser dbUser = new DBUser();
         List<UserFromDB> users = dbUser.getUsers();
@@ -201,6 +245,7 @@ public class ServiceRequestLogSection extends VBox {
                 serviceRequest.setCompleted(newValue);
                 DBServiceRequest dbServiceRequest = new DBServiceRequest();
                 dbServiceRequest.updateServiceRequest(serviceRequest);
+                requestSection.setPredicate(assignmentPredicate().call(filterField.getText()).and(completePredicate().call(showCompleteToggle.isSelected())));
             });
             return new SimpleObjectProperty<JFXToggleButton>(toggleButton);
         });
@@ -258,6 +303,7 @@ public class ServiceRequestLogSection extends VBox {
                 serviceRequest.setAssignment(newValue);
                 DBServiceRequest dbServiceRequest = new DBServiceRequest();
                 dbServiceRequest.updateServiceRequest(serviceRequest);
+                requestSection.setPredicate(assignmentPredicate().call(filterField.getText()).and(completePredicate().call(showCompleteToggle.isSelected())));
             });
             return new SimpleObjectProperty<>(textField);
         });
