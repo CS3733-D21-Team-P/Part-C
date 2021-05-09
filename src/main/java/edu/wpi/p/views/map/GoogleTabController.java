@@ -32,7 +32,6 @@ public class GoogleTabController {
 
 //    AutoCompleteTextField field;
 
-
     @FXML
     public void findDirections(){
         String mode = chosenMode.getSelectionModel().getSelectedItem();
@@ -84,6 +83,54 @@ public class GoogleTabController {
         System.out.println("text changed");
         googleMaps.getOptions(autoStart.getText(), autoCompletePopup);
         //TODO: make text field entries be google api autocomplete
+    }
+
+    @FXML
+    public void openLink(){
+        String mode = chosenMode.getSelectionModel().getSelectedItem();
+        System.out.println(mode);
+        TravelMode travelMode = TravelMode.DRIVING;
+        switch (mode) {
+            case ("Driving"):
+                travelMode = TravelMode.DRIVING;
+                break;
+            case ("Walking"):
+                travelMode = TravelMode.WALKING;
+                break;
+            case ("Biking"):
+                travelMode = TravelMode.BICYCLING;
+                break;
+            case ("Public Transport"):
+                travelMode = TravelMode.TRANSIT;
+                break;
+        }
+
+        String chosenEnd = end.getSelectionModel().getSelectedItem();
+        switch (chosenEnd){
+            case ("The hospital"):
+                chosenEnd = "Brigham and Women's Hospital, 221 Longwood Ave, Boston, MA 02115";
+                break;
+            case ("45 Francis Street Garage (Patient Only)"):
+                chosenEnd = "45 Francis St, Boston, MA 0211";
+                break;
+            case ("60 Fenwood Road Garage (Patient Only)"):
+                chosenEnd = "60 Fenwood Road, Boston, MA 0211";
+                break;
+            case ("75 Francis Street (Patient Valet)"):
+                chosenEnd = "75 Francis Street, Boston, MA 0211";
+                break;
+            case ("80 Francis Street Garage (Patient & Visitor)"):
+                chosenEnd = "80 Francis Street, Boston, MA 0211";
+                break;
+            case ("221 Longwood Avenue (Patient Valet)"):
+                chosenEnd = "221 Longwood Avenue, Boston, MA 0211";
+                break;
+        }
+        if(autoStart.getText().isEmpty()){
+            System.out.println("enter a start location");
+            return;
+        }
+        googleMaps.directionsLink(autoStart.getText(), chosenEnd, travelMode);
     }
 
     @FXML
