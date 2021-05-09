@@ -40,10 +40,16 @@ public class ServiceRequestLogSection extends VBox {
 
         Label assignmentLabel = makeAssignmentSearchLabel();
         JFXTextField filterField = makeAssignmentSearchField();
+
+        // making the autocompete for assignment search
         JFXAutoCompletePopup<String> assignmentAutocompletePopup = new JFXAutoCompletePopup<>();
         assignmentAutocompletePopup.getSuggestions().addAll(getAllUserNames());
+        assignmentAutocompletePopup.setSelectionHandler(event -> {
+            filterField.setText(event.getObject());
+        });
 
         assignmentSearch.getChildren().addAll(assignmentLabel, filterField);
+
         filterField.textProperty().addListener(observable -> {
             assignmentAutocompletePopup.filter(string -> string.toLowerCase().contains(filterField.getText().toLowerCase()));
             if (assignmentAutocompletePopup.getFilteredSuggestions().isEmpty() || filterField.getText().isEmpty()) {
