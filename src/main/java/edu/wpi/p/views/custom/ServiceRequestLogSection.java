@@ -37,8 +37,11 @@ public class ServiceRequestLogSection extends VBox {
 
         JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
 
-        Label assignmentLabel = makeAssignmentSearchLabel();
+        Label assignmentLabel = makeStyledLabel("Assigned to search:");
         JFXTextField filterField = makeAssignmentSearchField();
+        Label showCompleteLabel = makeStyledLabel("Show Completed:");
+        JFXToggleButton showComplete = new JFXToggleButton();
+
 
         // making the autocompete for assignment search
         JFXAutoCompletePopup<String> assignmentAutocompletePopup = new JFXAutoCompletePopup<>();
@@ -87,8 +90,8 @@ public class ServiceRequestLogSection extends VBox {
         }
         return names;
     }
-    private Label makeAssignmentSearchLabel() {
-        Label assignmentLabel = new Label("Assigned to search:");
+    private Label makeStyledLabel(String text) {
+        Label assignmentLabel = new Label(text);
         assignmentLabel.setStyle("-fx-font-size: 24");
         assignmentLabel.setTextFill(Color.WHITE);
         return assignmentLabel;
@@ -165,8 +168,8 @@ public class ServiceRequestLogSection extends VBox {
         }
         List<JFXTreeTableColumn<ServiceRequestTableEntry, Label>> tableColumns = makeDetailColumns(detailColumns);
 
-        JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = makeAssignedToColumn();
-        JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = makeCompleteColumn();
+        JFXTreeTableColumn<ServiceRequestTableEntry, JFXTextField> assignedTo = makeAssignedToColumn();
+        JFXTreeTableColumn<ServiceRequestTableEntry, JFXToggleButton> completeColumn = makeCompleteColumn();
 
         final TreeItem<ServiceRequestTableEntry> root = new RecursiveTreeItem<>(observableRequests, RecursiveTreeObject::getChildren);
         JFXTreeTableView<ServiceRequestTableEntry> treeView = new JFXTreeTableView<>(root);
@@ -187,47 +190,80 @@ public class ServiceRequestLogSection extends VBox {
         return treeView;
     }
 
-    private JFXTreeTableColumn<ServiceRequestTableEntry, String>  makeCompleteColumn() {
-        JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
+    private JFXTreeTableColumn<ServiceRequestTableEntry, JFXToggleButton>  makeCompleteColumn() {
+        JFXTreeTableColumn<ServiceRequestTableEntry, JFXToggleButton> completeColumn = new JFXTreeTableColumn<>("Complete");
         completeColumn.setPrefWidth(100);
-        completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback((request, newValue) -> {
-            if (newValue) {
-                request.setCompleted(newValue);
+        completeColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, JFXToggleButton> param) -> {
+            JFXToggleButton toggleButton = new JFXToggleButton();
+            toggleButton.setSelected(param.getValue().getValue().getServiceRequest().getCompleted());
+            toggleButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                ServiceRequest serviceRequest = param.getValue().getValue().getServiceRequest();
+                serviceRequest.setCompleted(newValue);
                 DBServiceRequest dbServiceRequest = new DBServiceRequest();
-                dbServiceRequest.updateServiceRequest(request);
-            }
-        }, request -> request.getCompleted()));
+                dbServiceRequest.updateServiceRequest(serviceRequest);
+            });
+            return new SimpleObjectProperty<JFXToggleButton>(toggleButton);
+        });
         return completeColumn;
     }
 
-    private JFXTreeTableColumn<ServiceRequestTableEntry, String>  makeCovidRiskColumn() {
-        JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Is Covid Risk");
-        completeColumn.setPrefWidth(100);
-        completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback((request, newValue) -> {
-            if (newValue) {
-                request.addDetail("Is Covid Risk", "yes");
+    private JFXTreeTableColumn<ServiceRequestTableEntry, JFXToggleButton>  makeCovidRiskColumn() {
+        JFXTreeTableColumn<ServiceRequestTableEntry, JFXToggleButton> covidRiskColumn = new JFXTreeTableColumn<>("Is Covid Risk");
+        covidRiskColumn.setPrefWidth(100);
+        covidRiskColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, JFXToggleButton> param) -> {
+            JFXToggleButton toggleButton = new JFXToggleButton();
+            toggleButton.setSelected(param.getValue().getValue().getServiceRequest().getDetailNames().contains("Is Covid Risk"));
+            toggleButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                ServiceRequest serviceRequest = param.getValue().getValue().getServiceRequest();
+                if (newValue) {
+                    serviceRequest.addDetail("Is Covid Risk", "yes");
+                }
+                else {
+                    HashMap<String, String> map = serviceRequest.getDetailsMap();
+                    map.remove("Is Covid Risk");
+                    serviceRequest.removeAllDetails();
+                    for (String key : map.keySet()) {
+                        serviceRequest.addDetail(key, map.get(key));
+                    }
+                }
                 DBServiceRequest dbServiceRequest = new DBServiceRequest();
-                dbServiceRequest.updateServiceRequest(request);
-            }
-        }, request -> request.getDetailNames().contains("Is Covid Risk")));
-        return completeColumn;
+                dbServiceRequest.updateServiceRequest(serviceRequest);
+            });
+            return new SimpleObjectProperty<JFXToggleButton>(toggleButton);
+        });
+        return covidRiskColumn;
     }
 
-    private JFXTreeTableColumn<ServiceRequestTableEntry, String>  makeAssignedToColumn() {
-        JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = new JFXTreeTableColumn<>("Assigned To");
+    private JFXTreeTableColumn<ServiceRequestTableEntry, JFXTextField>  makeAssignedToColumn() {
+        JFXTreeTableColumn<ServiceRequestTableEntry, JFXTextField> assignedTo = new JFXTreeTableColumn<>("Assigned To");
+        assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, JFXTextField> param) -> {
+            JFXTextField textField = new JFXTextField();
+            ServiceRequest serviceRequest = param.getValue().getValue().getServiceRequest();
+            textField.setText(serviceRequest.getAssignment());
+            JFXAutoCompletePopup<String> assignmentAutocompletePopup = new JFXAutoCompletePopup<>();
+            assignmentAutocompletePopup.getSuggestions().addAll(getAllUserNames());
+            assignmentAutocompletePopup.setSelectionHandler(event -> {
+                textField.setText(event.getObject());
+            });
 
-        assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
-                new SimpleStringProperty(param.getValue().getValue().getServiceRequest().getAssignment()));
-        assignedTo.setCellFactory((TreeTableColumn<ServiceRequestTableEntry, String> param) ->
-                new GenericEditableTreeTableCell<ServiceRequestTableEntry, String>(new TextFieldEditorBuilder()));
-        assignedTo.setOnEditCommit((TreeTableColumn.CellEditEvent<ServiceRequestTableEntry, String> t) -> {
-            ServiceRequest request = t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue().getServiceRequest();
-            request.setAssignment(t.getNewValue());
-            DBServiceRequest dbServiceRequest = new DBServiceRequest();
-            dbServiceRequest.updateServiceRequest(request);
+            textField.textProperty().addListener(observable -> {
+                assignmentAutocompletePopup.filter(string -> string.toLowerCase().contains(textField.getText().toLowerCase()));
+                if (assignmentAutocompletePopup.getFilteredSuggestions().isEmpty() || textField.getText().isEmpty()) {
+                    assignmentAutocompletePopup.hide();
+                } else {
+                    assignmentAutocompletePopup.show(textField);
+                }
+            });
+            textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                serviceRequest.setAssignment(newValue);
+                DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                dbServiceRequest.updateServiceRequest(serviceRequest);
+            });
+            return new SimpleObjectProperty<>(textField);
         });
         return assignedTo;
     }
+
     private List<JFXTreeTableColumn<ServiceRequestTableEntry, Label> > makeDetailColumns(String[] detailColumns) {
         List<JFXTreeTableColumn<ServiceRequestTableEntry, Label> > tableColumns = new ArrayList<>(detailColumns.length);
         for (String detailName : detailColumns) {
@@ -243,82 +279,6 @@ public class ServiceRequestLogSection extends VBox {
         }
         return tableColumns;
     }
-    /**
-     * It is surprisingly hard to put a toggle button in a table
-     *
-     * @return The callback that makes the thing that does the thing
-     */
-    private Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>> getCompleteToggleButtonColumnCallback(BiConsumer<ServiceRequest, Boolean> toggleChangeConsumer, Callback<ServiceRequest, Boolean> setterCallback) {
-        return new Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>>() {
-            @Override
-            public TreeTableCell<ServiceRequestTableEntry, String> call(final TreeTableColumn<ServiceRequestTableEntry, String> param) {
-                return new TreeTableCell<ServiceRequestTableEntry, String>() {
 
-                    final JFXToggleButton toggleButton = new JFXToggleButton();
-
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            ServiceRequest request = getTreeTableView().getTreeItem(getIndex()).getValue().getServiceRequest();
-                            toggleButton.setSelected(setterCallback.call(request));
-//                            toggleButton.armedProperty().addListener();
-                            toggleButton.armedProperty().addListener((observable, oldValue, newValue) -> {
-                                toggleChangeConsumer.accept(request, newValue);
-                                if (newValue) {
-                                    toggleChangeConsumer.accept(request, newValue);
-                                } else {
-                                    toggleButton.setSelected(true);
-                                }
-                            });
-                            setGraphic(toggleButton);
-                            setAlignment(Pos.CENTER);
-                            setText(null);
-                        }
-                    }
-                };
-            }
-        };
-    }
-
-    private Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>> getAssignmentColumnCallback() {
-        return new Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>>() {
-            @Override
-            public TreeTableCell<ServiceRequestTableEntry, String> call(final TreeTableColumn<ServiceRequestTableEntry, String> param) {
-                return new TreeTableCell<ServiceRequestTableEntry, String>() {
-
-                    final JFXTextField assignmentField = new JFXTextField();
-
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                            setText(null);
-                        } else {
-                            ServiceRequest request = getTreeTableView().getTreeItem(getIndex()).getValue().getServiceRequest();
-                            System.out.println("request assignment is: " + request.getAssignment());
-                            assignmentField.setText(request.getAssignment());
-                            assignmentField.textProperty().addListener((observable, oldValue, newValue) -> {
-                                if (newValue != null) {
-                                    System.out.println("assignment field changed from: " + oldValue + " to: " + newValue);
-                                    request.setAssignment(newValue);
-                                    DBServiceRequest dbServiceRequest = new DBServiceRequest();
-                                    dbServiceRequest.updateServiceRequest(request);
-                                }
-
-                            });
-                            setGraphic(assignmentField);
-                            setAlignment(Pos.CENTER);
-                            setText(null);
-                        }
-                    }
-                };
-            }
-        };
-    }
 }
 
