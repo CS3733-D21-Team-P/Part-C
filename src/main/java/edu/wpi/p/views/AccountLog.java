@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -34,6 +35,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AccountLog {
+
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
+
     public Button addPeopleBtn;
     public Button deletePeopleBtn;
     public Button homeButton;
@@ -56,6 +61,8 @@ public class AccountLog {
 
     @FXML
     private void initialize(){
+        clippoIDController.setPage("accounts");
+
         JFXTreeTableColumn<UserFromDB, String> username = new JFXTreeTableColumn<>("Username");
         username.setPrefWidth(240);
         username.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {

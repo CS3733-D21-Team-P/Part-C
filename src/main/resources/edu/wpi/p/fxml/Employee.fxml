@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.BorderPane?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #2F3159;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.EmployeeLog">
    <children>
       <Label layoutX="852.0" layoutY="41.0" prefHeight="54.0" prefWidth="259.0" text="Employee Table" textFill="WHITE">
@@ -23,5 +24,8 @@
       <JFXTextField fx:id="tfemployeeid" layoutX="947.0" layoutY="580.0" prefHeight="26.0" prefWidth="149.0" promptText="Employee ID" style="-fx-background-color: white;" />
       <JFXTextField fx:id="tfsalary" layoutX="756.0" layoutY="580.0" prefHeight="26.0" prefWidth="149.0" promptText="Salary" style="-fx-background-color: white;" />
       <fx:include source="Toolbar.fxml" />
+      <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
+         <fx:include fx:id="clippoID" source="../fxml/Clippo.fxml" />
+      </BorderPane>
    </children>
 </AnchorPane>

@@ -28,6 +28,8 @@ public class ClippoController {
     @FXML public VBox clippoEdges;
     @FXML public VBox clippoFindTab;
     @FXML public VBox clippoTextDirections;
+    @FXML public VBox clippoEmpTable;
+    @FXML public VBox clippoAccounts;
 
     @FXML public void initialize(){
         clippoHome.setVisible(false);
@@ -159,6 +161,18 @@ public class ClippoController {
                 clippoPathfind.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoPathfind;
+                break;
+            case "accounts":
+                currClippoTab.setVisible(false);
+                clippoAccounts.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoAccounts;
+                break;
+            case "employees":
+                currClippoTab.setVisible(false);
+                clippoEmpTable.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoEmpTable;
                 break;
             default:
                 currClippoTab.setVisible(false);
