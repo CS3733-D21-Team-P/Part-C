@@ -60,6 +60,7 @@ public class LoginPage {
     UserFromDB jemployee = new UserFromDB("Ian", "Ian", "123456", "Admin");
     UserFromDB kemployee = new UserFromDB("Staff", "staff", "staff", "Employee");
     UserFromDB tempUser = new UserFromDB("tempUser", "tempUser", "tempUser", "tempUser");
+    UserFromDB pempUser = new UserFromDB("Patient", "patient", "patient", "Patient");
 
 
     @FXML
@@ -91,6 +92,7 @@ public class LoginPage {
             dbuser.addUser(jemployee);
             dbuser.addUser(kemployee);
             dbuser.addUser(tempUser);
+            dbuser.addUser(pempUser);
         } else {
             dbuser = new DBUser();
         }

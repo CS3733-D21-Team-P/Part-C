@@ -56,5 +56,6 @@
             <Image url="@image/icons/edit.png" />
          </image>
       </ImageView>
+      <JFXButton fx:id="admin" layoutX="1574.0" layoutY="851.0" onAction="#admin" prefHeight="75.0" prefWidth="147.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Admin" textAlignment="CENTER" textFill="WHITE" />
    </children>
 </AnchorPane>

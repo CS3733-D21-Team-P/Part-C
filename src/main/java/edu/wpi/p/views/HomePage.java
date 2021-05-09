@@ -61,6 +61,7 @@ public class HomePage {
   public ImageView editIcon;
   public ImageView pathIcon;
   public ImageView serviceIcon;
+  public JFXButton admin;
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -77,6 +78,7 @@ public class HomePage {
   private void initialize(){
     DatabaseInterface.init();
     List<String> tableNames = DatabaseInterface.getTableNames();
+    assert tableNames != null;
     if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
       try {
         CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
@@ -96,9 +98,10 @@ public class HomePage {
       editIcon.setVisible(false);
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
+      admin.setVisible(false);
     }
     // if they are a guest, hide everything but the request entry button by default
-    if(user.isGuest()){
+    if(user.isGuest() | user.getPermissions().equals("Patient")){
       pathButton.setVisible(false);
       editButton.setVisible(false);
       editIcon.setVisible(false);
@@ -108,13 +111,13 @@ public class HomePage {
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
       pathIcon.setVisible(false);
-      // if they are an approved user, they can see the pathfinding button and icon
-      if (user.isApprovedForEntry()){
-        pathButton.setVisible(true);
-        pathIcon.setVisible(true);
-      }
+      admin.setVisible(false);
     }
-
+    // if they are an approved user, they can see the pathfinding button and icon
+    if (approved){
+      pathButton.setVisible(true);
+      pathIcon.setVisible(true);
+    }
   }
 
 
@@ -245,6 +248,15 @@ public void backToLoginAc(ActionEvent actionEvent){
   public void updateApproved(){
 
   }
+
+    public void admin(ActionEvent actionEvent) {
+      try {
+        Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/AdminConfig.fxml"));
+        App.getPrimaryStage().getScene().setRoot(root);
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    }
 
 //  public void sanitationServiceBtn(ActionEvent actionEvent) {
 //  }
