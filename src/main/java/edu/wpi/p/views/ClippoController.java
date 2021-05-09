@@ -13,6 +13,8 @@ public class ClippoController {
     private VBox currClippoTab;
     private VBox prevClippoTab;
 
+    private String page = "clippoHome";
+
     @FXML public VBox clippoButton;
     @FXML public Pane clippoPane;
     @FXML public VBox clippoHome;
@@ -26,6 +28,8 @@ public class ClippoController {
     @FXML public VBox clippoEdges;
     @FXML public VBox clippoFindTab;
     @FXML public VBox clippoTextDirections;
+    @FXML public VBox clippoEmpTable;
+    @FXML public VBox clippoAccounts;
 
     @FXML public void initialize(){
         clippoHome.setVisible(false);
@@ -127,15 +131,64 @@ public class ClippoController {
     }
 
     @FXML public void clippoButtonPressed(ActionEvent actionEvent) {
-        currClippoTab.setVisible(false);
-        clippoHome.setVisible(true);
-        prevClippoTab = currClippoTab;
-        currClippoTab = clippoHome;
+        switch(page){
+            case "serviceRequests":
+                currClippoTab.setVisible(false);
+                clippoServReq.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoServReq;
+                break;
+            case "requestLogs":
+                currClippoTab.setVisible(false);
+                clippoRequestLogs.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoRequestLogs;
+                break;
+            case "covidSurvey":
+                currClippoTab.setVisible(false);
+                clippoCOVID19.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoCOVID19;
+                break;
+            case "editMap":
+                currClippoTab.setVisible(false);
+                clippoMapEdit.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoMapEdit;
+                break;
+            case "pathfinding":
+                currClippoTab.setVisible(false);
+                clippoPathfind.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoPathfind;
+                break;
+            case "accounts":
+                currClippoTab.setVisible(false);
+                clippoAccounts.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoAccounts;
+                break;
+            case "employees":
+                currClippoTab.setVisible(false);
+                clippoEmpTable.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoEmpTable;
+                break;
+            default:
+                currClippoTab.setVisible(false);
+                clippoHome.setVisible(true);
+                prevClippoTab = currClippoTab;
+                currClippoTab = clippoHome;
+        }
     }
 
     @FXML public void clippoBackButton(ActionEvent actionEvent) {
         currClippoTab.setVisible(false);
         clippoHome.setVisible(true);
         currClippoTab = clippoHome;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 }

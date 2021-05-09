@@ -231,7 +231,7 @@
                <children>
                   <HBox>
                      <children>
-                        <JFXTextArea editable="false" prefColumnCount="25" prefRowCount="5" text="Nodes are the locations in the hospital. They represent anything from hallways, vending machines, stairs, operation rooms, and any other distinct place in the hospital. Nodes can be connected by edges to link them on the pathfinder.">
+                        <JFXTextArea editable="false" prefColumnCount="25" prefHeight="150.0" prefRowCount="5" prefWidth="318.0" text="Nodes are the locations in the hospital. They represent anything from hallways, vending machines, stairs, operation rooms, and any other distinct place in the hospital. Nodes can be connected by edges to link them on the pathfinder. If you would like to save a location, right click a node on the map of that location and select &quot;Save Location&quot;.">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -367,7 +367,63 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="clippoButton" alignment="BOTTOM_LEFT" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+            <VBox fx:id="clippoAccounts" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+               <children>
+                  <HBox>
+                     <children>
+                        <JFXTextArea editable="false" prefColumnCount="20" prefRowCount="5" text="The accounts table shows all active accounts. Fill in the prompted fields and press &quot;Add User&quot; to create a new account. Select a user and press &quot;Remove User&quot; to remove a current account.">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </JFXTextArea>
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/peggy.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="clippoEmpTable" style="-fx-background-color: #5990d9; -fx-border-color: #b6d6f2; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2;" visible="false">
+               <children>
+                  <HBox>
+                     <children>
+                        <JFXTextArea editable="false" prefColumnCount="20" prefHeight="126.0" prefRowCount="5" prefWidth="257.0" text="Welcome to the employee table! This is where employee information is stored. To add a new employee, simply fill in the prompted fields, and hit submit. To delete an existing employee, select them and press delete.">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </JFXTextArea>
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15;" text="Back" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/peggy.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="clippoButton" alignment="BOTTOM_LEFT">
                <children>
                   <JFXButton onAction="#clippoButtonPressed" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #5990d9; -fx-background-radius: 5;" text="Help" textFill="WHITE">
                      <font>

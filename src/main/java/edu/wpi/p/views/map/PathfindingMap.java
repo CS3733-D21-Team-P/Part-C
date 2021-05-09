@@ -5,12 +5,14 @@ import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.userstate.User;
+import edu.wpi.p.views.ClippoController;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -22,6 +24,9 @@ import java.util.List;
 
 
 public class PathfindingMap extends MapController {
+
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
 
     @FXML private VBox saveNodePopup;
     @FXML private PathTabController pathTabController;
@@ -108,6 +113,7 @@ public class PathfindingMap extends MapController {
     @Override
     public void initialize()  {
         super.initialize();
+        clippoIDController.setPage("pathfinding");
         pathfindPage = true;
         pathTabController.injectPathfindingMap(this);
         nextFloorBox.setVisible(false);

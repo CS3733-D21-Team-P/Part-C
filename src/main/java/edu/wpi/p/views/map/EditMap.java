@@ -5,12 +5,14 @@ import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.database.DBTable;
+import edu.wpi.p.views.ClippoController;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -19,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditMap extends MapController {
+
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
 
     private DBTable dbTable = new DBTable();
     private int btnIncrement = 1;
@@ -300,6 +305,7 @@ public class EditMap extends MapController {
     @Override
     public void initialize()  {
         super.initialize();
+        clippoIDController.setPage("editMap");
         pathfindPage = false;
         editTabController.injectEditMap(this);
         rClickPopup.setVisible(false);

@@ -51,12 +51,16 @@ public class ServiceRequestHomePage {
     @FXML public JFXButton serviceButton;
     @FXML public JFXButton covidButton;
 
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
+
     private static final double BLUR_AMOUNT = 40;
     private static final Effect frostEffect =
             new BoxBlur(BLUR_AMOUNT, BLUR_AMOUNT, 2);
 
     @FXML
     public void initialize() {
+        clippoIDController.setPage("serviceRequests");
         setupFrostedGlassBackground();
     }
 

@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
+import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -39,6 +40,8 @@ public class EmployeeLog {
     public TextField tfsalary;
     public TextField tfposition;
     public TextField tfassignedsr;
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
 
     private final DBEmployee dbemployee = new DBEmployee();
     public JFXTreeTableView employeeDataTableView;
@@ -47,6 +50,7 @@ public class EmployeeLog {
 
     @FXML
     private void initialize() {
+        clippoIDController.setPage("employees");
 
         JFXTreeTableColumn<Employee, String> employeeid = new JFXTreeTableColumn<>("Employee ID");
         employeeid.setPrefWidth(240);
