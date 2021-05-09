@@ -25,6 +25,7 @@ public class PathfindingMap extends MapController {
 
     @FXML private VBox saveNodePopup;
     @FXML private PathTabController pathTabController;
+    @FXML private AlgorithmSelectionController algorithmSelectionController;
     @FXML public AnchorPane nextFloorBox;
     @FXML public Text nextFloorText;
     @FXML public JFXButton nextFloorButton;
@@ -110,6 +111,12 @@ public class PathfindingMap extends MapController {
         super.initialize();
         pathfindPage = true;
         pathTabController.injectPathfindingMap(this);
+
+        User user = User.getInstance();
+        if(user.getPermissions().equals("Admin")) {
+            //algorithmSelectionController.initChoiceBox();
+        }
+
         nextFloorBox.setVisible(false);
         System.out.println("PATHFINDING INIT");
 

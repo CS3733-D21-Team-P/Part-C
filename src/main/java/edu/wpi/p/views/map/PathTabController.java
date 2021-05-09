@@ -33,6 +33,8 @@ public class PathTabController {
     private JFXTreeTableColumn<DirectionTableEntry, ImageView> directionImageView;
     private JFXTreeTableColumn<DirectionTableEntry, Label> directionText;
 
+    @FXML private JFXToggleButton toggleHandicap;
+
     private PathfindingMap pathfindingMap;
 
     enum State {
@@ -156,6 +158,11 @@ public class PathTabController {
     public void enterEnd(MouseEvent e){
         mapState = PathTabController.State.ENTEREND;
         System.out.println("enter end!");
+    }
+
+    @FXML
+    private void toggleHandicapPath(ActionEvent actionEvent){
+        search.setHandicapPath(!search.isHandicapPath());
     }
 
     /**
