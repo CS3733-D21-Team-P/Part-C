@@ -6,6 +6,9 @@ import edu.wpi.p.AStar.*;
 import edu.wpi.p.views.map.Filter.Criteria;
 import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
 import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -20,10 +23,14 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +69,8 @@ public class PathTabController {
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
     @FXML public Label instructions;
+
+    final ArrayList<PathTransition> pathTransitions = new ArrayList<>();
 
     public int getCurrentFloorInList() {
         return currentFloorInList;
@@ -214,6 +223,7 @@ public class PathTabController {
             PathToText textPath = new PathToText();
             textPath.makeDirections(path);
             updateDirectionsTable(textPath.getTableDirections());
+            animatePath(path);
 
             //print path
             System.out.println("Path: ");
@@ -303,7 +313,6 @@ public class PathTabController {
         else{
             System.out.println("please enter a start AND and end location");
         }
-
 
     }
 
@@ -400,6 +409,70 @@ public class PathTabController {
             pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #9fbbc8");
             nextFloor = null;
         }
+    }
+
+    public void animatePath(List<Node> path) {
+        clearAnimations();
+        if (path == null || path.size() < 2) {
+            return;
+        }
+
+        Path thePath = createPathForAnimation(path);
+        if (!(thePath.getElements().size() < 2)) {
+            double startX = ((MoveTo) thePath.getElements().get(0)).getX();
+            double startY = ((MoveTo) thePath.getElements().get(0)).getY();
+
+            for (int i =0; i<thePath.getElements().size() *3; i++) {
+                Circle aCircle = new Circle(
+                        startX,
+                        startY,
+                        5,
+                        javafx.scene.paint.Color.color(0/255f, 0/255f,0/255f));
+                aCircle.setRadius(8);
+                pathfindingMap.linePane.getChildren().add(aCircle);
+                PathTransition pl = new PathTransition();
+                pl.setNode(aCircle);
+                pl.setPath(thePath);
+                pl.setDuration(Duration.seconds(5));
+                pl.setAutoReverse(false);
+                pl.setCycleCount(Animation.INDEFINITE);
+                pl.play();
+
+                pathTransitions.add(pl);
+            }
+        }
+    }
+
+    private void clearAnimations() {
+        for (PathTransition pl : pathTransitions) {
+            pl.stop();
+        }
+
+        for (int i = pathfindingMap.linePane.getChildren().size() -1; i >0; i--) {
+            if (pathfindingMap.linePane.getChildren().get(i) instanceof Circle) {
+                pathfindingMap.linePane.getChildren().remove(pathfindingMap.linePane.getChildren().get(i));
+            }
+        }
+    }
+
+    public Path createPathForAnimation(List<Node> path) {
+        Path onePath = new Path();
+        for (int i = 0; i < path.size() - 1; i++) {
+//            if (path.get(i).getFloor().equals(getCurrFloorVal())
+//                    && path.get(i+1).getFloor().equals(getCurrFloorVal())) {
+            MoveTo moveTo = new MoveTo();
+            moveTo.setX((float) path.get(i).getXcoord());
+            moveTo.setY((float) path.get(i).getYcoord());
+
+            LineTo lineTo = new LineTo();
+            lineTo.setX((float) path.get(i+1).getXcoord());
+            lineTo.setY((float) path.get(i+1).getYcoord());
+
+            onePath.getElements().add(onePath.getElements().size(), moveTo);
+            onePath.getElements().add(onePath.getElements().size(), lineTo);
+//            }
+        }
+        return onePath;
     }
 
 }
