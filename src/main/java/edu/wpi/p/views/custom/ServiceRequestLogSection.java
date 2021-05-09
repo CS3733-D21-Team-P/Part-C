@@ -5,6 +5,8 @@ import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
 import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.DBUser;
+import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.ServiceRequestTableEntry;
 import edu.wpi.p.views.servicerequests.*;
@@ -18,7 +20,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 import javax.swing.event.ChangeListener;
 import java.util.*;
@@ -30,33 +31,41 @@ public class ServiceRequestLogSection extends VBox {
 
     ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
 
-
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
         HBox assignmentSearch = new HBox();
-        Label assignmentLabel = new Label("Assigned to search:");
-        assignmentLabel.setStyle("-fx-font-size: 24");
-        assignmentLabel.setTextFill(Color.WHITE);
+
         JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
-        JFXTextField filterField = new JFXTextField();
-        filterField.setFocusColor(Color.WHITE);
-        filterField.setUnFocusColor(Color.WHITE);
-        filterField.setStyle("-fx-background-color: #f2f2f2");
-        filterField.setMaxWidth(200);
+
+        Label assignmentLabel = makeAssignmentSearchLabel();
+        JFXTextField filterField = makeAssignmentSearchField();
+
+        // making the autocompete for assignment search
+        JFXAutoCompletePopup<String> assignmentAutocompletePopup = new JFXAutoCompletePopup<>();
+        assignmentAutocompletePopup.getSuggestions().addAll(getAllUserNames());
+        assignmentAutocompletePopup.setSelectionHandler(event -> {
+            filterField.setText(event.getObject());
+        });
+
         assignmentSearch.getChildren().addAll(assignmentLabel, filterField);
-//        super.setFillWidth(false);
 
-
+        filterField.textProperty().addListener(observable -> {
+            assignmentAutocompletePopup.filter(string -> string.toLowerCase().contains(filterField.getText().toLowerCase()));
+            if (assignmentAutocompletePopup.getFilteredSuggestions().isEmpty() || filterField.getText().isEmpty()) {
+                assignmentAutocompletePopup.hide();
+                // if you remove textField.getText.isEmpty() when text field is empty it suggests all options
+                // so you can choose
+            } else {
+                assignmentAutocompletePopup.show(filterField);
+            }
+        });
         filterField.textProperty().addListener((o,oldVal,newVal)->{
             requestSection.setPredicate(serviceRequestTableEntryTreeItem -> {
                 String assignment = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment();
-                System.out.println("assignment is " + assignment);
                 if (newVal.length() == 0) {
                     return true;
                 }
                 if (assignment != null) {
-                    System.out.println("newVal: " + newVal);
-                    System.out.println("assignment isn't null, does assignment contain? " + assignment.contains(newVal));
                     return assignment.contains(newVal);
                 }
                 return false;
@@ -67,6 +76,31 @@ public class ServiceRequestLogSection extends VBox {
         this.getChildren().add(assignmentSearch);
         this.getChildren().add(requestSection);
 
+    }
+
+    private List<String> getAllUserNames() {
+        DBUser dbUser = new DBUser();
+        List<UserFromDB> users = dbUser.getUsers();
+        List<String> names = new ArrayList<>(users.size());
+        for (UserFromDB user : users) {
+            names.add(user.getName());
+        }
+        return names;
+    }
+    private Label makeAssignmentSearchLabel() {
+        Label assignmentLabel = new Label("Assigned to search:");
+        assignmentLabel.setStyle("-fx-font-size: 24");
+        assignmentLabel.setTextFill(Color.WHITE);
+        return assignmentLabel;
+    }
+
+    private JFXTextField makeAssignmentSearchField() {
+        JFXTextField filterField = new JFXTextField();
+        filterField.setFocusColor(Color.WHITE);
+        filterField.setUnFocusColor(Color.WHITE);
+        filterField.setStyle("-fx-background-color: #f2f2f2");
+        filterField.setMaxWidth(200);
+        return filterField;
     }
 
     private String[] getColumnFromType(String type) {
@@ -106,6 +140,7 @@ public class ServiceRequestLogSection extends VBox {
                 }
             }
         }
+
         return detailNames;
     }
 
@@ -249,5 +284,41 @@ public class ServiceRequestLogSection extends VBox {
         };
     }
 
+    private Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>> getAssignmentColumnCallback() {
+        return new Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>>() {
+            @Override
+            public TreeTableCell<ServiceRequestTableEntry, String> call(final TreeTableColumn<ServiceRequestTableEntry, String> param) {
+                return new TreeTableCell<ServiceRequestTableEntry, String>() {
+
+                    final JFXTextField assignmentField = new JFXTextField();
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            ServiceRequest request = getTreeTableView().getTreeItem(getIndex()).getValue().getServiceRequest();
+                            System.out.println("request assignment is: " + request.getAssignment());
+                            assignmentField.setText(request.getAssignment());
+                            assignmentField.textProperty().addListener((observable, oldValue, newValue) -> {
+                                if (newValue != null) {
+                                    System.out.println("assignment field changed from: " + oldValue + " to: " + newValue);
+                                    request.setAssignment(newValue);
+                                    DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                                    dbServiceRequest.updateServiceRequest(request);
+                                }
+
+                            });
+                            setGraphic(assignmentField);
+                            setAlignment(Pos.CENTER);
+                            setText(null);
+                        }
+                    }
+                };
+            }
+        };
+    }
 }
 
