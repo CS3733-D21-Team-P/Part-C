@@ -8,12 +8,16 @@ import com.google.maps.model.*;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.net.URI;
+
 
 public class GoogleMaps {
     private static String API_Key ;
@@ -28,6 +32,24 @@ public class GoogleMaps {
             API_Key= Files.lines(Paths.get("gmapsapi.txt")).findFirst().get();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void directionsLink(String startLocation, String endLocation, TravelMode mode){
+        startLocation= startLocation.replaceAll(" ", "+");
+        endLocation= endLocation.replaceAll(" ", "+");
+        String link = "https://www.google.com/maps/dir/?api=1&" +
+                        "origin="+startLocation+"&destination="+endLocation +
+                        "&mode="+mode+
+                        "&key="+API_Key;
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                Desktop.getDesktop().browse(new URI(link));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 
