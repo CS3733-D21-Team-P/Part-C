@@ -5,6 +5,8 @@ import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
 import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.database.DBServiceRequest;
+import edu.wpi.p.database.DBUser;
+import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 import edu.wpi.p.views.ServiceRequestTableEntry;
 import edu.wpi.p.views.servicerequests.*;
@@ -33,27 +35,23 @@ public class ServiceRequestLogSection extends VBox {
             System.out.println("service request log section vbox change its width from " + oldValue + " to " + newValue);
         });
         HBox assignmentSearch = new HBox();
-        Label assignmentLabel = new Label("Assigned to search:");
-        assignmentLabel.setStyle("-fx-font-size: 24");
-        assignmentLabel.setTextFill(Color.WHITE);
+
         JFXTreeTableView<ServiceRequestTableEntry> requestSection = makeGridSection(name, requests);
-        JFXTextField filterField = new JFXTextField();
-        filterField.setFocusColor(Color.WHITE);
-        filterField.setUnFocusColor(Color.WHITE);
-        filterField.setStyle("-fx-background-color: #f2f2f2");
-        filterField.setMaxWidth(200);
+
+        Label assignmentLabel = makeAssignmentSearchLabel();
+        JFXTextField filterField = makeAssignmentSearchField();
+        JFXAutoCompletePopup<String> assignmentAutocompletePopup = new JFXAutoCompletePopup<>();
+        assignmentAutocompletePopup.getSuggestions().addAll(getAllUserNames());
+
         assignmentSearch.getChildren().addAll(assignmentLabel, filterField);
 
         filterField.textProperty().addListener((o,oldVal,newVal)->{
             requestSection.setPredicate(serviceRequestTableEntryTreeItem -> {
                 String assignment = serviceRequestTableEntryTreeItem.getValue().getServiceRequest().getAssignment();
-                System.out.println("assignment is " + assignment);
                 if (newVal.length() == 0) {
                     return true;
                 }
                 if (assignment != null) {
-                    System.out.println("newVal: " + newVal);
-                    System.out.println("assignment isn't null, does assignment contain? " + assignment.contains(newVal));
                     return assignment.contains(newVal);
                 }
                 return false;
@@ -64,6 +62,31 @@ public class ServiceRequestLogSection extends VBox {
         this.getChildren().add(assignmentSearch);
         this.getChildren().add(requestSection);
 
+    }
+
+    private List<String> getAllUserNames() {
+        DBUser dbUser = new DBUser();
+        List<UserFromDB> users = dbUser.getUsers();
+        List<String> names = new ArrayList<>(users.size());
+        for (UserFromDB user : users) {
+            names.add(user.getName());
+        }
+        return names;
+    }
+    private Label makeAssignmentSearchLabel() {
+        Label assignmentLabel = new Label("Assigned to search:");
+        assignmentLabel.setStyle("-fx-font-size: 24");
+        assignmentLabel.setTextFill(Color.WHITE);
+        return assignmentLabel;
+    }
+
+    private JFXTextField makeAssignmentSearchField() {
+        JFXTextField filterField = new JFXTextField();
+        filterField.setFocusColor(Color.WHITE);
+        filterField.setUnFocusColor(Color.WHITE);
+        filterField.setStyle("-fx-background-color: #f2f2f2");
+        filterField.setMaxWidth(200);
+        return filterField;
     }
 
     private String[] getColumnFromType(String type) {
