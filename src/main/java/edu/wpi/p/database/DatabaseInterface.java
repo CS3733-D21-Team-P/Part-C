@@ -180,7 +180,7 @@ public class DatabaseInterface {
                 ret =  result.getString(columnName);
             }
             statement.close();
-            System.out.println("ret is: " + ret);
+//            System.out.println("ret is: " + ret);
             return ret;
         } catch (Exception e) {
             SQLExceptionPrint((SQLException) e);
@@ -195,7 +195,7 @@ public class DatabaseInterface {
             return;
         }
         try {
-//            System.out.println("executeUpdate command: " + command);
+            System.out.println("executeUpdate command: " + command);
             PreparedStatement statement = conn.prepareStatement(command);
             statement.executeUpdate();
         } catch (Exception e) {

@@ -28,7 +28,7 @@ public class DFS extends SearchAlgorithm {
         //Search other nodes
         if(!rootNode.getNeighbours().isEmpty()) {
             for (Node n : rootNode.getNeighbours()) {
-                if(!n.getVisited()) {
+                if(!n.getVisited() && !n.getBlockade()) {
                     //add to stack
                     n.setVisited(true);
                     n.setParent(rootNode);
@@ -39,10 +39,7 @@ public class DFS extends SearchAlgorithm {
         }
 
         while(!stack.isEmpty()) {
-            Node n = stack.firstElement();
-            stack.remove(0);
-
-            dfs(n, targetNode);
+            dfs(stack.pop(), targetNode);
         }
     }
 }

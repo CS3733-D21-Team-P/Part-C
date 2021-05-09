@@ -18,20 +18,21 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
+import javax.swing.event.ChangeListener;
 import java.util.*;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class ServiceRequestLogSection extends VBox {
 
     ObservableList<ServiceRequestTableEntry> observableRequests = FXCollections.observableArrayList();
-    ;
+
 
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
-        super.widthProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("service request log section vbox change its width from " + oldValue + " to " + newValue);
-        });
         HBox assignmentSearch = new HBox();
         Label assignmentLabel = new Label("Assigned to search:");
         assignmentLabel.setStyle("-fx-font-size: 24");
@@ -96,40 +97,88 @@ public class ServiceRequestLogSection extends VBox {
         }
     }
 
-    private Set<String> getAllDetailColumns(List<ServiceRequest> requests) {
-        Set<String> detailNames = new HashSet<>();
+    private List<String> getAllDetailColumns(List<ServiceRequest> requests) {
+        List<String> detailNames = new ArrayList<>();
         for (ServiceRequest request : requests) {
-            for (String key : request.getDetailsMap().keySet()) {
-                detailNames.add(key);
+            for (String key : request.getDetailNames()) {
+                if (!detailNames.contains(key)) {
+                    detailNames.add(key);
+                }
             }
         }
-
         return detailNames;
     }
 
+    private String[] getCovidEntryDetailColumn(List<ServiceRequest> requests) {
+        List<String> detailColumn = getAllDetailColumns(requests);
+        detailColumn.remove("UserID");
+        return detailColumn.toArray(new String[0]);
+    }
+
     private JFXTreeTableView<ServiceRequestTableEntry> makeGridSection(String type, List<ServiceRequest> requests) {
+        boolean isCovidEntryRequest = type.equals("Covid Entry Request");
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-
         String[] detailColumns = getColumnFromType(type);
-        List<JFXTreeTableColumn> tableColumns = new ArrayList<>(detailColumns.length);
+        if (isCovidEntryRequest) {
+            detailColumns = getCovidEntryDetailColumn(requests);
+        }
+
         for (ServiceRequest request : requests) {
             observableRequests.add(new ServiceRequestTableEntry(request));
         }
+        List<JFXTreeTableColumn<ServiceRequestTableEntry, Label>> tableColumns = makeDetailColumns(detailColumns);
 
-        for (String detailName : detailColumns) {
-            JFXTreeTableColumn<ServiceRequestTableEntry, Label> column = new JFXTreeTableColumn<>(detailName);
-            column.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, Label> param) -> {
-                Label l = new Label(param.getValue().getValue().getServiceRequest().getDetailsMap().get(detailName));
-                l.setWrapText(true);
-                return new SimpleObjectProperty<Label>(l);
-            });
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = makeAssignedToColumn();
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = makeCompleteColumn();
 
-            tableColumns.add(column);
-            column.setResizable(true);
+        final TreeItem<ServiceRequestTableEntry> root = new RecursiveTreeItem<>(observableRequests, RecursiveTreeObject::getChildren);
+        JFXTreeTableView<ServiceRequestTableEntry> treeView = new JFXTreeTableView<>(root);
+        for (JFXTreeTableColumn<ServiceRequestTableEntry, Label> c : tableColumns) {
+            treeView.getColumns().add(c);
         }
 
+        treeView.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
+        treeView.getColumns().add(assignedTo);
+        treeView.getColumns().add(completeColumn);
+        if (isCovidEntryRequest) {
+            treeView.getColumns().add(makeCovidRiskColumn());
+        }
+        treeView.setRoot(root);
+        treeView.setShowRoot(false);
+        treeView.maxWidthProperty().bind(super.widthProperty());
+        treeView.setEditable(true);
+        return treeView;
+    }
+
+    private JFXTreeTableColumn<ServiceRequestTableEntry, String>  makeCompleteColumn() {
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
+        completeColumn.setPrefWidth(100);
+        completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback((request, newValue) -> {
+            if (newValue) {
+                request.setCompleted(newValue);
+                DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                dbServiceRequest.updateServiceRequest(request);
+            }
+        }, request -> request.getCompleted()));
+        return completeColumn;
+    }
+
+    private JFXTreeTableColumn<ServiceRequestTableEntry, String>  makeCovidRiskColumn() {
+        JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Is Covid Risk");
+        completeColumn.setPrefWidth(100);
+        completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback((request, newValue) -> {
+            if (newValue) {
+                request.addDetail("Is Covid Risk", "yes");
+                DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                dbServiceRequest.updateServiceRequest(request);
+            }
+        }, request -> request.getDetailNames().contains("Is Covid Risk")));
+        return completeColumn;
+    }
+
+    private JFXTreeTableColumn<ServiceRequestTableEntry, String>  makeAssignedToColumn() {
         JFXTreeTableColumn<ServiceRequestTableEntry, String> assignedTo = new JFXTreeTableColumn<>("Assigned To");
 
         assignedTo.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, String> param) ->
@@ -141,34 +190,30 @@ public class ServiceRequestLogSection extends VBox {
             request.setAssignment(t.getNewValue());
             DBServiceRequest dbServiceRequest = new DBServiceRequest();
             dbServiceRequest.updateServiceRequest(request);
-
         });
-        JFXTreeTableColumn<ServiceRequestTableEntry, String> completeColumn = new JFXTreeTableColumn<>("Complete");
-        completeColumn.setPrefWidth(100);
-        completeColumn.setCellFactory(getCompleteToggleButtonColumnCallback());
-
-        final TreeItem<ServiceRequestTableEntry> root = new RecursiveTreeItem<>(observableRequests, RecursiveTreeObject::getChildren);
-        JFXTreeTableView<ServiceRequestTableEntry> treeView = new JFXTreeTableView<>(root);
-        for (JFXTreeTableColumn<ServiceRequestTableEntry, String> c : tableColumns) {
-            treeView.getColumns().add(c);
-        }
-
-        treeView.setColumnResizePolicy(TreeTableView.CONSTRAINED_RESIZE_POLICY);
-        treeView.getColumns().add(assignedTo);
-        treeView.getColumns().add(completeColumn);
-        treeView.setRoot(root);
-        treeView.setShowRoot(false);
-        treeView.maxWidthProperty().bind(super.widthProperty());
-        treeView.setEditable(true);
-        return treeView;
+        return assignedTo;
     }
+    private List<JFXTreeTableColumn<ServiceRequestTableEntry, Label> > makeDetailColumns(String[] detailColumns) {
+        List<JFXTreeTableColumn<ServiceRequestTableEntry, Label> > tableColumns = new ArrayList<>(detailColumns.length);
+        for (String detailName : detailColumns) {
+            JFXTreeTableColumn<ServiceRequestTableEntry, Label> column = new JFXTreeTableColumn<>(detailName);
+            column.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, Label> param) -> {
+                Label l = new Label(param.getValue().getValue().getServiceRequest().getDetailsMap().get(detailName));
+                l.setWrapText(true);
+                return new SimpleObjectProperty<Label>(l);
+            });
 
+            tableColumns.add(column);
+            column.setResizable(true);
+        }
+        return tableColumns;
+    }
     /**
      * It is surprisingly hard to put a toggle button in a table
      *
      * @return The callback that makes the thing that does the thing
      */
-    private Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>> getCompleteToggleButtonColumnCallback() {
+    private Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>> getCompleteToggleButtonColumnCallback(BiConsumer<ServiceRequest, Boolean> toggleChangeConsumer, Callback<ServiceRequest, Boolean> setterCallback) {
         return new Callback<TreeTableColumn<ServiceRequestTableEntry, String>, TreeTableCell<ServiceRequestTableEntry, String>>() {
             @Override
             public TreeTableCell<ServiceRequestTableEntry, String> call(final TreeTableColumn<ServiceRequestTableEntry, String> param) {
@@ -184,16 +229,15 @@ public class ServiceRequestLogSection extends VBox {
                             setText(null);
                         } else {
                             ServiceRequest request = getTreeTableView().getTreeItem(getIndex()).getValue().getServiceRequest();
-                            toggleButton.setSelected(request.getCompleted());
+                            toggleButton.setSelected(setterCallback.call(request));
+//                            toggleButton.armedProperty().addListener();
                             toggleButton.armedProperty().addListener((observable, oldValue, newValue) -> {
+                                toggleChangeConsumer.accept(request, newValue);
                                 if (newValue) {
-                                    request.setCompleted(newValue);
-                                    DBServiceRequest dbServiceRequest = new DBServiceRequest();
-                                    dbServiceRequest.updateServiceRequest(request);
+                                    toggleChangeConsumer.accept(request, newValue);
                                 } else {
                                     toggleButton.setSelected(true);
                                 }
-
                             });
                             setGraphic(toggleButton);
                             setAlignment(Pos.CENTER);

@@ -19,7 +19,7 @@ public class Node extends DBRow {
     private String shortNameCol = "SHORTNAME";
 
     private Boolean visited;
-    private Boolean blockade; //not used
+    private Boolean blockade = false;
     private Node parent;
     private float globalDist;
     private float localDist;
