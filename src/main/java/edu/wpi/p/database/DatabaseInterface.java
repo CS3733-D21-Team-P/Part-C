@@ -1,5 +1,9 @@
 package edu.wpi.p.database;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.*;
@@ -8,22 +12,55 @@ import java.util.stream.Collectors;
 public class DatabaseInterface {
     static String dbName = "TeamPDB";
     static String connectionURL = "jdbc:derby:" + dbName + ";create = true";
-    static Connection conn = null;
+    static String command = "java -jar %DERBY_HOME%\\lib\\derbyrun.jar server start";
+    public static Connection conn = null;
+    public static boolean DBtype = true;
 
     public static boolean hasInit() {
         return conn != null;
     }
 
-    public static void init() {
+    public static void closeembedded() {
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            System.out.println("Trying to connect to " + connectionURL);
-            conn = DriverManager.getConnection(connectionURL);
-            System.out.println("Connected to database " + connectionURL);
+            DriverManager.getConnection("jdbc:derby:" + dbName + ";shutdown = true");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void init() {
+        if(DBtype) {
+            try {
+                Class.forName("org.apache.derby.jdbc.ClientDriver");
+                System.out.println("Trying to connect to " + connectionURL);
+                conn = DriverManager.getConnection("jdbc:derby://localhost:1527/TeamPDB;create=true");
+                System.out.println("Connected to database " + connectionURL);
 //            turnOnBuiltInUsers(conn);
 
-        } catch(Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                    System.out.println("Trying to connect to " + connectionURL);
+                    conn = DriverManager.getConnection(connectionURL);
+                    System.out.println("Connected to database " + connectionURL);
+//            turnOnBuiltInUsers(conn);
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }else{
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                System.out.println("Trying to connect to " + connectionURL);
+                conn = DriverManager.getConnection(connectionURL);
+                System.out.println("Connected to database " + connectionURL);
+//            turnOnBuiltInUsers(conn);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

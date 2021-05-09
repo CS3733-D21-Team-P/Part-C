@@ -61,6 +61,7 @@ public class HomePage {
   public ImageView editIcon;
   public ImageView pathIcon;
   public ImageView serviceIcon;
+  public JFXButton admin;
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -239,6 +240,15 @@ public void backToLoginAc(ActionEvent actionEvent){
   public void updateApproved(){
 
   }
+
+    public void admin(ActionEvent actionEvent) {
+      try {
+        Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/AdminConfig.fxml"));
+        App.getPrimaryStage().getScene().setRoot(root);
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    }
 
 //  public void sanitationServiceBtn(ActionEvent actionEvent) {
 //  }
