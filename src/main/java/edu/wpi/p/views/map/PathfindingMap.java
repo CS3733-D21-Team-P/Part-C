@@ -110,9 +110,7 @@ public class PathfindingMap extends MapController {
         // EXAMPLE OF CHECKING THE ENTRY LOCATION
         System.out.println("User entry location is: " + User.getInstance().getEntryLocation());
         for (Node n : graph.getGraph()) {
-            if(User.getInstance().getEntryLocation() == UserEntryLocation.EMERGENCY_ENTRANCE && n.getShortName().equals("75 Francis")){}
-            else if (User.getInstance().getEntryLocation() == UserEntryLocation.MAIN_ENTRANCE && n.getShortName().equals("Emergency")){}
-            else{addNodeButton(n);}
+            addNodeButton(n);
 
         }
         translateGraph(imageView);
