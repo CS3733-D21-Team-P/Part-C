@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #2F3159;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.CreditsPage">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="160.0" layoutX="-1.0" layoutY="62.0" stroke="#1acfcc" strokeType="INSIDE" strokeWidth="3.0" width="1922.0" />
+      <Text layoutX="724.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credits" textAlignment="CENTER" wrappingWidth="504.207763671875">
+         <font>
+            <Font size="96.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f2f2" height="758.0" layoutX="136.0" layoutY="251.0" stroke="#1acfcc" strokeType="INSIDE" strokeWidth="3.0" width="1629.0" />
+      <Label layoutX="531.0" layoutY="268.0" text="API's &amp; Tools Used For This Application " textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <VBox layoutX="136.0" layoutY="344.0" prefHeight="668.0" prefWidth="1630.0">
+         <children>
+            <Hyperlink onAction="#googleMapsAc" style="-fx-text-fill: black;" text="* Google Maps API" textAlignment="CENTER">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink onAction="#apacheDerybyAc" style="-fx-text-fill: black;" text="* Apache Derby">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink onAction="#JfeoAc" style="-fx-text-fill: black;" text="* JFoeniX">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink onAction="#JFXAc" style="-fx-text-fill: black;" text="* JavaFX">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink onAction="#JunitAc" style="-fx-text-fill: black;" text="* JUnit">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink onAction="#intelAc" style="-fx-text-fill: black;" text="* Intellij">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink onAction="#SBAc" style="-fx-text-fill: black;" text="* Scene Builder">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink onAction="#GHac" style="-fx-text-fill: black;" text="* Github">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Hyperlink>
+         </children>
+      </VBox>
+      <ImageView fitHeight="363.0" fitWidth="341.0" layoutX="1478.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../image/purple_pegasi.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="57.0" layoutY="102.0" onAction="#backButtonAc" prefHeight="64.0" prefWidth="131.0" style="-fx-background-color: #5990D9; -fx-background-radius: 15px;" text="`" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="88.0" fitWidth="87.0" layoutX="80.0" layoutY="96.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/icons/home.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
