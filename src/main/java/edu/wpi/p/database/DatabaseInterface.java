@@ -14,7 +14,7 @@ public class DatabaseInterface {
     static String connectionURL = "jdbc:derby:" + dbName + ";create = true";
     static String command = "java -jar %DERBY_HOME%\\lib\\derbyrun.jar server start";
     public static Connection conn = null;
-    public static boolean DBtype = true;
+    public static boolean DBtype;
 
     public static boolean hasInit() {
         return conn != null;
@@ -29,12 +29,12 @@ public class DatabaseInterface {
     }
 
     public static void init() {
-        if(DBtype) {
             try {
                 Class.forName("org.apache.derby.jdbc.ClientDriver");
                 System.out.println("Trying to connect to " + connectionURL);
                 conn = DriverManager.getConnection("jdbc:derby://localhost:1527/TeamPDB;create=true");
                 System.out.println("Connected to database " + connectionURL);
+                DBtype = true;
 //            turnOnBuiltInUsers(conn);
 
             } catch (Exception e) {
@@ -44,24 +44,15 @@ public class DatabaseInterface {
                     System.out.println("Trying to connect to " + connectionURL);
                     conn = DriverManager.getConnection(connectionURL);
                     System.out.println("Connected to database " + connectionURL);
+                    DBtype = false;
 //            turnOnBuiltInUsers(conn);
 
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
-        }else{
-            try {
-                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                System.out.println("Trying to connect to " + connectionURL);
-                conn = DriverManager.getConnection(connectionURL);
-                System.out.println("Connected to database " + connectionURL);
-//            turnOnBuiltInUsers(conn);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 
     /**

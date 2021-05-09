@@ -94,6 +94,7 @@ public class HomePage {
       editIcon.setVisible(false);
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
+      admin.setVisible(false);
     }
     if(User.getInstance().isGuest() | User.getInstance().getPermissions().equals("Patient")){
       pathButton.setVisible(false);
@@ -105,6 +106,7 @@ public class HomePage {
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
       pathIcon.setVisible(false);
+      admin.setVisible(false);
     }
     if (approved){
       pathButton.setVisible(true);

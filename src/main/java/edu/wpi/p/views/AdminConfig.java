@@ -7,21 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class AdminConfig {
-    public CheckBox check;
     public Button homebutton;
-
-    public void Checked(ActionEvent actionEvent) throws SQLException {
-        check.setSelected(true);
-        DatabaseInterface.DBtype = true;
-        //DatabaseInterface.closeembedded();
-        DatabaseInterface.conn.close();
-        DatabaseInterface.init();
-    }
+    public Button ServerButton;
+    public Label typelabel;
 
     public void homebuttonAC(ActionEvent actionEvent) {
         try {
@@ -29,6 +23,23 @@ public class AdminConfig {
             App.getPrimaryStage().getScene().setRoot(root);
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public void StartServer(ActionEvent actionEvent) throws SQLException {
+        DatabaseInterface.closeembedded();
+        DatabaseInterface.conn.close();
+        DatabaseInterface.init();
+        initialize();
+    }
+
+    public void initialize() {
+        boolean dbtype = DatabaseInterface.DBtype;
+        if(dbtype){
+            typelabel.setText("Server");
+            ServerButton.setVisible(false);
+        }else {
+            typelabel.setText("Embedded");
         }
     }
 }
