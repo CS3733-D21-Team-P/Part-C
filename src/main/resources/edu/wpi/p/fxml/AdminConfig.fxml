@@ -1,26 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.AdminConfig">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.AdminConfig">
    <children>
-      <Text layoutX="222.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Config Page" wrappingWidth="140.9625244140625">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Button fx:id="homebutton" layoutX="491.0" layoutY="40.0" mnemonicParsing="false" onAction="#homebuttonAC" text="Home" />
-      <Button fx:id="ServerButton" layoutX="230.0" layoutY="293.0" mnemonicParsing="false" onAction="#StartServer" text="Connected to Server" />
-      <HBox alignment="CENTER" layoutX="170.0" layoutY="124.0" prefHeight="100.0" prefWidth="259.0" spacing="20.0">
+      <ImageView fitHeight="1470.0" fitWidth="960.0" pickOnBounds="true">
+         <viewport>
+            <Rectangle2D height="1080.0" width="960.0" />
+         </viewport>
+         <image>
+            <Image url="@../../../../image/LoginScreen2.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="1126.0" layoutY="158.0" prefHeight="850.0" prefWidth="610.0" style="-fx-background-color: #2f3159;">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to Server Type:" />
-            <Label fx:id="typelabel" text="Label" />
+            <Text fill="WHITE" layoutX="181.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Config Page" wrappingWidth="270.5626220703125">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Text>
+            <JFXButton fx:id="homebutton" layoutX="495.0" layoutY="31.0" onAction="#homebuttonAC" style="-fx-background-color: #5990D9;" text="Home" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </JFXButton>
+            <HBox alignment="CENTER" layoutX="58.0" layoutY="232.0" prefHeight="100.0" prefWidth="516.0" spacing="20.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to Server Type:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="typelabel" text="Label">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <JFXButton fx:id="ServerButton" layoutX="216.0" layoutY="450.0" onAction="#StartServer" style="-fx-background-color: #5990D9;" text="Connect Server" textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </JFXButton>
          </children>
-      </HBox>
+      </AnchorPane>
    </children>
 </AnchorPane>
