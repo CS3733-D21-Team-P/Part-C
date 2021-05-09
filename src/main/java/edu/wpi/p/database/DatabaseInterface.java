@@ -195,7 +195,7 @@ public class DatabaseInterface {
             return;
         }
         try {
-//            System.out.println("executeUpdate command: " + command);
+            System.out.println("executeUpdate command: " + command);
             PreparedStatement statement = conn.prepareStatement(command);
             statement.executeUpdate();
         } catch (Exception e) {

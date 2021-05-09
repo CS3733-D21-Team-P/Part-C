@@ -39,10 +39,7 @@ public class DFS extends SearchAlgorithm {
         }
 
         while(!stack.isEmpty()) {
-            Node n = stack.firstElement();
-            stack.remove(0);
-
-            dfs(n, targetNode);
+            dfs(stack.pop(), targetNode);
         }
     }
 }

@@ -1,29 +1,39 @@
 package edu.wpi.p.views.map;
 
 import edu.wpi.p.database.DBSettings;
+import edu.wpi.p.userstate.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 
 public class AlgorithmSelectionController {
 
     DBSettings savedAlgorithm = new DBSettings();
     private static String savedSetting = "searchAlgorithm";
 
-    @FXML public ComboBox algorithmChoiceBox;
+    @FXML private ComboBox algorithmChoiceBox;
+    @FXML private AnchorPane algorithmSelectAnchorPane;
 
     @FXML
     private void initialize() {
-        algorithmChoiceBox.setItems(FXCollections.observableArrayList(
-                "AStar", "BFS", "DFS", "Greedy", "Dijkstra")
-        );
+        User user = User.getInstance();
+        if(user.getPermissions().equals("Admin")) {
 
-        String lastAlgorithm = savedAlgorithm.getSetting(savedSetting);
-        if(lastAlgorithm != null) {
-            algorithmChoiceBox.setValue(lastAlgorithm);
+            algorithmSelectAnchorPane.setVisible(true);
+
+            algorithmChoiceBox.setItems(FXCollections.observableArrayList(
+                    "AStar", "BFS", "DFS", "Greedy", "Dijkstra")
+            );
+
+            String lastAlgorithm = savedAlgorithm.getSetting(savedSetting);
+            if (lastAlgorithm != null) {
+                algorithmChoiceBox.setValue(lastAlgorithm);
+            } else {
+                algorithmChoiceBox.setValue("AStar");
+            }
         } else {
-            algorithmChoiceBox.setValue("AStar");
+            algorithmSelectAnchorPane.setVisible(false);
         }
     }
 

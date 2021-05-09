@@ -112,11 +112,6 @@ public class PathfindingMap extends MapController {
         pathfindPage = true;
         pathTabController.injectPathfindingMap(this);
 
-        User user = User.getInstance();
-        if(user.getPermissions().equals("Admin")) {
-            //algorithmSelectionController.initChoiceBox();
-        }
-
         nextFloorBox.setVisible(false);
         System.out.println("PATHFINDING INIT");
 

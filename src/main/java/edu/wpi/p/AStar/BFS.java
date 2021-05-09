@@ -40,7 +40,10 @@ public class BFS extends SearchAlgorithm {
         }
 
         while(!stack.isEmpty()) {
-            bfs(stack.pop(), targetNode);
+            Node n = stack.firstElement();
+            stack.remove(0);
+
+            bfs(n, targetNode);
         }
     }
 }

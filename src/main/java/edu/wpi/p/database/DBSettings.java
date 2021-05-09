@@ -77,7 +77,7 @@ public class DBSettings {
     }
     public void setSetting(String settingName, String settingValue) {
         if (hasSetting(settingName)) {
-            DatabaseInterface.executeUpdate("UPDATE " + settingsTable + " SET VALUE = "+settingValue+" WHERE NAME = '"+settingName+"'");
+            DatabaseInterface.executeUpdate("UPDATE " + settingsTable + " SET VALUE = '"+settingValue+"' WHERE NAME = '"+settingName+"'");
         }
         else {
             String insertValue = "'" + settingName + "', '" + settingValue + "'";
