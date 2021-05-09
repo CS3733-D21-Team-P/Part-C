@@ -3,91 +3,83 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.06307977736549165" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <items>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="215.0" prefWidth="1918.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.aboutUsPage.Join">
+   <children>
+      <AnchorPane layoutY="8.0" prefHeight="65.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="1918.0">
-               <children>
-                  <Label style="-fx-background-color: #5990D9;" text="  UberTikTokZelda  " textFill="WHITE">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="1918.0">
-         <children>
-            <AnchorPane prefHeight="201.0" prefWidth="1918.0">
-               <children>
-                  <HBox alignment="CENTER" layoutX="449.0" layoutY="71.0" prefHeight="201.0" prefWidth="1918.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <JFXButton ripplerFill="WHITE" text="PURPLE PEGASUS" textFill="WHITE" underline="true">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton text="APPLICATION" textFill="WHITE" underline="true">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton text="WPI" textFill="WHITE" underline="true">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton ripplerFill="WHITE" text="JOIN US" textFill="WHITE" underline="true">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-            <Label layoutX="1062.0" layoutY="365.0" prefHeight="413.0" prefWidth="489.0" text="Join us and let us create the future together. &#10;Add new colors to the world. &#10;Discord link https://discord.gg/ZDRCRZ7PZ9." textFill="#1b2e4b" wrapText="true">
+            <Label layoutX="14.0" layoutY="18.0" style="-fx-background-color: #5990D9;" text="  UberTikTokZelda  " textFill="WHITE">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label layoutX="1091.0" layoutY="288.0" text="Create The Future With Us" textFill="#1b2e4b">
+            <JFXButton layoutX="1849.0" layoutY="15.0" onAction="#home" style="-fx-background-color: #5990D9;" text="Home" textFill="WHITE">
                <font>
-                  <Font size="34.0" />
+                  <Font size="15.0" />
                </font>
-            </Label>
-            <Label layoutX="1071.0" layoutY="978.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." />
-            <ImageView fitHeight="557.0" fitWidth="612.0" layoutX="251.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/aboutUsImage/image1.png" />
-               </image>
-            </ImageView>
-            <fx:include source="../Toolbar.fxml" />
+            </JFXButton>
          </children>
       </AnchorPane>
-   </items>
-</SplitPane>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0" />
+      <ImageView fitHeight="557.0" fitWidth="612.0" layoutX="285.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/aboutUsImage/image1.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1127.0" layoutY="454.0" text="Create The Future With Us" textFill="#1b2e4b">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="1098.0" layoutY="419.0" prefHeight="413.0" prefWidth="489.0" text="Join us and let us create the future together. &#10;Add new colors to the world. &#10;Discord link https://discord.gg/ZDRCRZ7PZ9." textFill="#1b2e4b" wrapText="true">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="11.0" layoutY="117.0" prefHeight="200.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="449.0" layoutY="71.0" prefHeight="201.0" prefWidth="1918.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton onAction="#team" ripplerFill="WHITE" text="PURPLE PEGASUS" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#app" text="APPLICATION" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#wpi" text="WPI" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#join" ripplerFill="WHITE" text="JOIN US" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

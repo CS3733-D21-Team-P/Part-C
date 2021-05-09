@@ -101,7 +101,7 @@ public class CreditsPage {
 
 //    public void learnMoreButtonAc(ActionEvent actionEvent) {
 //        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/aboutUsPage/team.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/aboutUsPage/cccc.fxml"));
 //            App.getPrimaryStage().getScene().setRoot(root);
 //        } catch (IOException ex) {
 //            ex.printStackTrace();
