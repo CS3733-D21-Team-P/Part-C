@@ -1,6 +1,8 @@
 package edu.wpi.p.views.map;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
@@ -11,15 +13,19 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 
+import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +46,8 @@ public class PathfindingMap extends MapController {
     @FXML public VBox saveNodePopup1;
     @FXML public AnchorPane btnPane;
     @FXML public JFXButton saveBtn;
+    @FXML public GoogleTabController googleTabController;
+    @FXML public AnchorPane base;
 
     private DBTable dbTable = new DBTable();
     private int btnIncrement = 1;
@@ -76,7 +84,7 @@ public class PathfindingMap extends MapController {
             parkingSaving.oldSpot=nb;
         }
 
-            //set on click method
+        //set on click method
         nb.setOnAction(event -> {
             pathTabController.addNodeToSearch(event);
 
@@ -109,7 +117,37 @@ public class PathfindingMap extends MapController {
             return nb;
     }
 
-
+    public void showInfoDialog(String header, String imageFile) {
+        StackPane mySP = new StackPane();
+        JFXDialogLayout content = new JFXDialogLayout();
+        content.setHeading(new Text(header));
+        Image img = new Image("file:"+imageFile);
+        javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(img);
+//        AnchorPane.setLeftAnchor(imageView, 0.0);
+//        AnchorPane.setRightAnchor(imageView, 0.0);
+        content.setBody(imageView);
+//        content.setAlignment(Pos.CENTER);
+//        content.setCenterShape(true);
+        content.setStyle("-fx-alignment: center;" +
+                "-fx-background-color:  #b6d6f2");
+        JFXDialog dialog = new JFXDialog(mySP,content, JFXDialog.DialogTransition.CENTER);
+        dialog.setOverlayClose(false);
+        dialog.setMinHeight(mySP.getPrefHeight());
+        dialog.setMinWidth(mySP.getPrefWidth());
+        JFXButton button = new JFXButton("OK");
+        button.setOnAction((ActionEvent event) -> {
+            base.getChildren().remove(mySP);
+            dialog.close();
+            mySP.setVisible(false);
+        });
+        content.setActions(button);
+        AnchorPane.setLeftAnchor(mySP,0.0);
+        AnchorPane.setRightAnchor(mySP,0.0);
+        AnchorPane.setTopAnchor(mySP, 0.0);
+        AnchorPane.setBottomAnchor(mySP, 0.0);
+        base.getChildren().add(mySP);
+        dialog.show();
+    }
 
 
     @FXML
@@ -123,6 +161,8 @@ public class PathfindingMap extends MapController {
         clippoIDController.setPage("pathfinding");
         pathfindPage = true;
         pathTabController.injectPathfindingMap(this);
+        googleTabController.injectPathfindingMap(this);
+
 
         nextFloorBox.setVisible(false);
         System.out.println("PATHFINDING INIT");
@@ -143,8 +183,10 @@ public class PathfindingMap extends MapController {
                 nodeButtonHold = null;
             }
 
-
         });
+
+
+
     }
 
     public void saveParkingAc(ActionEvent actionEvent) {

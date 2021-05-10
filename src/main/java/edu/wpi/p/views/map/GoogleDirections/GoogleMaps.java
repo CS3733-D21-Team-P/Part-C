@@ -9,14 +9,32 @@ import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.net.URI;
+import java.util.List;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
+//import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+
+
+
+import javax.imageio.stream.FileImageOutputStream;
 
 
 public class GoogleMaps {
@@ -35,13 +53,27 @@ public class GoogleMaps {
         }
     }
 
+    public String getDirectionsLink(String startLocation, String endLocation, TravelMode mode){
+        String link;
+        endLocation = endLocation.replaceAll(" ", "+");
+
+        if(startLocation.equals("")){
+            link = "https://www.google.com/maps/dir/?api=1&" +
+                    "destination="+endLocation +
+                    "&mode="+mode;
+        }
+        else {
+            startLocation = startLocation.replaceAll(" ", "+");
+            link = "https://www.google.com/maps/dir/?api=1&" +
+                    "origin=" + startLocation + "&destination=" + endLocation +
+                    "&mode=" + mode ;
+        }
+        return link;
+    }
+
     public void directionsLink(String startLocation, String endLocation, TravelMode mode){
-        startLocation= startLocation.replaceAll(" ", "+");
-        endLocation= endLocation.replaceAll(" ", "+");
-        String link = "https://www.google.com/maps/dir/?api=1&" +
-                        "origin="+startLocation+"&destination="+endLocation +
-                        "&mode="+mode+
-                        "&key="+API_Key;
+        String link = getDirectionsLink(startLocation,endLocation,mode);
+
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             try {
                 Desktop.getDesktop().browse(new URI(link));
@@ -52,6 +84,74 @@ public class GoogleMaps {
             }
         }
     }
+
+
+    public File createQRCode(String startLocation, String endLocation, TravelMode mode, String imagePath){
+        // The data that the QR code will contain
+        String data = getDirectionsLink(startLocation,endLocation,mode);
+
+        // The path where the image will get saved
+        String path = imagePath;
+
+        // Encoding charset
+        String charset = "UTF-8";
+
+        Map<EncodeHintType, ErrorCorrectionLevel> hashMap
+                = new HashMap<EncodeHintType,
+                                ErrorCorrectionLevel>();
+
+        hashMap.put(EncodeHintType.ERROR_CORRECTION,
+                ErrorCorrectionLevel.L);
+
+        // Create the QR code and save
+        // in the specified file path
+        // as a png file
+        File file = createQR(data, path, charset, hashMap, 400, 400);
+        System.out.println("QR Code Generated!!!\n Start: "+ startLocation+ " \n" +
+                "End Location: "+ endLocation);
+
+        return file;
+    }
+
+    // Function to create the QR code
+    public static File createQR(String data, String path, String charset, Map hashMap, int height, int width)
+    {
+        BitMatrix matrix = null;
+        //Make QR Code matrix
+        try {
+            matrix = new MultiFormatWriter().encode(
+                    new String(data.getBytes(charset), charset),
+                    BarcodeFormat.QR_CODE, width, height);
+        } catch (WriterException e) {
+            System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
+        }
+
+        //Make Matrix into image
+        try {
+            //check if file exists
+            File file = new File(path);
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+            file.mkdirs();
+
+            Path getPath = FileSystems.getDefault().getPath(path); //get file path
+            MatrixToImageWriter.writeToPath( //update image with QR code
+                    matrix,
+                    "png",
+                    getPath);
+            return file;
+        } catch (IOException e) {
+            System.out.println("IO exception");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      * makes a request for directions

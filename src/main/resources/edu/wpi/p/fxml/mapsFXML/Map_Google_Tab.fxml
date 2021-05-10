@@ -6,8 +6,11 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -42,9 +45,9 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="16.0" layoutY="348.0" prefHeight="471.0" prefWidth="270.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 15px;" AnchorPane.leftAnchor="15.0">
+            <AnchorPane layoutX="16.0" layoutY="348.0" prefHeight="391.0" prefWidth="270.0" style="-fx-background-color: #f2f2f2; -fx-background-radius: 15px;" AnchorPane.leftAnchor="15.0">
                <children>
-                  <JFXTextArea fx:id="textDirectionsField" layoutY="35.0" prefHeight="418.0" prefWidth="270.0" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                  <JFXTextArea fx:id="textDirectionsField" layoutY="35.0" prefHeight="347.0" prefWidth="270.0" style="-fx-background-color: #b6d6f2; -fx-background-radius: 15px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                   <Label alignment="CENTER" layoutX="41.0" layoutY="2.0" prefHeight="18.0" prefWidth="189.0" text="Directions" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="System Bold" size="24.0" />
@@ -54,18 +57,34 @@
             </AnchorPane>
             <AnchorPane prefHeight="62.0" prefWidth="270.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 15px;">
                <children>
-                  <VBox fx:id="locateVBox1" alignment="CENTER" prefHeight="73.0" prefWidth="270.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="270.0" spacing="5.0">
                      <children>
-                        <JFXButton fx:id="openLink" maxHeight="50.0" onAction="#openLink" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #5990D9; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #2F3159; -fx-border-width: 2;" text="Open in Browser">
+                        <JFXButton fx:id="openLink" maxHeight="50.0" onAction="#openLink" prefHeight="50.0" prefWidth="110.0" style="-fx-background-color: #5990D9; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #2F3159; -fx-border-width: 2;" text="Browser">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
+                           <graphic>
+                              <ImageView fitHeight="37.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/icons/browserIcon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="openQR" maxHeight="50.0" onAction="#scanQR" prefHeight="50.0" prefWidth="108.0" style="-fx-background-color: #5990D9; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #2F3159; -fx-border-width: 2;" text="Scan">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="38.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/icons/qricon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </JFXButton>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
-                  </VBox>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>

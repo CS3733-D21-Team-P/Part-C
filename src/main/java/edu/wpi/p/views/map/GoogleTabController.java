@@ -9,10 +9,12 @@ import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
 import edu.wpi.p.views.map.GoogleDirections.AutoCompleteTextField;
 import edu.wpi.p.views.map.GoogleDirections.GoogleMaps;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +23,7 @@ public class GoogleTabController {
     GoogleMaps googleMaps = new GoogleMaps();
     final String[] availableModes = new String[]{"Driving", "Walking","Biking"};
     final String[] availableParking = new String[]{"The hospital", "45 Francis Street Garage (Patient Only)", "60 Fenwood Road Garage (Patient Only)","75 Francis Street (Patient Valet)", "80 Francis Street Garage (Patient & Visitor)", "221 Longwood Avenue (Patient Valet)"};
+    private PathfindingMap pathfindingMap;
 
 
     @FXML private JFXTextArea textDirectionsField;
@@ -126,12 +129,67 @@ public class GoogleTabController {
                 chosenEnd = "221 Longwood Avenue, Boston, MA 0211";
                 break;
         }
-        if(autoStart.getText().isEmpty()){
-            System.out.println("enter a start location");
-            return;
-        }
         googleMaps.directionsLink(autoStart.getText(), chosenEnd, travelMode);
     }
+
+
+    public void scanQR(){
+        String mode = chosenMode.getSelectionModel().getSelectedItem();
+        System.out.println(mode);
+        TravelMode travelMode = TravelMode.DRIVING;
+        switch (mode) {
+            case ("Driving"):
+                travelMode = TravelMode.DRIVING;
+                break;
+            case ("Walking"):
+                travelMode = TravelMode.WALKING;
+                break;
+            case ("Biking"):
+                travelMode = TravelMode.BICYCLING;
+                break;
+            case ("Public Transport"):
+                travelMode = TravelMode.TRANSIT;
+                break;
+        }
+
+        String chosenEnd = end.getSelectionModel().getSelectedItem();
+        switch (chosenEnd){
+            case ("The hospital"):
+                chosenEnd = "Brigham and Women's Hospital, 221 Longwood Ave, Boston, MA 02115";
+                break;
+            case ("45 Francis Street Garage (Patient Only)"):
+                chosenEnd = "45 Francis St, Boston, MA 0211";
+                break;
+            case ("60 Fenwood Road Garage (Patient Only)"):
+                chosenEnd = "60 Fenwood Road, Boston, MA 0211";
+                break;
+            case ("75 Francis Street (Patient Valet)"):
+                chosenEnd = "75 Francis Street, Boston, MA 0211";
+                break;
+            case ("80 Francis Street Garage (Patient & Visitor)"):
+                chosenEnd = "80 Francis Street, Boston, MA 0211";
+                break;
+            case ("221 Longwood Avenue (Patient Valet)"):
+                chosenEnd = "221 Longwood Avenue, Boston, MA 0211";
+                break;
+        }
+        String path = "src/main/resources/edu/wpi/p/fxml/image/QRdirections.png";
+//        File file = new File(path);
+        File newFile = googleMaps.createQRCode(autoStart.getText(),chosenEnd,travelMode, path);
+        if(newFile.exists()){
+            System.out.println(newFile.getAbsolutePath());
+            pathfindingMap.showInfoDialog("Scan QR Code", newFile.getAbsolutePath());
+        }
+        else{
+            System.out.println("doesnt exist!!!!");
+        }
+    }
+
+    public void injectPathfindingMap(PathfindingMap pathfindingMap) {
+
+        this.pathfindingMap = pathfindingMap;
+    }
+
 
     @FXML
     public void initialize(){
