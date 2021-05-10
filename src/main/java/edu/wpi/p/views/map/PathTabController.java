@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -23,6 +24,7 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -69,6 +71,8 @@ public class PathTabController {
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
     @FXML public Label instructions;
+
+    private List<Node> animatedPath = new ArrayList<>();
 
     final ArrayList<PathTransition> pathTransitions = new ArrayList<>();
 
@@ -222,8 +226,9 @@ public class PathTabController {
             //Path To Text
             PathToText textPath = new PathToText();
             textPath.makeDirections(path);
+            animatedPath = path;
             updateDirectionsTable(textPath.getTableDirections());
-            animatePath(path);
+            animatePath(pathfindingMap.imageView);
 
             //print path
             System.out.println("Path: ");
@@ -411,29 +416,44 @@ public class PathTabController {
         }
     }
 
-    public void animatePath(List<Node> path) {
+    public void animatePath(ImageView imageview) {
         clearAnimations();
-        if (path == null || path.size() < 2) {
+        if (animatedPath == null || animatedPath.size() < 2) {
             return;
         }
+        Path path = new Path();
+        path = createPathForAnimation(animatedPath, imageview);
+        if (!(path.getElements().size() < 2)) {
+            double startX =  scaleX(((MoveTo) path.getElements().get(0)).getX(), imageview);
+            double startY = scaleY(((MoveTo) path.getElements().get(0)).getY(), imageview);
+//            Circle testCir = new Circle(startX,startY,5, Color.color(0/255f, 0/225f, 0/255f));
+//            PathTransition testTransition = new PathTransition();
+//            testTransition.setNode(testCir);
+//            Path testPath = new Path();
+//            testPath.getElements().add(testPath.getElements().size(), new MoveTo(((MoveTo)thePath.getElements().get(0)).getX()/10,
+//                    ((MoveTo)thePath.getElements().get(0)).getY()/10));
+//            testPath.getElements().add(testPath.getElements().size(), new LineTo(((LineTo)thePath.getElements().get(1)).getX()/10,
+//                    ((LineTo)thePath.getElements().get(1)).getY()/10));
+//            testTransition.setPath(thePath);
+//            testTransition.setCycleCount(Animation.INDEFINITE);
+//            testTransition.play();
+//
+//            testCir.setRadius(10);
+//            pathfindingMap.linePane.getChildren().add(testCir);
 
-        Path thePath = createPathForAnimation(path);
-        if (!(thePath.getElements().size() < 2)) {
-            double startX = ((MoveTo) thePath.getElements().get(0)).getX();
-            double startY = ((MoveTo) thePath.getElements().get(0)).getY();
-
-            for (int i =0; i<thePath.getElements().size() *3; i++) {
+            for (int i =0; i<path.getElements().size() *3; i++) {
                 Circle aCircle = new Circle(
                         startX,
                         startY,
                         5,
-                        javafx.scene.paint.Color.color(0/255f, 0/255f,0/255f));
-                aCircle.setRadius(8);
+                        Color.color(0/255f, 0/255f,0/255f));
+                aCircle.setRadius(6);
                 pathfindingMap.linePane.getChildren().add(aCircle);
                 PathTransition pl = new PathTransition();
                 pl.setNode(aCircle);
-                pl.setPath(thePath);
+                pl.setPath(path);
                 pl.setDuration(Duration.seconds(5));
+                pl.setDelay(Duration.seconds(.2*i));
                 pl.setAutoReverse(false);
                 pl.setCycleCount(Animation.INDEFINITE);
                 pl.play();
@@ -455,24 +475,43 @@ public class PathTabController {
         }
     }
 
-    public Path createPathForAnimation(List<Node> path) {
+    public Path createPathForAnimation(List<Node> path, ImageView imageView) {
         Path onePath = new Path();
         for (int i = 0; i < path.size() - 1; i++) {
 //            if (path.get(i).getFloor().equals(getCurrFloorVal())
 //                    && path.get(i+1).getFloor().equals(getCurrFloorVal())) {
             MoveTo moveTo = new MoveTo();
-            moveTo.setX((float) path.get(i).getXcoord());
-            moveTo.setY((float) path.get(i).getYcoord());
+            moveTo.setX((float) scaleX(path.get(i).getXcoord(), imageView));
+            moveTo.setY((float) scaleY(path.get(i).getYcoord(), imageView));
 
             LineTo lineTo = new LineTo();
-            lineTo.setX((float) path.get(i+1).getXcoord());
-            lineTo.setY((float) path.get(i+1).getYcoord());
+            lineTo.setX((float) scaleX(path.get(i+1).getXcoord(), imageView));
+            lineTo.setY((float) scaleY(path.get(i+1).getYcoord(), imageView));
 
             onePath.getElements().add(onePath.getElements().size(), moveTo);
             onePath.getElements().add(onePath.getElements().size(), lineTo);
 //            }
         }
         return onePath;
+    }
+    public double scaleX(double xCoord, ImageView imageView) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        Rectangle2D viewport = imageView.getViewport();
+        double x = (xCoord / scaleX) - viewport.getMinX() / scaleX;
+        return x;
+    }
+
+    public double scaleY(double yCoord, ImageView imageView) {
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        Rectangle2D viewport = imageView.getViewport();
+        double y = (yCoord / scaleY) - viewport.getMinY() / scaleY;
+        return y;
+    }
+
+    public void updateAnimatedPath(ImageView imageview) {
+        if (!(animatedPath.size() == 0)) {
+            animatePath(imageview);
+        }
     }
 
 }

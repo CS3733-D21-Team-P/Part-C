@@ -414,6 +414,8 @@ public abstract class MapController {
         for (EdgeLine el : edgeLines) {
             el.pan(imageView);
         }
+        PathTabController pathTabController = new PathTabController();
+        pathTabController.updateAnimatedPath(imageView);
     }
 
     void translateEdgeLine(EdgeLine el) {
