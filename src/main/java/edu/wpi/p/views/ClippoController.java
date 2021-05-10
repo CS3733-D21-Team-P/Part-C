@@ -30,19 +30,23 @@ public class ClippoController {
     @FXML public VBox clippoTextDirections;
     @FXML public VBox clippoEmpTable;
     @FXML public VBox clippoAccounts;
+    @FXML public VBox clippoSaveLoc;
+    @FXML public VBox clippoGoogleAPI;
 
     @FXML public void initialize(){
-        clippoHome.setVisible(false);
-        clippoServReq.setVisible(false);
-        clippoCOVID19.setVisible(false);
-        clippoMapEdit.setVisible(false);
-        clippoPathfind.setVisible(false);
-        clippoRequestLogs.setVisible(false);
-        clippoNodes.setVisible(false);
-        clippoCSV.setVisible(false);
-        clippoEdges.setVisible(false);
-        clippoFindTab.setVisible(false);
-        clippoTextDirections.setVisible(false);
+//        clippoHome.setVisible(false);
+//        clippoServReq.setVisible(false);
+//        clippoCOVID19.setVisible(false);
+//        clippoMapEdit.setVisible(false);
+//        clippoPathfind.setVisible(false);
+//        clippoRequestLogs.setVisible(false);
+//        clippoNodes.setVisible(false);
+//        clippoCSV.setVisible(false);
+//        clippoEdges.setVisible(false);
+//        clippoFindTab.setVisible(false);
+//        clippoTextDirections.setVisible(false);
+//        clippoSaveLoc.setVisible(false);
+//        clippoGoogleAPI.setVisible(false);
         currClippoTab = clippoButton;
 
     }
@@ -61,10 +65,18 @@ public class ClippoController {
         currClippoTab = clippoCOVID19;
     }
 
-    @FXML public void getToHospitalHelpBtn(ActionEvent actionEvent) {
-//        prevClippoTab.setVisible(false);
-//        clippoGoogleAPI.setVisible(true);
-//        prevClippoTab = clippoGoogleAPI;
+    @FXML public void saveLocHelpBtn(ActionEvent actionEvent) {
+        currClippoTab.setVisible(false);
+        clippoSaveLoc.setVisible(true);
+        prevClippoTab = currClippoTab;
+        currClippoTab = clippoSaveLoc;
+    }
+
+    @FXML public void googleAPIHelpBtn(ActionEvent actionEvent) {
+        currClippoTab.setVisible(false);
+        clippoGoogleAPI.setVisible(true);
+        prevClippoTab = currClippoTab;
+        currClippoTab = clippoGoogleAPI;
     }
 
     @FXML public void pathfindingHelpBtn(ActionEvent actionEvent) {
@@ -191,4 +203,5 @@ public class ClippoController {
     public void setPage(String page) {
         this.page = page;
     }
+
 }
