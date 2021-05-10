@@ -243,7 +243,7 @@ public class ServiceRequestLogSection extends VBox {
             toggleButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
                 ServiceRequest serviceRequest = param.getValue().getValue().getServiceRequest();
                 serviceRequest.setCompleted(newValue);
-                DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
                 dbServiceRequest.updateServiceRequest(serviceRequest);
                 requestSection.setPredicate(assignmentPredicate().call(filterField.getText()).and(completePredicate().call(showCompleteToggle.isSelected())));
             });
@@ -271,7 +271,7 @@ public class ServiceRequestLogSection extends VBox {
                         serviceRequest.addDetail(key, map.get(key));
                     }
                 }
-                DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
                 dbServiceRequest.updateServiceRequest(serviceRequest);
             });
             return new SimpleObjectProperty<JFXToggleButton>(toggleButton);
@@ -301,7 +301,7 @@ public class ServiceRequestLogSection extends VBox {
             });
             textField.textProperty().addListener((observable, oldValue, newValue) -> {
                 serviceRequest.setAssignment(newValue);
-                DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
                 dbServiceRequest.updateServiceRequest(serviceRequest);
                 requestSection.setPredicate(assignmentPredicate().call(filterField.getText()).and(completePredicate().call(showCompleteToggle.isSelected())));
             });

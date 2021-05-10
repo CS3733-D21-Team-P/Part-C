@@ -54,17 +54,6 @@ public class LanguageInterpreterServiceRequest extends GenericServiceRequest {
 
   @FXML
   private void submitForm(ActionEvent e) {
-//    final String lang = interpLanguage.getText();
-//    final String loc = interpLoc.getText();
-//    final String details = interpDetails.getText();
-//    final String doctorSig = doctorSignature.getText();
-//
-//    ServiceRequest sR = new ServiceRequest(doctorSig, loc, "Name" + "_" + loc, "Language Interpreter");
-//    DBServiceRequest dbServiceRequest = new DBServiceRequest();
-//    dbServiceRequest.addServiceRequest(sR);
-//
-//    System.out.println("submitting form for interpreter services");
-//    System.out.println("language = " + lang + "\nloc = " + loc + "\ndetails = " + details);
     super.submitPressed(e);
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/ServiceRequestHomePage.fxml"));

@@ -4,6 +4,8 @@ package edu.wpi.p.database;
 
 import edu.wpi.p.database.rowdata.Edge;
 import edu.wpi.p.database.rowdata.ServiceRequest;
+import edu.wpi.p.userstate.User;
+import org.sqlite.core.DB;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
@@ -13,7 +15,18 @@ public class DBServiceRequest {
 
     private String serviceRequestTable = "SRT";
     private List<DBColumn> serviceRequestColumn;
+    private static DBServiceRequest instance;
 
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBServiceRequest
+     */
+    public static DBServiceRequest getInstance() {
+        if (instance == null) {
+            instance = new DBServiceRequest();
+        }
+        return instance;
+    }
 
     /**
      * Standard constructor, nothing fancy

@@ -69,7 +69,7 @@ public class CovidSurvey {
         addCheckBoxDetailsToServiceRequest(userEntryRequest, thirdText, thirdCheckBox);
         addCheckBoxDetailsToServiceRequest(userEntryRequest, fourthText, fourthCheckBox);
         addCheckBoxDetailsToServiceRequest(userEntryRequest, fifthText, fifthCheckBox);
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
         dbServiceRequest.updateServiceRequest(userEntryRequest);
 
         if (firstCheckBox.isSelected() || secondCheckBox.isSelected() || thirdCheckBox.isSelected() || fourthCheckBox.isSelected())
@@ -77,7 +77,7 @@ public class CovidSurvey {
             AlertBox.displayCOVID("COVID Survey Results", "Potential COVID Risk. Please Use Emergency Entrance.");
             User.getInstance().setEntryLocation(UserEntryLocation.EMERGENCY_ENTRANCE);
 //            ServiceRequest sR = new ServiceRequest(n, "Emergency Entrance", "Name" + "_" + "Emergency Entrance", "COVID Survey");
-//            DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//            DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
 //            dbServiceRequest.addServiceRequest(sR);
 //            request = sR;
         }
@@ -85,7 +85,7 @@ public class CovidSurvey {
             AlertBox.displayCOVID("COVID Survey Results", "No Potential COVID Risk. Please Use 75 Francis Street Entrance.");
             User.getInstance().setEntryLocation(UserEntryLocation.MAIN_ENTRANCE);
 //            ServiceRequest sR = new ServiceRequest(n, "75 Francis", "Name" + "_" + "75 Francis", "COVID Survey");
-//            DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//            DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
 //            dbServiceRequest.addServiceRequest(sR);
 //            request = sR;
         }
@@ -116,7 +116,7 @@ public class CovidSurvey {
     }
 
     private List<ServiceRequest> getCovidEntryServiceRequests() {
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
         List<ServiceRequest> requestList = dbServiceRequest.getServiceRequests();
         String entryRequestName = "Covid Entry Request";
         return requestList.stream().filter(serviceRequest -> serviceRequest.getName().equals(entryRequestName)).collect(Collectors.toList());

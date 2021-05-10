@@ -43,7 +43,7 @@ public class GuestState extends UserState {
     }
 
     private List<ServiceRequest> getCovidEntryServiceRequests() {
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
         List<ServiceRequest> requestList = dbServiceRequest.getServiceRequests();
         String entryRequestName = "Covid Entry Request";
         return requestList.stream().filter(serviceRequest -> serviceRequest.getName().equals(entryRequestName)).collect(Collectors.toList());
