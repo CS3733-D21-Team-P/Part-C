@@ -67,7 +67,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -83,16 +83,15 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT">
                            <children>
-                              <JFXButton fx:id="serviceRequestHelp" onAction="#serviceRequestHelpBtn" prefHeight="25.0" prefWidth="200.0" text="External Patient Transport" underline="true" />
-                              <JFXButton fx:id="covid19Help" onAction="#covid19HelpBtn" prefHeight="25.0" prefWidth="200.0" text="Facilities Maitenance" underline="true" />
-                              <JFXButton fx:id="getToHospitalHelp" onAction="#getToHospitalHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Floral Delivery" underline="true" />
-                              <JFXButton fx:id="pathfindingHelp" onAction="#pathfindingHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Food Delivery" underline="true" />
-                              <JFXButton fx:id="editMapHelp" onAction="#editMapHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Gift Delivery" underline="true" />
-                              <JFXButton fx:id="requestLogsHelp" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Internal Patient Transport" underline="true" />
-                              <JFXButton fx:id="requestLogsHelp6" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Language Interpreter" underline="true" />
-                              <JFXButton fx:id="requestLogsHelp7" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Laundry Service" underline="true" />
-                              <JFXButton fx:id="requestLogsHelp71" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Medicine Delivey" underline="true" />
-                              <JFXButton fx:id="requestLogsHelp72" onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Sanitation Service" underline="true" />
+                              <JFXButton onAction="#serviceRequestHelpBtn" prefHeight="25.0" prefWidth="200.0" text="External Patient Transport" underline="true" />
+                              <JFXButton onAction="#covid19HelpBtn" prefHeight="25.0" prefWidth="200.0" text="Facilities Maitenance" underline="true" />
+                              <JFXButton onAction="#pathfindingHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Food Delivery" underline="true" />
+                              <JFXButton onAction="#editMapHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Gift Delivery" underline="true" />
+                              <JFXButton onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Internal Patient Transport" underline="true" />
+                              <JFXButton onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Language Interpreter" underline="true" />
+                              <JFXButton onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Laundry Service" underline="true" />
+                              <JFXButton onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Medicine Delivey" underline="true" />
+                              <JFXButton onAction="#requestLogsHelpBtn" prefHeight="25.0" prefWidth="200.0" text="Sanitation Service" underline="true" />
                            </children>
                         </VBox>
                      </children>
@@ -108,7 +107,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -136,7 +135,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -172,7 +171,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -229,7 +228,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -257,7 +256,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -285,7 +284,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -313,7 +312,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -341,7 +340,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-radius: 15; -fx-background-color: #5990d9#5990d9;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-radius: 15; -fx-background-color: #5990d9#5990d9;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -369,7 +368,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -397,7 +396,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -425,7 +424,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -453,7 +452,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>
@@ -481,7 +480,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXTextArea>
-                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Back" />
+                        <JFXButton onAction="#clippoBackButton" style="-fx-background-color: #5990d9; -fx-background-radius: 15;" text="Home" />
                      </children>
                   </HBox>
                   <HBox>

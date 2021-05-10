@@ -34,17 +34,19 @@ public class ClippoController {
     @FXML public VBox clippoGoogleAPI;
 
     @FXML public void initialize(){
-        clippoHome.setVisible(false);
-        clippoServReq.setVisible(false);
-        clippoCOVID19.setVisible(false);
-        clippoMapEdit.setVisible(false);
-        clippoPathfind.setVisible(false);
-        clippoRequestLogs.setVisible(false);
-        clippoNodes.setVisible(false);
-        clippoCSV.setVisible(false);
-        clippoEdges.setVisible(false);
-        clippoFindTab.setVisible(false);
-        clippoTextDirections.setVisible(false);
+//        clippoHome.setVisible(false);
+//        clippoServReq.setVisible(false);
+//        clippoCOVID19.setVisible(false);
+//        clippoMapEdit.setVisible(false);
+//        clippoPathfind.setVisible(false);
+//        clippoRequestLogs.setVisible(false);
+//        clippoNodes.setVisible(false);
+//        clippoCSV.setVisible(false);
+//        clippoEdges.setVisible(false);
+//        clippoFindTab.setVisible(false);
+//        clippoTextDirections.setVisible(false);
+//        clippoSaveLoc.setVisible(false);
+//        clippoGoogleAPI.setVisible(false);
         currClippoTab = clippoButton;
 
     }
