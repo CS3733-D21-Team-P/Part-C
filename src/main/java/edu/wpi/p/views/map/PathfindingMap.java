@@ -117,38 +117,6 @@ public class PathfindingMap extends MapController {
             return nb;
     }
 
-    public void showInfoDialog(String header, String imageFile) {
-        StackPane mySP = new StackPane();
-        JFXDialogLayout content = new JFXDialogLayout();
-        content.setHeading(new Text(header));
-        Image img = new Image("file:"+imageFile);
-        javafx.scene.image.ImageView imageView = new javafx.scene.image.ImageView(img);
-//        AnchorPane.setLeftAnchor(imageView, 0.0);
-//        AnchorPane.setRightAnchor(imageView, 0.0);
-        content.setBody(imageView);
-//        content.setAlignment(Pos.CENTER);
-//        content.setCenterShape(true);
-        content.setStyle("-fx-alignment: center;" +
-                "-fx-background-color:  #b6d6f2");
-        JFXDialog dialog = new JFXDialog(mySP,content, JFXDialog.DialogTransition.CENTER);
-        dialog.setOverlayClose(false);
-        dialog.setMinHeight(mySP.getPrefHeight());
-        dialog.setMinWidth(mySP.getPrefWidth());
-        JFXButton button = new JFXButton("OK");
-        button.setOnAction((ActionEvent event) -> {
-            base.getChildren().remove(mySP);
-            dialog.close();
-            mySP.setVisible(false);
-        });
-        content.setActions(button);
-        AnchorPane.setLeftAnchor(mySP,0.0);
-        AnchorPane.setRightAnchor(mySP,0.0);
-        AnchorPane.setTopAnchor(mySP, 0.0);
-        AnchorPane.setBottomAnchor(mySP, 0.0);
-        base.getChildren().add(mySP);
-        dialog.show();
-    }
-
 
     @FXML
     /**

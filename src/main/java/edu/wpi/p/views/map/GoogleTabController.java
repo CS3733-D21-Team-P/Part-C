@@ -5,12 +5,12 @@ import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
-import edu.wpi.p.views.map.GoogleDirections.AutoCompleteTextField;
-import edu.wpi.p.views.map.GoogleDirections.GoogleMaps;
+import edu.wpi.p.AStar.Node;
+import edu.wpi.p.views.map.GoogleDirections.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.awt.*;
@@ -32,6 +32,9 @@ public class GoogleTabController {
     @FXML private JFXComboBox<String> chosenMode;
     @FXML private VBox locateVBox;
     @FXML private JFXTextField autoStart;
+    @FXML private AnchorPane directionsPane;
+
+    private DirectionsList directionsList= new DirectionsList();
 
 //    AutoCompleteTextField field;
 
@@ -78,7 +81,7 @@ public class GoogleTabController {
         }
 
 
-        googleMaps.getDirections(autoStart.getText(), chosenEnd, travelMode, textDirectionsField);
+        googleMaps.getDirections(autoStart.getText(), chosenEnd, travelMode, textDirectionsField, directionsList);
     }
 
     @FXML
@@ -178,14 +181,17 @@ public class GoogleTabController {
         File newFile = googleMaps.createQRCode(autoStart.getText(),chosenEnd,travelMode, path);
         if(newFile.exists()){
             System.out.println(newFile.getAbsolutePath());
-            pathfindingMap.showInfoDialog("Scan QR Code", newFile.getAbsolutePath());
+            CenterPopup qrPopup = new CenterPopup("Scan QR Code", newFile.getAbsolutePath(),pathfindingMap.base);
+//            pathfindingMap.showInfoDialog("Scan QR Code", newFile.getAbsolutePath());
         }
         else{
             System.out.println("doesnt exist!!!!");
         }
     }
 
-    public void injectPathfindingMap(PathfindingMap pathfindingMap) {
+
+
+        public void injectPathfindingMap(PathfindingMap pathfindingMap) {
 
         this.pathfindingMap = pathfindingMap;
     }
@@ -207,6 +213,8 @@ public class GoogleTabController {
             System.out.println("key released");
             textChanged(acp);
         });
+
+        directionsPane.getChildren().add(directionsList);
 
     }
 }

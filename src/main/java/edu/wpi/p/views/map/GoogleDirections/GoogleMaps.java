@@ -6,12 +6,13 @@ import com.google.maps.GeoApiContext.Builder;
 import com.google.maps.errors.ZeroResultsException;
 import com.google.maps.model.*;
 import com.jfoenix.controls.JFXTextArea;
+import edu.wpi.p.AStar.Node;
+import edu.wpi.p.views.map.DirectionTableEntry;
 import javafx.application.Platform;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -24,17 +25,12 @@ import java.util.List;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
-//import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
-
-
-
-import javax.imageio.stream.FileImageOutputStream;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 
 public class GoogleMaps {
@@ -184,7 +180,7 @@ public class GoogleMaps {
      * @param mode
      * @param textArea
      */
-    public void getDirections(String startLocation, String endLocation, TravelMode mode, JFXTextArea textArea){
+    public void getDirections(String startLocation, String endLocation, TravelMode mode, JFXTextArea textArea, DirectionsList directionsList){
 //        Builder builder = new GeoApiContext.Builder();
 //        builder.apiKey(API_Key);
 //        GeoApiContext context = builder.build();
@@ -218,6 +214,8 @@ public class GoogleMaps {
                     aboutRoute += "Distance: " + result.routes[0].legs[0].distance.humanReadable +"\n";
 
                     updateText(textArea, directionsText, aboutRoute); //update textview on page
+                    directionsList.updateDirectionsTable(directionsList.makeGoogleDirections(directionsText));
+//                    directionsList.updateDirectionsTable(makeDirections(directionsText));
 
                     System.out.println("found directions");
                 }
@@ -236,10 +234,13 @@ public class GoogleMaps {
                     errorText.add("No Results Found");
                 }
                 updateText(textArea, errorText, "ERROR"); //update textview on page
-                System.out.println("calculateDirections"+ "calculateDirections: Failed to get directions: " + e.getMessage());
+                System.out.println("calculateDirections: Failed to get directions: " + e.getMessage());
+                e.printStackTrace();
             }
         });
     }
+
+
 
     //Not allowed to use geocoding api
     public void checkValidRequest(String startLocation){
@@ -302,11 +303,13 @@ public class GoogleMaps {
         }
     }
 
-    /**
-     * gets rid of all html tags
-     * @param html
-     * @return String without html
-     */
+
+
+        /**
+         * gets rid of all html tags
+         * @param html
+         * @return String without html
+         */
     public String getHTMLText(String html){
         String htmlBody = html.replaceAll("<hr>", ""); // one off for horizontal rule lines
         String plainTextBody = htmlBody.replaceAll("<[^<>]+>([^<>]*)<[^<>]+>", "$1");
