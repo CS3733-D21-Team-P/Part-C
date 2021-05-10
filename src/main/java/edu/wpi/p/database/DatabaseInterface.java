@@ -24,6 +24,12 @@ public class DatabaseInterface {
         }
     }
 
+    /**
+     * If the database connection has not been initialized, attempts to connect to a server at localhost:1527
+     * if that fails, falls back on the embedded database. forceReInit can be set to true to force attempting
+     * to connect to the server, and fall back on the embedded, even if the database has already been initialized
+     * @param forceReInit true if the database should reinitialize if a connection already exists, false otherwise
+     */
     public static void init(boolean forceReInit) {
         if (hasInit()) {
             if (!forceReInit) {
