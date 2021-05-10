@@ -24,6 +24,7 @@ import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -194,6 +195,8 @@ public class ServiceRequestLogSection extends VBox {
     private String[] getCovidEntryDetailColumn(List<ServiceRequest> requests) {
         List<String> detailColumn = getAllDetailColumns(requests);
         detailColumn.remove("UserID");
+        detailColumn.remove("Is Covid Risk");
+        detailColumn.remove("Approved to Enter");
         return detailColumn.toArray(new String[0]);
     }
 
@@ -226,6 +229,7 @@ public class ServiceRequestLogSection extends VBox {
         treeView.getColumns().add(completeColumn);
         if (isCovidEntryRequest) {
             treeView.getColumns().add(makeCovidRiskColumn());
+            treeView.getColumns().add(makeApprovedEntryColumn());
         }
         treeView.setRoot(root);
         treeView.setShowRoot(false);
@@ -264,12 +268,29 @@ public class ServiceRequestLogSection extends VBox {
                     serviceRequest.addDetail("Is Covid Risk", "yes");
                 }
                 else {
-                    HashMap<String, String> map = serviceRequest.getDetailsMap();
-                    map.remove("Is Covid Risk");
-                    serviceRequest.removeAllDetails();
-                    for (String key : map.keySet()) {
-                        serviceRequest.addDetail(key, map.get(key));
-                    }
+                    serviceRequest.removeDetail("Is Covid Risk");
+                }
+                DBServiceRequest dbServiceRequest = new DBServiceRequest();
+                dbServiceRequest.updateServiceRequest(serviceRequest);
+            });
+            return new SimpleObjectProperty<JFXToggleButton>(toggleButton);
+        });
+        return covidRiskColumn;
+    }
+
+    private JFXTreeTableColumn<ServiceRequestTableEntry, JFXToggleButton>  makeApprovedEntryColumn() {
+        JFXTreeTableColumn<ServiceRequestTableEntry, JFXToggleButton> covidRiskColumn = new JFXTreeTableColumn<>("Approved to Enter");
+        covidRiskColumn.setPrefWidth(100);
+        covidRiskColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<ServiceRequestTableEntry, JFXToggleButton> param) -> {
+            JFXToggleButton toggleButton = new JFXToggleButton();
+            toggleButton.setSelected(param.getValue().getValue().getServiceRequest().getDetailNames().contains("Approved to Enter"));
+            toggleButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                ServiceRequest serviceRequest = param.getValue().getValue().getServiceRequest();
+                if (newValue) {
+                    serviceRequest.addDetail("Approved to Enter", "yes");
+                }
+                else {
+                    serviceRequest.removeDetail("Approved to Enter");
                 }
                 DBServiceRequest dbServiceRequest = new DBServiceRequest();
                 dbServiceRequest.updateServiceRequest(serviceRequest);

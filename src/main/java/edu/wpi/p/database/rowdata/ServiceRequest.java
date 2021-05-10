@@ -6,9 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javax.xml.ws.Service;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ServiceRequest extends DBRow {
     private String nameCol = "NAME";
@@ -100,6 +98,27 @@ public class ServiceRequest extends DBRow {
     }
     public void removeAllDetails() {
         this.changeValue(detailCol, "");
+    }
+    public void removeDetail(String detailName) {
+        String details = this.getDetails();
+        System.out.println("details before: " + details);
+        String[] entries = details.split("" + lineSeperator);
+        List<String> entriesList = new ArrayList<>();
+        for (String e : entries) {
+            entriesList.add(e);
+        }
+        Iterator<String> it = entriesList.listIterator();
+        while (it.hasNext()) {
+            String line = it.next();
+            String[] values = line.split("" + keyValueSeperator);
+            if (values.length > 0) {
+                if (values[0].equals(detailName)) {
+                    it.remove();
+                }
+            }
+        }
+        this.setDetails(String.join("" + lineSeperator, entriesList));
+        System.out.println("details after: " + this.getDetails());
     }
     public HashMap<String, String> getDetailsMap() {
         String details = this.getDetails();
