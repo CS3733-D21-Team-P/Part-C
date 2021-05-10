@@ -67,7 +67,7 @@ public class CSVDBConverter {
         return nodes;
     }
 
-    public static void addCSVNodesToTable(DBTable table, CSVData nodes) {
+    public static void addCSVNodesToTable(DBMap table, CSVData nodes) {
         List<Column> nodeColumns = nodes.getAllColumns();
 
         List<Node> tableNodes = createNodesFromColumns(nodeColumns);
@@ -79,7 +79,7 @@ public class CSVDBConverter {
         }
     }
 
-    public static void addCSVEdgesToTable(DBTable table, CSVData edges) {
+    public static void addCSVEdgesToTable(DBMap table, CSVData edges) {
         List<Column> edgeColumns = edges.getAllColumns();
 
         List<DBColumn> edgeDBCols = dbColumnsFromCSVColumns(edgeColumns);
@@ -98,14 +98,14 @@ public class CSVDBConverter {
      * @param edges CSVData parsed from MapEdges.csv
      * @return new DBTable with data from CSV
      */
-    public static DBTable tableFromCSVData(CSVData nodes, CSVData edges) {
+    public static DBMap tableFromCSVData(CSVData nodes, CSVData edges) {
         List<Column> nodeColumns = nodes.getAllColumns();
         List<Column> edgeColumns = edges.getAllColumns();
 
         List<DBColumn> nodeDBCols = dbColumnsFromCSVColumns(nodeColumns);
         List<DBColumn> edgeDBCols = dbColumnsFromCSVColumns(edgeColumns);
 
-        DBTable table = new DBTable(nodeDBCols, edgeDBCols);
+        DBMap table = new DBMap(nodeDBCols, edgeDBCols);
 
         List<Node> tableNodes = createNodesFromColumns(nodeColumns);
         for(Node n : tableNodes) {
@@ -122,7 +122,7 @@ public class CSVDBConverter {
         return table;
     }
 
-    public static CSVData csvNodesFromTable(DBTable table) {
+    public static CSVData csvNodesFromTable(DBMap table) {
         CSVData data = new CSVData("MapNodes");
         List<Node> nodes = table.getNodes();
         List<String> idData = nodes.stream().map(n -> n.getId()).collect(Collectors.toList());
@@ -144,7 +144,7 @@ public class CSVDBConverter {
         return data;
     }
 
-    public static CSVData csvEdgesFromTable(DBTable table) {
+    public static CSVData csvEdgesFromTable(DBMap table) {
         CSVData data = new CSVData("MapEdges");
         List<List<String>> edgeData = table.getEdgeData();
         List edgeIds = edgeData.stream().map(list -> list.get(0)).collect(Collectors.toList());

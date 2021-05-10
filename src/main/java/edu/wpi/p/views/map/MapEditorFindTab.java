@@ -4,7 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
 import edu.wpi.p.views.map.Filter.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -35,7 +35,7 @@ public class MapEditorFindTab {
     private MapController mapController;
 //    private EditMap editMapController;
 //    private PathfindingMap pathfindingMapController;
-    private DBTable dbTable = new DBTable();
+    private DBMap dbMap = DBMap.getInstance();
     private JFXTreeTableColumn<NodeTableEntry, String> nodeName;
     private JFXTreeTableColumn<NodeTableEntry, String> nodeType;
     private JFXTreeTableColumn<NodeTableEntry, String> nodeFloor;
@@ -80,7 +80,7 @@ public class MapEditorFindTab {
             }
         });
 
-        nodeList = dbTable.getNodes();
+        nodeList = dbMap.getNodes();
 
         updateList(nodeName, nodeType, nodeFloor, nodeBuilding, "All Floors");
 //        List<Node> filteredNodes = filterNodes(nodeList);

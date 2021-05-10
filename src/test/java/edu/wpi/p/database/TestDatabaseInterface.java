@@ -36,7 +36,7 @@ public class TestDatabaseInterface {
         try {
             CSVData nodeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Nodes.csv");
             CSVData edgeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Edges.csv");
-            DBTable table = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
+            DBMap table = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
             CSVData newNodes = CSVDBConverter.csvNodesFromTable(table);
             CSVData newEdges = CSVDBConverter.csvEdgesFromTable(table);
             CSVHandler.writeCSVData(newNodes, "newNodes.csv");

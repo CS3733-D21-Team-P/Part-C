@@ -1,9 +1,5 @@
 package edu.wpi.p.database;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.*;
@@ -65,7 +61,7 @@ public class DatabaseInterface {
      * @return true if the table gets created, false otherwise
      */
     public static boolean createTable(String tableName, List<DBColumn> columns) {
-        String columnDefinitions = String.join(",\n", columns.stream().map(DBColumn::toString).collect(Collectors.toList()));
+        String columnDefinitions = columns.stream().map(DBColumn::toString).collect(Collectors.joining(",\n"));
         String primaryKeyName = "";
         for (DBColumn col : columns) {
             if (col.isPrimarykey()) {
@@ -84,8 +80,8 @@ public class DatabaseInterface {
             statement.execute();
             statement.close();
             return true;
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
             return false;
         }
@@ -102,7 +98,10 @@ public class DatabaseInterface {
      * @return true if new table created, false otherwise
      */
     public static boolean createTableIfNotExists(String tableName, List<DBColumn> columns) {
-        List names = getTableNames();
+        List<String> names = getTableNames();
+        if (names == null) {
+            return false;
+        }
         if (names.contains(tableName.toUpperCase())) {
             return false;
         }
@@ -110,7 +109,7 @@ public class DatabaseInterface {
     }
 
     public static boolean updateDBRow(String table, String idCol, String id, DBRow row) {
-        Collection<String> columnsToUpdate = new HashSet<String>(row.getCols());
+        Collection<String> columnsToUpdate = new HashSet<>(row.getCols());
         columnsToUpdate.removeIf(s -> s.equals(idCol));
         String updateQuery = "UPDATE " + table + " SET ";
         List<String> updates = columnsToUpdate.stream().map(s -> s + " = ?").collect(Collectors.toList());
@@ -119,10 +118,17 @@ public class DatabaseInterface {
 //        System.out.println("update query is " + updateQuery);
         try {
             List<DBColumn> cols = getColumns(table);
+            if (cols == null) {
+                return false;
+            }
             PreparedStatement statement = conn.prepareStatement(updateQuery);
             int i = 1;
             for (String c : columnsToUpdate) {
-                DBColumn column = cols.stream().filter(col -> col.getName().equals(c)).findFirst().get();
+                Optional<DBColumn> optionalColumn = cols.stream().filter(col -> col.getName().equals(c)).findFirst();
+                if (!optionalColumn.isPresent()) {
+                    continue;
+                }
+                DBColumn column = optionalColumn.get();
                 if (column.getType().equals("INTEGER")) {
                     statement.setInt(i, (Integer) row.getValue(column.getName()));
                 } else if (column.getType().equals("BOOLEAN")) {
@@ -134,8 +140,9 @@ public class DatabaseInterface {
             }
             statement.execute();
             statement.close();
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+            return true;
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
         return false;
@@ -144,15 +151,20 @@ public class DatabaseInterface {
     public static boolean insertDBRowIntoTable(String table, DBRow row) {
         try {
             List<DBColumn> cols = getColumns(table);
+            if (cols == null) {
+                return false;
+            }
             String query = "INSERT INTO " + table + "(";
-            query += String.join(", ", cols.stream().map(c -> "" + c.getName() + "").collect(Collectors.toList()));
+            query += cols.stream().map(c -> "" + c.getName() + "").collect(Collectors.joining(", "));
             query += ") VALUES (";
+            StringBuilder queryBuilder = new StringBuilder(query);
             for (int i = 0; i < cols.size(); i++) {
-                query += "?";
+                queryBuilder.append("?");
                 if (i < cols.size() - 1) {
-                    query += ", ";
+                    queryBuilder.append(", ");
                 }
             }
+            query = queryBuilder.toString();
             query += ")";
             PreparedStatement statement = conn.prepareStatement(query);
             for (int i = 0; i < cols.size(); i++) {
@@ -167,8 +179,9 @@ public class DatabaseInterface {
             }
             statement.execute();
             statement.close();
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+            return true;
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
         return false;
@@ -181,8 +194,8 @@ public class DatabaseInterface {
             PreparedStatement statement = conn.prepareStatement(insertString);
             statement.execute();
             statement.close();
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
         return false;
@@ -210,8 +223,8 @@ public class DatabaseInterface {
             statement.close();
 //            System.out.println("ret is: " + ret);
             return ret;
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
         return null;
@@ -226,42 +239,42 @@ public class DatabaseInterface {
             System.out.println("executeUpdate command: " + command);
             PreparedStatement statement = conn.prepareStatement(command);
             statement.executeUpdate();
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
     }
 
-    public static List<List<String>> getQuery(String tableName, String selectQuery) {
-        if (conn == null) {
-            System.out.println("tried to list the tables before connection initialized, returning");
-            return null;
-        }
-        try {
-            PreparedStatement statement = conn.prepareStatement(selectQuery);
-            ResultSet result = statement.executeQuery();
-            List<DBColumn> columns = getColumns(tableName);
-            List<List<String>> rows = new ArrayList<>();
-            while (result.next()) {
-                try {
-                    List<String> values = new ArrayList<>();
-                    for (DBColumn c : columns) {
-                        values.add(result.getString(c.getName()));
-                    }
-                    rows.add(values);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            result.close();
-            statement.close();
-            return rows;
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public static List<List<String>> getQuery(String tableName, String selectQuery) {
+//        if (conn == null) {
+//            System.out.println("tried to list the tables before connection initialized, returning");
+//            return null;
+//        }
+//        try {
+//            PreparedStatement statement = conn.prepareStatement(selectQuery);
+//            ResultSet result = statement.executeQuery();
+//            List<DBColumn> columns = getColumns(tableName);
+//            List<List<String>> rows = new ArrayList<>();
+//            while (result.next()) {
+//                try {
+//                    List<String> values = new ArrayList<>();
+//                    for (DBColumn c : columns) {
+//                        values.add(result.getString(c.getName()));
+//                    }
+//                    rows.add(values);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            result.close();
+//            statement.close();
+//            return rows;
+//        } catch (SQLException e) {
+//            SQLExceptionPrint(e);
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public static List<List<String>> getAllFromTable(String table) {
         String selectQuery = "SELECT * FROM " + table;
@@ -274,6 +287,9 @@ public class DatabaseInterface {
             PreparedStatement statement = conn.prepareStatement(selectQuery);
             ResultSet result = statement.executeQuery();
             List<DBColumn> columns = getColumns(table);
+            if (columns == null) {
+                return null;
+            }
             List<List<String>> rows = new ArrayList<>();
             while (result.next()) {
                 try {
@@ -289,8 +305,8 @@ public class DatabaseInterface {
             result.close();
             statement.close();
             return rows;
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
         return null;
@@ -302,7 +318,7 @@ public class DatabaseInterface {
      * @return A list of the user table names
      */
     public static List<String> getTableNames() {
-        String tableQuery = "SELECT * FROM SYS.SYSTABLES WHERE TABLETYPE=\'T\'";
+        String tableQuery = "SELECT * FROM SYS.SYSTABLES WHERE TABLETYPE='T'";
 
         if (conn == null) {
             System.out.println("tried to list the tables before connection initialized, returning");
@@ -324,8 +340,8 @@ public class DatabaseInterface {
             result.close();
             statement.close();
             return names;
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
         return null;
@@ -334,7 +350,7 @@ public class DatabaseInterface {
     /**
      * Gets a list of types containing the name and type of the columns in the table with the given name
      *
-     * @param tableName
+     * @param tableName The name of the table in the database to get the columns from
      * @return List<DatabaseColumn> where each DatabaseColumn contains the name and type of the column
      */
     public static List<DBColumn> getColumns(String tableName) {
@@ -371,8 +387,8 @@ public class DatabaseInterface {
             result.close();
             statement.close();
             return cols;
-        } catch (Exception e) {
-            SQLExceptionPrint((SQLException) e);
+        } catch (SQLException e) {
+            SQLExceptionPrint(e);
             e.printStackTrace();
         }
         return null;
@@ -381,6 +397,10 @@ public class DatabaseInterface {
     public static void printColumnNames(String tableName) {
         List<DBColumn> columns = getColumns(tableName);
         System.out.println("Columns in table " + tableName + ":");
+        if (columns == null) {
+            System.out.println("null");
+            return;
+        }
         for (DBColumn c : columns) {
             System.out.println(c);
         }
@@ -389,6 +409,10 @@ public class DatabaseInterface {
     public static void printTables() {
         List<String> tableNames = getTableNames();
         System.out.println("Table Names:");
+        if (tableNames == null) {
+            System.out.println("null");
+            return;
+        }
         for (String name : tableNames) {
             System.out.println(name);
         }

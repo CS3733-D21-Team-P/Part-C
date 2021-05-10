@@ -5,7 +5,7 @@ import edu.wpi.p.App;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,7 +67,7 @@ public class MapPNodeData {
         }
     }
 
-    private DBTable dbTable = new DBTable();
+    private DBMap dbMap = DBMap.getInstance();
     private List<Node> nodeDataList;
 
 
@@ -77,7 +77,7 @@ public class MapPNodeData {
 //        CSVData nodeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Nodes.csv");
 //        CSVData edgeData = CSVHandler.readCSVFile("src/main/java/edu.wpi.p.AStar/L1Edges.csv");
 //        dbTable = CSVDBConverter.tableFromCSVData(nodeData, edgeData);
-        nodeDataList = dbTable.getNodes();
+        nodeDataList = dbMap.getNodes();
 
         //set up the columns in the table
         nodeIDCol.setCellValueFactory(new PropertyValueFactory<Node, String>("id"));
@@ -117,8 +117,8 @@ public class MapPNodeData {
         Node node = new Node(tfName.getText(), tfnodeID.getText(), Integer.parseInt(tfxcoord.getText()), Integer.parseInt(tfycoord.getText()),tffloor.getText(),tfbuilding.getText(),tfnodeType.getText(), tfshortName.getText());
         nodeDataTableView.getItems().add(node);
 
-        DBTable dbTable = new DBTable();
-        dbTable.addNode(node);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.addNode(node);
 
     }
 
@@ -128,8 +128,8 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node node = nodeDataTableView.getItems().get(nodeIDRow);
         //Remove from DB
-        DBTable dbTable = new DBTable();
-        dbTable.removeNode(node.getId());
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.removeNode(node.getId());
         //Remove from TableView
         nodeDataTableView.getItems().removeAll(nodeDataTableView.getSelectionModel().getSelectedItem());
     }
@@ -143,8 +143,8 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateNode(nodeID);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.updateNode(nodeID);
     }
 
     public void Editycoord(TableColumn.CellEditEvent<Node, Integer> ycoordEditEvent) {
@@ -156,8 +156,8 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateNode(nodeID);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.updateNode(nodeID);
     }
 
     public void Editfloor(TableColumn.CellEditEvent<Node, String> floorEditEvent) {
@@ -169,8 +169,8 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateNode(nodeID);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.updateNode(nodeID);
     }
 
     public void Editbuilding(TableColumn.CellEditEvent<Node, String> buildingEditEvent) {
@@ -182,8 +182,8 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateNode(nodeID);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.updateNode(nodeID);
     }
 
     public void EditnodeType(TableColumn.CellEditEvent<Node, String> typeEditEvent) {
@@ -195,8 +195,8 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateNode(nodeID);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.updateNode(nodeID);
     }
 
     public void EditlongName(TableColumn.CellEditEvent<Node, String> longNameEditEvent) {
@@ -208,8 +208,8 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateNode(nodeID);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.updateNode(nodeID);
     }
 
     public void EditshortName(TableColumn.CellEditEvent<Node, String> shortNameEditEvent) {
@@ -221,24 +221,24 @@ public class MapPNodeData {
         int nodeIDRow = nodeIDPos.getRow();
         Node nodeID = nodeDataTableView.getItems().get(nodeIDRow);
         //Update in DB
-        DBTable dbTable = new DBTable();
-        dbTable.updateNode(nodeID);
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.updateNode(nodeID);
     }
 
     @FXML
     private void importNodeCSVBtn(ActionEvent actionEvent) throws Exception {
         CSVData nodeData = CSVHandler.readCSVFile(nodeFilepathField.getText());
 
-        dbTable.clearNodes();
-        CSVDBConverter.addCSVNodesToTable(dbTable, nodeData);
-        nodeDataList = dbTable.getNodes();
+        dbMap.clearNodes();
+        CSVDBConverter.addCSVNodesToTable(dbMap, nodeData);
+        nodeDataList = dbMap.getNodes();
         nodeDataTableView.setItems(getNodeData());
     }
 
     @FXML
     private void exportNodeCSVBtn(ActionEvent actionEvent) {
-        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
-        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
+        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbMap);
+        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbMap);
         CSVHandler.writeCSVData(newNodes, "newNodes.csv");
         CSVHandler.writeCSVData(newEdges, "newEdges.csv");
     }
