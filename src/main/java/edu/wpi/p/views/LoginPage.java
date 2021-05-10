@@ -78,7 +78,7 @@ public class LoginPage {
 
         }
         if (!tableNames.contains("USERS")) {
-            dbuser = new DBUser();
+            dbuser = DBUser.getInstance();
             dbuser.addUser(admin);
             dbuser.addUser(aemployee);
             dbuser.addUser(bemployee);
@@ -94,7 +94,7 @@ public class LoginPage {
             dbuser.addUser(tempUser);
             dbuser.addUser(pempUser);
         } else {
-            dbuser = new DBUser();
+            dbuser = DBUser.getInstance();
         }
 
         usernameTXT.requestFocus();

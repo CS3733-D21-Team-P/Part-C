@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingSaving {
-    private final DBUser dbuser = new DBUser();
+    private final DBUser dbuser = DBUser.getInstance();
     NodeButton oldSpot;
 
     /**

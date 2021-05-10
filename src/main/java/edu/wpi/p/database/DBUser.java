@@ -7,6 +7,19 @@ public class DBUser {
     String DBUser = "USERS";
     private List<DBColumn> columns = new ArrayList<>();
 
+    private static DBUser instance;
+
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBUser
+     */
+    public static DBUser getInstance() {
+        if (instance == null) {
+            instance = new DBUser();
+        }
+        return instance;
+    }
+
     public DBUser(){
         init();
         createUserTable(columns);

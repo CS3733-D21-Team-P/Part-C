@@ -65,7 +65,7 @@ public class PathfindingMap extends MapController {
         NodeButton nb = super.addNodeButton(node);
 
         List<UserFromDB> users = new ArrayList<UserFromDB>();
-        DBUser dbuser = new DBUser();
+        DBUser dbuser = DBUser.getInstance();
         users = dbuser.getUsers();
 
         //check if parking spot button

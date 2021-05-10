@@ -126,7 +126,7 @@ public class ServiceRequestLogSection extends VBox {
         return callback;
     }
     private List<String> getAllUserNames() {
-        DBUser dbUser = new DBUser();
+        DBUser dbUser = DBUser.getInstance();
         List<UserFromDB> users = dbUser.getUsers();
         List<String> names = new ArrayList<>(users.size());
         for (UserFromDB user : users) {

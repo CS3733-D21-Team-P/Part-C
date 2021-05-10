@@ -7,6 +7,19 @@ public class DBSettings {
     private String settingsTable = "Settings";
     private List<DBColumn> columns = new ArrayList<>();
 
+    private static DBSettings instance;
+
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBSettings
+     */
+    public static DBSettings getInstance() {
+        if (instance == null) {
+            instance = new DBSettings();
+        }
+        return instance;
+    }
+
     public DBSettings(){
         init();
         createSettingsTable(columns);

@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class AlgorithmSelectionController {
 
-    DBSettings savedAlgorithm = new DBSettings();
+    DBSettings savedAlgorithm = DBSettings.getInstance();
     private static String savedSetting = "searchAlgorithm";
 
     @FXML private ComboBox algorithmChoiceBox;
