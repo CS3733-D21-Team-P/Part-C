@@ -3,16 +3,16 @@ package edu.wpi.p.views;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class ClippoController {
@@ -24,6 +24,11 @@ public class ClippoController {
 
     private Clip clip;
     private AudioInputStream audioInputStream;
+    private boolean muted = false;
+    private Image buttonIcon;
+    Background background1;
+    Background background2;
+
 
     @FXML public VBox clippoButton;
     @FXML public Pane clippoPane;
@@ -42,8 +47,12 @@ public class ClippoController {
     @FXML public VBox clippoAccounts;
     @FXML public VBox clippoSaveLoc;
     @FXML public VBox clippoGoogleAPI;
+    @FXML public JFXButton muteButton;
 
-    @FXML public void initialize(){
+    public ClippoController() throws FileNotFoundException {
+    }
+
+    @FXML public void initialize() throws FileNotFoundException {
 //        clippoHome.setVisible(false);
 //        clippoServReq.setVisible(false);
 //        clippoCOVID19.setVisible(false);
@@ -58,7 +67,8 @@ public class ClippoController {
 //        clippoSaveLoc.setVisible(false);
 //        clippoGoogleAPI.setVisible(false);
         currClippoTab = clippoButton;
-
+        style();
+        muteButton.setVisible(false);
     }
 
     @FXML public void serviceRequestHelpBtn(ActionEvent actionEvent) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -79,18 +89,22 @@ public class ClippoController {
         playAudio("src/main/resources/audiofiles/Covid-19.wav");
     }
 
-    @FXML public void saveLocHelpBtn(ActionEvent actionEvent) {
+    @FXML public void saveLocHelpBtn(ActionEvent actionEvent) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         currClippoTab.setVisible(false);
         clippoSaveLoc.setVisible(true);
         prevClippoTab = currClippoTab;
         currClippoTab = clippoSaveLoc;
+        clip.stop();
+        playAudio("src/main/resources/audiofiles/ParkingSpot.wav");
     }
 
-    @FXML public void googleAPIHelpBtn(ActionEvent actionEvent) {
+    @FXML public void googleAPIHelpBtn(ActionEvent actionEvent) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         currClippoTab.setVisible(false);
         clippoGoogleAPI.setVisible(true);
         prevClippoTab = currClippoTab;
         currClippoTab = clippoGoogleAPI;
+        clip.stop();
+        playAudio("src/main/resources/audiofiles/GoogleAPI.wav");
     }
 
     @FXML public void pathfindingHelpBtn(ActionEvent actionEvent) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -123,6 +137,7 @@ public class ClippoController {
     @FXML public void closeClippo(ActionEvent actionEvent) {
         currClippoTab.setVisible(false);
         clippoButton.setVisible(true);
+        muteButton.setVisible(false);
         prevClippoTab = currClippoTab;
         currClippoTab = clippoButton;
         clip.stop();
@@ -178,6 +193,7 @@ public class ClippoController {
             case "serviceRequests":
                 currClippoTab.setVisible(false);
                 clippoServReq.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoServReq;
                 playAudio("src/main/resources/audiofiles/ServiceRequests.wav");
@@ -249,6 +265,36 @@ public class ClippoController {
         audioInputStream = AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
-        clip.start();
+        if (!muted) {
+            clip.start();
+        }
+    }
+
+    @FXML public void mute(ActionEvent actionEvent) throws FileNotFoundException {
+        if (muted) {
+            muteButton.setBackground(background1);
+            muted = false;
+            clip.start();
+        }
+        else {
+            muteButton.setBackground(background2);
+            muted = true;
+            clip.stop();
+        }
+    }
+
+    private void style() throws FileNotFoundException {
+        InputStream stream2 = new FileInputStream("src/main/resources/edu/wpi/p/fxml/image/icons/speakermuted.png");
+        buttonIcon = new Image(stream2, 512, 512, true, true);
+        BackgroundSize bgsize2 = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+        BackgroundImage backgroundImage2 = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize2);
+        background2 = new Background(backgroundImage2);
+
+        InputStream stream1 = new FileInputStream("src/main/resources/edu/wpi/p/fxml/image/icons/speaker.png");
+        buttonIcon = new Image(stream1, 512, 512, true, true);
+        BackgroundSize bgsize1 = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
+        BackgroundImage backgroundImage1 = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize1);
+        background1 = new Background(backgroundImage1);
+        muteButton.setBackground(background1);
     }
 }
