@@ -21,7 +21,7 @@ public class TestDBTable {
 
     @BeforeAll
     static void setup() {
-        DatabaseInterface.init();
+        DatabaseInterface.init(false);
 
     }
 

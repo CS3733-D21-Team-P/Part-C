@@ -20,53 +20,55 @@ public class DatabaseInterface {
         return conn != null;
     }
 
-    public static void closeembedded() {
+    public static void closeEmbedded() {
         try {
             DriverManager.getConnection("jdbc:derby:" + dbName + ";shutdown = true");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void init() {
-            try {
-                Class.forName("org.apache.derby.jdbc.ClientDriver");
-                System.out.println("Trying to connect to " + connectionURL);
-                conn = DriverManager.getConnection("jdbc:derby://localhost:1527/TeamPDB;create=true");
-                System.out.println("Connected to database " + connectionURL);
-                DBtype = true;
-//            turnOnBuiltInUsers(conn);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                try {
-                    Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                    System.out.println("Trying to connect to " + connectionURL);
-                    conn = DriverManager.getConnection(connectionURL);
-                    System.out.println("Connected to database " + connectionURL);
-                    DBtype = false;
-//            turnOnBuiltInUsers(conn);
-
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+    public static void init(boolean forceReInit) {
+        if (hasInit()) {
+            if (!forceReInit) {
+                return;
             }
-
-
+        }
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            System.out.println("Trying to connect to " + connectionURL);
+            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/TeamPDB;create=true");
+            System.out.println("Connected to database " + connectionURL);
+            DBtype = true;
+        } catch (Exception serverException) {
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                System.out.println("Trying to connect to " + connectionURL);
+                conn = DriverManager.getConnection(connectionURL);
+                System.out.println("Connected to database " + connectionURL);
+                DBtype = false;
+            } catch (Exception embeddedException) {
+                System.out.println("Server Exception: ");
+                serverException.printStackTrace();
+                System.out.println("Embedded Exception: ");
+                embeddedException.printStackTrace();
+            }
+        }
     }
 
     /**
      * Creates a table in the database, returns false if tale does not get created
      * Makes no attempt to prevent creating a table with a name the same as one already in the DB
+     *
      * @param tableName Name of the table
-     * @param columns A list of DatabaseColumn objects that contain the name, type, and options for the column
+     * @param columns   A list of DatabaseColumn objects that contain the name, type, and options for the column
      * @return true if the table gets created, false otherwise
      */
     public static boolean createTable(String tableName, List<DBColumn> columns) {
         String columnDefinitions = String.join(",\n", columns.stream().map(DBColumn::toString).collect(Collectors.toList()));
         String primaryKeyName = "";
         for (DBColumn col : columns) {
-            if(col.isPrimarykey()) {
+            if (col.isPrimarykey()) {
                 primaryKeyName = col.getName();
                 break;
             }
@@ -94,13 +96,14 @@ public class DatabaseInterface {
      * If there is already a table in the database with that name, nothing is done and false is returned
      * If that table does not exist but the attempt to create the table fails, false is returned
      * When a new table with that name gets successfully created, true is returned
+     *
      * @param tableName Name of the table
-     * @param columns A list of DatabaseColumns that have the name, type, and options for each column
+     * @param columns   A list of DatabaseColumns that have the name, type, and options for each column
      * @return true if new table created, false otherwise
      */
     public static boolean createTableIfNotExists(String tableName, List<DBColumn> columns) {
         List names = getTableNames();
-        if(names.contains(tableName.toUpperCase())) {
+        if (names.contains(tableName.toUpperCase())) {
             return false;
         }
         return createTable(tableName, columns);
@@ -112,7 +115,7 @@ public class DatabaseInterface {
         String updateQuery = "UPDATE " + table + " SET ";
         List<String> updates = columnsToUpdate.stream().map(s -> s + " = ?").collect(Collectors.toList());
         updateQuery += String.join(", ", updates);
-        updateQuery +=  " WHERE " + idCol + " = '" + id + "'";
+        updateQuery += " WHERE " + idCol + " = '" + id + "'";
 //        System.out.println("update query is " + updateQuery);
         try {
             List<DBColumn> cols = getColumns(table);
@@ -122,11 +125,9 @@ public class DatabaseInterface {
                 DBColumn column = cols.stream().filter(col -> col.getName().equals(c)).findFirst().get();
                 if (column.getType().equals("INTEGER")) {
                     statement.setInt(i, (Integer) row.getValue(column.getName()));
-                }
-                else if (column.getType().equals("BOOLEAN")) {
+                } else if (column.getType().equals("BOOLEAN")) {
                     statement.setBoolean(i, (Boolean) row.getValue(column.getName()));
-                }
-                else {
+                } else {
                     statement.setString(i, (String) row.getValue(column.getName()));
                 }
                 i++;
@@ -158,11 +159,9 @@ public class DatabaseInterface {
                 DBColumn col = cols.get(i);
                 if (col.getType().equals("INTEGER")) {
                     statement.setInt(i + 1, (Integer) row.getValue(col.getName()));
-                }
-                else if (col.getType().equals("BOOLEAN")) {
+                } else if (col.getType().equals("BOOLEAN")) {
                     statement.setBoolean(i + 1, (Boolean) row.getValue(col.getName()));
-                }
-                else {
+                } else {
                     statement.setString(i + 1, (String) row.getValue(col.getName()));
                 }
             }
@@ -174,9 +173,10 @@ public class DatabaseInterface {
         }
         return false;
     }
+
     public static boolean insertIntoTable(String table, String data) {
         try {
-            String insertString = "INSERT INTO "  + table + " VALUES (" + data + ")";
+            String insertString = "INSERT INTO " + table + " VALUES (" + data + ")";
 //            System.out.println(insertString);
             PreparedStatement statement = conn.prepareStatement(insertString);
             statement.execute();
@@ -199,13 +199,13 @@ public class DatabaseInterface {
             System.out.println("List of column names in the current table: ");
             //Retrieving the list of column names
             int count = rsMetaData.getColumnCount();
-            for(int i = 1; i<=count; i++) {
+            for (int i = 1; i <= count; i++) {
                 System.out.println(rsMetaData.getColumnName(i));
             }
             String ret = "";
             if (result.next()) {
 
-                ret =  result.getString(columnName);
+                ret = result.getString(columnName);
             }
             statement.close();
 //            System.out.println("ret is: " + ret);
@@ -242,14 +242,14 @@ public class DatabaseInterface {
             ResultSet result = statement.executeQuery();
             List<DBColumn> columns = getColumns(tableName);
             List<List<String>> rows = new ArrayList<>();
-            while(result.next()) {
+            while (result.next()) {
                 try {
                     List<String> values = new ArrayList<>();
-                    for(DBColumn c : columns) {
+                    for (DBColumn c : columns) {
                         values.add(result.getString(c.getName()));
                     }
                     rows.add(values);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -275,14 +275,14 @@ public class DatabaseInterface {
             ResultSet result = statement.executeQuery();
             List<DBColumn> columns = getColumns(table);
             List<List<String>> rows = new ArrayList<>();
-            while(result.next()) {
+            while (result.next()) {
                 try {
                     List<String> values = new ArrayList<>();
-                    for(DBColumn c : columns) {
+                    for (DBColumn c : columns) {
                         values.add(result.getString(c.getName()));
                     }
                     rows.add(values);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -295,8 +295,10 @@ public class DatabaseInterface {
         }
         return null;
     }
+
     /**
      * Gets the names of the user tables
+     *
      * @return A list of the user table names
      */
     public static List<String> getTableNames() {
@@ -311,11 +313,11 @@ public class DatabaseInterface {
             ResultSet result = statement.executeQuery();
 
             List<String> names = new ArrayList<>(result.getFetchSize());
-            while(result.next()) {
+            while (result.next()) {
                 try {
                     String name = result.getString("TABLENAME");
                     names.add(name);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -331,6 +333,7 @@ public class DatabaseInterface {
 
     /**
      * Gets a list of types containing the name and type of the columns in the table with the given name
+     *
      * @param tableName
      * @return List<DatabaseColumn> where each DatabaseColumn contains the name and type of the column
      */
@@ -345,10 +348,9 @@ public class DatabaseInterface {
             statement.setString(1, tableName.toUpperCase());
             ResultSet result = statement.executeQuery();
             String tableID = "";
-            if(result.next()) {
+            if (result.next()) {
                 tableID = result.getString("TABLEID");
-            }
-            else {
+            } else {
                 System.out.println("table with name " + tableName + " does not exist");
             }
             String tableQuery = "SELECT * FROM SYS.SYSCOLUMNS WHERE REFERENCEID=?";
@@ -357,12 +359,12 @@ public class DatabaseInterface {
             result = statement.executeQuery();
 
             List<DBColumn> cols = new ArrayList<>(result.getFetchSize());
-            while(result.next()) {
+            while (result.next()) {
                 try {
                     String name = result.getString("COLUMNNAME");
                     String type = result.getString("COLUMNDATATYPE");
                     cols.add(new DBColumn(name, type, ""));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -379,7 +381,7 @@ public class DatabaseInterface {
     public static void printColumnNames(String tableName) {
         List<DBColumn> columns = getColumns(tableName);
         System.out.println("Columns in table " + tableName + ":");
-        for(DBColumn c: columns) {
+        for (DBColumn c : columns) {
             System.out.println(c);
         }
     }
@@ -387,10 +389,11 @@ public class DatabaseInterface {
     public static void printTables() {
         List<String> tableNames = getTableNames();
         System.out.println("Table Names:");
-        for(String name: tableNames) {
+        for (String name : tableNames) {
             System.out.println(name);
         }
     }
+
     public static void turnOnBuiltInUsers(Connection conn) throws SQLException {
         System.out.println("Turning on authentication.");
         Statement s = conn.createStatement();

@@ -13,7 +13,7 @@ public class TestDatabaseInterface {
 
     @BeforeAll
     static void setup() {
-        DatabaseInterface.init();
+        DatabaseInterface.init(false);
     }
     @Test
     void testTableCreation() {

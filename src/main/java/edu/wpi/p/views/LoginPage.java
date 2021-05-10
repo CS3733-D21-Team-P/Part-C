@@ -65,7 +65,7 @@ public class LoginPage {
 
     @FXML
     private void initialize() {
-        DatabaseInterface.init();
+        DatabaseInterface.init(false);
         List<String> tableNames = DatabaseInterface.getTableNames();
         if (!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
             try {
