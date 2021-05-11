@@ -349,6 +349,8 @@ public abstract class MapController {
             double newMinY = clamp(mouse.getY() - (mouse.getY() - viewport.getMinY()) * scale,
                     0, imageHeight - newHeight);
 
+//            System.out.println("minX:"+ newMinX+" ,minY:"+newMinY);
+//            System.out.println("width:"+ newWidth+ " ,height:"+ newHeight);
             imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
             translateGraph(imageView);
         });
@@ -367,6 +369,11 @@ public abstract class MapController {
         translateGraph(imageView);
     }
 
+    /**
+     * Shifts the map
+     * @param imageView
+     * @param delta change in pan
+     */
     private void pan(ImageView imageView, Point2D delta) {
         Rectangle2D viewport = imageView.getViewport();
 
@@ -375,7 +382,7 @@ public abstract class MapController {
 
         double maxX = width - viewport.getWidth();
         double maxY = height - viewport.getHeight();
-
+        System.out.println(delta.getX());
         double minX = clamp(viewport.getMinX() - delta.getX(), 0, maxX);
         double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
 
@@ -460,7 +467,8 @@ public abstract class MapController {
     }
 
     public void centerNode(NodeButton nb){
-        centerPoint(nb.getLayoutX(), nb.getLayoutY());
+
+        centerPoint(nb.getNode().getXcoord(), nb.getNode().getYcoord());
     }
 
     public void centerPath(List<Node> path){
@@ -479,16 +487,15 @@ public abstract class MapController {
         centerPoint(averageX, averageY);
     }
 
+    //map coordinates
     public void centerPoint(double x, double y){
-        Point2D p = new Point2D(x, y);
-        double centerx = 750; //center of page coordinates
-        double centery = 750;
-        Point2D startcoords = new Point2D(centerx,centery);
-        Point2D delta = startcoords.subtract(p);
-        System.out.println("diffX: "+delta.getX());
-        System.out.println("diffY: "+delta.getY());
+        //zoom in
+        double zoomWidth = 2342;
+        double zoomHeight = 1593;
+        Rectangle2D viewport = imageView.getViewport();
+        imageView.setViewport(new Rectangle2D(x- (zoomWidth/2), y-(zoomHeight/2), zoomWidth, zoomHeight));
+        translateGraph(imageView); //update buttons
 
-        pan(imageView,delta);
     }
 
 }
