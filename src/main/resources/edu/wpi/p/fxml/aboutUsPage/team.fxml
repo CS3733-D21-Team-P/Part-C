@@ -81,6 +81,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="1073.0" layoutY="1051.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." />
+      <Label layoutX="1073.0" layoutY="1000.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." />
    </children>
 </AnchorPane>
