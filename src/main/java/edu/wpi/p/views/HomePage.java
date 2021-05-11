@@ -76,19 +76,6 @@ public class HomePage {
 
   @FXML
   private void initialize(){
-    DatabaseInterface.init();
-    List<String> tableNames = DatabaseInterface.getTableNames();
-    assert tableNames != null;
-    if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
-      try {
-        CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
-        CSVData edgeData = CSVHandler.readCSVFile("bwPedges.csv");
-        CSVDBConverter.tableFromCSVData(nodeData, edgeData);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-
-    }
 //    EntryRequest.updateApproved();
     // by default everything is visible for the admin
     // if they are an employee, hide the things an employee can't see

@@ -38,7 +38,6 @@ public class DatabaseInterface {
 //            turnOnBuiltInUsers(conn);
 
             } catch (Exception e) {
-                e.printStackTrace();
                 try {
                     Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
                     System.out.println("Trying to connect to " + connectionURL);
