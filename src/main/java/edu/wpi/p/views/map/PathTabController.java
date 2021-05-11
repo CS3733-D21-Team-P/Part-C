@@ -73,9 +73,9 @@ public class PathTabController {
     @FXML public Label instructions;
 
     private List<Node> animatedPath = new ArrayList<>();
-
     final static ArrayList<PathTransition> pathTransitions = new ArrayList<>();
     private static boolean animationMade = false;
+    private double pathDistance;
 
     public int getCurrentFloorInList() {
         return currentFloorInList;
@@ -428,7 +428,7 @@ public class PathTabController {
         if (!(path.getElements().size() < 2)) {
             double startX =  scaleX(((MoveTo) path.getElements().get(0)).getX(), imageview);
             double startY = scaleY(((MoveTo) path.getElements().get(0)).getY(), imageview);
-            for (int i =0; i<path.getElements().size() *3; i++) {
+            for (int i =0; i<path.getElements().size() * 3; i++) {
                 Circle aCircle = new Circle(
                         startX,
                         startY,
@@ -439,8 +439,8 @@ public class PathTabController {
                 PathTransition pl = new PathTransition();
                 pl.setNode(aCircle);
                 pl.setPath(path);
-                pl.setDuration(Duration.seconds(5));
-                pl.setDelay(Duration.seconds(.2*i));
+                pl.setDuration(Duration.seconds(pathDistance/100));
+                pl.setDelay(Duration.seconds(i*pathDistance/(100*path.getElements().size())));
                 pl.setAutoReverse(false);
                 pl.setCycleCount(Animation.INDEFINITE);
                 pl.play();
@@ -454,6 +454,7 @@ public class PathTabController {
         for (PathTransition pl : pathTransitions) {
             pl.stop();
             pathfindingMap.linePane.getChildren().remove(pl.getNode());
+            pathDistance = 0;
         }
     }
 
@@ -472,6 +473,8 @@ public class PathTabController {
 
                 onePath.getElements().add(onePath.getElements().size(), moveTo);
                 onePath.getElements().add(onePath.getElements().size(), lineTo);
+                pathDistance += Math.sqrt(Math.pow(lineTo.getX()-moveTo.getX(),2)
+                        +Math.pow(lineTo.getY()-moveTo.getY(), 2));
             }
         }
         return onePath;
