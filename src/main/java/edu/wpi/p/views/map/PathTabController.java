@@ -6,6 +6,7 @@ import edu.wpi.p.AStar.*;
 import edu.wpi.p.views.map.Filter.Criteria;
 import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
 import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
+import edu.wpi.p.views.map.GoogleDirections.DirectionsList;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;
@@ -17,12 +18,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -38,9 +37,10 @@ import java.util.List;
 
 public class PathTabController {
 
-    @FXML private JFXTreeTableView textDirectionsTable;
-    private JFXTreeTableColumn<DirectionTableEntry, ImageView> directionImageView;
-    private JFXTreeTableColumn<DirectionTableEntry, Label> directionText;
+    //@FXML private AnchorPane directionsPane;
+    //@FXML private Accordion accordionDirections;
+    @FXML private VBox directionsVBox;
+    private List<DirectionsList> textDirectionsTables;
 
     @FXML private JFXToggleButton toggleHandicap;
 
@@ -109,29 +109,6 @@ public class PathTabController {
         //add names to list of possible autocomplete suggestions
         acpStart.getSuggestions().addAll(nodeNames);
         acpEnd.getSuggestions().addAll(nodeNames);
-
-        //setup DirectionsTable
-        directionImageView = new JFXTreeTableColumn<>("icon");
-        directionImageView.setPrefWidth(50);
-        directionImageView.setSortable(false);
-        directionImageView.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView>, ObservableValue<ImageView>>() {
-            public ObservableValue<ImageView> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView> p) {
-                return new SimpleObjectProperty(p.getValue().getValue().getImageVew());
-            }
-        });
-
-        directionText = new JFXTreeTableColumn<>("instruction");
-        directionText.setPrefWidth(200);
-        directionText.setSortable(false);
-        directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label>, ObservableValue<Label>>() {
-            public ObservableValue<Label> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label> p) {
-                Label l = new Label(p.getValue().getValue().getInstruction());
-                l.setWrapText(true);
-                return new SimpleObjectProperty(l);
-            }
-        });
-
-        textDirectionsTable.setPlaceholder(new Label(""));
     }
 
 
@@ -326,15 +303,49 @@ public class PathTabController {
 
     private void updateDirectionsTable(List<DirectionTableEntry> directions) {
         //Add instructions to DirectionsTable
-        ObservableList<DirectionTableEntry> tableDirections = FXCollections.observableArrayList();
-        for (DirectionTableEntry entry : directions) {
-            tableDirections.add(entry);
+//        ObservableList<DirectionTableEntry> tableDirections = FXCollections.observableArrayList();
+//        for (DirectionTableEntry entry : directions) {
+//            tableDirections.add(entry);
+//        }
+
+        //split directions list by floor
+        ObservableList<ObservableList<DirectionTableEntry>> tableDirections = FXCollections.observableArrayList();
+        String currentFloor = "";
+        int numOfLists = 0;
+        for(DirectionTableEntry entry : directions) {
+            if(!currentFloor.equals(entry.getNode().getFloor())) {
+                currentFloor = entry.getNode().getFloor();
+                tableDirections.add(FXCollections.observableArrayList());
+                numOfLists += 1;
+            }
+            tableDirections.get(numOfLists - 1).add(entry);
         }
 
-        final TreeItem<DirectionTableEntry> root = new RecursiveTreeItem<>(tableDirections, RecursiveTreeObject::getChildren);
-        textDirectionsTable.getColumns().setAll(directionImageView, directionText);
-        textDirectionsTable.setRoot(root);
-        textDirectionsTable.setShowRoot(false);
+        textDirectionsTables = new ArrayList<>();
+        //create text directions table list
+        for (int i = 0; i < numOfLists; i++) {
+            DirectionsList newList = new DirectionsList();
+            newList.updateDirectionsTable(tableDirections.get(i));
+
+            textDirectionsTables.add(newList);
+        }
+
+        //fill accordion
+        directionsVBox.getChildren().clear();
+//        for(DirectionsList table : textDirectionsTables) {
+//            numOfLists -= 1;
+//            TitledPane pane = new TitledPane("Floor: " + tableDirections.get(numOfLists).get(0).getNode().getFloor() , new Label(""));
+//            System.out.println("Floor: " + tableDirections.get(numOfLists).get(0).getNode().getFloor());
+//            pane.setContent(table);
+//            directionsVBox.getChildren().add(pane);
+//        }
+        for (int i = 0; i < textDirectionsTables.size(); i++) {
+            DirectionsList table = textDirectionsTables.get(i);
+            TitledPane pane = new TitledPane("Floor: " + tableDirections.get(i).get(0).getNode().getFloor() , new Label(""));
+            System.out.println("Floor: " + tableDirections.get(i).get(0).getNode().getFloor());
+            pane.setContent(table);
+            directionsVBox.getChildren().add(pane);
+        }
     }
 
 
