@@ -68,6 +68,10 @@ public class DBUser {
         String selectCommand ="SELECT Status FROM " + DBUser + " WHERE Username='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand, "Status");
     }
+    public String getNameForUsername(String Username) {
+        String selectCommand ="SELECT Name FROM " + DBUser + " WHERE Username='" + Username + "'";
+        return DatabaseInterface.checkColumnObjects(selectCommand, "Name");
+    }
 
     public void addUser(UserFromDB e) {
         String insertValue = "'" + e.getName() + "', '" + e.getUsername() + "', '" + e.getPassword() + "', '" + e.getIdentity() + "', '" + e.getParkingNodeID() + "'";
@@ -78,7 +82,6 @@ public class DBUser {
         String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "'";
         DatabaseInterface.executeUpdate(removeCommand);
     }
-
     public void updateUser(UserFromDB e) {
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE Username = '"+e.getUsername()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Password = '"+e.getPassword()+"' WHERE Username = '"+e.getUsername()+"'");
@@ -122,9 +125,8 @@ public class DBUser {
 
         //create Users
         List<UserFromDB> userFromDBS = new ArrayList<>(userData.size());
-        for(int i = 1; i < userData.size(); i++) {
+        for(int i = 0; i < userData.size(); i++) {
             List<String> userString = userData.get(i);
-
             UserFromDB userFromDB = new UserFromDB(
                     userString.get(Name),
                     userString.get(Username),

@@ -149,7 +149,6 @@ public class ServiceRequestLogSection extends VBox {
         for (UserFromDB user : users) {
             names.add(user.getName());
         }
-        System.out.println("user names are: " + names);
         return names;
     }
     private Label makeStyledLabel(String text) {

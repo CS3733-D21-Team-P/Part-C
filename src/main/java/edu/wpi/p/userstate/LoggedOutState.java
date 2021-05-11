@@ -31,7 +31,9 @@ public class LoggedOutState extends UserState {
             user.setPermissions(dbUser.checkIdentity(username));
             user.changeState(new LoggedInState());
             user.setUsername(username);
+
             DBUser dbuser = DBUser.getInstance();
+            user.setName(dbuser.getNameForUsername(username));
             String parkingID = dbuser.checkParkingNodeID(username);
             user.setParkingNodeID(parkingID);
         }else {

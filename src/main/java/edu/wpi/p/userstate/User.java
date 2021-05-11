@@ -45,6 +45,7 @@ public class User {
 
     void reset() {
         this.name = "";
+        this.username = "";
         this.permissions = "";
         this.approvedForEntry = true;
         this.parkingNodeID = "";
