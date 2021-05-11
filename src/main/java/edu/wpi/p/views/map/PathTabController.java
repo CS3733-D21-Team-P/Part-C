@@ -184,7 +184,6 @@ public class PathTabController {
      */
     public void enterEnd(MouseEvent e){
         changeState(State.ENTEREND);
-//        mapState = PathTabController.State.ENTEREND;
         System.out.println("enter end!");
     }
 
@@ -258,10 +257,10 @@ public class PathTabController {
             }
             pathLine.clear();
 
-            for(Arrow el: arrowLine){
-                pathfindingMap.btnPane.getChildren().remove(el);
-            }
-            arrowLine.clear();
+//            for(Arrow el: arrowLine){
+//                pathfindingMap.btnPane.getChildren().remove(el);
+//            }
+//            arrowLine.clear();
 
 
 
@@ -306,6 +305,7 @@ public class PathTabController {
             startNodeButton.setButtonStyle();
             endNodeButton.setButtonStyle();
 
+            //clear old path nodes
             if(startNodeButtonHold!=null){
                 startNodeButtonHold.getNode().setIsPathfinding(false);
                 startNodeButtonHold.setStart(false);
@@ -351,9 +351,8 @@ public class PathTabController {
         NodeButton button = (NodeButton) actionEvent.getSource();
 
         if(mapState.equals(State.ENTERSTART)){
-//            instructions.setText("enter and end node");
-//            startNodeButton = button
 
+            //set style
             button.setStart(true);
             button.setButtonStyle();
             if(startNodeButton!=null && startNodeButtonHold!=startNodeButton) {
@@ -366,45 +365,37 @@ public class PathTabController {
             System.out.println("start: "+ button.getName());
             startNodeButton = button;
             changeState(State.ENTEREND);
-//            mapState = State.ENTEREND;
-//            start.setStyle("-fx-border-color: black;" +
-//                    "-fx-border-width: 2px");
+
         }
         else if(mapState.equals(State.ENTEREND)){
+            //set style
             button.setEnd(true);
             button.setButtonStyle();
             if(endNodeButton!=null && endNodeButtonHold != endNodeButton) {
                 endNodeButton.setEnd(false);
                 endNodeButton.setButtonStyle();
             }
-//            instructions.setText("press search to find a path");
+
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
             endNodeButton = button;
-//            mapState= State.ENTERSTART;
             changeState(State.ENTERSTART);
 
         }
 
+        //print statements
         String text1= start.getText();
         System.out.println(text1);
         String text2= end.getText();
         System.out.println(text2);
 
-        if(start.getText()==null || start.getText().equals("")){
-            instructions.setText("click a point to enter a location");
-        }
-        else if(end.getText()==null || end.getText().equals("")){
-            instructions.setText("enter and end node");
-        }
-        else{
-            instructions.setText("press search to find a path");
-        }
+        textChanged(); //update instructions
 
         //don't show suggestions because button was pressed
-        acpStart.clearSuggestions();
-        acpEnd.clearSuggestions();
+        acpEnd.hide();
+        acpStart.hide();
+
     }
 
     /**
@@ -417,14 +408,14 @@ public class PathTabController {
         mapState = newState;
         if(newState.equals(State.ENTERSTART)){//add border
             start.setStyle(start.getStyle()+";-fx-border-color: black;" +
-                    "-fx-border-width: 2px");
+                    "-fx-border-width: 3px");
             end.setStyle(end.getStyle() + //take away border
                     ";-fx-border-width: 0px");
         }
         else if( newState.equals(State.ENTEREND)){
             //add border
             end.setStyle(end.getStyle()+";-fx-border-color: black;" +
-                    "-fx-border-width: 2px");
+                    "-fx-border-width: 3px");
             //take away border
             start.setStyle(start.getStyle() +
                     ";-fx-border-width: 0px");
