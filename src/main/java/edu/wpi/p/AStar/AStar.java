@@ -79,7 +79,7 @@ public class AStar extends SearchAlgorithm {
             }
         }
 
-        if(!stack.isEmpty()) {
+        while(!stack.isEmpty()) {
             System.out.println("Stack: ");
             for(Node n : stack) {
                 System.out.print(n.getName() + " ");

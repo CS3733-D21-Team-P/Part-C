@@ -41,7 +41,11 @@ public class Dijkstra extends SearchAlgorithm {
     private void search(Node rootNode, Node targetNode) {
 
         rootNode.setVisited(true);
-        System.out.println(rootNode.getName());
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(rootNode.getName() + " Local Dist: " + rootNode.getLocalDist() + " PathLength = " + pathLength);
+        System.out.println(" ");
+        System.out.println(" ");
 
         //no need to stick around if we are the target node
         if(rootNode == targetNode || rootNode.getLocalDist() >= pathLength) {
@@ -76,14 +80,15 @@ public class Dijkstra extends SearchAlgorithm {
             }
         }
 
-        if(!stack.isEmpty()) {
-            System.out.println("Stack: ");
+        while(!stack.isEmpty()) {
+            Node first = stack.firstElement();
+            stack.remove(0);
+
             for(Node n : stack) {
                 System.out.print(n.getName() + " ");
             }
 
-            //down we go
-            search(stack.pop(), targetNode);
+            search(first, targetNode);
         }
     }
 }
