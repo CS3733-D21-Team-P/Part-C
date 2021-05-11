@@ -202,11 +202,10 @@ public class PathTabController {
             if (floorsInPath.size() > 1) {
                 pathfindingMap.nextFloorBox.setVisible(true);
                 pathfindingMap.multipleFloors = true;
-            }
-            for (int i = 0; i < floorsInPath.size(); i++) {
-                if (floorsInPath.get(i).equals(pathfindingMap.getCurrFloorVal())) {
-                    currentFloorInList = i;
-                }
+                currentFloorInList = 0;
+                pathfindingMap.setCurrFloorVal(floorsInPath.get(currentFloorInList));
+                pathfindingMap.changeFloors(floorsInPath.get(currentFloorInList));
+                pathfindingMap.floorChoiceBox.getSelectionModel().select(pathfindingMap.floorInList(floorsInPath.get(currentFloorInList)));
             }
             colorButtons();
 
@@ -401,5 +400,4 @@ public class PathTabController {
             nextFloor = null;
         }
     }
-
 }
