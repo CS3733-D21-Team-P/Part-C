@@ -161,6 +161,7 @@ public class PathfindingMap extends MapController {
                 nodeButtonHold = null;
             }
 
+
         });
     }
 
@@ -183,36 +184,23 @@ public class PathfindingMap extends MapController {
     @FXML
     private void lastFloorAc(javafx.event.ActionEvent actionEvent) {
         if (pathTabController.getCurrentFloorInList() > 0) {
-//            if (pathTabController.getCurrentFloorInList() > 1) {
-//                pathTabController.lastFloor = pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList() - 2);
-//            }
-//            else {
-//                pathTabController.lastFloor = null;
-//            }
-//
-//            pathTabController.nextFloor = pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList());
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() - 1);
-//            setCurrFloorVal(pathTabController.lastFloor);
+            floorChoiceBox.getSelectionModel().select(floorInList(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
             PathfindingMap.super.floorChoiceBox.getSelectionModel().select(
                     Arrays.asList(PathfindingMap.super.availableFloors).indexOf(
                             pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
             pathTabController.updateAnimatedPath(imageView);
+            pathTabController.colorButtons();
         }
     }
     @FXML
     private void nextFloorAc(javafx.event.ActionEvent actionEvent) {
         if ((pathTabController.floorsInPath.size() - 1) > pathTabController.currentFloorInList) {
-//            if ((pathTabController.floorsInPath.size()) > pathTabController.currentFloorInList) {
-//                pathTabController.nextFloor = pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList() + 2);
-//            }
-//            else {
-//                pathTabController.nextFloor = null;
-//            }
-//            pathTabController.lastFloor = pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList());
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() + 1);
-//            setCurrFloorVal(pathTabController.nextFloor);
+            floorChoiceBox.getSelectionModel().select(floorInList(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
+            pathTabController.colorButtons();
             PathfindingMap.super.floorChoiceBox.getSelectionModel().select(
                     Arrays.asList(PathfindingMap.super.availableFloors).indexOf(
                             pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
@@ -270,6 +258,17 @@ public class PathfindingMap extends MapController {
             el.pan(imageView);
         }
         pathTabController.updateAnimatedPath(imageView);
+    }
+
+    public int floorInList(String floor) {
+        int i = 0;
+        for (String str : availableFloors) {
+            if (str.equals(floor)) {
+                return i;
+            }
+            i++;
+        }
+        return i;
     }
 
 }
