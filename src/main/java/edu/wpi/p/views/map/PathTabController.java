@@ -316,6 +316,8 @@ public class PathTabController {
             startNodeButtonHold = startNodeButton;
             endNodeButtonHold = endNodeButton;
 
+            pathfindingMap.centerPath(path);
+
         }
         else{
             System.out.println("please enter a start AND and end location");
