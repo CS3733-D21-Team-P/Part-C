@@ -445,4 +445,50 @@ public abstract class MapController {
         return ((y * scaleY) + (viewport.getMinY()));
     }
 
+    double scaleY(double y) {
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        Rectangle2D viewport = imageView.getViewport();
+        double newy = (y / scaleY) - viewport.getMinY() / scaleY;
+        return newy;
+    }
+
+    double scaleX(double x) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        Rectangle2D viewport = imageView.getViewport();
+        double newx = (x / scaleX) - viewport.getMinY() / scaleX;
+        return newx;
+    }
+
+    public void centerNode(NodeButton nb){
+        centerPoint(nb.getLayoutX(), nb.getLayoutY());
+    }
+
+    public void centerPath(List<Node> path){
+        double averageX = 0;
+        double averageY = 0;
+        //get average location
+        for (Node n: path){
+            averageX+=n.getXcoord();
+            averageY+=n.getYcoord();
+        }
+        averageX/=path.size();
+        averageX= scaleX(averageX);
+        averageY/=path.size();
+        averageY= scaleY(averageY);
+
+        centerPoint(averageX, averageY);
+    }
+
+    public void centerPoint(double x, double y){
+        Point2D p = new Point2D(x, y);
+        double centerx = 750; //center of page coordinates
+        double centery = 750;
+        Point2D startcoords = new Point2D(centerx,centery);
+        Point2D delta = startcoords.subtract(p);
+        System.out.println("diffX: "+delta.getX());
+        System.out.println("diffY: "+delta.getY());
+
+        pan(imageView,delta);
+    }
+
 }
