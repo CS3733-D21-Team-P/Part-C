@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -50,6 +52,8 @@ public class PathfindingMap extends MapController {
     @FXML public JFXButton saveBtn;
     @FXML public GoogleTabController googleTabController;
     @FXML public AnchorPane base;
+    @FXML public TabPane tabPane;
+    @FXML public Tab tabPath;
 
     private DBTable dbTable = new DBTable();
     private int btnIncrement = 1;
@@ -84,11 +88,15 @@ public class PathfindingMap extends MapController {
             nb.setSaved(true);
             nb.setButtonStyle();
             parkingSaving.oldSpot=nb;
+            pathTabController.parkingText.setText(nb.getName());
         }
 
         //set on click method
         nb.setOnAction(event -> {
-            pathTabController.addNodeToSearch(event);
+            Tab currTab =  tabPane.getSelectionModel().getSelectedItem();
+            if(currTab.equals(tabPath)) {
+                pathTabController.addNodeToSearch(event);
+            }
 
             selectNode(nb);
         });
@@ -161,9 +169,11 @@ public class PathfindingMap extends MapController {
     public void saveParkingAc(ActionEvent actionEvent) {
         if(!nodeButtonHold.isSaved()) {
             parkingSaving.saveParkingAc(nodeButtonHold);
+            pathTabController.parkingText.setText(nodeButtonHold.getName());
         }
         else{
             parkingSaving.unsaveParkingAc(nodeButtonHold);
+            pathTabController.parkingText.setText("None");
         }
         saveNodePopup.setVisible(false);
     }
