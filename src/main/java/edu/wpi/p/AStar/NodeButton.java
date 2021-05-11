@@ -28,6 +28,26 @@ public class NodeButton extends JFXButton {
     private String nameOfFile = "";
     private Image buttonIcon;
 
+    public boolean isStart() {
+        return isStart;
+    }
+
+    public void setStart(boolean start) {
+        isStart = start;
+        setButtonStyle();
+    }
+
+    public boolean isEnd() {
+        return isEnd;
+    }
+
+    public void setEnd(boolean end) {
+        isEnd = end;
+        setButtonStyle();
+    }
+
+    private boolean isStart = false;
+    private boolean isEnd = false;
 
     private boolean isSaved = false;
 
@@ -102,13 +122,26 @@ public class NodeButton extends JFXButton {
 
 
 
-        if (this.getNode().getIsPathfinding()) { //end node
+        if (this.isEnd || this.isStart) { //end node
             this.toFront();
-            this.setStyle(
-                    "-fx-background-radius: 5em; " +
-                            "-fx-background-color: red"
-            );
-            this.setOpacity(0.7);
+            if(isEnd) {
+                this.setStyle(
+                        "-fx-background-radius: 5em; " +
+                                "-fx-border-radius: 5em;" +
+                                "-fx-background-color: red;"
+                );
+            }
+            else{
+                this.makeBlue();
+            }
+            this.setOpacity(1);
+            if(node.getIsPathfinding()){
+                this.setStyle(this.getStyle()+
+                        ";-fx-border-color: black;" +
+                        "-fx-border-radius: 5em;" +
+                        "-fx-border-width: 2px");
+            }
+//            baseSize = 20;
 //            baseSize = 20;
 //            currentSize = 20;
 //            updateSize();
@@ -118,7 +151,8 @@ public class NodeButton extends JFXButton {
 
         }
 
-        else if (!this.getNode().getWasPathfinding()){ //not a pathfinding node
+        else { //not a pathfinding node
+//            baseSize = 10;
             if (nameOfFile.isEmpty()) { //NO IMAGE
                 if (!getNode().getIsSelected()) {//no image and not selected
                     this.setStyle(getStyle() +
@@ -276,7 +310,9 @@ public class NodeButton extends JFXButton {
     public void makeBlue() {
         this.setStyle(
                 "-fx-background-radius: 5em; " +
-                        "-fx-background-color: #4a7ede"
+                        "-fx-border-radius: 5em;" +
+                        "-fx-background-color: #4a7ede;"
         );
+//        currentSize=20;
     }
 }

@@ -7,6 +7,8 @@ import com.jfoenix.controls.events.JFXAutoCompleteEvent;
 
 public class AutoCompletePopup extends JFXAutoCompletePopup<String> {
     private JFXTextField textField;
+    private boolean isUpdatable = true;
+
     public AutoCompletePopup(JFXTextField textField){
         this.textField=textField;
 

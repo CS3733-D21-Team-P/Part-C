@@ -60,6 +60,8 @@ public class PathTabController {
     public NodeButton endNodeButton;
     private NodeButton startNodeButtonHold;
     private NodeButton endNodeButtonHold;
+//    private NodeButton pathOldStartHold;
+//    private NodeButton pathOldEndHold;
     private List<EdgeLine> pathLine= new ArrayList<>();
     private List<Arrow> arrowLine= new ArrayList<>();
 
@@ -76,6 +78,14 @@ public class PathTabController {
     final static ArrayList<PathTransition> pathTransitions = new ArrayList<>();
     private static boolean animationMade = false;
     private double pathDistance;
+
+    private AutoCompletePopup acpStart ;
+    private AutoCompletePopup acpEnd ;
+
+    @FXML
+    public void initialize() {
+        changeState(State.ENTERSTART);
+    }
 
     public int getCurrentFloorInList() {
         return currentFloorInList;
@@ -95,8 +105,8 @@ public class PathTabController {
 
 
         //add autocomplete to start and end text fields
-        AutoCompletePopup acpStart = new AutoCompletePopup(start);
-        AutoCompletePopup acpEnd = new AutoCompletePopup(end);
+        acpStart = new AutoCompletePopup(start);
+        acpEnd = new AutoCompletePopup(end);
 
         Criteria noHalls = new CriteriaNoHallways();
         //filter out hallways from nodes
@@ -140,7 +150,8 @@ public class PathTabController {
      * @param e
      */
     public void enterStart(MouseEvent e){
-        mapState = PathTabController.State.ENTERSTART;
+        changeState(State.ENTERSTART);
+//        mapState = PathTabController.State.ENTERSTART;
         System.out.println("enter start!");
 
     }
@@ -153,9 +164,11 @@ public class PathTabController {
         System.out.println("text changed");
         if(start.getText()==null || start.getText().equals("")){ //nothing has been entered in start location
             instructions.setText("click a point to enter a location");
+            changeState(State.ENTERSTART);
         }
         else if(end.getText()==null || end.getText().equals("")){ //nothing in end location
             instructions.setText("enter and end location");
+            changeState(State.ENTEREND);
         }
         else if(end.getText().equals(start.getText())){ //both locations are the same
             instructions.setText("choose two different locations");
@@ -170,7 +183,8 @@ public class PathTabController {
      * @param e
      */
     public void enterEnd(MouseEvent e){
-        mapState = PathTabController.State.ENTEREND;
+        changeState(State.ENTEREND);
+//        mapState = PathTabController.State.ENTEREND;
         System.out.println("enter end!");
     }
 
@@ -256,11 +270,11 @@ public class PathTabController {
                 System.out.println("MAKING PATH");
                 System.out.print(path.get(i).getName() + " ");
                 if(i>0) {
-                    //TRYING TO MAKE ARROWS
-                    Arrow arrow = new Arrow(path.get(i), path.get(i-1));
-                    arrow.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
-                    arrowLine.add(arrow);
-                    arrow.toFront();
+//                    //TRYING TO MAKE ARROWS
+//                    Arrow arrow = new Arrow(path.get(i), path.get(i-1));
+//                    arrow.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+//                    arrowLine.add(arrow);
+//                    arrow.toFront();
 
                     EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
@@ -285,35 +299,24 @@ public class PathTabController {
 //                }
 //            }
 
-            //TODO: set old node button nodes to be isPathfinding =false;
-            //TODO: set new old node button variable to be the current start and end node
 
-            startNodeButton.getNode().setIsPathfinding(true);
+            //UPDATE START AND END BUTTONS
             endNodeButton.getNode().setIsPathfinding(true);
+            startNodeButton.getNode().setIsPathfinding(true);
             startNodeButton.setButtonStyle();
-            startNodeButton.makeBlue();
             endNodeButton.setButtonStyle();
 
-//            if (startNodeButton != startNodeButtonHold) {
-//                startNodeButton.setButtonStyle();
-//                startNodeButton.makeBlue();
-//                if (startNodeButtonHold != null) {
-//                    startNodeButtonHold.endPathfinding();
-//                }
-//            }
-//            if (endNodeButton != endNodeButtonHold) {
-//                endNodeButton.setButtonStyle();
-//                if (endNodeButtonHold != null) {
-//                    endNodeButtonHold.endPathfinding();
-//                }
-//            }
-
-            startNodeButton.getNode().setIsPathfinding(false);
-            endNodeButton.getNode().setIsPathfinding(false);
-            startNodeButton.getNode().setWasPathfinding(true);
-            endNodeButton.getNode().setWasPathfinding(true);
+            if(startNodeButtonHold!=null){
+                startNodeButtonHold.getNode().setIsPathfinding(false);
+                startNodeButtonHold.setStart(false);
+            }
+            if(endNodeButtonHold!=null){
+                endNodeButtonHold.getNode().setIsPathfinding(false);
+                endNodeButtonHold.setEnd(false);
+            }
             startNodeButtonHold = startNodeButton;
             endNodeButtonHold = endNodeButton;
+
 
             pathfindingMap.centerPath(path);
 
@@ -347,21 +350,41 @@ public class PathTabController {
         //get button that was clicked on
         NodeButton button = (NodeButton) actionEvent.getSource();
 
-
         if(mapState.equals(State.ENTERSTART)){
 //            instructions.setText("enter and end node");
+//            startNodeButton = button
+
+            button.setStart(true);
+            button.setButtonStyle();
+            if(startNodeButton!=null && startNodeButtonHold!=startNodeButton) {
+                startNodeButton.setStart(false);
+                startNodeButton.setButtonStyle();
+            }
+
             startNode= button.getNode();
             start.setText(button.getName()); //set text field text to be node name
             System.out.println("start: "+ button.getName());
             startNodeButton = button;
-            mapState = State.ENTEREND;
+            changeState(State.ENTEREND);
+//            mapState = State.ENTEREND;
+//            start.setStyle("-fx-border-color: black;" +
+//                    "-fx-border-width: 2px");
         }
         else if(mapState.equals(State.ENTEREND)){
+            button.setEnd(true);
+            button.setButtonStyle();
+            if(endNodeButton!=null && endNodeButtonHold != endNodeButton) {
+                endNodeButton.setEnd(false);
+                endNodeButton.setButtonStyle();
+            }
 //            instructions.setText("press search to find a path");
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
             endNodeButton = button;
+//            mapState= State.ENTERSTART;
+            changeState(State.ENTERSTART);
+
         }
 
         String text1= start.getText();
@@ -370,13 +393,33 @@ public class PathTabController {
         System.out.println(text2);
 
         if(start.getText()==null || start.getText().equals("")){
-            instructions.setText("click a point to ender a location");
+            instructions.setText("click a point to enter a location");
         }
         else if(end.getText()==null || end.getText().equals("")){
             instructions.setText("enter and end node");
         }
         else{
             instructions.setText("press search to find a path");
+        }
+
+        acpStart.clearSuggestions();
+        acpEnd.clearSuggestions();
+    }
+
+    public void changeState(State newState){
+        System.out.println("change state");
+        mapState = newState;
+        if(newState.equals(State.ENTERSTART)){
+            start.setStyle(start.getStyle()+";-fx-border-color: black;" +
+                    "-fx-border-width: 2px");
+            end.setStyle(end.getStyle() +
+                    ";-fx-border-width: 0px");
+        }
+        else if( newState.equals(State.ENTEREND)){
+            end.setStyle(end.getStyle()+";-fx-border-color: black;" +
+                    "-fx-border-width: 2px");
+            start.setStyle(start.getStyle() +
+                    ";-fx-border-width: 0px");
         }
     }
 
