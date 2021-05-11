@@ -27,7 +27,7 @@ import javafx.util.Duration;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 
-import javax.swing.text.html.ImageView;
+//import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

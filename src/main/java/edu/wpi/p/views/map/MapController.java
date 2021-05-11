@@ -467,7 +467,6 @@ public abstract class MapController {
     }
 
     public void centerNode(NodeButton nb){
-
         centerPoint(nb.getNode().getXcoord(), nb.getNode().getYcoord(), 2.2);
     }
 
@@ -554,13 +553,15 @@ public abstract class MapController {
         double width = imageView.getImage().getWidth();
         double height = imageView.getImage().getHeight();
 
-        double maxX = width - viewport.getWidth();
-        double maxY = height - viewport.getHeight();
+        double maxX = width - zoomWidth;
+        double maxY = height - zoomHeight;
 //        System.out.println(delta.getX());
 
         //amount to pan
         double panX = clamp(x- (zoomWidth/2), 0, maxX);
         double panY = clamp(y-(zoomHeight/2), 0, maxY);
+//        double panX = x- (zoomWidth/2);
+//        double panY = y-(zoomHeight/2);
 
         imageView.setViewport(new Rectangle2D(panX, panY, zoomWidth, zoomHeight));
         translateGraph(imageView); //update buttons
