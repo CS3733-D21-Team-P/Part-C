@@ -142,6 +142,8 @@ public class MapEditorFindTab {
 
                             //select new node
                             mapController.selectNode(nb);
+
+                            mapController.centerNode(nb);//center on node
                             continue;
                         }
 

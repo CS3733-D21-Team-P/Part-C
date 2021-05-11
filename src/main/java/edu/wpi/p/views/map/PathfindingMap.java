@@ -2,6 +2,9 @@ package edu.wpi.p.views.map;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.database.DBMap;
+import edu.wpi.p.AStar.EdgeLine;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.userstate.User;
@@ -9,9 +12,15 @@ import edu.wpi.p.views.ClippoController;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -19,6 +28,7 @@ import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -38,6 +48,10 @@ public class PathfindingMap extends MapController {
     @FXML public VBox saveNodePopup1;
     @FXML public AnchorPane btnPane;
     @FXML public JFXButton saveBtn;
+    @FXML public GoogleTabController googleTabController;
+    @FXML public AnchorPane base;
+    @FXML public TabPane tabPane;
+    @FXML public Tab tabPath;
 
     private DBMap dbMap = DBMap.getInstance();
     private int btnIncrement = 1;
@@ -72,11 +86,15 @@ public class PathfindingMap extends MapController {
             nb.setSaved(true);
             nb.setButtonStyle();
             parkingSaving.oldSpot=nb;
+            pathTabController.parkingText.setText(nb.getName());
         }
 
-            //set on click method
+        //set on click method
         nb.setOnAction(event -> {
-            pathTabController.addNodeToSearch(event);
+            Tab currTab =  tabPane.getSelectionModel().getSelectedItem();
+            if(currTab.equals(tabPath)) {
+                pathTabController.addNodeToSearch(event);
+            }
 
             selectNode(nb);
         });
@@ -121,6 +139,8 @@ public class PathfindingMap extends MapController {
         clippoIDController.setPage("pathfinding");
         pathfindPage = true;
         pathTabController.injectPathfindingMap(this);
+        googleTabController.injectPathfindingMap(this);
+
 
         nextFloorBox.setVisible(false);
         System.out.println("PATHFINDING INIT");
@@ -141,16 +161,17 @@ public class PathfindingMap extends MapController {
                 nodeButtonHold = null;
             }
 
-
         });
     }
 
     public void saveParkingAc(ActionEvent actionEvent) {
         if(!nodeButtonHold.isSaved()) {
             parkingSaving.saveParkingAc(nodeButtonHold);
+            pathTabController.parkingText.setText(nodeButtonHold.getName());
         }
         else{
             parkingSaving.unsaveParkingAc(nodeButtonHold);
+            pathTabController.parkingText.setText("None");
         }
         saveNodePopup.setVisible(false);
     }
@@ -173,6 +194,10 @@ public class PathfindingMap extends MapController {
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() - 1);
 //            setCurrFloorVal(pathTabController.lastFloor);
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
+            PathfindingMap.super.floorChoiceBox.getSelectionModel().select(
+                    Arrays.asList(PathfindingMap.super.availableFloors).indexOf(
+                            pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
+            pathTabController.updateAnimatedPath(imageView);
         }
     }
     @FXML
@@ -188,6 +213,10 @@ public class PathfindingMap extends MapController {
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() + 1);
 //            setCurrFloorVal(pathTabController.nextFloor);
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
+            PathfindingMap.super.floorChoiceBox.getSelectionModel().select(
+                    Arrays.asList(PathfindingMap.super.availableFloors).indexOf(
+                            pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
+            pathTabController.updateAnimatedPath(imageView);
         }
     }
 //    @Override
@@ -229,6 +258,18 @@ public class PathfindingMap extends MapController {
         pathTabController.endNodeButton.setButtonSize(pathTabController.startNodeButton.currentSize); //set button size
         pathTabController.endNodeButton.setTranslateX(-(pathTabController.startNodeButton.currentSize / 2));
         pathTabController.endNodeButton.setTranslateY(-(pathTabController.startNodeButton.currentSize / 2));
+    }
+
+    void translateGraph(ImageView imageView) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        for (NodeButton btn : buttons) {
+            btn.pan(imageView);
+        }
+        for (EdgeLine el : edgeLines) {
+            el.pan(imageView);
+        }
+        pathTabController.updateAnimatedPath(imageView);
     }
 
 }
