@@ -349,8 +349,8 @@ public abstract class MapController {
             double newMinY = clamp(mouse.getY() - (mouse.getY() - viewport.getMinY()) * scale,
                     0, imageHeight - newHeight);
 
-//            System.out.println("minX:"+ newMinX+" ,minY:"+newMinY);
-//            System.out.println("width:"+ newWidth+ " ,height:"+ newHeight);
+            System.out.println("minX:"+ newMinX+" ,minY:"+newMinY);
+            System.out.println("width:"+ newWidth+ " ,height:"+ newHeight);
             imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
             translateGraph(imageView);
         });
@@ -382,7 +382,7 @@ public abstract class MapController {
 
         double maxX = width - viewport.getWidth();
         double maxY = height - viewport.getHeight();
-        System.out.println(delta.getX());
+//        System.out.println(delta.getX());
         double minX = clamp(viewport.getMinX() - delta.getX(), 0, maxX);
         double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
 
@@ -468,32 +468,101 @@ public abstract class MapController {
 
     public void centerNode(NodeButton nb){
 
-        centerPoint(nb.getNode().getXcoord(), nb.getNode().getYcoord());
+        centerPoint(nb.getNode().getXcoord(), nb.getNode().getYcoord(), 2.2);
     }
 
     public void centerPath(List<Node> path){
         double averageX = 0;
         double averageY = 0;
+        int amount =0;
+
+        double maxX=path.get(0).getXcoord();
+        double maxY=path.get(0).getYcoord();
+        double minX=path.get(0).getXcoord();
+        double minY=path.get(0).getYcoord();
+
         //get average location
         for (Node n: path){
-            averageX+=n.getXcoord();
-            averageY+=n.getYcoord();
-        }
-        averageX/=path.size();
-        averageX= scaleX(averageX);
-        averageY/=path.size();
-        averageY= scaleY(averageY);
+            if(n.getFloor().equals(currFloorVal)) {
+                if(n.getXcoord()>maxX){
+                    maxX=n.getXcoord();
+                }
+                else if(n.getXcoord()<minX){
+                    minX=n.getXcoord();
+                }
 
-        centerPoint(averageX, averageY);
+                if(n.getYcoord()>maxY){
+                    maxY=n.getYcoord();
+                }
+                else if(n.getYcoord()<minY){
+                    minY=n.getYcoord();
+                }
+
+                averageX += n.getXcoord();
+                averageY += n.getYcoord();
+                amount++;
+            }
+        }
+        averageX/=amount;
+        averageY/=amount;
+
+        double aspectWidth = 5000.0;
+        double aspectHeight= 3400.0;
+
+        double pathWidth = maxX-minX;
+        double pathHeight = maxY-minY;
+
+        double scaleW = (aspectWidth/(pathWidth+1000)) ;
+        scaleW = clamp(scaleW,1,2.127);
+
+        double scaleH = (aspectHeight/(pathHeight +300));
+        scaleH = clamp(scaleH,1,2.127);
+
+        System.out.println("\nPATH WIDTH "+(maxX-minX));
+        System.out.println("PATH HEIGHT: "+(maxY-minY));
+        System.out.println("SCALE WIDTH: "+ scaleW);
+        System.out.println("SCALE HEIGHT: "+ scaleH);
+
+        double scale = scaleW;
+        if(scaleH<scaleW){
+            scale=scaleH;
+        }
+        System.out.println("SCALE: "+ scale);
+
+        centerPoint(averageX, averageY, scale);
     }
 
     //map coordinates
-    public void centerPoint(double x, double y){
+    public void centerPoint(double x, double y, double zoom){
+//        //zoom in
+//        double zoomWidth = 2342;
+//        double zoomHeight = 1593;
+
+        //aspect ratio
+        double aspectWidth = 5000.0;
+        double aspectHeight= 3400;
+
         //zoom in
-        double zoomWidth = 2342;
-        double zoomHeight = 1593;
+        double zoomWidth = aspectWidth/zoom;
+        double zoomHeight = aspectHeight/zoom;
+
+        System.out.println("zoomWidth: "+ zoomWidth);
+        System.out.println("zoomHeight: "+ zoomHeight);
+
         Rectangle2D viewport = imageView.getViewport();
-        imageView.setViewport(new Rectangle2D(x- (zoomWidth/2), y-(zoomHeight/2), zoomWidth, zoomHeight));
+
+        double width = imageView.getImage().getWidth();
+        double height = imageView.getImage().getHeight();
+
+        double maxX = width - viewport.getWidth();
+        double maxY = height - viewport.getHeight();
+//        System.out.println(delta.getX());
+
+        //amount to pan
+        double panX = clamp(x- (zoomWidth/2), 0, maxX);
+        double panY = clamp(y-(zoomHeight/2), 0, maxY);
+
+        imageView.setViewport(new Rectangle2D(panX, panY, zoomWidth, zoomHeight));
         translateGraph(imageView); //update buttons
 
     }
