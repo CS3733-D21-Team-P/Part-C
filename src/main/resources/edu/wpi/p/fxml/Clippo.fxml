@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="clippoPane" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.ClippoController">
+<Pane fx:id="clippoPane" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.ClippoController">
    <children>
       <GridPane alignment="BOTTOM_LEFT">
         <columnConstraints>
@@ -508,6 +508,7 @@
                   </JFXButton>
                </children>
             </VBox>
+            <JFXButton fx:id="muteButton" onAction="#mute" prefHeight="41.0" prefWidth="56.0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
    </children>
