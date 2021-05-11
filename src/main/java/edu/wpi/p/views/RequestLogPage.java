@@ -50,7 +50,7 @@ public class RequestLogPage {
     public JFXButton incompleteBtn;
     public JFXButton backBtn;
     private List<ServiceRequest> requestList;
-    private DBServiceRequest dbServiceRequest = new DBServiceRequest();
+    private DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
 
     public void initialize() {
         clippoIDController.setPage("requestLogs");

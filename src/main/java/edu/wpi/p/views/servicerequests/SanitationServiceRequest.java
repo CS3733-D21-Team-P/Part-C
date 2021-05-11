@@ -117,7 +117,7 @@ public class SanitationServiceRequest extends GenericServiceRequest implements I
 //        final String descriptionValue = description.getText();
 //        final String typeOfSanitation = typeOfSanitationBox.getTypeSelector();
 //        ServiceRequest sR = new ServiceRequest(fullNameValue, roomNumberValue, fullNameValue + "_" + roomNumberValue, "Sanitation");
-//        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
 //        dbServiceRequest.addServiceRequest(sR);
         super.submitPressed(actionEvent);
         try {

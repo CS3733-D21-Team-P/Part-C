@@ -1,11 +1,7 @@
 package edu.wpi.p.database;
 
-
-
-import edu.wpi.p.database.rowdata.Edge;
 import edu.wpi.p.database.rowdata.ServiceRequest;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +9,18 @@ public class DBServiceRequest {
 
     private String serviceRequestTable = "SRT";
     private List<DBColumn> serviceRequestColumn;
+    private static DBServiceRequest instance;
 
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBServiceRequest
+     */
+    public static DBServiceRequest getInstance() {
+        if (instance == null) {
+            instance = new DBServiceRequest();
+        }
+        return instance;
+    }
 
     /**
      * Standard constructor, nothing fancy
@@ -29,7 +36,6 @@ public class DBServiceRequest {
      */
     public DBServiceRequest(String tableName) {
         serviceRequestTable = tableName;
-        boolean doClear = false;
         createTable(false);
     }
 
@@ -40,7 +46,6 @@ public class DBServiceRequest {
     private void init() {
         serviceRequestColumn = new ArrayList<>();
         serviceRequestColumn.add(new DBColumn("name", "varchar(256)", ""));
-//        serviceRequestColumn.add(new DBColumn("type", "varchar(256)", ""));
         serviceRequestColumn.add(new DBColumn("ID", "varchar(256)", ""));
         serviceRequestColumn.add(new DBColumn("location", "varchar(256)", ""));
         serviceRequestColumn.add(new DBColumn("assignment", "varchar(256)", ""));
@@ -82,10 +87,6 @@ public class DBServiceRequest {
      */
     public void updateServiceRequest(ServiceRequest s) {
         DatabaseInterface.updateDBRow(serviceRequestTable, "ID", s.getID(), s);
-//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET NAME = '" + s.getName() + "' WHERE ID = '" + s.getID() + "'");
-//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET LOCATION = '" + s.getLocation() + "' WHERE ID = '" + s.getID() + "'");
-//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET ASSIGNMENT = '" + s.getAssignment() + "' WHERE ID = '" + s.getID() + "'");
-//        DatabaseInterface.executeUpdate("UPDATE " + serviceRequestTable + " SET COMPLETE = " + (s.getCompleted() ? "true" : "false") + " WHERE ID = '" + s.getID() + "'");
     }
 
 
@@ -115,6 +116,9 @@ public class DBServiceRequest {
         List<List<String>> requestData = DatabaseInterface.getAllFromTable(serviceRequestTable);
 
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(serviceRequestTable);
+        if (requestData == null | dbColumns == null) {
+            return null;
+        }
         List<ServiceRequest> serviceRequests = new ArrayList<>(requestData.size());
 
         for (List<String> row : requestData) {
@@ -133,8 +137,4 @@ public class DBServiceRequest {
 
         return serviceRequests;
     }
-
-
-
-
 }

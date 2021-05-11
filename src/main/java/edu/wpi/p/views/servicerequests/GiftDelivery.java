@@ -101,7 +101,7 @@ public class GiftDelivery extends GenericServiceRequest{
 //        final String Name = name.getText();
 //        final String Add = address.getText();
 //        ServiceRequest sR = new ServiceRequest(Name, Add, Name + "_" + Add, "Gift Delivery");
-//        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
 //        dbServiceRequest.addServiceRequest(sR);
         super.submitPressed(actionEvent);
         try {

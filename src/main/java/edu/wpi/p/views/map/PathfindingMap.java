@@ -1,15 +1,13 @@
 package edu.wpi.p.views.map;
 
 import com.jfoenix.controls.JFXButton;
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.userstate.User;
 import edu.wpi.p.views.ClippoController;
-import edu.wpi.p.userstate.UserEntryLocation;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -41,7 +39,7 @@ public class PathfindingMap extends MapController {
     @FXML public AnchorPane btnPane;
     @FXML public JFXButton saveBtn;
 
-    private DBTable dbTable = new DBTable();
+    private DBMap dbMap = DBMap.getInstance();
     private int btnIncrement = 1;
     private ParkingSaving parkingSaving = new ParkingSaving();
 
@@ -65,7 +63,7 @@ public class PathfindingMap extends MapController {
         NodeButton nb = super.addNodeButton(node);
 
         List<UserFromDB> users = new ArrayList<UserFromDB>();
-        DBUser dbuser = new DBUser();
+        DBUser dbuser = DBUser.getInstance();
         users = dbuser.getUsers();
 
         //check if parking spot button

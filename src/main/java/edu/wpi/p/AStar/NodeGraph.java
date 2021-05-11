@@ -1,6 +1,6 @@
 package edu.wpi.p.AStar;
 
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
 import edu.wpi.p.userstate.User;
 import edu.wpi.p.userstate.UserEntryLocation;
 
@@ -11,12 +11,12 @@ public class NodeGraph {
 
     private List<Node> graph;
     private boolean directedPaths;
-    private DBTable dbTable;
+    private DBMap dbMap;
 
     public NodeGraph() {
         this.graph = new ArrayList<>();
         this.directedPaths = false;
-        this.dbTable = new DBTable();
+        this.dbMap = DBMap.getInstance();
     }
 
     public void addToGraph(Node node){
@@ -92,7 +92,7 @@ public class NodeGraph {
     }
 
     private void initNodes() {
-        List<Node> nodeData = dbTable.getNodes();
+        List<Node> nodeData = dbMap.getNodes();
 
         for(Node n : nodeData) {
             if(User.getInstance().getEntryLocation() == UserEntryLocation.EMERGENCY_ENTRANCE && n.getShortName().equals("75 Francis")){}
@@ -102,7 +102,7 @@ public class NodeGraph {
     }
 
     private void pairNodes() {
-        List<List<String>> edgeData = dbTable.getEdgeData();
+        List<List<String>> edgeData = dbMap.getEdgeData();
 
         //L1Edges columns
         int edgeID = 0;

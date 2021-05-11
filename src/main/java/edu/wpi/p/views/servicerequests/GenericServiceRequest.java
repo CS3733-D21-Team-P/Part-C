@@ -31,7 +31,7 @@ public class GenericServiceRequest extends Toolbar {
                 sR.addDetail(key, this.values.get(key).getValue().toString());
             }
         }
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
         dbServiceRequest.addServiceRequest(sR);
     }
 

@@ -31,10 +31,10 @@ public class TestUser {
     @BeforeAll
     static void setup() {
 
-        DatabaseInterface.init();
+        DatabaseInterface.init(false);
         List<String> tableNames = DatabaseInterface.getTableNames();
         if (!tableNames.contains("USERS")) {
-            dbuser = new DBUser();
+            dbuser = DBUser.getInstance();
             dbuser.addUser(admin);
             dbuser.addUser(aemployee);
             dbuser.addUser(bemployee);
@@ -47,7 +47,7 @@ public class TestUser {
             dbuser.addUser(iemployee);
             dbuser.addUser(jemployee);
         } else {
-            dbuser = new DBUser();
+            dbuser = DBUser.getInstance();
         }
     }
 

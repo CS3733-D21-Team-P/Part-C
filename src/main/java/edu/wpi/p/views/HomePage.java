@@ -76,7 +76,7 @@ public class HomePage {
 
   @FXML
   private void initialize(){
-    DatabaseInterface.init();
+    DatabaseInterface.init(false);
     List<String> tableNames = DatabaseInterface.getTableNames();
     assert tableNames != null;
     if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {

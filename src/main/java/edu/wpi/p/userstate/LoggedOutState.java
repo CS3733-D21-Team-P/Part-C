@@ -22,7 +22,7 @@ public class LoggedOutState extends UserState {
     void login(String username, String password) throws LoginException {
         user = User.getInstance();
 
-        DBUser dbUser = new DBUser();
+        DBUser dbUser = DBUser.getInstance();
         if(password.equals("")){
             throw new LoginException("Wrong Information", "Please enter the Password");
         }
@@ -31,7 +31,7 @@ public class LoggedOutState extends UserState {
             user.setPermissions(dbUser.checkIdentity(username));
             user.changeState(new LoggedInState());
             user.setUsername(username);
-            DBUser dbuser = new DBUser();
+            DBUser dbuser = DBUser.getInstance();
             String parkingID = dbuser.checkParkingNodeID(username);
             user.setParkingNodeID(parkingID);
         }else {

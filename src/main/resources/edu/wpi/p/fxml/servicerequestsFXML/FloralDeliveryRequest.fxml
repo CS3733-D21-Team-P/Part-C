@@ -86,17 +86,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXRadioButton fx:id="roses" text="Roses" textFill="WHITE" unCheckedColor="WHITE" GridPane.halignment="CENTER">
+                  <JFXRadioButton fx:id="roses" text="Roses" textFill="WHITE" GridPane.halignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="tulips" text="Tulips" textFill="WHITE" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <JFXRadioButton fx:id="tulips" text="Tulips" textFill="WHITE"  GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="painBush" text="Pain Bush" textFill="WHITE" unCheckedColor="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                  <JFXRadioButton fx:id="painBush" text="Pain Bush" textFill="WHITE"  GridPane.columnIndex="2" GridPane.halignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -113,17 +113,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXRadioButton fx:id="small" text="Small" textFill="WHITE" unCheckedColor="WHITE" GridPane.halignment="CENTER">
+                  <JFXRadioButton fx:id="small" text="Small" textFill="WHITE"  GridPane.halignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="medium" text="Medium" textFill="WHITE" unCheckedColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <JFXRadioButton fx:id="medium" text="Medium" textFill="WHITE"  GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </JFXRadioButton>
-                  <JFXRadioButton fx:id="large" text="Large" textFill="WHITE" unCheckedColor="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                  <JFXRadioButton fx:id="large" text="Large" textFill="WHITE"  GridPane.columnIndex="2" GridPane.halignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>

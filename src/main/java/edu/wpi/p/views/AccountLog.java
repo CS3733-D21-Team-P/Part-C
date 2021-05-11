@@ -54,7 +54,7 @@ public class AccountLog {
     public TableColumn<UserFromDB, String> Blank;
 
 
-    private final DBUser dbuser = new DBUser();
+    private final DBUser dbuser = DBUser.getInstance();
     public JFXTreeTableView accountDataTableView;
     private List<UserFromDB> userDataList;
     private List<UserFromDB> removableList = new ArrayList<UserFromDB>();
@@ -196,7 +196,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -208,7 +208,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -220,7 +220,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -232,7 +232,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -244,7 +244,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 
@@ -259,7 +259,7 @@ public class AccountLog {
 
     public void addPeopleAc(ActionEvent actionEvent) {
         UserFromDB user = new UserFromDB(tfname.getText(), tfusername.getText(),tfpassword.getText(),tfstatus.getText(),tfblank.getText());
-        DBUser dbUser = new DBUser();
+        DBUser dbUser = DBUser.getInstance();
         dbUser.addUser(user);
         initialize();
     }
@@ -271,7 +271,7 @@ public class AccountLog {
 //        TablePosition userpos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
 //        int userRow = userpos.getRow();
 //        UserFromDB user = accountDataTableView.getItems().get(userRow);
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.removeUser(user.getUsername());
 //        accountDataTableView.getItems().removeAll(accountDataTableView.getSelectionModel().getSelectedItem());
     }

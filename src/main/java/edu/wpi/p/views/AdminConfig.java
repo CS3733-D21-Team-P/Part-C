@@ -27,9 +27,9 @@ public class AdminConfig {
     }
 
     public void StartServer(ActionEvent actionEvent) throws SQLException {
-        DatabaseInterface.closeembedded();
+        DatabaseInterface.closeEmbedded();
         DatabaseInterface.conn.close();
-        DatabaseInterface.init();
+        DatabaseInterface.init(true);
         initialize();
     }
 

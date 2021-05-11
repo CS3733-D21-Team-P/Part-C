@@ -4,8 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBSettings {
-    private String settingsTable = "Settings";
+    private final String settingsTable = "Settings";
     private List<DBColumn> columns = new ArrayList<>();
+
+    private static DBSettings instance;
+
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBSettings
+     */
+    public static DBSettings getInstance() {
+        if (instance == null) {
+            instance = new DBSettings();
+        }
+        return instance;
+    }
 
     public DBSettings(){
         init();
@@ -36,6 +49,10 @@ public class DBSettings {
     public String getSetting(String settingName) {
         List<List<String>> settings = DatabaseInterface.getAllFromTable(settingsTable);
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(settingsTable);
+        if (settings == null || dbColumns == null) {
+            return null;
+        }
+
         int Name = indexOfColumnByName(dbColumns, "Name");
         int Value = indexOfColumnByName(dbColumns, "Value");
         for(List<String> setting : settings) {
@@ -63,20 +80,8 @@ public class DBSettings {
         return -1;
     }
 
-    private boolean hasSetting(String settingName) {
-        List<List<String>> settings = DatabaseInterface.getAllFromTable(settingsTable);
-        List<DBColumn> dbColumns = DatabaseInterface.getColumns(settingsTable);
-        int Name = indexOfColumnByName(dbColumns, "Name");
-        int Value = indexOfColumnByName(dbColumns, "Value");
-        for(List<String> setting : settings) {
-            if (setting.get(Name).equals(settingName)) {
-                return true;
-            }
-        }
-        return false;
-    }
     public void setSetting(String settingName, String settingValue) {
-        if (hasSetting(settingName)) {
+        if (getSetting(settingName) != null) {
             DatabaseInterface.executeUpdate("UPDATE " + settingsTable + " SET VALUE = '"+settingValue+"' WHERE NAME = '"+settingName+"'");
         }
         else {

@@ -9,6 +9,19 @@ public class DBEmployee {
     String EmployeeTable = "EmployeeTable";
     private List<DBColumn> columns = new ArrayList<>();
 
+    private static DBEmployee instance;
+
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBEmployee
+     */
+    public static DBEmployee getInstance() {
+        if (instance == null) {
+            instance = new DBEmployee();
+        }
+        return instance;
+    }
+
     public DBEmployee(){
         init();
         createEmployeeTable(columns);
@@ -74,9 +87,11 @@ public class DBEmployee {
     }
 
     public List<Employee> getEmployees() {
-        List<List<String>> employeeData = DatabaseInterface.getAllFromTable(EmployeeTable);//new ArrayList<>();
-
+        List<List<String>> employeeData = DatabaseInterface.getAllFromTable(EmployeeTable);
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(EmployeeTable);
+        if (employeeData == null || dbColumns == null) {
+            return null;
+        }
 
         int Name = indexOfColumnByName(dbColumns, "Name");
         int EmployeeID = indexOfColumnByName(dbColumns, "EmployeeID");
