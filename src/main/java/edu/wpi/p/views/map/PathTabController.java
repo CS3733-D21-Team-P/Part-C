@@ -74,7 +74,8 @@ public class PathTabController {
 
     private List<Node> animatedPath = new ArrayList<>();
 
-    final ArrayList<PathTransition> pathTransitions = new ArrayList<>();
+    final static ArrayList<PathTransition> pathTransitions = new ArrayList<>();
+    private static boolean animationMade = false;
 
     public int getCurrentFloorInList() {
         return currentFloorInList;
@@ -417,30 +418,16 @@ public class PathTabController {
     }
 
     public void animatePath(ImageView imageview) {
+        animationMade = true;
         clearAnimations();
         if (animatedPath == null || animatedPath.size() < 2) {
             return;
         }
-        Path path = new Path();
+        Path path;
         path = createPathForAnimation(animatedPath, imageview);
         if (!(path.getElements().size() < 2)) {
             double startX =  scaleX(((MoveTo) path.getElements().get(0)).getX(), imageview);
             double startY = scaleY(((MoveTo) path.getElements().get(0)).getY(), imageview);
-//            Circle testCir = new Circle(startX,startY,5, Color.color(0/255f, 0/225f, 0/255f));
-//            PathTransition testTransition = new PathTransition();
-//            testTransition.setNode(testCir);
-//            Path testPath = new Path();
-//            testPath.getElements().add(testPath.getElements().size(), new MoveTo(((MoveTo)thePath.getElements().get(0)).getX()/10,
-//                    ((MoveTo)thePath.getElements().get(0)).getY()/10));
-//            testPath.getElements().add(testPath.getElements().size(), new LineTo(((LineTo)thePath.getElements().get(1)).getX()/10,
-//                    ((LineTo)thePath.getElements().get(1)).getY()/10));
-//            testTransition.setPath(thePath);
-//            testTransition.setCycleCount(Animation.INDEFINITE);
-//            testTransition.play();
-//
-//            testCir.setRadius(10);
-//            pathfindingMap.linePane.getChildren().add(testCir);
-
             for (int i =0; i<path.getElements().size() *3; i++) {
                 Circle aCircle = new Circle(
                         startX,
@@ -466,31 +453,26 @@ public class PathTabController {
     private void clearAnimations() {
         for (PathTransition pl : pathTransitions) {
             pl.stop();
-        }
-
-        for (int i = pathfindingMap.linePane.getChildren().size() -1; i >0; i--) {
-            if (pathfindingMap.linePane.getChildren().get(i) instanceof Circle) {
-                pathfindingMap.linePane.getChildren().remove(pathfindingMap.linePane.getChildren().get(i));
-            }
+            pathfindingMap.linePane.getChildren().remove(pl.getNode());
         }
     }
 
     public Path createPathForAnimation(List<Node> path, ImageView imageView) {
         Path onePath = new Path();
         for (int i = 0; i < path.size() - 1; i++) {
-//            if (path.get(i).getFloor().equals(getCurrFloorVal())
-//                    && path.get(i+1).getFloor().equals(getCurrFloorVal())) {
-            MoveTo moveTo = new MoveTo();
-            moveTo.setX((float) scaleX(path.get(i).getXcoord(), imageView));
-            moveTo.setY((float) scaleY(path.get(i).getYcoord(), imageView));
+            if (path.get(i).getFloor().equals(pathfindingMap.getCurrFloorVal())
+                    && path.get(i+1).getFloor().equals(pathfindingMap.getCurrFloorVal())) {
+                MoveTo moveTo = new MoveTo();
+                moveTo.setX((float) scaleX(path.get(i).getXcoord(), imageView));
+                moveTo.setY((float) scaleY(path.get(i).getYcoord(), imageView));
 
-            LineTo lineTo = new LineTo();
-            lineTo.setX((float) scaleX(path.get(i+1).getXcoord(), imageView));
-            lineTo.setY((float) scaleY(path.get(i+1).getYcoord(), imageView));
+                LineTo lineTo = new LineTo();
+                lineTo.setX((float) scaleX(path.get(i+1).getXcoord(), imageView));
+                lineTo.setY((float) scaleY(path.get(i+1).getYcoord(), imageView));
 
-            onePath.getElements().add(onePath.getElements().size(), moveTo);
-            onePath.getElements().add(onePath.getElements().size(), lineTo);
-//            }
+                onePath.getElements().add(onePath.getElements().size(), moveTo);
+                onePath.getElements().add(onePath.getElements().size(), lineTo);
+            }
         }
         return onePath;
     }
@@ -509,7 +491,7 @@ public class PathTabController {
     }
 
     public void updateAnimatedPath(ImageView imageview) {
-        if (!(animatedPath.size() == 0)) {
+        if (animationMade) {
             animatePath(imageview);
         }
     }

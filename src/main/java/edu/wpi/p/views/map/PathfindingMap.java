@@ -1,6 +1,7 @@
 package edu.wpi.p.views.map;
 
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
@@ -11,6 +12,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -175,6 +177,7 @@ public class PathfindingMap extends MapController {
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() - 1);
 //            setCurrFloorVal(pathTabController.lastFloor);
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
+            pathTabController.updateAnimatedPath(imageView);
         }
     }
     @FXML
@@ -190,6 +193,7 @@ public class PathfindingMap extends MapController {
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() + 1);
 //            setCurrFloorVal(pathTabController.nextFloor);
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
+            pathTabController.updateAnimatedPath(imageView);
         }
     }
 //    @Override
@@ -231,6 +235,18 @@ public class PathfindingMap extends MapController {
         pathTabController.endNodeButton.setButtonSize(pathTabController.startNodeButton.currentSize); //set button size
         pathTabController.endNodeButton.setTranslateX(-(pathTabController.startNodeButton.currentSize / 2));
         pathTabController.endNodeButton.setTranslateY(-(pathTabController.startNodeButton.currentSize / 2));
+    }
+
+    void translateGraph(ImageView imageView) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        for (NodeButton btn : buttons) {
+            btn.pan(imageView);
+        }
+        for (EdgeLine el : edgeLines) {
+            el.pan(imageView);
+        }
+        pathTabController.updateAnimatedPath(imageView);
     }
 
 }
