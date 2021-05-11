@@ -23,6 +23,7 @@ import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -177,6 +178,9 @@ public class PathfindingMap extends MapController {
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() - 1);
 //            setCurrFloorVal(pathTabController.lastFloor);
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
+            PathfindingMap.super.floorChoiceBox.getSelectionModel().select(
+                    Arrays.asList(PathfindingMap.super.availableFloors).indexOf(
+                            pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
             pathTabController.updateAnimatedPath(imageView);
         }
     }
@@ -193,6 +197,9 @@ public class PathfindingMap extends MapController {
             pathTabController.setCurrentFloorInList(pathTabController.getCurrentFloorInList() + 1);
 //            setCurrFloorVal(pathTabController.nextFloor);
             changeFloors(pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList()));
+            PathfindingMap.super.floorChoiceBox.getSelectionModel().select(
+                    Arrays.asList(PathfindingMap.super.availableFloors).indexOf(
+                            pathTabController.floorsInPath.get(pathTabController.getCurrentFloorInList())));
             pathTabController.updateAnimatedPath(imageView);
         }
     }
