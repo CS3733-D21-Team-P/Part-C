@@ -137,7 +137,7 @@ public class NodeButton extends JFXButton {
             this.setOpacity(1);
             if(node.getIsPathfinding()){
                 this.setStyle(this.getStyle()+
-                        ";-fx-border-color: black;" +
+                        "-fx-border-color: black;" +
                         "-fx-border-radius: 5em;" +
                         "-fx-border-width: 2px");
             }
@@ -149,26 +149,26 @@ public class NodeButton extends JFXButton {
             if (nameOfFile.isEmpty()) { //NO IMAGE
                 if (!getNode().getIsSelected()) {//no image and not selected
                     this.setStyle(getStyle() +
-                            ";-fx-background-radius: 5em; " +
-                            "-fx-background-color: #2F3159"
+                            "-fx-background-radius: 5em; " +
+                            "-fx-background-color: #2F3159;"
                     );
                     setOpacity(0.7);
                     if(isSaved){
                         this.setStyle(getStyle()+
                                 "-fx-background-radius: 5em; " +
-                                "-fx-background-color: #e0ef06"
+                                "-fx-background-color: #e0ef06;"
                         );
                     }
                 } else {//no image and is selected
                     setOpacity(1);
                     this.setStyle(
                             "-fx-background-radius: 5em; " +
-                                    "-fx-background-color: #9d00ff"
+                                    "-fx-background-color: #9d00ff;"
                     );
 
                 }
                 if (connectsLevels) { //if connecting levels
-                    setStyle(getStyle() + ";-fx-border-color: #00d1b5; " +
+                    setStyle(getStyle() + "-fx-border-color: #00d1b5; " +
                             "-fx-border-width: 2px;" +
                             "-fx-border-radius: 5em");
                 }
@@ -190,7 +190,7 @@ public class NodeButton extends JFXButton {
                 }
                 else if(isSaved){
                     this.setStyle(getStyle()+
-                            "-fx-border-color: #e0ef06"
+                            "-fx-border-color: #e0ef06;"
                     );
                 }
 

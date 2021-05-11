@@ -6,6 +6,7 @@ import edu.wpi.p.AStar.*;
 import edu.wpi.p.views.map.Filter.Criteria;
 import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
 import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
+import edu.wpi.p.views.map.GoogleDirections.CenterPopup;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;
@@ -73,6 +74,7 @@ public class PathTabController {
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
     @FXML public Label instructions;
+    @FXML public Label parkingText;
 
     private List<Node> animatedPath = new ArrayList<>();
     final static ArrayList<PathTransition> pathTransitions = new ArrayList<>();
@@ -198,10 +200,30 @@ public class PathTabController {
             end.setText(parkingSpot.getName());
             textChanged();
 
-            if(!start.getText().equals("")){
+            parkingSpot.setEnd(true);
+            if(endNodeButton!=null && endNodeButtonHold != endNodeButton) {
+                endNodeButton.setEnd(false);
+                endNodeButton.setButtonStyle();
+            }
+
+            endNode = parkingSpot.getNode();
+            endNodeButton = parkingSpot;
+            changeState(State.ENTERSTART);
+            parkingSpot.setButtonStyle();
+
+            acpEnd.hide();
+
+            if(!start.getText().equals("")){ //if a starting location is entered
                 findPath(actionEvent);
             }
+
         }
+    }
+
+    @FXML
+    public void parkingHelp(){
+//        System.out.println("Click ");
+        CenterPopup cp = new CenterPopup("Click right on a location to save it as your parking spot. The location will be highlighted in yellow.", pathfindingMap.base);
     }
 
     /**

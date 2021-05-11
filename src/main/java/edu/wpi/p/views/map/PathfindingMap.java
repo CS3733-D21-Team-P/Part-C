@@ -89,6 +89,7 @@ public class PathfindingMap extends MapController {
             nb.setSaved(true);
             nb.setButtonStyle();
             parkingSaving.oldSpot=nb;
+            pathTabController.parkingText.setText(nb.getName());
         }
 
         //set on click method
@@ -172,9 +173,11 @@ public class PathfindingMap extends MapController {
     public void saveParkingAc(ActionEvent actionEvent) {
         if(!nodeButtonHold.isSaved()) {
             parkingSaving.saveParkingAc(nodeButtonHold);
+            pathTabController.parkingText.setText(nodeButtonHold.getName());
         }
         else{
             parkingSaving.unsaveParkingAc(nodeButtonHold);
+            pathTabController.parkingText.setText("None");
         }
         saveNodePopup.setVisible(false);
     }
