@@ -2,6 +2,8 @@ package edu.wpi.p.views.map;
 
 import com.jfoenix.controls.JFXButton;
 import edu.wpi.p.AStar.EdgeLine;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.p.database.DBTable;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
@@ -12,16 +14,20 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 
+import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +49,8 @@ public class PathfindingMap extends MapController {
     @FXML public VBox saveNodePopup1;
     @FXML public AnchorPane btnPane;
     @FXML public JFXButton saveBtn;
+    @FXML public GoogleTabController googleTabController;
+    @FXML public AnchorPane base;
 
     private DBTable dbTable = new DBTable();
     private int btnIncrement = 1;
@@ -79,7 +87,7 @@ public class PathfindingMap extends MapController {
             parkingSaving.oldSpot=nb;
         }
 
-            //set on click method
+        //set on click method
         nb.setOnAction(event -> {
             pathTabController.addNodeToSearch(event);
 
@@ -126,6 +134,8 @@ public class PathfindingMap extends MapController {
         clippoIDController.setPage("pathfinding");
         pathfindPage = true;
         pathTabController.injectPathfindingMap(this);
+        googleTabController.injectPathfindingMap(this);
+
 
         nextFloorBox.setVisible(false);
         System.out.println("PATHFINDING INIT");
@@ -146,8 +156,10 @@ public class PathfindingMap extends MapController {
                 nodeButtonHold = null;
             }
 
-
         });
+
+
+
     }
 
     public void saveParkingAc(ActionEvent actionEvent) {
