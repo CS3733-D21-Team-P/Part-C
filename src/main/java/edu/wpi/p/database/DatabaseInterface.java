@@ -320,7 +320,6 @@ public class DatabaseInterface {
 
     /**
      * Gets the names of the user tables
-     *
      * @return A list of the user table names
      */
     public static List<String> getTableNames() {
