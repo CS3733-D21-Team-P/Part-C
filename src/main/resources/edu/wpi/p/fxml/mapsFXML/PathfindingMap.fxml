@@ -30,7 +30,7 @@
          </AnchorPane>
       </children></AnchorPane>
     <JFXTabPane fx:id="tabPane" layoutX="1449.0" prefHeight="800.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="75.0">
-        <Tab text="Path">
+        <Tab text="Path" fx:id="tabPath" >
             <fx:include fx:id="pathTab" source="PathTab.fxml" />
         </Tab>
         <Tab text="Find">
