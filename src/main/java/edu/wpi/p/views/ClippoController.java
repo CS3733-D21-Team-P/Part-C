@@ -201,6 +201,7 @@ public class ClippoController {
             case "requestLogs":
                 currClippoTab.setVisible(false);
                 clippoRequestLogs.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoRequestLogs;
                 playAudio("src/main/resources/audiofiles/RequestLogs.wav");
@@ -208,6 +209,7 @@ public class ClippoController {
             case "covidSurvey":
                 currClippoTab.setVisible(false);
                 clippoCOVID19.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoCOVID19;
                 playAudio("src/main/resources/audiofiles/Covid-19.wav");
@@ -215,6 +217,7 @@ public class ClippoController {
             case "editMap":
                 currClippoTab.setVisible(false);
                 clippoMapEdit.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoMapEdit;
                 playAudio("src/main/resources/audiofiles/EditMap.wav");
@@ -222,6 +225,7 @@ public class ClippoController {
             case "pathfinding":
                 currClippoTab.setVisible(false);
                 clippoPathfind.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoPathfind;
                 playAudio("src/main/resources/audiofiles/Pathfinding.wav");
@@ -229,6 +233,7 @@ public class ClippoController {
             case "accounts":
                 currClippoTab.setVisible(false);
                 clippoAccounts.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoAccounts;
                 playAudio("src/main/resources/audiofiles/AccountsTable.wav");
@@ -236,6 +241,7 @@ public class ClippoController {
             case "employees":
                 currClippoTab.setVisible(false);
                 clippoEmpTable.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoEmpTable;
                 playAudio("src/main/resources/audiofiles/EmployeeTable.wav");
@@ -243,6 +249,7 @@ public class ClippoController {
             default:
                 currClippoTab.setVisible(false);
                 clippoHome.setVisible(true);
+                muteButton.setVisible(true);
                 prevClippoTab = currClippoTab;
                 currClippoTab = clippoHome;
                 playAudio("src/main/resources/audiofiles/HomePage.wav");
