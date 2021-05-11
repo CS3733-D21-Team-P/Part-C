@@ -32,6 +32,11 @@
                               </Label>
                         <JFXTextField fx:id="start" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterStart" prefHeight="23.0" prefWidth="175.0" promptText=" Start Location" style="-fx-background-color: #7f9edb;" />
                         <JFXTextField fx:id="end" onInputMethodTextChanged="#textChanged" onKeyTyped="#textChanged" onMouseClicked="#enterEnd" prefWidth="150.0" promptText=" End Location" style="-fx-background-color: #e39292;" />
+                        <JFXToggleButton fx:id="toggleHandicap" maxHeight="78.0" onAction="#toggleHandicapPath" prefHeight="50.0" prefWidth="133.0" style="-fx-background-color: #5990D9; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #2F3159; -fx-border-width: 2;" text="Handicap">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </JFXToggleButton>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                            <children>
                                     <JFXButton mnemonicParsing="false" onAction="#enterParkingSpot" style="-fx-background-color: #5990d9; -fx-background-radius: 5px; -fx-border-color: #2f3159; -fx-border-image-width: 2px; -fx-border-radius: 5px;" text="Go to Parking Spot">
@@ -46,12 +51,7 @@
                               </JFXButton>
                            </children>
                         </HBox>
-                        <JFXToggleButton fx:id="toggleHandicap" maxHeight="78.0" onAction="#toggleHandicapPath" prefHeight="50.0" prefWidth="133.0" style="-fx-background-color: #5990D9; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #2F3159; -fx-border-width: 2;" text="Handicap">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </JFXToggleButton>
-                        <FlowPane hgap="3.0" vgap="2.0">
+                        <FlowPane hgap="3.0" prefWidth="240.0" vgap="2.0">
                            <children>
                               <JFXButton mnemonicParsing="false" onAction="#parkingHelp" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #5990d9; -fx-background-radius: 5px; -fx-border-color: #2f3159; -fx-border-image-width: 2px; -fx-border-radius: 5px;" text="?">
                                  <font>
