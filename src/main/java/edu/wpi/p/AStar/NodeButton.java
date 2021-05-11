@@ -141,13 +141,6 @@ public class NodeButton extends JFXButton {
                         "-fx-border-radius: 5em;" +
                         "-fx-border-width: 2px");
             }
-//            baseSize = 20;
-//            baseSize = 20;
-//            currentSize = 20;
-//            updateSize();
-////            setButtonSize(currentSize); //set button size
-//            this.setTranslateX(-currentSize / 2);
-//            this.setTranslateY(-(currentSize / 2));
 
         }
 
@@ -167,10 +160,12 @@ public class NodeButton extends JFXButton {
                         );
                     }
                 } else {//no image and is selected
+                    setOpacity(1);
                     this.setStyle(
                             "-fx-background-radius: 5em; " +
-                                    "-fx-background-color: red"
+                                    "-fx-background-color: #9d00ff"
                     );
+
                 }
                 if (connectsLevels) { //if connecting levels
                     setStyle(getStyle() + ";-fx-border-color: #00d1b5; " +
@@ -191,7 +186,7 @@ public class NodeButton extends JFXButton {
                 }
                 if (getNode().getIsSelected()) //if is image and is selected
                 {
-                    setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                    setStyle("-fx-border-color: #9D00FF; -fx-border-width: 2px;");
                 }
                 else if(isSaved){
                     this.setStyle(getStyle()+

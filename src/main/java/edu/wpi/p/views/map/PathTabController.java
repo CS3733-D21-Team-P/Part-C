@@ -402,22 +402,30 @@ public class PathTabController {
             instructions.setText("press search to find a path");
         }
 
+        //don't show suggestions because button was pressed
         acpStart.clearSuggestions();
         acpEnd.clearSuggestions();
     }
 
+    /**
+     * changes state of inputing start and end location
+     * updates the style of the text boxes to show if start of end is currently being inputted
+     * @param newState
+     */
     public void changeState(State newState){
         System.out.println("change state");
         mapState = newState;
-        if(newState.equals(State.ENTERSTART)){
+        if(newState.equals(State.ENTERSTART)){//add border
             start.setStyle(start.getStyle()+";-fx-border-color: black;" +
                     "-fx-border-width: 2px");
-            end.setStyle(end.getStyle() +
+            end.setStyle(end.getStyle() + //take away border
                     ";-fx-border-width: 0px");
         }
         else if( newState.equals(State.ENTEREND)){
+            //add border
             end.setStyle(end.getStyle()+";-fx-border-color: black;" +
                     "-fx-border-width: 2px");
+            //take away border
             start.setStyle(start.getStyle() +
                     ";-fx-border-width: 0px");
         }
