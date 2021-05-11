@@ -89,6 +89,7 @@ public class PathTabController {
     private boolean enteringStart = false;
 
     public void injectPathfindingMap(PathfindingMap pathfindingMap){
+        animationMade = false;
 
         this.pathfindingMap = pathfindingMap;
         search = new Pathfinder(pathfindingMap.graph);
@@ -451,10 +452,12 @@ public class PathTabController {
     }
 
     private void clearAnimations() {
-        for (PathTransition pl : pathTransitions) {
-            pl.stop();
-            pathfindingMap.linePane.getChildren().remove(pl.getNode());
-            pathDistance = 0;
+        if (!(pathfindingMap == null)) {
+            for (PathTransition pl : pathTransitions) {
+                pl.stop();
+                pathfindingMap.linePane.getChildren().remove(pl.getNode());
+                pathDistance = 0;
+            }
         }
     }
 
