@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import edu.wpi.p.AStar.Node;
 import edu.wpi.p.views.map.DirectionTableEntry;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -38,7 +39,7 @@ public class DirectionsList extends JFXTreeTableView {
         });
 
         directionText = new JFXTreeTableColumn<>("instruction");
-        directionText.setPrefWidth(200);
+        directionText.setPrefWidth(205);
         directionText.setSortable(false);
         directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label>, ObservableValue<Label>>() {
             public ObservableValue<Label> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label> p) {
@@ -85,7 +86,7 @@ public class DirectionsList extends JFXTreeTableView {
         }
 
         final TreeItem<DirectionTableEntry> root = new RecursiveTreeItem<>(tableDirections, RecursiveTreeObject::getChildren);
-        this.getColumns().setAll(directionImageView, directionText);
+        this.getColumns().setAll(directionText, directionImageView);
         this.setRoot(root);
         this.setShowRoot(false);
 
@@ -121,5 +122,4 @@ public class DirectionsList extends JFXTreeTableView {
         }
         return new DirectionTableEntry(imgView, text);
     }
-
 }
