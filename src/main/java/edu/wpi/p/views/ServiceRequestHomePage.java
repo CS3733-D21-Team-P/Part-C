@@ -59,8 +59,8 @@ public class ServiceRequestHomePage {
     @FXML
     public void initialize() {
         clippoIDController.setPage("serviceRequests");
-        gridPane.maxWidthProperty().bind(anchorPane.widthProperty());
-        gridPane.maxHeightProperty().bind(anchorPane.heightProperty());
+//        gridPane.maxWidthProperty().bind(anchorPane.widthProperty());
+//        gridPane.maxHeightProperty().bind(anchorPane.heightProperty());
         setupFrostedGlassBackground();
     }
 

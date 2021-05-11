@@ -6,19 +6,19 @@ import edu.wpi.p.database.DBServiceRequest;
 import edu.wpi.p.database.DBUser;
 import edu.wpi.p.database.UserFromDB;
 import edu.wpi.p.database.rowdata.ServiceRequest;
+import edu.wpi.p.userstate.User;
 import edu.wpi.p.views.ServiceRequestTableEntry;
 import edu.wpi.p.views.servicerequests.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -36,15 +36,32 @@ public class ServiceRequestLogSection extends VBox {
     private JFXToggleButton showCompleteToggle;
     public ServiceRequestLogSection(String name, List<ServiceRequest> requests) {
         super();
+        BorderPane optionsPane = new BorderPane();
+        optionsPane.setPadding(new Insets(5));
+        VBox assignmentFiltering = new VBox();
+        JFXButton assignedToMeButton = new JFXButton();
+        assignedToMeButton.setButtonType(JFXButton.ButtonType.RAISED);
+        assignedToMeButton.setText("Assigned to Me");
+        assignedToMeButton.setStyle("-fx-background-color: #5990D9; -fx-font-size: 24px;");
+        assignedToMeButton.setTextFill(Color.WHITE);
+
         HBox assignmentSearch = new HBox();
+        assignmentSearch.setSpacing(5);
+        BorderPane.setAlignment(assignmentFiltering, Pos.CENTER);
         HBox showComplete = new HBox();
+        BorderPane.setAlignment(assignmentSearch, Pos.CENTER);
+        assignmentFiltering.getChildren().addAll(assignmentSearch, assignedToMeButton);
+        optionsPane.setLeft(assignmentFiltering);
+        optionsPane.setRight(showComplete);
         requestSection = makeGridSection(name, requests);
 
         Label assignmentLabel = makeStyledLabel("Assigned to search:");
         filterField = makeAssignmentSearchField();
         Label showCompleteLabel = makeStyledLabel("Show Completed:");
         showCompleteToggle = new JFXToggleButton();
-
+        assignedToMeButton.setOnMouseClicked(event -> {
+            filterField.setText(User.getInstance().getName());
+        });
         // making the autocompete for assignment search
         JFXAutoCompletePopup<String> assignmentAutocompletePopup = new JFXAutoCompletePopup<>();
         assignmentAutocompletePopup.getSuggestions().addAll(getAllUserNames());
@@ -76,8 +93,7 @@ public class ServiceRequestLogSection extends VBox {
 
 //        requestSection.prefHeightProperty().bind(super.heightProperty());
         super.setVgrow(requestSection, Priority.ALWAYS);
-        this.getChildren().add(assignmentSearch);
-        this.getChildren().add(showComplete);
+        this.getChildren().add(optionsPane);
         this.getChildren().add(requestSection);
 
     }
@@ -133,6 +149,7 @@ public class ServiceRequestLogSection extends VBox {
         for (UserFromDB user : users) {
             names.add(user.getName());
         }
+        System.out.println("user names are: " + names);
         return names;
     }
     private Label makeStyledLabel(String text) {
@@ -194,6 +211,7 @@ public class ServiceRequestLogSection extends VBox {
 
     private String[] getCovidEntryDetailColumn(List<ServiceRequest> requests) {
         List<String> detailColumn = getAllDetailColumns(requests);
+        // these are columns that we don't want to show
         detailColumn.remove("UserID");
         detailColumn.remove("Is Covid Risk");
         detailColumn.remove("Approved to Enter");
