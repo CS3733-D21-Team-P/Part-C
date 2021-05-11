@@ -88,7 +88,7 @@ public abstract class MapController {
     private Image mapImage;
     @FXML
     public AnchorPane inputPane;
-    private DBUser dbuser = new DBUser();
+    private DBUser dbuser = DBUser.getInstance();
 //    private List<UserFromDB> users = new ArrayList<UserFromDB>();
     private NodeGraph nodeGraph = new NodeGraph();
 

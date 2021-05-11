@@ -3,8 +3,6 @@ package edu.wpi.p.database;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
-import edu.wpi.p.database.rowdata.Edge;
-import edu.wpi.p.database.rowdata.ServiceRequest;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,14 +12,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestDBTable {
+public class TestDBMap {
     private static final String NODE_NAME = "NODES";
     private static final String EDGE_NAME = "EDGES";
-    private DBTable dbTable;
+    private DBMap dbMap;
 
     @BeforeAll
     static void setup() {
-        DatabaseInterface.init();
+        DatabaseInterface.init(false);
 
     }
 
@@ -33,7 +31,7 @@ public class TestDBTable {
         if (DatabaseInterface.getTableNames().contains(EDGE_NAME)) {
             DatabaseInterface.executeUpdate("DROP TABLE " + EDGE_NAME);
         }
-        dbTable = new DBTable();
+        dbMap = DBMap.getInstance();
         CSVData nodeData = CSVHandler.readCSVString("nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName");
         CSVData edgeData = CSVHandler.readCSVString("edgeID,startNode,endNode");
         CSVDBConverter.tableFromCSVData(nodeData, edgeData);
@@ -72,7 +70,7 @@ public class TestDBTable {
     @Test
     void testInsertNode() {
         Node n = new Node("test node 1", "TEST_NODE_1", 1, 2, "1", "buildling", "nodetype", "short name");
-        dbTable.addNode(n);
+        dbMap.addNode(n);
         List<List<String>> rows = DatabaseInterface.getAllFromTable(NODE_NAME);
         assertEquals(1, rows.size());
 
@@ -86,9 +84,9 @@ public class TestDBTable {
     void testInsertEdge() {
         Node n = new Node("test node 1", "TEST_NODE_1", 1, 2, "1", "buildling", "nodetype", "short name");
         Node n2 = new Node("test node 2", "TEST_NODE_2", 3, 4, "1", "buildling", "nodetype", "short name");
-        dbTable.addNode(n);
-        dbTable.addNode(n2);
-        dbTable.addEdge("TEST_EDGE_1", "TEST_NODE_1", "TEST_NODE_2");
+        dbMap.addNode(n);
+        dbMap.addNode(n2);
+        dbMap.addEdge("TEST_EDGE_1", "TEST_NODE_1", "TEST_NODE_2");
         List<List<String>> rows = DatabaseInterface.getAllFromTable(EDGE_NAME);
         assertEquals(1, rows.size());
 
@@ -103,11 +101,11 @@ public class TestDBTable {
     void testGet() {
         Node n = new Node("test node 1", "TEST_NODE_1", 1, 2, "1", "buildling", "nodetype", "short name");
         Node n2 = new Node("test node 2", "TEST_NODE_2", 3, 4, "1", "buildling", "nodetype", "short name");
-        dbTable.addNode(n);
-        dbTable.addNode(n2);
-        dbTable.addEdge("TEST_EDGE_1", "TEST_NODE_1", "TEST_NODE_2");
+        dbMap.addNode(n);
+        dbMap.addNode(n2);
+        dbMap.addEdge("TEST_EDGE_1", "TEST_NODE_1", "TEST_NODE_2");
 
-        List<Node> nodes = dbTable.getNodes();
+        List<Node> nodes = dbMap.getNodes();
         assertEquals(2, nodes.size());
 
         assertEquals("test node 1", nodes.get(0).getName());
@@ -132,14 +130,14 @@ public class TestDBTable {
     @Test
     void testUpdateEdge() {
         Node n = new Node("test node 1", "TEST_NODE_1", 1, 2, "1", "buildling", "nodetype", "short name");
-        dbTable.addNode(n);
+        dbMap.addNode(n);
         n.setName("new name");
         n.setBuilding("new building");
         n.setXcoord(10);
         n.setShortName("new short name");
-        dbTable.updateNode(n);
+        dbMap.updateNode(n);
 
-        List<Node> nodes = dbTable.getNodes();
+        List<Node> nodes = dbMap.getNodes();
         assertEquals(1, nodes.size());
 
         assertEquals("new name", nodes.get(0).getName());
@@ -155,16 +153,16 @@ public class TestDBTable {
     void testRemoveNode() {
         Node n = new Node("test node 1", "TEST_NODE_1", 1, 2, "1", "buildling", "nodetype", "short name");
         Node n2 = new Node("test node 2", "TEST_NODE_2", 3, 4, "1", "buildling", "nodetype", "short name");
-        dbTable.addNode(n);
-        dbTable.addNode(n2);
-        dbTable.addEdge("TEST_EDGE_1", "TEST_NODE_1", "TEST_NODE_2");
+        dbMap.addNode(n);
+        dbMap.addNode(n2);
+        dbMap.addEdge("TEST_EDGE_1", "TEST_NODE_1", "TEST_NODE_2");
 
-        assertEquals(2, dbTable.getNodes().size());
-        dbTable.removeNode("TEST_NODE_1");
+        assertEquals(2, dbMap.getNodes().size());
+        dbMap.removeNode("TEST_NODE_1");
 
-        List<Node> nodes = dbTable.getNodes();
+        List<Node> nodes = dbMap.getNodes();
         assertEquals(1, nodes.size());
         assertEquals("TEST_NODE_2", nodes.get(0).getId());
-        assertEquals(0, dbTable.getEdges().size());
+        assertEquals(0, dbMap.getEdges().size());
     }
 }

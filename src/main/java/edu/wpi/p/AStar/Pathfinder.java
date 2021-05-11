@@ -8,7 +8,7 @@ public class Pathfinder {
     private NodeGraph nodeGraph;
     private SearchAlgorithm searchAlgorithm;
     private boolean handicapPath = false;
-    private DBSettings savedSettings = new DBSettings();
+    private DBSettings savedSettings = DBSettings.getInstance();
 
     public Pathfinder(NodeGraph graph) {
         this.nodeGraph = graph;

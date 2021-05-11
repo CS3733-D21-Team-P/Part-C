@@ -12,22 +12,22 @@ public class CSVData {
     /**
      * Name of the csv file or the csv data as a whole
      */
-    private String name;
+    private final String name;
 
     /**
      * Collection of the columns by their name
      */
-    private HashMap<String, Column> columns;
+    private final HashMap<String, Column> columns;
 
     /**
      * A list of columnNames to be able to preserver order
      */
-    private List<String> columnNames;
+    private final List<String> columnNames;
 
     /**
      * Stores the types of the columns by the column name
      */
-    private HashMap<String, CSVDataType> types;
+    private final HashMap<String, CSVDataType> types;
 
     public CSVData(String name) {
         this.name = name;
@@ -38,7 +38,7 @@ public class CSVData {
 
     /**
      * @param name Name of the column
-     * @return
+     * @return The Column with the given name
      */
     public Column getColumn(String name) {
         return columns.get(name);
@@ -69,18 +69,18 @@ public class CSVData {
         if (types.get(name) == CSVDataType.CSV_INT) {
             try {
                 int val = Integer.parseInt(value);
-                column.addValue(value);
+                column.addValue(val);
             } catch(NumberFormatException e) {
                 // have to convert the column to a string
-                Column newColumn = new Column<String>(name);
-                newColumn.addValues((List) column.getData().stream().map(i -> i.toString()).collect(Collectors.toList()));
+                Column<String> newColumn = new Column<>(name);
+                newColumn.addValues((List<String>) column.getData().stream().map(i -> i.toString()).collect(Collectors.toList()));
                 newColumn.addValue(value);
                 columns.put(name, newColumn);
                 types.put(name, CSVDataType.CSV_STRING);
             }
         }
         else {
-            // Sting
+            // String
             column.addValue(value);
         }
     }
@@ -94,15 +94,15 @@ public class CSVData {
     public void addColumnFromStringData(String name, List<String> data) {
         columnNames.add(name);
 
-        List ints = tryAllInts(data);
+        List<Integer> ints = tryAllInts(data);
         if (ints != null) {
-            Column<Integer> column = new Column(name);
+            Column<Integer> column = new Column<>(name);
             column.addValues(ints);
             columns.put(name, column);
             types.put(name, CSVDataType.CSV_INT);
         }
         else {
-            Column column = new Column(name);
+            Column<String> column = new Column<>(name);
             column.addValues(data);
 
             columns.put(name, column);
@@ -132,7 +132,7 @@ public class CSVData {
      * @return A List of all of the columns, in order
      */
     public List<Column> getAllColumns() {
-        return columnNames.stream().map(name -> columns.get(name)).collect(Collectors.toList());
+        return columnNames.stream().map(columns::get).collect(Collectors.toList());
     }
 
     public String getName() {

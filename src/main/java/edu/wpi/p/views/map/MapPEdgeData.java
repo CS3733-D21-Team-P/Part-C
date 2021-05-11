@@ -4,7 +4,7 @@ import edu.wpi.p.App;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
 import edu.wpi.p.database.rowdata.Edge;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,12 +62,12 @@ public class MapPEdgeData{
         }
     }
 
-    private DBTable dbTable = new DBTable();
+    private DBMap dbMap = DBMap.getInstance();
     private List<Edge> edgeDataList;
 
     @FXML
     private void initialize() throws Exception {
-        edgeDataList = dbTable.getEdges();
+        edgeDataList = dbMap.getEdges();
 
         //set up the columns in the table
         edgeIDCol.setCellValueFactory(new PropertyValueFactory<Edge, String>("edgeID"));
@@ -96,8 +96,8 @@ public class MapPEdgeData{
         Edge edge = new Edge(textFieldEdgeID.getText(), textFieldStartNode.getText(), textFieldEndNode.getText());
         edgeDataTableView.getItems().add(edge);
 
-        DBTable dbTable = new DBTable();
-        dbTable.addEdge(textFieldEdgeID.getText(),textFieldStartNode.getText(), textFieldEndNode.getText());
+        DBMap dbMap = DBMap.getInstance();
+        dbMap.addEdge(textFieldEdgeID.getText(),textFieldStartNode.getText(), textFieldEndNode.getText());
     }
 
     @FXML
@@ -106,7 +106,7 @@ public class MapPEdgeData{
         edge.setStartNode(startNodeEditEvent.getNewValue());
 
         //Update in DB
-        dbTable.updateEdge(edge.getEdgeID(), edge);
+        dbMap.updateEdge(edge.getEdgeID(), edge);
     }
 
     @FXML
@@ -115,7 +115,7 @@ public class MapPEdgeData{
         edge.setEndNode(endNodeEditEvent.getNewValue());
 
         //Update in DB
-        dbTable.updateEdge(edge.getEdgeID(), edge);
+        dbMap.updateEdge(edge.getEdgeID(), edge);
 
     }
 
@@ -126,7 +126,7 @@ public class MapPEdgeData{
         int edgeIDRow = edgeIDPos.getRow();
         Edge edge = edgeDataTableView.getItems().get(edgeIDRow);
         //Remove from DB
-        dbTable.removeEdge(edge.getStartNode(), edge.getEndNode());
+        dbMap.removeEdge(edge.getStartNode(), edge.getEndNode());
         //Remove from TableView
         edgeDataTableView.getItems().removeAll(edgeDataTableView.getSelectionModel().getSelectedItem());
     }
@@ -134,16 +134,16 @@ public class MapPEdgeData{
     @FXML
     private void importEdgeCSVBtn(ActionEvent actionEvent) throws Exception {
         CSVData edgeData = CSVHandler.readCSVFile(edgeFilepathField.getText());
-        dbTable.clearEdges();
-        CSVDBConverter.addCSVEdgesToTable(dbTable, edgeData);
-        edgeDataList = dbTable.getEdges();
+        dbMap.clearEdges();
+        CSVDBConverter.addCSVEdgesToTable(dbMap, edgeData);
+        edgeDataList = dbMap.getEdges();
         edgeDataTableView.setItems(getEdgeData());
     }
 
     @FXML
     private void exportEdgeCSVBtn(ActionEvent actionEvent) {
-        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
-        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
+        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbMap);
+        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbMap);
         CSVHandler.writeCSVData(newNodes, "newNodes.csv");
         CSVHandler.writeCSVData(newEdges, "newEdges.csv");
     }

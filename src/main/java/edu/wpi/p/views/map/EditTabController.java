@@ -9,7 +9,7 @@ import edu.wpi.p.App;
 import edu.wpi.p.csv.CSVData;
 import edu.wpi.p.csv.CSVHandler;
 import edu.wpi.p.database.CSVDBConverter;
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +27,7 @@ public class EditTabController{
 
     public EditMap editMapController;
 
-    private DBTable dbTable = new DBTable();
+    private DBMap dbMap = DBMap.getInstance();
 
     private Boolean isEditingEdges = false;
     private Boolean isAddingNodes = false;
@@ -94,7 +93,7 @@ public class EditTabController{
         int y = Integer.parseInt(yCoordinateText.getText());
         node.setXcoord(x);
         node.setYcoord(y);
-        dbTable.updateNode(node);
+        dbMap.updateNode(node);
 
         //update how node button looks
         editMapController.nodeButtonHold.update(editMapController.imageView);
@@ -184,8 +183,8 @@ public class EditTabController{
         File file = chooseFile();
         CSVData nodeData = CSVHandler.readCSVFile(file.getName());
 
-        dbTable.clearNodes();//clear database
-        CSVDBConverter.addCSVNodesToTable(dbTable, nodeData); //update database
+        dbMap.clearNodes();//clear database
+        CSVDBConverter.addCSVNodesToTable(dbMap, nodeData); //update database
 
         //clear buttons and lines
         editMapController.btnPane.getChildren().clear();
@@ -198,8 +197,8 @@ public class EditTabController{
         File file = chooseFile();
         CSVData edgeData = CSVHandler.readCSVFile(file.getName());
 
-        dbTable.clearEdges();//clear database
-        CSVDBConverter.addCSVEdgesToTable(dbTable, edgeData); //update database
+        dbMap.clearEdges();//clear database
+        CSVDBConverter.addCSVEdgesToTable(dbMap, edgeData); //update database
 
         //clear buttons and lines
         editMapController.btnPane.getChildren().clear();
@@ -215,12 +214,12 @@ public class EditTabController{
         //check if edges or nodes
         int numColumns = data.getAllColumns().size();
         if(numColumns>5){
-            dbTable.clearNodes();//clear database
-            CSVDBConverter.addCSVNodesToTable(dbTable, data); //update database
+            dbMap.clearNodes();//clear database
+            CSVDBConverter.addCSVNodesToTable(dbMap, data); //update database
         }
         else{
-            dbTable.clearEdges();//clear database
-            CSVDBConverter.addCSVEdgesToTable(dbTable, data); //update database
+            dbMap.clearEdges();//clear database
+            CSVDBConverter.addCSVEdgesToTable(dbMap, data); //update database
         }
 
         //clear buttons and lines
@@ -231,8 +230,8 @@ public class EditTabController{
 
     @FXML
     private void exportCSVBtn(ActionEvent actionEvent) {
-        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbTable);
-        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbTable);
+        CSVData newNodes = CSVDBConverter.csvNodesFromTable(dbMap);
+        CSVData newEdges = CSVDBConverter.csvEdgesFromTable(dbMap);
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Node File");//set tile

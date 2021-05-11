@@ -3,24 +3,35 @@ package edu.wpi.p.database;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.database.rowdata.Edge;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-
-public class DBTable {
-    private String nodeTable = "NODES";
-    private String edgeTable = "EDGES";
+public class DBMap {
+    private final String nodeTable = "NODES";
+    private final String edgeTable = "EDGES";
     private List<DBColumn> nodeColumns;
     private List<DBColumn> edgeColumns;
-    private List<Node> nodeList;
     private List<List<String>> edgeData;
+
+
+    private static DBMap instance;
+
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBMap
+     */
+    public static DBMap getInstance() {
+        if (instance == null) {
+            instance = new DBMap();
+        }
+        return instance;
+    }
+
 
     /**
      * Basic constructor, does nothing
      */
-    public DBTable() {
+    public DBMap() {
 
     }
 
@@ -30,7 +41,7 @@ public class DBTable {
      * @param nodeColumns Columns in the node table
      * @param edgeColumns Columns in the edge table
      */
-    public DBTable(List<DBColumn> nodeColumns, List<DBColumn> edgeColumns) {
+    public DBMap(List<DBColumn> nodeColumns, List<DBColumn> edgeColumns) {
         this.nodeColumns = nodeColumns;
         this.edgeColumns = edgeColumns;
 
@@ -39,7 +50,7 @@ public class DBTable {
 
     /**
      * Creates the tables from the nodeColumns and edgeColumns
-     * If tables with that name already exist, nothing happends unless doClear is true
+     * If tables with that name already exist, nothing happens unless doClear is true
      * @param doClear if true the tables get deleted first
      */
     private void createTables(boolean doClear) {
@@ -91,18 +102,11 @@ public class DBTable {
      */
     public void updateNode(Node n) {
         DatabaseInterface.updateDBRow(nodeTable, "NODEID", n.getId(), n);
-//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET ycoord = "+n.getYcoord()+" WHERE nodeID = '"+n.getId()+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET xcoord = "+n.getXcoord()+" WHERE nodeID = '"+n.getId()+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET floor = '"+n.getFloor()+"' WHERE nodeID = '"+n.getId()+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET building = '"+n.getBuilding()+"' WHERE nodeID = '"+n.getId()+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET nodeType = '"+n.getType()+"' WHERE nodeID = '"+n.getId()+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET longName = '"+n.getName()+"' WHERE nodeID = '"+n.getId()+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + nodeTable + " SET shortName = '"+n.getShortName()+"' WHERE nodeID = '"+n.getId()+"'");
     }
 
     /**
      * Inserts the given node into the database
-     * @param n
+     * @param n Node to insert
      */
     public void addNode(Node n) {
         DatabaseInterface.insertDBRowIntoTable(nodeTable, n);
@@ -116,7 +120,6 @@ public class DBTable {
      */
     public void addEdge(String edgeID, String nodeIDOne, String nodeIDTwo) {
         String insertValue = "'" + edgeID + "', '" + nodeIDOne + "', '" + nodeIDTwo + "'";
-//        System.out.println("INSERTING EDGE: " + insertValue);
         DatabaseInterface.insertIntoTable(edgeTable, insertValue);
     }
 
@@ -138,9 +141,6 @@ public class DBTable {
      */
     public void updateEdge(String edgeID, Edge edge) {
         DatabaseInterface.updateDBRow(edgeTable, "EDGEID", edgeID, edge);
-//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET EDGEID = '"+edge.getEdgeID()+"' WHERE edgeID = '"+edgeID+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET STARTNODE = '"+edge.getStartNode()+"' WHERE edgeID = '"+edgeID+"'");
-//        DatabaseInterface.executeUpdate("UPDATE " + edgeTable + " SET ENDNODE = '"+edge.getEndNode()+"' WHERE edgeID = '"+edgeID+"'");
     }
 
     /**
@@ -175,12 +175,14 @@ public class DBTable {
     /**
      * Gets a list of all the nodes in the database
      * The nodes do not have their edges set
-     * @return
+     * @return List of nodes in the database
      */
     public List<Node> getNodes() {
         List<List<String>> nodeData = DatabaseInterface.getAllFromTable(nodeTable);//new ArrayList<>();
-
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(nodeTable);
+        if (nodeData == null || dbColumns == null) {
+            return null;
+        }
 
         List<Node> nodes = new ArrayList<>(nodeData.size());
 
@@ -199,20 +201,17 @@ public class DBTable {
             nodes.add(n);
         }
 
-        System.out.println("returning nodes with id's: " + nodes.stream().map(n -> n.getId() + ", ").collect(Collectors.toList()));
-
         return nodes;
     }
 
     public List<String> getIDs() {
-        //parse L1Nodes
         List<List<String>> nodeData = DatabaseInterface.getAllFromTable(nodeTable);//new ArrayList<>();
-
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(nodeTable);
+        if (nodeData == null || dbColumns == null) {
+            return null;
+        }
         int nodeID = indexOfColumnByName(dbColumns, "nodeID");
 
-
-        //create nodes
         List<String> IDs = new ArrayList<>();
         for(int i = 1; i < nodeData.size(); i++) {
             List<String> nodeString = nodeData.get(i);
@@ -225,7 +224,7 @@ public class DBTable {
 
     /**
      * Gets a list of list of strings where each sub-list is a list of the nodeID for the starting and then ending node
-     * @return
+     * @return a list of edges, where each edge is a list of strings, an edgeId, startingNode id, and endingNode id
      */
     public List<List<String>> getEdgeData() {
         this.edgeData = DatabaseInterface.getAllFromTable(edgeTable);
@@ -239,8 +238,11 @@ public class DBTable {
     public List<Edge> getEdges() {
         List<List<String>> edgeData = this.getEdgeData();
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(edgeTable);
-        List<Edge> edges = new ArrayList<>(edgeData.size());
+        if (edgeData == null || dbColumns == null) {
+            return null;
+        }
 
+        List<Edge> edges = new ArrayList<>(edgeData.size());
         for (List<String> row : edgeData) {
             Edge e = new Edge();
             for (int i = 0; i < row.size(); i++) {
@@ -251,6 +253,4 @@ public class DBTable {
 
         return edges;
     }
-
-
 }

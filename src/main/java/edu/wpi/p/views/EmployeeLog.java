@@ -43,7 +43,7 @@ public class EmployeeLog {
     @FXML private Pane clippoID;
     @FXML private ClippoController clippoIDController;
 
-    private final DBEmployee dbemployee = new DBEmployee();
+    private final DBEmployee dbemployee = DBEmployee.getInstance();
     public JFXTreeTableView employeeDataTableView;
     private List<Employee> employeeDataList;
     private List<Employee> removableList = new ArrayList<>();
@@ -203,7 +203,7 @@ public class EmployeeLog {
 //        int userRow = userPos.getRow();
 //        Employee employee1 = employeeDataTableView.getItems().get(userRow);
 //
-//        DBEmployee dbemployee = new DBEmployee();
+//        DBEmployee dbemployee = DBEmployee.getInstance();
 //        dbemployee.updateEmployee(employee1);
     }
 
@@ -215,7 +215,7 @@ public class EmployeeLog {
 //        int userRow = userPos.getRow();
 //        Employee employee1 = employeeDataTableView.getItems().get(userRow);
 //
-//        DBEmployee dbemployee = new DBEmployee();
+//        DBEmployee dbemployee = DBEmployee.getInstance();
 //        dbemployee.updateEmployee(employee1);
     }
 
@@ -227,7 +227,7 @@ public class EmployeeLog {
 //        int userRow = userPos.getRow();
 //        Employee employee1 = employeeDataTableView.getItems().get(userRow);
 //
-//        DBEmployee dbemployee = new DBEmployee();
+//        DBEmployee dbemployee = DBEmployee.getInstance();
 //        dbemployee.updateEmployee(employee1);
     }
 
@@ -239,7 +239,7 @@ public class EmployeeLog {
 //        int userRow = userPos.getRow();
 //        Employee employee1 = employeeDataTableView.getItems().get(userRow);
 //
-//        DBEmployee dbemployee = new DBEmployee();
+//        DBEmployee dbemployee = DBEmployee.getInstance();
 //        dbemployee.updateEmployee(employee1);
     }
 
@@ -255,7 +255,7 @@ public class EmployeeLog {
 //        TablePosition userpos = employeeDataTableView.getSelectionModel().getSelectedCells().get(0);
 //        int userRow = userpos.getRow();
 //        Employee user = employeeDataTableView.getItems().get(userRow);
-//        DBEmployee dbemployee = new DBEmployee();
+//        DBEmployee dbemployee = DBEmployee.getInstance();
 //        dbemployee.removeEmployee(user.getEmployeeID());
 //        employeeDataTableView.getItems().removeAll(employeeDataTableView.getSelectionModel().getSelectedItem());
     }
@@ -277,7 +277,7 @@ public class EmployeeLog {
 //        int userRow = userPos.getRow();
 //        Employee employee1 = employeeDataTableView.getItems().get(userRow);
 //
-//        DBEmployee dbemployee = new DBEmployee();
+//        DBEmployee dbemployee = DBEmployee.getInstance();
 //        dbemployee.updateEmployee(employee1);
     }
 }

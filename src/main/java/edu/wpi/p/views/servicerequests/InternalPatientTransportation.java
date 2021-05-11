@@ -59,7 +59,7 @@ public class InternalPatientTransportation extends GenericServiceRequest {
 //
 //
 //        ServiceRequest sR = new ServiceRequest(doctor, location, "Name" + "_" + location, "Internal Patient Transportation");
-//        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
 //        dbServiceRequest.addServiceRequest(sR);
 
 
