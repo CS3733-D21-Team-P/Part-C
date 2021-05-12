@@ -1,6 +1,5 @@
 package edu.wpi.p.AStar;
 
-import edu.wpi.p.views.map.AnimatePath;
 import edu.wpi.p.views.map.DirectionTableEntry;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -64,7 +64,7 @@ public class PathTabController {
 //    private NodeButton pathOldStartHold;
 //    private NodeButton pathOldEndHold;
     private List<EdgeLine> pathLine= new ArrayList<>();
-    private List<Arrow> arrowLine= new ArrayList<>();
+//    private List<Arrow> arrowLine= new ArrayList<>();
 
     public List<String> floorsInPath= new ArrayList<>();
     public int currentFloorInList = 0;
