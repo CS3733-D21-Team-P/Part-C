@@ -265,7 +265,7 @@ public class AccountLog {
     }
 
     public void deletePeopleAc(ActionEvent actionEvent) {
-        dbuser.removeUser(removableList.get(0).getUsername() + "'");
+        dbuser.removeUser(removableList.get(0).getUsername());
         initialize();
 
 //        TablePosition userpos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);

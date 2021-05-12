@@ -250,7 +250,7 @@ public class EmployeeLog {
     }
 
     public void deleteEmployeeAc(ActionEvent actionEvent) {
-        dbemployee.removeEmployee(removableList.get(0).getEmployeeID() + "'");
+        dbemployee.removeEmployee(removableList.get(0).getEmployeeID());
         initialize();
 //        TablePosition userpos = employeeDataTableView.getSelectionModel().getSelectedCells().get(0);
 //        int userRow = userpos.getRow();
