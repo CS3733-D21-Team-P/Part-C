@@ -207,6 +207,24 @@ public class PathfindingMap extends MapController {
             pathTabController.updateAnimatedPath(imageView);
         }
     }
+    @Override
+    public void anotherFloor() {
+        if (floorInPath() < 100) {
+            pathTabController.setCurrentFloorInList(floorInPath());
+            pathTabController.colorButtons();
+        }
+    }
+
+    public int floorInPath() {
+        int i = 0;
+        for (String s : pathTabController.floorsInPath) {
+            if (s.equals(getCurrFloorVal())) {
+                return i;
+            }
+            i++;
+        }
+        return 100;
+    }
 //    @Override
     public void updateNextFloorBox() {
         pathTabController.colorButtons();

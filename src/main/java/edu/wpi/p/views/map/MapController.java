@@ -273,10 +273,14 @@ public abstract class MapController {
                 if (!(newValue.intValue() < 0)) {
                     currFloorVal = availableFloors[newValue.intValue()];
                     changeFloors(currFloorVal);
+                    System.out.println("AAA\nA\nA\nAAAAAA");
+                    anotherFloor();
                 }
             }
         });
     }
+
+    public void anotherFloor() { }
 
     @FXML
     /**
