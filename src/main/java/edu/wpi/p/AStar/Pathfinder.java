@@ -25,7 +25,7 @@ public class Pathfinder {
     }
 
     private void checkSavedAlgorithm() {
-        String searchMethod = savedSettings.getSetting("searchAlgorithm");
+        String searchMethod = DBSettings.getInstance().getSetting("searchAlgorithm");
         switch (searchMethod) {
             case "AStar":
                 setSearchAStar();

@@ -35,11 +35,17 @@ public class DBSettings {
             clearUserTable();
         }
         DatabaseInterface.createTableIfNotExists(settingsTable, columns);
+
+
     }
 
     public boolean createSettingsTable(List<DBColumn> columns) {
         this.columns = columns;
-        return DatabaseInterface.createTableIfNotExists(settingsTable, columns);
+        DatabaseInterface.createTableIfNotExists(settingsTable, columns);
+        if (this.getSetting("searchAlgorithm") == null) {
+            this.setSetting("searchAlgorithm", "AStar");
+        }
+        return true;
     }
 
     public void clearUserTable() {
