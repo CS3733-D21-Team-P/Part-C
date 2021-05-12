@@ -6,6 +6,11 @@ import edu.wpi.p.AStar.*;
 import edu.wpi.p.views.map.Filter.Criteria;
 import edu.wpi.p.views.map.Filter.CriteriaNoHallways;
 import edu.wpi.p.views.map.GoogleDirections.AutoCompletePopup;
+import edu.wpi.p.views.map.GoogleDirections.DirectionsList;
+import edu.wpi.p.views.map.GoogleDirections.CenterPopup;
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -13,25 +18,32 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PathTabController {
 
-    @FXML private JFXTreeTableView textDirectionsTable;
-    private JFXTreeTableColumn<DirectionTableEntry, ImageView> directionImageView;
-    private JFXTreeTableColumn<DirectionTableEntry, Label> directionText;
+    //@FXML private AnchorPane directionsPane;
+    //@FXML private Accordion accordionDirections;
+    @FXML private VBox directionsVBox;
+    private List<DirectionsList> textDirectionsTables;
+
+    @FXML private JFXToggleButton toggleHandicap;
 
     private PathfindingMap pathfindingMap;
 
@@ -49,8 +61,10 @@ public class PathTabController {
     public NodeButton endNodeButton;
     private NodeButton startNodeButtonHold;
     private NodeButton endNodeButtonHold;
+//    private NodeButton pathOldStartHold;
+//    private NodeButton pathOldEndHold;
     private List<EdgeLine> pathLine= new ArrayList<>();
-    private List<Arrow> arrowLine= new ArrayList<>();
+//    private List<Arrow> arrowLine= new ArrayList<>();
 
     public List<String> floorsInPath= new ArrayList<>();
     public int currentFloorInList = 0;
@@ -60,6 +74,20 @@ public class PathTabController {
     @FXML public JFXTextField start;
     @FXML public JFXTextField end;
     @FXML public Label instructions;
+    @FXML public Label parkingText;
+
+    private List<Node> animatedPath = new ArrayList<>();
+    final static ArrayList<PathTransition> pathTransitions = new ArrayList<>();
+    private static boolean animationMade = false;
+    private double pathDistance;
+
+    private AutoCompletePopup acpStart ;
+    private AutoCompletePopup acpEnd ;
+
+    @FXML
+    public void initialize() {
+        changeState(State.ENTERSTART);
+    }
 
     public int getCurrentFloorInList() {
         return currentFloorInList;
@@ -73,14 +101,15 @@ public class PathTabController {
     private boolean enteringStart = false;
 
     public void injectPathfindingMap(PathfindingMap pathfindingMap){
+        animationMade = false;
 
         this.pathfindingMap = pathfindingMap;
         search = new Pathfinder(pathfindingMap.graph);
 
 
         //add autocomplete to start and end text fields
-        AutoCompletePopup acpStart = new AutoCompletePopup(start);
-        AutoCompletePopup acpEnd = new AutoCompletePopup(end);
+        acpStart = new AutoCompletePopup(start);
+        acpEnd = new AutoCompletePopup(end);
 
         Criteria noHalls = new CriteriaNoHallways();
         //filter out hallways from nodes
@@ -93,25 +122,6 @@ public class PathTabController {
         //add names to list of possible autocomplete suggestions
         acpStart.getSuggestions().addAll(nodeNames);
         acpEnd.getSuggestions().addAll(nodeNames);
-
-        //setup DirectionsTable
-        directionImageView = new JFXTreeTableColumn<>("icon");
-        directionImageView.setPrefWidth(50);
-        directionImageView.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView>, ObservableValue<ImageView>>() {
-            public ObservableValue<ImageView> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, ImageView> p) {
-                return new SimpleObjectProperty(p.getValue().getValue().getImageVew());
-            }
-        });
-
-        directionText = new JFXTreeTableColumn<>("instruction");
-        directionText.setPrefWidth(200);
-        directionText.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label>, ObservableValue<Label>>() {
-            public ObservableValue<Label> call(TreeTableColumn.CellDataFeatures<DirectionTableEntry, Label> p) {
-                Label l = new Label(p.getValue().getValue().getInstruction());
-                l.setWrapText(true);
-                return new SimpleObjectProperty(l);
-            }
-        });
     }
 
 
@@ -120,24 +130,30 @@ public class PathTabController {
      * @param e
      */
     public void enterStart(MouseEvent e){
-        mapState = PathTabController.State.ENTERSTART;
+        changeState(State.ENTERSTART);
+//        mapState = PathTabController.State.ENTERSTART;
         System.out.println("enter start!");
 
     }
 
 
+    /**
+     * run when text in start or end location is changed to update instructions for entering locations
+     */
     public void textChanged(){
         System.out.println("text changed");
-        if(start.getText()==null || start.getText().equals("")){
+        if(start.getText()==null || start.getText().equals("")){ //nothing has been entered in start location
             instructions.setText("click a point to enter a location");
+            changeState(State.ENTERSTART);
         }
-        else if(end.getText()==null || end.getText().equals("")){
+        else if(end.getText()==null || end.getText().equals("")){ //nothing in end location
             instructions.setText("enter and end location");
+            changeState(State.ENTEREND);
         }
-        else if(end.getText().equals(start.getText())){
+        else if(end.getText().equals(start.getText())){ //both locations are the same
             instructions.setText("choose two different locations");
         }
-        else{
+        else{ //both have been filled
             instructions.setText("press search to find a path");
         }
     }
@@ -147,8 +163,45 @@ public class PathTabController {
      * @param e
      */
     public void enterEnd(MouseEvent e){
-        mapState = PathTabController.State.ENTEREND;
+        changeState(State.ENTEREND);
         System.out.println("enter end!");
+    }
+
+    @FXML
+    private void toggleHandicapPath(ActionEvent actionEvent){
+        search.setHandicapPath(!search.isHandicapPath());
+    }
+
+    public void enterParkingSpot(ActionEvent actionEvent){
+        NodeButton parkingSpot =pathfindingMap.getParkingSaving().oldSpot;
+        if (parkingSpot !=null){
+            end.setText(parkingSpot.getName());
+            textChanged();
+
+            parkingSpot.setEnd(true);
+            if(endNodeButton!=null && endNodeButtonHold != endNodeButton) {
+                endNodeButton.setEnd(false);
+                endNodeButton.setButtonStyle();
+            }
+
+            endNode = parkingSpot.getNode();
+            endNodeButton = parkingSpot;
+            changeState(State.ENTERSTART);
+            parkingSpot.setButtonStyle();
+
+            acpEnd.hide();
+
+            if(!start.getText().equals("")){ //if a starting location is entered
+                findPath(actionEvent);
+            }
+
+        }
+    }
+
+    @FXML
+    public void parkingHelp(){
+//        System.out.println("Click ");
+        CenterPopup cp = new CenterPopup("Click right on a location to save it as your parking spot. The location will be highlighted in yellow.", pathfindingMap.base);
     }
 
     /**
@@ -176,18 +229,21 @@ public class PathTabController {
             if (floorsInPath.size() > 1) {
                 pathfindingMap.nextFloorBox.setVisible(true);
                 pathfindingMap.multipleFloors = true;
+                currentFloorInList = 0;
             }
-            for (int i = 0; i < floorsInPath.size(); i++) {
-                if (floorsInPath.get(i).equals(pathfindingMap.getCurrFloorVal())) {
-                    currentFloorInList = i;
-                }
-            }
+
+            pathfindingMap.setCurrFloorVal(floorsInPath.get(currentFloorInList));
+            pathfindingMap.changeFloors(floorsInPath.get(currentFloorInList));
+            pathfindingMap.floorChoiceBox.getSelectionModel().select(pathfindingMap.floorInList(floorsInPath.get(currentFloorInList)));
+
             colorButtons();
 
             //Path To Text
             PathToText textPath = new PathToText();
             textPath.makeDirections(path);
+            animatedPath = path;
             updateDirectionsTable(textPath.getTableDirections());
+            animatePath(pathfindingMap.imageView);
 
             //print path
             System.out.println("Path: ");
@@ -195,27 +251,30 @@ public class PathTabController {
                 System.out.print(n.getName() + " ");
             }
 
+
+            //clearing path
             for(EdgeLine el: pathLine){
                 pathfindingMap.btnPane.getChildren().remove(el);
             }
             pathLine.clear();
 
-            for(Arrow el: arrowLine){
-                pathfindingMap.btnPane.getChildren().remove(el);
-            }
-            arrowLine.clear();
+//            for(Arrow el: arrowLine){
+//                pathfindingMap.btnPane.getChildren().remove(el);
+//            }
+//            arrowLine.clear();
 
 
 
             //Make path red
             for (int i = 0; i < path.size(); i++) {
+                System.out.println("MAKING PATH");
                 System.out.print(path.get(i).getName() + " ");
                 if(i>0) {
-                    //TRYING TO MAKE ARROWS
-                    Arrow arrow = new Arrow(path.get(i), path.get(i-1));
-                    arrow.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
-                    arrowLine.add(arrow);
-                    arrow.toFront();
+//                    //TRYING TO MAKE ARROWS
+//                    Arrow arrow = new Arrow(path.get(i), path.get(i-1));
+//                    arrow.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
+//                    arrowLine.add(arrow);
+//                    arrow.toFront();
 
                     EdgeLine line = pathfindingMap.addEdgeLine(path.get(i), path.get(i-1));
                     line.setStyle("-fx-stroke: red; -fx-stroke-width: 5px;");
@@ -240,51 +299,80 @@ public class PathTabController {
 //                }
 //            }
 
-            //TODO: set old node button nodes to be isPathfinding =false;
-            //TODO: set new old node button variable to be the current start and end node
 
-            startNodeButton.getNode().setIsPathfinding(true);
+            //UPDATE START AND END BUTTONS
             endNodeButton.getNode().setIsPathfinding(true);
-            if (startNodeButton != startNodeButtonHold) {
-                startNodeButton.setButtonStyle();
-                startNodeButton.makeBlue();
-                if (startNodeButtonHold != null) {
-                    startNodeButtonHold.endPathfinding();
-                }
-            }
-            if (endNodeButton != endNodeButtonHold) {
-                endNodeButton.setButtonStyle();
-                if (endNodeButtonHold != null) {
-                    endNodeButtonHold.endPathfinding();
-                }
-            }
+            startNodeButton.getNode().setIsPathfinding(true);
+            startNodeButton.setButtonStyle();
+            endNodeButton.setButtonStyle();
 
-            startNodeButton.getNode().setIsPathfinding(false);
-            endNodeButton.getNode().setIsPathfinding(false);
-            startNodeButton.getNode().setWasPathfinding(true);
-            endNodeButton.getNode().setWasPathfinding(true);
+            //clear old path nodes
+            if(startNodeButtonHold!=null){
+                startNodeButtonHold.getNode().setIsPathfinding(false);
+                startNodeButtonHold.setStart(false);
+            }
+            if(endNodeButtonHold!=null){
+                endNodeButtonHold.getNode().setIsPathfinding(false);
+                endNodeButtonHold.setEnd(false);
+            }
             startNodeButtonHold = startNodeButton;
             endNodeButtonHold = endNodeButton;
+
+
+            pathfindingMap.centerPath(path);
 
         }
         else{
             System.out.println("please enter a start AND and end location");
         }
 
-
     }
 
     private void updateDirectionsTable(List<DirectionTableEntry> directions) {
         //Add instructions to DirectionsTable
-        ObservableList<DirectionTableEntry> tableDirections = FXCollections.observableArrayList();
-        for (DirectionTableEntry entry : directions) {
-            tableDirections.add(entry);
+//        ObservableList<DirectionTableEntry> tableDirections = FXCollections.observableArrayList();
+//        for (DirectionTableEntry entry : directions) {
+//            tableDirections.add(entry);
+//        }
+
+        //split directions list by floor
+        ObservableList<ObservableList<DirectionTableEntry>> tableDirections = FXCollections.observableArrayList();
+        String currentFloor = "";
+        int numOfLists = 0;
+        for(DirectionTableEntry entry : directions) {
+            if(!currentFloor.equals(entry.getNode().getFloor())) {
+                currentFloor = entry.getNode().getFloor();
+                tableDirections.add(FXCollections.observableArrayList());
+                numOfLists += 1;
+            }
+            tableDirections.get(numOfLists - 1).add(entry);
         }
 
-        final TreeItem<DirectionTableEntry> root = new RecursiveTreeItem<>(tableDirections, RecursiveTreeObject::getChildren);
-        textDirectionsTable.getColumns().setAll(directionImageView, directionText);
-        textDirectionsTable.setRoot(root);
-        textDirectionsTable.setShowRoot(false);
+        textDirectionsTables = new ArrayList<>();
+        //create text directions table list
+        for (int i = 0; i < numOfLists; i++) {
+            DirectionsList newList = new DirectionsList();
+            newList.updateDirectionsTable(tableDirections.get(i));
+
+            textDirectionsTables.add(newList);
+        }
+
+        //fill accordion
+        directionsVBox.getChildren().clear();
+//        for(DirectionsList table : textDirectionsTables) {
+//            numOfLists -= 1;
+//            TitledPane pane = new TitledPane("Floor: " + tableDirections.get(numOfLists).get(0).getNode().getFloor() , new Label(""));
+//            System.out.println("Floor: " + tableDirections.get(numOfLists).get(0).getNode().getFloor());
+//            pane.setContent(table);
+//            directionsVBox.getChildren().add(pane);
+//        }
+        for (int i = 0; i < textDirectionsTables.size(); i++) {
+            DirectionsList table = textDirectionsTables.get(i);
+            TitledPane pane = new TitledPane("Floor: " + tableDirections.get(i).get(0).getNode().getFloor() , new Label(""));
+            System.out.println("Floor: " + tableDirections.get(i).get(0).getNode().getFloor());
+            pane.setContent(table);
+            directionsVBox.getChildren().add(pane);
+        }
     }
 
 
@@ -297,36 +385,75 @@ public class PathTabController {
         //get button that was clicked on
         NodeButton button = (NodeButton) actionEvent.getSource();
 
-
         if(mapState.equals(State.ENTERSTART)){
-//            instructions.setText("enter and end node");
+
+            //set style
+            button.setStart(true);
+            button.setButtonStyle();
+            if(startNodeButton!=null && startNodeButtonHold!=startNodeButton) {
+                startNodeButton.setStart(false);
+                startNodeButton.setButtonStyle();
+            }
+
             startNode= button.getNode();
             start.setText(button.getName()); //set text field text to be node name
             System.out.println("start: "+ button.getName());
             startNodeButton = button;
-            mapState = State.ENTEREND;
+            changeState(State.ENTEREND);
+
         }
         else if(mapState.equals(State.ENTEREND)){
-//            instructions.setText("press search to find a path");
+            //set style
+            button.setEnd(true);
+            button.setButtonStyle();
+            if(endNodeButton!=null && endNodeButtonHold != endNodeButton) {
+                endNodeButton.setEnd(false);
+                endNodeButton.setButtonStyle();
+            }
+
             endNode = button.getNode();
             end.setText(button.getName()); //set text field text to be node name
             System.out.println("end: "+ button.getName());
             endNodeButton = button;
+            changeState(State.ENTERSTART);
+
         }
 
+        //print statements
         String text1= start.getText();
         System.out.println(text1);
         String text2= end.getText();
         System.out.println(text2);
 
-        if(start.getText()==null || start.getText().equals("")){
-            instructions.setText("click a point to ender a location");
+        textChanged(); //update instructions
+
+        //don't show suggestions because button was pressed
+        acpEnd.hide();
+        acpStart.hide();
+
+    }
+
+    /**
+     * changes state of inputing start and end location
+     * updates the style of the text boxes to show if start of end is currently being inputted
+     * @param newState
+     */
+    public void changeState(State newState){
+        System.out.println("change state");
+        mapState = newState;
+        if(newState.equals(State.ENTERSTART)){//add border
+            start.setStyle(start.getStyle()+";-fx-border-color: black;" +
+                    "-fx-border-width: 3px");
+            end.setStyle(end.getStyle() + //take away border
+                    ";-fx-border-width: 0px");
         }
-        else if(end.getText()==null || end.getText().equals("")){
-            instructions.setText("enter and end node");
-        }
-        else{
-            instructions.setText("press search to find a path");
+        else if( newState.equals(State.ENTEREND)){
+            //add border
+            end.setStyle(end.getStyle()+";-fx-border-color: black;" +
+                    "-fx-border-width: 3px");
+            //take away border
+            start.setStyle(start.getStyle() +
+                    ";-fx-border-width: 0px");
         }
     }
 
@@ -366,6 +493,90 @@ public class PathTabController {
         } else {
             pathfindingMap.lastFloorButton.setStyle("-fx-background-color: #9fbbc8");
             nextFloor = null;
+        }
+    }
+
+    public void animatePath(ImageView imageview) {
+        animationMade = true;
+        clearAnimations();
+        if (animatedPath == null || animatedPath.size() < 2) {
+            return;
+        }
+        Path path;
+        path = createPathForAnimation(animatedPath, imageview);
+//        double startX = ((MoveTo) path.getElements().get(0)).getX();
+//        double startY = ((MoveTo) path.getElements().get(0)).getY();
+        if (!(path.getElements().size() < 2)) {
+            for (int i =0; i<path.getElements().size() * 3; i++) {
+                Circle aCircle = new Circle(
+                        -20,
+                        -20,
+                        5,
+                        Color.color(0/255f, 0/255f,0/255f));
+                aCircle.setRadius(6);
+                pathfindingMap.linePane.getChildren().add(aCircle);
+                PathTransition pl = new PathTransition();
+                pl.setNode(aCircle);
+                pl.setPath(path);
+                pl.setDuration(Duration.seconds(pathDistance/100));
+                pl.setDelay(Duration.seconds(i*pathDistance/(100*path.getElements().size())));
+                pl.setAutoReverse(false);
+                pl.setCycleCount(Animation.INDEFINITE);
+                pl.play();
+
+                pathTransitions.add(pl);
+            }
+        }
+    }
+
+    private void clearAnimations() {
+        if (!(pathfindingMap == null)) {
+            for (PathTransition pl : pathTransitions) {
+                pl.stop();
+                pathfindingMap.linePane.getChildren().remove(pl.getNode());
+                pathDistance = 0;
+            }
+        }
+    }
+
+    public Path createPathForAnimation(List<Node> path, ImageView imageView) {
+        Path onePath = new Path();
+        for (int i = 0; i < path.size() - 1; i++) {
+            if (path.get(i).getFloor().equals(pathfindingMap.getCurrFloorVal())
+                    && path.get(i+1).getFloor().equals(pathfindingMap.getCurrFloorVal())) {
+                MoveTo moveTo = new MoveTo();
+                moveTo.setX((float) scaleX(path.get(i).getXcoord(), imageView));
+                moveTo.setY((float) scaleY(path.get(i).getYcoord(), imageView));
+
+                LineTo lineTo = new LineTo();
+                lineTo.setX((float) scaleX(path.get(i+1).getXcoord(), imageView));
+                lineTo.setY((float) scaleY(path.get(i+1).getYcoord(), imageView));
+
+                onePath.getElements().add(onePath.getElements().size(), moveTo);
+                onePath.getElements().add(onePath.getElements().size(), lineTo);
+                pathDistance += Math.sqrt(Math.pow(lineTo.getX()-moveTo.getX(),2)
+                        +Math.pow(lineTo.getY()-moveTo.getY(), 2));
+            }
+        }
+        return onePath;
+    }
+    public double scaleX(double xCoord, ImageView imageView) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        Rectangle2D viewport = imageView.getViewport();
+        double x = (xCoord / scaleX) - viewport.getMinX() / scaleX;
+        return x;
+    }
+
+    public double scaleY(double yCoord, ImageView imageView) {
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        Rectangle2D viewport = imageView.getViewport();
+        double y = (yCoord / scaleY) - viewport.getMinY() / scaleY;
+        return y;
+    }
+
+    public void updateAnimatedPath(ImageView imageview) {
+        if (animationMade) {
+            animatePath(imageview);
         }
     }
 

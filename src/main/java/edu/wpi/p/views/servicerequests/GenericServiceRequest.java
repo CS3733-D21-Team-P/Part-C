@@ -12,12 +12,13 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ToggleGroup;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.UUID;
 
 public class GenericServiceRequest extends Toolbar {
     protected String name;
     protected ReadOnlyStringProperty locationProperty;
-    protected HashMap<String, ReadOnlyProperty<?>> values = new HashMap<>();
+    protected HashMap<String, ReadOnlyProperty<?>> values = new LinkedHashMap<>();
 
     public void cancelPressed(ActionEvent actionEvent) {
         return;
@@ -30,7 +31,7 @@ public class GenericServiceRequest extends Toolbar {
                 sR.addDetail(key, this.values.get(key).getValue().toString());
             }
         }
-        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
         dbServiceRequest.addServiceRequest(sR);
     }
 

@@ -69,7 +69,7 @@ public class LaundryServiceRequest extends GenericServiceRequest {
 //
 //
 //        ServiceRequest sR = new ServiceRequest(fullname, location, fullname + "_" + location, "Laundry");
-//        DBServiceRequest dbServiceRequest = new DBServiceRequest();
+//        DBServiceRequest dbServiceRequest = DBServiceRequest.getInstance();
 //        dbServiceRequest.addServiceRequest(sR);
 
         try {

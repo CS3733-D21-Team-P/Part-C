@@ -2,12 +2,15 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="userName" maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.HomePage">
    <children>
@@ -56,5 +59,15 @@
             <Image url="@image/icons/edit.png" />
          </image>
       </ImageView>
+      <MenuButton layoutX="1700.0" layoutY="5.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="116.0" style="-fx-background-color: #5990D9; -jfx-button-type: RAISED; -fx-font-family: &quot;open_sans&quot;; -fx-font-size: 18; -fx-background-radius: 7px;" text="About" textAlignment="RIGHT">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#aboutUsAc" text="About us" />
+          <MenuItem mnemonicParsing="false" onAction="#creditAc" text="Credits" />
+        </items>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </MenuButton>
+      <JFXButton fx:id="admin" layoutX="1574.0" layoutY="851.0" onAction="#admin" prefHeight="75.0" prefWidth="147.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 30; -fx-font-weight: bold; -fx-background-color: #5990D9; -fx-alignment: center; -jfx-button-type: RAISED; -fx-background-radius: 15px;" text="Admin" textAlignment="CENTER" textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -11,19 +11,19 @@ public class Column<T>{
     /**
      * The name of the column
      */
-    private String name;
+    private final String name;
 
     /**
      * The data within the column
      */
-    private List<T> data;
+    private final List<T> data;
 
     /**
      * @param name Name of the column
      */
     public Column(String name) {
         this.name = name;
-        data = new ArrayList<T>();
+        data = new ArrayList<>();
     }
 
     public void addValues(List<T> values) {
@@ -31,7 +31,7 @@ public class Column<T>{
     }
     /**
      * Adds a value to the end of the column data
-     * @param value
+     * @param value Value to add to the column
      */
     public void addValue(T value) {
         data.add(value);

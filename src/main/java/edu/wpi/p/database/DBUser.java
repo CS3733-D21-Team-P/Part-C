@@ -7,6 +7,19 @@ public class DBUser {
     String DBUser = "USERS";
     private List<DBColumn> columns = new ArrayList<>();
 
+    private static DBUser instance;
+
+    /**
+     * Instance getter for the singleton
+     * @return the singleton instance of DBUser
+     */
+    public static DBUser getInstance() {
+        if (instance == null) {
+            instance = new DBUser();
+        }
+        return instance;
+    }
+
     public DBUser(){
         init();
         createUserTable(columns);
@@ -41,9 +54,23 @@ public class DBUser {
         return DatabaseInterface.checkColumnObjects(selectCommand, "Password");
     }
 
+    public void setParkingNodeID(String Username, String ParkingID){
+        DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET ParkingNodeId = '"+ParkingID+"' WHERE Username = '"+Username+"'");
+    }
+
+    public String checkParkingNodeID(String Username){
+        String selectCommand ="SELECT ParkingNodeId FROM " + DBUser + " WHERE Username='" + Username + "'";
+        return DatabaseInterface.checkColumnObjects(selectCommand, "ParkingNodeId");
+    }
+
+
     public String checkIdentity(String Username) {
         String selectCommand ="SELECT Status FROM " + DBUser + " WHERE Username='" + Username + "'";
         return DatabaseInterface.checkColumnObjects(selectCommand, "Status");
+    }
+    public String getNameForUsername(String Username) {
+        String selectCommand ="SELECT Name FROM " + DBUser + " WHERE Username='" + Username + "'";
+        return DatabaseInterface.checkColumnObjects(selectCommand, "Name");
     }
 
     public void addUser(UserFromDB e) {
@@ -55,7 +82,6 @@ public class DBUser {
         String removeCommand = "DELETE FROM " + DBUser +" WHERE Username='" + Username + "'";
         DatabaseInterface.executeUpdate(removeCommand);
     }
-
     public void updateUser(UserFromDB e) {
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Name = "+e.getName()+" WHERE Username = '"+e.getUsername()+"'");
         DatabaseInterface.executeUpdate("UPDATE " + DBUser + " SET Password = '"+e.getPassword()+"' WHERE Username = '"+e.getUsername()+"'");
@@ -83,13 +109,14 @@ public class DBUser {
     /**
      * Gets a list of all the nodes in the database
      * The nodes do not have their edges set
-     * @return
+     * @return A list of UserFromDB representing the data in the database
      */
     public List<UserFromDB> getUsers() {
-        List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);//new ArrayList<>();
-
+        List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(DBUser);
-
+        if (userData == null || dbColumns == null) {
+            return null;
+        }
         int Name = indexOfColumnByName(dbColumns, "Name");
         int Username = indexOfColumnByName(dbColumns, "Username");
         int Password = indexOfColumnByName(dbColumns, "Password");
@@ -98,9 +125,8 @@ public class DBUser {
 
         //create Users
         List<UserFromDB> userFromDBS = new ArrayList<>(userData.size());
-        for(int i = 1; i < userData.size(); i++) {
+        for(int i = 0; i < userData.size(); i++) {
             List<String> userString = userData.get(i);
-
             UserFromDB userFromDB = new UserFromDB(
                     userString.get(Name),
                     userString.get(Username),
@@ -114,10 +140,11 @@ public class DBUser {
     }
 
     public List<String> getUsernames() {
-
-        List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);//new ArrayList<>();
-
+        List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(DBUser);
+        if (userData == null || dbColumns == null) {
+            return null;
+        }
         int username = indexOfColumnByName(dbColumns, "Username");
 
         List<String> usernames = new ArrayList<>();
@@ -131,9 +158,11 @@ public class DBUser {
     }
 
     public List<String> getPasswords() {
-        List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);//new ArrayList<>();
-
+        List<List<String>> userData = DatabaseInterface.getAllFromTable(DBUser);
         List<DBColumn> dbColumns = DatabaseInterface.getColumns(DBUser);
+        if (userData == null || dbColumns == null) {
+            return null;
+        }
         int username = indexOfColumnByName(dbColumns, "Password");
 
         List<String> usernames = new ArrayList<>();

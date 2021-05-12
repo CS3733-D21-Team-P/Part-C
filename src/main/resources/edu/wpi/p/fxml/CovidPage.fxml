@@ -36,7 +36,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fx:id="thirdText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I have been in close contact with comeone diagnosed with COVID-19 in the last 14 days" wrappingWidth="477.90625">
+            <Text fx:id="thirdText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;;" text="I have been in close contact with someone diagnosed with COVID-19 in the last 14 days" wrappingWidth="477.90625">
                <font>
                   <Font size="20.0" />
                </font>
@@ -63,9 +63,9 @@
             <Image url="@../../../../image/LoginScreen2.jpg" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="1311.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 35;" text="COVID-19 Survery" textAlignment="CENTER" wrappingWidth="282.900390625" />
+<!--      <Text fill="WHITE" layoutX="1311.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 35;" text="COVID-19 Survery" textAlignment="CENTER" wrappingWidth="282.900390625" />-->
       <BorderPane prefHeight="100.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="325.0">
-         <fx:include source="../fxml/Clippo.fxml" />
+         <fx:include fx:id="clippoID" source="../fxml/Clippo.fxml" />
       </BorderPane>
       <Text fill="WHITE" layoutX="1257.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: &quot;open sans&quot;; -fx-font-size: 35;" text="COVID-19 Survery" textAlignment="CENTER" wrappingWidth="385.478515625" />
       <Text fill="WHITE" layoutX="1181.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">

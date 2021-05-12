@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.aboutUsPage.Wpi">
+   <children>
+      <AnchorPane prefHeight="65.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" />
+            <Label layoutX="14.0" layoutY="18.0" style="-fx-background-color: #5990D9;" text="  UberTikTokZelda  " textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="1842.0" layoutY="18.0" onAction="#home" style="-fx-background-color: #5990D9;" text="Home" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="11.0" layoutY="117.0" prefHeight="200.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="449.0" layoutY="71.0" prefHeight="201.0" prefWidth="1918.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton onAction="#team" ripplerFill="WHITE" text="PURPLE PEGASUS" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#app" text="APPLICATION" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#wpi" text="WPI" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#join" ripplerFill="WHITE" text="JOIN US" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="566.0" fitWidth="919.0" layoutX="107.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/aboutUsImage/wpi.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="1192.0" layoutY="357.0" text="Worcester Polytechnic Institute" textFill="#1b2e4b">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="1134.0" layoutY="434.0" prefHeight="413.0" prefWidth="624.0" text="Worcester Polytechnic Institute (WPI) is a private research university in Worcester, Massachusetts, focusing on the instruction and research of technical arts and applied sciences. Founded in 1865 in Worcester, WPI was one of the United States' first engineering and technology universities and now has 14 academic departments with over 50 undergraduate and graduate degree programs in science, engineering, technology, management, the social sciences, and the humanities and arts, leading to bachelor's, master's and PhD degrees. WPI's faculty works with students in a number of research areas, including biotechnology, fuel cells, information security, surface metrology, materials processing, and nanotechnology. " textFill="#1b2e4b" wrapText="true">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="1073.0" layoutY="1000.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." />
+   </children>
+</AnchorPane>

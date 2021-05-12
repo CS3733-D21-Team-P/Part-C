@@ -15,7 +15,7 @@ public class TestServiceRequestDB {
     private DBServiceRequest dbServiceRequest;
     @BeforeAll
     static void setup() {
-        DatabaseInterface.init();
+        DatabaseInterface.init(false);
 
     }
 
@@ -93,9 +93,9 @@ public class TestServiceRequestDB {
     @Test
     void testGetDetails() {
         ServiceRequest sR = new ServiceRequest("test", "lobby", "lobby_test_sr_1", "Alice");
-        sR.addDetail("1: a");
-        sR.addDetail("2: b");
-        sR.addDetail("3: c");
+        sR.addDetail("1", "a");
+        sR.addDetail("2", "b");
+        sR.addDetail("3", "c");
         dbServiceRequest.addServiceRequest(sR);
 
         List<ServiceRequest> serviceRequests = dbServiceRequest.getServiceRequests();

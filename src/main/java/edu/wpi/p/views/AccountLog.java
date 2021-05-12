@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -34,6 +35,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AccountLog {
+
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
+
     public Button addPeopleBtn;
     public Button deletePeopleBtn;
     public Button homeButton;
@@ -49,13 +54,15 @@ public class AccountLog {
     public TableColumn<UserFromDB, String> Blank;
 
 
-    private final DBUser dbuser = new DBUser();
+    private final DBUser dbuser = DBUser.getInstance();
     public JFXTreeTableView accountDataTableView;
     private List<UserFromDB> userDataList;
     private List<UserFromDB> removableList = new ArrayList<UserFromDB>();
 
     @FXML
     private void initialize(){
+        clippoIDController.setPage("accounts");
+
         JFXTreeTableColumn<UserFromDB, String> username = new JFXTreeTableColumn<>("Username");
         username.setPrefWidth(240);
         username.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<UserFromDB, String>, ObservableValue<String>>() {
@@ -189,7 +196,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -201,7 +208,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -213,7 +220,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -225,7 +232,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 //
@@ -237,7 +244,7 @@ public class AccountLog {
 //        int userRow = userPos.getRow();
 //        UserFromDB user1 = accountDataTableView.getItems().get(userRow);
 //
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.updateUser(user1);
     }
 
@@ -252,19 +259,19 @@ public class AccountLog {
 
     public void addPeopleAc(ActionEvent actionEvent) {
         UserFromDB user = new UserFromDB(tfname.getText(), tfusername.getText(),tfpassword.getText(),tfstatus.getText(),tfblank.getText());
-        DBUser dbUser = new DBUser();
+        DBUser dbUser = DBUser.getInstance();
         dbUser.addUser(user);
         initialize();
     }
 
     public void deletePeopleAc(ActionEvent actionEvent) {
-        dbuser.removeUser(removableList.get(0).getUsername() + "'");
+        dbuser.removeUser(removableList.get(0).getUsername());
         initialize();
 
 //        TablePosition userpos = accountDataTableView.getSelectionModel().getSelectedCells().get(0);
 //        int userRow = userpos.getRow();
 //        UserFromDB user = accountDataTableView.getItems().get(userRow);
-//        DBUser dbUser = new DBUser();
+//        DBUser dbUser = DBUser.getInstance();
 //        dbUser.removeUser(user.getUsername());
 //        accountDataTableView.getItems().removeAll(accountDataTableView.getSelectionModel().getSelectedItem());
     }

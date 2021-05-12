@@ -61,6 +61,7 @@ public class HomePage {
   public ImageView editIcon;
   public ImageView pathIcon;
   public ImageView serviceIcon;
+  public JFXButton admin;
 
 //  public JFXButton languageInterpretersBtn;
 //  public JFXButton medicineDeliveryServiceBtn;
@@ -75,8 +76,9 @@ public class HomePage {
 
   @FXML
   private void initialize(){
-    DatabaseInterface.init();
+    DatabaseInterface.init(false);
     List<String> tableNames = DatabaseInterface.getTableNames();
+    assert tableNames != null;
     if(!tableNames.contains("EDGES") || !tableNames.contains("NODES")) {
       try {
         CSVData nodeData = CSVHandler.readCSVFile("bwPnodes.csv");
@@ -87,14 +89,19 @@ public class HomePage {
       }
 
     }
-    EntryRequest.updateApproved();
-    if(User.getInstance().getPermissions().equals("Employee")){
+//    EntryRequest.updateApproved();
+    // by default everything is visible for the admin
+    // if they are an employee, hide the things an employee can't see
+    User user = User.getInstance();
+    if(user.getPermissions().equals("Employee")){
       editButton.setVisible(false);
       editIcon.setVisible(false);
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
+      admin.setVisible(false);
     }
-    if(User.getInstance().isGuest()){
+    // if they are a guest, hide everything but the request entry button by default
+    if(user.isGuest() | user.getPermissions().equals("Patient")){
       pathButton.setVisible(false);
       editButton.setVisible(false);
       editIcon.setVisible(false);
@@ -104,8 +111,10 @@ public class HomePage {
       userAccount.setVisible(false);
       employeeButton.setVisible(false);
       pathIcon.setVisible(false);
+      admin.setVisible(false);
     }
-    if (approved){
+    // if they are an approved user, they can see the pathfinding button and icon
+    if (user.isApprovedForEntry()){
       pathButton.setVisible(true);
       pathIcon.setVisible(true);
     }
@@ -175,6 +184,23 @@ public class HomePage {
 //    }
 //  }
 
+
+  public void aboutUsAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/aboutUsPage/team.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
+  public void creditAc(ActionEvent actionEvent){
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/CreditsPage.fxml"));
+      App.getPrimaryStage().getScene().setRoot(root);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+  }
   public void userAccountAc(ActionEvent actionEvent){
     try {
       Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/AccountLog.fxml"));
@@ -239,6 +265,15 @@ public void backToLoginAc(ActionEvent actionEvent){
   public void updateApproved(){
 
   }
+
+    public void admin(ActionEvent actionEvent) {
+      try {
+        Parent root = FXMLLoader.load(getClass().getResource("/edu/wpi/p/fxml/AdminConfig.fxml"));
+        App.getPrimaryStage().getScene().setRoot(root);
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    }
 
 //  public void sanitationServiceBtn(ActionEvent actionEvent) {
 //  }

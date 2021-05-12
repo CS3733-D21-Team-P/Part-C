@@ -40,8 +40,8 @@ public abstract class MapController {
 
 
     NodeGraph graph = new NodeGraph();
-    List<NodeButton> buttons = new ArrayList<>();
-    List<EdgeLine> edgeLines = new ArrayList<>();
+    List<NodeButton> buttons = new ArrayList<>(); //the current list of buttons on current floor
+    List<EdgeLine> edgeLines = new ArrayList<>(); //the current list of edges on current floor
 
     Boolean isEditingMap = false;
     public EdgeLine edgeHold;
@@ -50,11 +50,10 @@ public abstract class MapController {
     public boolean pathfindPage = false;
     public boolean multipleFloors = false;
 
-    HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>();
-    HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>();
+    HashMap<String, List<NodeButton>> buttonLists = new HashMap<String, List<NodeButton>>(); //list of buttons by floor
+    HashMap<String, List<EdgeLine>> edgeLists = new HashMap<String, List<EdgeLine>>(); //list of edges by floor
 
     final String[] availableFloors = new String[]{ "Ground", "L1", "L2", "1", "2", "3"};
-
 
     private double zoomSpeed = 1.005;
     private double minZoomPixels = 800;
@@ -71,9 +70,6 @@ public abstract class MapController {
     }
 
     private String currFloorVal;
-
-    public ArrayList<EdgeLine> edges = new ArrayList<>();
-    public ArrayList<NodeButton> nodeButtons = new ArrayList<>();
 
     @FXML
     public AnchorPane btnPane;
@@ -92,8 +88,8 @@ public abstract class MapController {
     private Image mapImage;
     @FXML
     public AnchorPane inputPane;
-    private DBUser dbuser = new DBUser();
-    private List<UserFromDB> users = new ArrayList<UserFromDB>();
+    private DBUser dbuser = DBUser.getInstance();
+//    private List<UserFromDB> users = new ArrayList<UserFromDB>();
     private NodeGraph nodeGraph = new NodeGraph();
 
     /**
@@ -105,34 +101,13 @@ public abstract class MapController {
      */
     public NodeButton addNodeButton(Node node) {
         NodeButton nb = new NodeButton(node); //create button
-        users = dbuser.getUsers();
-        if (!node.getFloor().equals(getCurrFloorVal())) {
+
+        if (!node.getFloor().equals(getCurrFloorVal())) { //make node invisible if not on floor
             nb.setVisible(false);
-        }
-        for (UserFromDB user : users) {
-            if (user.getParkingNodeID() != null) {
-                for (NodeButton nodeButton : nodeButtons) {
-                    if (nodeButton.getNode().getId().equals(user.getParkingNodeID())) {
-                        node = nodeButton.getNode();
-                        node.setIsSelected(true);
-                        nodeButton.setButtonStyle();
-                    }
-                }
-            }
         }
 
         btnPane.getChildren().add(nb); //add to page
-        nodeButtons.add(nb);
 
-        //add edges
-        List<Node> children = node.getNeighbours();
-        if (!pathfindPage) {
-            for (Node n : children) {
-                EdgeLine el = addEdgeLine(node, n);
-                nb.addLine(el);
-//                edgeLines.add(el);
-            }
-        }
         translateNodeButton(nb);
         buttonLists.get(node.getFloor()).add(nb);
         //buttons.add(nb);
@@ -150,30 +125,11 @@ public abstract class MapController {
     public EdgeLine addEdgeLine(Node node1, Node node2) {
         EdgeLine el = new EdgeLine(node1, node2); //create line
         btnPane.getChildren().add(el); //add line to screen
-        edges.add(el);
+//        edges.add(el); //not used?
         el.toBack();
-        el.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && isEditingMap) {
-                if (edgeHold != null) {
-                    edgeHold.setSelected(false);
-                    edgeHold.updateStyle();
-                }
-                el.setSelected(true);
-                el.updateStyle();
-                edgeHold = el;
-            } else if (event.getButton() == MouseButton.SECONDARY && isEditingMap) {
-                if (edgeHold != null) {
-                    edgeHold.setSelected(false);
-                    edgeHold.updateStyle();
-                }
-                el.setSelected(true);
-                el.updateStyle();
-                edgeHold = el;
-                openEdgePopup(event.getSceneX(), event.getSceneY());
-            }
-        });
 
-        translateEdgeLine(el);
+        translateEdgeLine(el);//scale edge
+
         //if not on current floor make invisible/hidden
         if (!node1.getFloor().equals(getCurrFloorVal()) || el.connectsLevels()) {
             el.setVisible(false);
@@ -221,11 +177,32 @@ public abstract class MapController {
         }
     }
 
-    public void nodeClicked(NodeButton nb) {
+    /**
+     * selects the given node and deselects previous node
+     * @param nb
+     */
+    public void selectNode(NodeButton nb) {
+        if(nodeButtonHold!=null) {
+            nodeButtonHold.deselect();
+        }
         nodeHold = nb.getNode();
         nodeButtonHold = nb;
         nodeButtonHold.getNode().setIsSelected(true);
         nodeButtonHold.setButtonStyle();
+    }
+
+    /**
+     * selects given edge and deselects previous edge
+     * @param el
+     */
+    public void selectEdge(EdgeLine el){
+        if (edgeHold != null) {
+            edgeHold.setSelected(false);
+            edgeHold.updateStyle();
+        }
+        el.setSelected(true);
+        el.updateStyle();
+        edgeHold = el;
     }
 
 
@@ -235,6 +212,7 @@ public abstract class MapController {
         for (NodeButton nb : buttons) {
             nb.setVisible(false);
         }
+        //make previous floor edgelines hidden
         for (EdgeLine el : edgeLines) {
             el.setVisible(false);
         }
@@ -253,7 +231,7 @@ public abstract class MapController {
                 nb.getNode().setIsPathfinding(false);
             }
         }
-        for (EdgeLine el : edgeLines) {
+        for (EdgeLine el : edgeLines) { //set edgelines for new floor visible
             if (!el.connectsLevels()) {
                 el.setVisible(true);
             }
@@ -281,13 +259,7 @@ public abstract class MapController {
                 break;
         }
         imageView.setImage(mapImage);
-        if (multipleFloors) {
-            updateNextFloorBox();
-        }
-        if (pathfindPage) {
-            System.out.println("HELLO");
-            makeBigAndRed();
-        }
+
     }
 
     public void floorInit() {
@@ -301,10 +273,14 @@ public abstract class MapController {
                 if (!(newValue.intValue() < 0)) {
                     currFloorVal = availableFloors[newValue.intValue()];
                     changeFloors(currFloorVal);
+                    System.out.println("AAA\nA\nA\nAAAAAA");
+                    anotherFloor();
                 }
             }
         });
     }
+
+    public void anotherFloor() { }
 
     @FXML
     /**
@@ -377,6 +353,8 @@ public abstract class MapController {
             double newMinY = clamp(mouse.getY() - (mouse.getY() - viewport.getMinY()) * scale,
                     0, imageHeight - newHeight);
 
+            System.out.println("minX:"+ newMinX+" ,minY:"+newMinY);
+            System.out.println("width:"+ newWidth+ " ,height:"+ newHeight);
             imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
             translateGraph(imageView);
         });
@@ -395,6 +373,11 @@ public abstract class MapController {
         translateGraph(imageView);
     }
 
+    /**
+     * Shifts the map
+     * @param imageView
+     * @param delta change in pan
+     */
     private void pan(ImageView imageView, Point2D delta) {
         Rectangle2D viewport = imageView.getViewport();
 
@@ -403,7 +386,7 @@ public abstract class MapController {
 
         double maxX = width - viewport.getWidth();
         double maxY = height - viewport.getHeight();
-
+//        System.out.println(delta.getX());
         double minX = clamp(viewport.getMinX() - delta.getX(), 0, maxX);
         double minY = clamp(viewport.getMinY() - delta.getY(), 0, maxY);
 
@@ -442,6 +425,8 @@ public abstract class MapController {
         for (EdgeLine el : edgeLines) {
             el.pan(imageView);
         }
+//        PathTabController pathTabController = new PathTabController();
+//        pathTabController.updateAnimatedPath(imageView);
     }
 
     void translateEdgeLine(EdgeLine el) {
@@ -471,9 +456,120 @@ public abstract class MapController {
         return ((y * scaleY) + (viewport.getMinY()));
     }
 
-    public void updateNextFloorBox() {
+    double scaleY(double y) {
+        double scaleY = imageView.getViewport().getHeight() / imageView.getFitHeight();
+        Rectangle2D viewport = imageView.getViewport();
+        double newy = (y / scaleY) - viewport.getMinY() / scaleY;
+        return newy;
     }
 
-    public void makeBigAndRed() {
+    double scaleX(double x) {
+        double scaleX = imageView.getViewport().getWidth() / imageView.getFitWidth();
+        Rectangle2D viewport = imageView.getViewport();
+        double newx = (x / scaleX) - viewport.getMinY() / scaleX;
+        return newx;
     }
+
+    public void centerNode(NodeButton nb){
+        centerPoint(nb.getNode().getXcoord(), nb.getNode().getYcoord(), 2.2);
+    }
+
+    public void centerPath(List<Node> path){
+        double averageX = 0;
+        double averageY = 0;
+        int amount =0;
+
+        double maxX=path.get(0).getXcoord();
+        double maxY=path.get(0).getYcoord();
+        double minX=path.get(0).getXcoord();
+        double minY=path.get(0).getYcoord();
+
+        //get average location
+        for (Node n: path){
+            if(n.getFloor().equals(currFloorVal)) {
+                if(n.getXcoord()>maxX){
+                    maxX=n.getXcoord();
+                }
+                else if(n.getXcoord()<minX){
+                    minX=n.getXcoord();
+                }
+
+                if(n.getYcoord()>maxY){
+                    maxY=n.getYcoord();
+                }
+                else if(n.getYcoord()<minY){
+                    minY=n.getYcoord();
+                }
+
+                averageX += n.getXcoord();
+                averageY += n.getYcoord();
+                amount++;
+            }
+        }
+        averageX/=amount;
+        averageY/=amount;
+
+        double aspectWidth = 5000.0;
+        double aspectHeight= 3400.0;
+
+        double pathWidth = maxX-minX;
+        double pathHeight = maxY-minY;
+
+        double scaleW = (aspectWidth/(pathWidth+1000)) ;
+        scaleW = clamp(scaleW,1,2.127);
+
+        double scaleH = (aspectHeight/(pathHeight +300));
+        scaleH = clamp(scaleH,1,2.127);
+
+        System.out.println("\nPATH WIDTH "+(maxX-minX));
+        System.out.println("PATH HEIGHT: "+(maxY-minY));
+        System.out.println("SCALE WIDTH: "+ scaleW);
+        System.out.println("SCALE HEIGHT: "+ scaleH);
+
+        double scale = scaleW;
+        if(scaleH<scaleW){
+            scale=scaleH;
+        }
+        System.out.println("SCALE: "+ scale);
+
+        centerPoint(averageX, averageY, scale);
+    }
+
+    //map coordinates
+    public void centerPoint(double x, double y, double zoom){
+//        //zoom in
+//        double zoomWidth = 2342;
+//        double zoomHeight = 1593;
+
+        //aspect ratio
+        double aspectWidth = 5000.0;
+        double aspectHeight= 3400;
+
+        //zoom in
+        double zoomWidth = aspectWidth/zoom;
+        double zoomHeight = aspectHeight/zoom;
+
+        System.out.println("zoomWidth: "+ zoomWidth);
+        System.out.println("zoomHeight: "+ zoomHeight);
+
+        Rectangle2D viewport = imageView.getViewport();
+
+        double width = imageView.getImage().getWidth();
+        double height = imageView.getImage().getHeight();
+
+        double maxX = width - zoomWidth;
+        double maxY = height - zoomHeight;
+//        System.out.println(delta.getX());
+
+        //amount to pan
+        double panX = clamp(x- (zoomWidth/2), 0, maxX);
+        double panY = clamp(y-(zoomHeight/2), 0, maxY);
+//        double panX = x- (zoomWidth/2);
+//        double panY = y-(zoomHeight/2);
+
+        imageView.setViewport(new Rectangle2D(panX, panY, zoomWidth, zoomHeight));
+        translateGraph(imageView); //update buttons
+
+    }
+
 }

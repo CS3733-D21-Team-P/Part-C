@@ -6,18 +6,148 @@ import com.google.maps.GeoApiContext.Builder;
 import com.google.maps.errors.ZeroResultsException;
 import com.google.maps.model.*;
 import com.jfoenix.controls.JFXTextArea;
+import edu.wpi.p.AStar.Node;
+import edu.wpi.p.views.map.DirectionTableEntry;
 import javafx.application.Platform;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.net.URI;
 import java.util.List;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 public class GoogleMaps {
-    private static final String API_Key = "AIzaSyBEQCTGuuspvUVs9IBOpof00I35HG3HMCM";
+    private static String API_Key ;
 //    private List<String> directionsText = new ArrayList<>();
     private AutoCompletePopup autoCompletePopup;
     private String latestDirectionsText;
     private boolean currentValidStartLocation= false;
+
+    public GoogleMaps(){
+        //get API key
+        try {
+            API_Key= Files.lines(Paths.get("gmapsapi.txt")).findFirst().get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getDirectionsLink(String startLocation, String endLocation, TravelMode mode){
+        String link;
+        endLocation = endLocation.replaceAll(" ", "+");
+
+        if(startLocation.equals("")){
+            link = "https://www.google.com/maps/dir/?api=1&" +
+                    "destination="+endLocation +
+                    "&mode="+mode;
+        }
+        else {
+            startLocation = startLocation.replaceAll(" ", "+");
+            link = "https://www.google.com/maps/dir/?api=1&" +
+                    "origin=" + startLocation + "&destination=" + endLocation +
+                    "&mode=" + mode ;
+        }
+        return link;
+    }
+
+    public void directionsLink(String startLocation, String endLocation, TravelMode mode){
+        String link = getDirectionsLink(startLocation,endLocation,mode);
+
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                Desktop.getDesktop().browse(new URI(link));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public File createQRCode(String startLocation, String endLocation, TravelMode mode, String imagePath){
+        // The data that the QR code will contain
+        String data = getDirectionsLink(startLocation,endLocation,mode);
+
+        // The path where the image will get saved
+        String path = imagePath;
+
+        // Encoding charset
+        String charset = "UTF-8";
+
+        Map<EncodeHintType, ErrorCorrectionLevel> hashMap
+                = new HashMap<EncodeHintType,
+                                ErrorCorrectionLevel>();
+
+        hashMap.put(EncodeHintType.ERROR_CORRECTION,
+                ErrorCorrectionLevel.L);
+
+        // Create the QR code and save
+        // in the specified file path
+        // as a png file
+        File file = createQR(data, path, charset, hashMap, 400, 400);
+        System.out.println("QR Code Generated!!!\n Start: "+ startLocation+ " \n" +
+                "End Location: "+ endLocation);
+
+        return file;
+    }
+
+    // Function to create the QR code
+    public static File createQR(String data, String path, String charset, Map hashMap, int height, int width)
+    {
+        BitMatrix matrix = null;
+        //Make QR Code matrix
+        try {
+            matrix = new MultiFormatWriter().encode(
+                    new String(data.getBytes(charset), charset),
+                    BarcodeFormat.QR_CODE, width, height);
+        } catch (WriterException e) {
+            System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
+        }
+
+        //Make Matrix into image
+        try {
+            //check if file exists
+            File file = new File(path);
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+            file.mkdirs();
+
+            Path getPath = FileSystems.getDefault().getPath(path); //get file path
+            MatrixToImageWriter.writeToPath( //update image with QR code
+                    matrix,
+                    "png",
+                    getPath);
+            return file;
+        } catch (IOException e) {
+            System.out.println("IO exception");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      * makes a request for directions
@@ -50,7 +180,7 @@ public class GoogleMaps {
      * @param mode
      * @param textArea
      */
-    public void getDirections(String startLocation, String endLocation, TravelMode mode, JFXTextArea textArea){
+    public void getDirections(String startLocation, String endLocation, TravelMode mode, JFXTextArea textArea, DirectionsList directionsList){
 //        Builder builder = new GeoApiContext.Builder();
 //        builder.apiKey(API_Key);
 //        GeoApiContext context = builder.build();
@@ -84,6 +214,8 @@ public class GoogleMaps {
                     aboutRoute += "Distance: " + result.routes[0].legs[0].distance.humanReadable +"\n";
 
                     updateText(textArea, directionsText, aboutRoute); //update textview on page
+                    directionsList.updateDirectionsTable(directionsList.makeGoogleDirections(directionsText));
+//                    directionsList.updateDirectionsTable(makeDirections(directionsText));
 
                     System.out.println("found directions");
                 }
@@ -102,10 +234,13 @@ public class GoogleMaps {
                     errorText.add("No Results Found");
                 }
                 updateText(textArea, errorText, "ERROR"); //update textview on page
-                System.out.println("calculateDirections"+ "calculateDirections: Failed to get directions: " + e.getMessage());
+                System.out.println("calculateDirections: Failed to get directions: " + e.getMessage());
+                e.printStackTrace();
             }
         });
     }
+
+
 
     //Not allowed to use geocoding api
     public void checkValidRequest(String startLocation){
@@ -168,11 +303,13 @@ public class GoogleMaps {
         }
     }
 
-    /**
-     * gets rid of all html tags
-     * @param html
-     * @return String without html
-     */
+
+
+        /**
+         * gets rid of all html tags
+         * @param html
+         * @return String without html
+         */
     public String getHTMLText(String html){
         String htmlBody = html.replaceAll("<hr>", ""); // one off for horizontal rule lines
         String plainTextBody = htmlBody.replaceAll("<[^<>]+>([^<>]*)<[^<>]+>", "$1");

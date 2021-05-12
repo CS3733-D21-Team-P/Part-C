@@ -29,7 +29,7 @@ public class BFS extends SearchAlgorithm {
         //Search other nodes
         if(!rootNode.getNeighbours().isEmpty()) {
             for (Node n : rootNode.getNeighbours()) {
-                if(!n.getVisited()) {
+                if(!n.getVisited() && !n.getBlockade()) {
                     //add to stack
                     n.setVisited(true);
                     n.setParent(rootNode);
@@ -40,7 +40,10 @@ public class BFS extends SearchAlgorithm {
         }
 
         while(!stack.isEmpty()) {
-            bfs(stack.pop(), targetNode);
+            Node n = stack.firstElement();
+            stack.remove(0);
+
+            bfs(n, targetNode);
         }
     }
 }

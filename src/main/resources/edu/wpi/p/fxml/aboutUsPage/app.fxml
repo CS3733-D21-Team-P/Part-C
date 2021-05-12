@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.p.views.aboutUsPage.App">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" />
+            <Label layoutX="14.0" layoutY="18.0" style="-fx-background-color: #5990D9;" text="  UberTikTokZelda  " textFill="WHITE">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="1842.0" layoutY="18.0" onAction="#home" style="-fx-background-color: #5990D9;" text="Home" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1.0" layoutY="107.0" prefHeight="200.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="449.0" layoutY="71.0" prefHeight="201.0" prefWidth="1918.0" style="-fx-background-color: #2F3159;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton onAction="#team" ripplerFill="WHITE" text="PURPLE PEGASUS" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#app" text="APPLICATION" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#wpi" text="WPI" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#join" ripplerFill="WHITE" text="JOIN US" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="675.0" fitWidth="494.0" layoutX="289.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/aboutUsImage/srHP.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="1204.0" layoutY="366.0" text="UberTikTokZelda  " textFill="#1b2e4b">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="1041.0" layoutY="518.0" prefHeight="345.0" prefWidth="624.0" text="UberTikTokZelda is a comprehensive application specially developed for hospitals. UberTikTokZelda has map navigation, service request, map modification and other functions. With the efforts of a term, Purple Pegasus not only upgraded the basic functions of the application, but also made the application more beautiful. This greatly improves the user experience. In addition, in order to comply with the actual situation of the current pandemic, Purple Pegasus has added the function of hospital entry request." textFill="#1b2e4b" wrapText="true">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="1073.0" layoutY="1000.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." />
+   </children>
+</AnchorPane>

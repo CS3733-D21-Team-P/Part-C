@@ -21,10 +21,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -32,6 +29,7 @@ import javax.imageio.ImageIO;
 
 public class ServiceRequestHomePage {
 
+    @FXML public AnchorPane anchorPane;
     @FXML public GridPane gridPane;
     @FXML public HBox hbox;
     @FXML public StackPane imageStack;
@@ -51,12 +49,18 @@ public class ServiceRequestHomePage {
     @FXML public JFXButton serviceButton;
     @FXML public JFXButton covidButton;
 
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
+
     private static final double BLUR_AMOUNT = 40;
     private static final Effect frostEffect =
             new BoxBlur(BLUR_AMOUNT, BLUR_AMOUNT, 2);
 
     @FXML
     public void initialize() {
+        clippoIDController.setPage("serviceRequests");
+//        gridPane.maxWidthProperty().bind(anchorPane.widthProperty());
+//        gridPane.maxHeightProperty().bind(anchorPane.heightProperty());
         setupFrostedGlassBackground();
     }
 

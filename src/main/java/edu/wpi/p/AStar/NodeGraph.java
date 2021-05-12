@@ -1,6 +1,8 @@
 package edu.wpi.p.AStar;
 
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
+import edu.wpi.p.userstate.User;
+import edu.wpi.p.userstate.UserEntryLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +11,12 @@ public class NodeGraph {
 
     private List<Node> graph;
     private boolean directedPaths;
-    private DBTable dbTable;
+    private DBMap dbMap;
 
     public NodeGraph() {
         this.graph = new ArrayList<>();
         this.directedPaths = false;
-        this.dbTable = new DBTable();
+        this.dbMap = DBMap.getInstance();
     }
 
     public void addToGraph(Node node){
@@ -48,6 +50,20 @@ public class NodeGraph {
         }
     }
 
+    public void setTypeBlockade(String type, boolean active) {
+        for(Node n : graph) {
+            if(n.getType().equals(type)) {
+                n.setBlockade(active);
+            }
+        }
+    }
+
+    public void clearBlockades() {
+        for(Node n : graph) {
+            n.setBlockade(false);
+        }
+    }
+
     public Node getNodeByName(String name) {
         if(!graph.isEmpty()) {
             for(Node n : graph) {
@@ -76,15 +92,17 @@ public class NodeGraph {
     }
 
     private void initNodes() {
-        List<Node> nodeData = dbTable.getNodes();
+        List<Node> nodeData = dbMap.getNodes();
 
         for(Node n : nodeData) {
-            this.graph.add(n);
+            if(User.getInstance().getEntryLocation() == UserEntryLocation.EMERGENCY_ENTRANCE && n.getShortName().equals("75 Francis")){}
+            else if (User.getInstance().getEntryLocation() == UserEntryLocation.MAIN_ENTRANCE && n.getShortName().equals("Emergency")){}
+            else{this.graph.add(n);}
         }
     }
 
     private void pairNodes() {
-        List<List<String>> edgeData = dbTable.getEdgeData();
+        List<List<String>> edgeData = dbMap.getEdgeData();
 
         //L1Edges columns
         int edgeID = 0;

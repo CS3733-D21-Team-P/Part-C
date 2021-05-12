@@ -4,13 +4,15 @@ import edu.wpi.p.AStar.EdgeLine;
 import edu.wpi.p.AStar.Node;
 import edu.wpi.p.AStar.NodeButton;
 import com.jfoenix.controls.JFXButton;
-import edu.wpi.p.database.DBTable;
+import edu.wpi.p.database.DBMap;
+import edu.wpi.p.views.ClippoController;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -20,7 +22,10 @@ import java.util.List;
 
 public class EditMap extends MapController {
 
-    private DBTable dbTable = new DBTable();
+    @FXML private Pane clippoID;
+    @FXML private ClippoController clippoIDController;
+
+    private DBMap dbMap = DBMap.getInstance();
     private int btnIncrement = 1;
 
     @FXML private EditTabController editTabController;
@@ -67,6 +72,14 @@ public class EditMap extends MapController {
 //        if (node.getFloor().equals(getCurrFloorVal())) {
             //System.out.println("adding button edit");
             NodeButton nb = super.addNodeButton(node);
+
+            //add edges
+            List<Node> children = node.getNeighbours();
+            for (Node n : children) {
+                EdgeLine el = addEdgeLine(node, n);
+                nb.addLine(el);
+            }
+
             //set on click methods
             //drag button
             nb.setOnMouseDragged(e -> {
@@ -84,10 +97,6 @@ public class EditMap extends MapController {
             });
 
             nb.setOnMouseClicked(event -> {
-//                for(EdgeLine el: nb.getLines()){
-//                    System.out.println(el.getEndNode().getFloor());
-//                }
-
 
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (event.isShiftDown()){
@@ -98,7 +107,7 @@ public class EditMap extends MapController {
                         deselectAllNodes();
                     }
 
-                    nodeClicked(nb);
+                    selectNode(nb);
 
                     if (editTabController.getEditingEdges()) { //if in mode adding edges
                         if (editTabController.getEdgeNodeStart() == null) {
@@ -122,7 +131,7 @@ public class EditMap extends MapController {
                 } else if (event.getButton() == MouseButton.SECONDARY) {
                     deselectAllNodes();
 
-                    nodeClicked(nb);
+                    selectNode(nb);
                     nodeName.setText(nodeHold.getName());
                     rClickPopup.setVisible(true);
                     rClickPopup1.setVisible(false);
@@ -135,11 +144,27 @@ public class EditMap extends MapController {
                 }
             });
             return nb;
-//        }
-//        return null;
     }
 
-    public void nodeClicked(NodeButton nb)
+    @Override
+    public EdgeLine addEdgeLine(Node node1, Node node2) {
+        EdgeLine el = super.addEdgeLine(node1,node2);
+
+        //set events for selecting edge
+        el.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                selectEdge(el);
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                selectEdge(el);
+                openEdgePopup(event.getSceneX(), event.getSceneY());
+            }
+        });
+        return el;
+    }
+
+
+    @Override
+    public void selectNode(NodeButton nb)
     {
         nodeHold = nb.getNode();
         nodeButtonHold = nb;
@@ -200,7 +225,7 @@ public class EditMap extends MapController {
         String endID = end.getNode().getId();
 
         // add edge to database
-        dbTable.addEdge(startID + "_" + endID, startID, endID);
+        dbMap.addEdge(startID + "_" + endID, startID, endID);
     }
 
     /**
@@ -220,7 +245,7 @@ public class EditMap extends MapController {
         nb.pan(imageView); //move button
 
         //Update in DB
-        dbTable.updateNode(node);
+        dbMap.updateNode(node);
 
         //update edges
         for (EdgeLine el : nb.getLines()) {
@@ -239,7 +264,7 @@ public class EditMap extends MapController {
      * @return id: String
      */
     public String getNewID(String base){
-        List<String> ids = dbTable.getIDs();
+        List<String> ids = dbMap.getIDs();
         String id = base;
         boolean idFound = false;
         while(!idFound) {
@@ -273,13 +298,14 @@ public class EditMap extends MapController {
 
         graph.addToGraph(node);
 
-        dbTable.addNode(node);//add to database
+        dbMap.addNode(node);//add to database
         return nb;
     }
 
     @Override
     public void initialize()  {
         super.initialize();
+        clippoIDController.setPage("editMap");
         pathfindPage = false;
         editTabController.injectEditMap(this);
         rClickPopup.setVisible(false);
@@ -307,7 +333,7 @@ public class EditMap extends MapController {
                 int x = (int) (unScaleX(event.getSceneX()-100));
                 int y = (int) (unScaleY(event.getSceneY()));
                 NodeButton nb = addNodeButtonAtLoc(x,y);
-                nodeClicked(nb);
+                selectNode(nb);
             }
         });
     }
@@ -325,11 +351,11 @@ public class EditMap extends MapController {
     {
         deleteConfirmation1.setVisible(false);
         edgeHold.setVisible(false);
-        dbTable.removeEdge(edgeHold.getStartNode().getId(), edgeHold.getEndNode().getId());
+        dbMap.removeEdge(edgeHold.getStartNode().getId(), edgeHold.getEndNode().getId());
         edgeHold.getEndNode();
         EdgeLine opp =findEdgeLine(edgeHold.getEndNode(), edgeHold.getStartNode());
         if(opp!=null) {
-            dbTable.removeEdge(edgeHold.getEndNode().getId(), edgeHold.getStartNode().getId());
+            dbMap.removeEdge(edgeHold.getEndNode().getId(), edgeHold.getStartNode().getId());
             opp.setVisible(false);
         }
         System.out.println("Deleted");
@@ -346,11 +372,11 @@ public class EditMap extends MapController {
         for(EdgeLine el: nodeButtonHold.getLines()){
             //delete lines get lines
             el.setVisible(false);
-            dbTable.removeEdge(nodeHold.getId(), el.getEndNode().getId());
+            dbMap.removeEdge(nodeHold.getId(), el.getEndNode().getId());
             el.getEndNode();
             EdgeLine opp =findEdgeLine(el.getEndNode(),node);
             if(opp!=null) {
-                dbTable.removeEdge(el.getEndNode().getId(), nodeHold.getId());
+                dbMap.removeEdge(el.getEndNode().getId(), nodeHold.getId());
                 opp.setVisible(false);
             }
         }
@@ -359,7 +385,7 @@ public class EditMap extends MapController {
         }
 
         graph.getGraph().remove(node);// remove from graph
-        dbTable.removeNode(node.getId()); //remove from database
+        dbMap.removeNode(node.getId()); //remove from database
 
     }
 

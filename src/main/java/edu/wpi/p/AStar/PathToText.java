@@ -141,7 +141,10 @@ public class PathToText {
                 instruction += " towards " + destination.getName();
                 break;
         }
-        return new DirectionTableEntry(imgView, instruction);
+        DirectionTableEntry entry = new DirectionTableEntry(imgView, instruction);
+        entry.setNode(current);
+
+        return entry;
     }
 
     private String hallwayDirection(String name, boolean turning) {
