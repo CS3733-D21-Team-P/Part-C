@@ -291,14 +291,12 @@ public class ClippoController {
     }
 
     private void style() throws FileNotFoundException {
-        InputStream stream2 = new FileInputStream("src/main/resources/edu/wpi/p/fxml/image/icons/speakermuted.png");
-        buttonIcon = new Image(stream2, 512, 512, true, true);
+        buttonIcon = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/image/icons/speakermuted.png"), 512, 512, true, true);
         BackgroundSize bgsize2 = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
         BackgroundImage backgroundImage2 = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize2);
         background2 = new Background(backgroundImage2);
 
-        InputStream stream1 = new FileInputStream("src/main/resources/edu/wpi/p/fxml/image/icons/speaker.png");
-        buttonIcon = new Image(stream1, 512, 512, true, true);
+        buttonIcon = new Image(getClass().getResourceAsStream("/edu/wpi/p/fxml/image/icons/speaker.png"), 512, 512, true, true);
         BackgroundSize bgsize1 = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
         BackgroundImage backgroundImage1 = new BackgroundImage(buttonIcon, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgsize1);
         background1 = new Background(backgroundImage1);
