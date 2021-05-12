@@ -13,10 +13,13 @@ public class GuestState extends UserState {
 
         // sets the users approved for entry state based on the database
         ServiceRequest userCovidEntry = getCurrentUserCovidEntryRequest();
+
         if (userCovidEntry != null) {
+            System.out.println("user covid entry is not null");
             User user = User.getInstance();
             user.setApprovedForEntry(userCovidEntry.getCompleted());
             if (userCovidEntry.getCompleted()) {
+                System.out.println("user covid entry is completed");
                 if (userCovidEntry.getDetailNames().contains("Is Covid Risk")) {
                     user.setEntryLocation(UserEntryLocation.EMERGENCY_ENTRANCE);
                 }
@@ -24,8 +27,13 @@ public class GuestState extends UserState {
                     user.setEntryLocation(UserEntryLocation.MAIN_ENTRANCE);
                 }
             }
+            else {
+                System.out.println("user is not approved to enter");
+                User.getInstance().setApprovedForEntry(false);
+            }
         }
         else {
+            System.out.println("user is not approved to enter");
             User.getInstance().setApprovedForEntry(false);
         }
 

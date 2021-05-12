@@ -114,7 +114,7 @@ public class HomePage {
       admin.setVisible(false);
     }
     // if they are an approved user, they can see the pathfinding button and icon
-    if (approved){
+    if (user.isApprovedForEntry()){
       pathButton.setVisible(true);
       pathIcon.setVisible(true);
     }

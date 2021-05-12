@@ -59,7 +59,7 @@
             <Image url="@image/icons/edit.png" />
          </image>
       </ImageView>
-      <MenuButton layoutX="1799.0" layoutY="5.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="116.0" style="-fx-background-color: #5990D9; -jfx-button-type: RAISED; -fx-font-family: &quot;open_sans&quot;; -fx-font-size: 18; -fx-background-radius: 7px;" text="Settings" textAlignment="RIGHT">
+      <MenuButton layoutX="1700.0" layoutY="5.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="116.0" style="-fx-background-color: #5990D9; -jfx-button-type: RAISED; -fx-font-family: &quot;open_sans&quot;; -fx-font-size: 18; -fx-background-radius: 7px;" text="About" textAlignment="RIGHT">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#aboutUsAc" text="About us" />
           <MenuItem mnemonicParsing="false" onAction="#creditAc" text="Credits" />
