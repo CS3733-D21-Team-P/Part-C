@@ -230,10 +230,12 @@ public class PathTabController {
                 pathfindingMap.nextFloorBox.setVisible(true);
                 pathfindingMap.multipleFloors = true;
                 currentFloorInList = 0;
-                pathfindingMap.setCurrFloorVal(floorsInPath.get(currentFloorInList));
-                pathfindingMap.changeFloors(floorsInPath.get(currentFloorInList));
-                pathfindingMap.floorChoiceBox.getSelectionModel().select(pathfindingMap.floorInList(floorsInPath.get(currentFloorInList)));
             }
+
+            pathfindingMap.setCurrFloorVal(floorsInPath.get(currentFloorInList));
+            pathfindingMap.changeFloors(floorsInPath.get(currentFloorInList));
+            pathfindingMap.floorChoiceBox.getSelectionModel().select(pathfindingMap.floorInList(floorsInPath.get(currentFloorInList)));
+
             colorButtons();
 
             //Path To Text
