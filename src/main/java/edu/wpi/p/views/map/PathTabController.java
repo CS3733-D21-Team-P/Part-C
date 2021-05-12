@@ -502,9 +502,9 @@ public class PathTabController {
         }
         Path path;
         path = createPathForAnimation(animatedPath, imageview);
+        double startX = ((MoveTo) path.getElements().get(0)).getX();
+        double startY = ((MoveTo) path.getElements().get(0)).getY();
         if (!(path.getElements().size() < 2)) {
-            double startX =  scaleX(((MoveTo) path.getElements().get(0)).getX(), imageview);
-            double startY = scaleY(((MoveTo) path.getElements().get(0)).getY(), imageview);
             for (int i =0; i<path.getElements().size() * 3; i++) {
                 Circle aCircle = new Circle(
                         startX,
