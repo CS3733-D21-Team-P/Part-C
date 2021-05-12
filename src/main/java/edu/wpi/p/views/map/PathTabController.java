@@ -502,13 +502,13 @@ public class PathTabController {
         }
         Path path;
         path = createPathForAnimation(animatedPath, imageview);
-        double startX = ((MoveTo) path.getElements().get(0)).getX();
-        double startY = ((MoveTo) path.getElements().get(0)).getY();
+//        double startX = ((MoveTo) path.getElements().get(0)).getX();
+//        double startY = ((MoveTo) path.getElements().get(0)).getY();
         if (!(path.getElements().size() < 2)) {
             for (int i =0; i<path.getElements().size() * 3; i++) {
                 Circle aCircle = new Circle(
-                        startX,
-                        startY,
+                        -20,
+                        -20,
                         5,
                         Color.color(0/255f, 0/255f,0/255f));
                 aCircle.setRadius(6);
